@@ -9,7 +9,7 @@
         0,
         0
       ],
-      "id": "333ddaa2-5447-4a52-a10e-a9c3aa59be2d",
+      "id": "e1b13fb5-c582-44d7-b25b-924f32aa1466",
       "name": "When clicking ‘Execute workflow’"
     },
     {
@@ -22,8 +22,50 @@
         208,
         0
       ],
-      "id": "af0a10ff-bddf-48ce-99a0-5fc4ab368fee",
+      "id": "6da68414-37b7-459c-9a99-11ecda9b389d",
       "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "operation": "insert",
+        "collection": "test_collection",
+        "fields": "=Word: {{ $json.message }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mongoDb",
+      "typeVersion": 1.2,
+      "position": [
+        416,
+        0
+      ],
+      "id": "2514050c-11ba-4dc8-8a98-a66700d0b8a9",
+      "name": "Insert documents",
+      "credentials": {
+        "mongoDb": {
+          "id": "MWPgz4izAkyqV6OH",
+          "name": "MongoDB account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "collection": "test_collection",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mongoDb",
+      "typeVersion": 1.2,
+      "position": [
+        624,
+        0
+      ],
+      "id": "cec44dd9-0f06-4e28-90ab-bed4b00359d4",
+      "name": "Find documents",
+      "credentials": {
+        "mongoDb": {
+          "id": "MWPgz4izAkyqV6OH",
+          "name": "MongoDB account"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -38,6 +80,28 @@
           }
         ]
       ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Insert documents",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert documents": {
+      "main": [
+        [
+          {
+            "node": "Find documents",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
@@ -45,10 +109,11 @@
     "executionOrder": "v1",
     "availableInMCP": false
   },
-  "versionId": "2e6e7c34-3e21-4142-967b-5bf3ab8da3ea",
+  "versionId": "ee7706ad-97da-487a-a257-e6a41bd23726",
   "meta": {
-    "instanceId": "af24d6ae6825bda3b6379adfc3ac383e88d90b0eb08c980c42fb6fdd744e2e08"
+    "templateCredsSetupCompleted": true,
+    "instanceId": "033f1bc6215f63e899772bfa6952d5de23ea9ab6140b36a3b563a251130298dd"
   },
-  "id": "VnzkG9HqtKirXYWsDca_O",
+  "id": "nai4HrIQdqg6xKbG7y3wF",
   "tags": []
 }
