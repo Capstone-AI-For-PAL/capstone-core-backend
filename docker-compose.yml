@@ -9,6 +9,10 @@ services:
     env_file:
       - .env
     volumes:
-      - ./n8n_data:/home/node/.n8n
+      - n8n_data_vol:/home/node/.n8n
       - ./workflows:/workflows
     restart: unless-stopped
+
+volumes:
+  n8n_data_vol:
+    driver: local
