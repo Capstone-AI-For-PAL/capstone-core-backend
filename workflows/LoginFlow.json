@@ -1,0 +1,361 @@
+{
+  "name": "LoginFlow",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "login",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "ec43bca8-4c04-4cc4-bc56-23be5af6202c",
+      "name": "Webhook",
+      "webhookId": "d1b71826-b30f-4d61-86e6-4e12b36ceabf"
+    },
+    {
+      "parameters": {
+        "type": "SHA256",
+        "value": "={{ $json.password }}",
+        "dataPropertyName": "hashed_password"
+      },
+      "type": "n8n-nodes-base.crypto",
+      "typeVersion": 1,
+      "position": [
+        416,
+        0
+      ],
+      "id": "8190da33-9870-45c3-a98d-b56329d9f245",
+      "name": "Crypto",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "collection": "users",
+        "options": {},
+        "query": "={\n  \"email\": \"{{ $json.email }}\",\n  \"hashed_password\": \"{{ $json.hashed_password }}\"\n}"
+      },
+      "type": "n8n-nodes-base.mongoDb",
+      "typeVersion": 1.2,
+      "position": [
+        592,
+        -112
+      ],
+      "id": "445d119f-4221-4872-af96-fd7ee6aa1108",
+      "name": "Find documents",
+      "alwaysOutputData": true,
+      "credentials": {
+        "mongoDb": {
+          "id": "zoh5cWvgtjKOQ61h",
+          "name": "MongoDB account"
+        }
+      },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "59c21633-2683-4ca5-a62a-dddc3fc77c0c",
+              "name": "email",
+              "value": "={{ $json.body.email }}",
+              "type": "string"
+            },
+            {
+              "id": "16af43d4-fbf2-4462-a219-2bac061770c4",
+              "name": "password",
+              "value": "={{ $json.body.password }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        208,
+        0
+      ],
+      "id": "122e1d75-a454-4528-9d7f-8cda863722e0",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"userId\": {{ $json.id }},\n  \"email\": \"{{ $json.email }}\"\n}",
+        "options": {
+          "responseHeaders": {
+            "entries": [
+              {
+                "name": "Set-Cookie",
+                "value": "=auth_token={{ $json.token }}; Path=/; HttpOnly; Secure; SameSite=Strict"
+              }
+            ]
+          }
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1440,
+        -224
+      ],
+      "id": "4a9419da-7239-4377-bc41-3a3afc628f44",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "useJson": true,
+        "claimsJson": "={\n  \"email\": \"{{ $json.email }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.jwt",
+      "typeVersion": 1,
+      "position": [
+        1024,
+        -224
+      ],
+      "id": "5e93b55f-fd18-4da4-ba14-5a254f663533",
+      "name": "JWT",
+      "credentials": {
+        "jwtAuth": {
+          "id": "ss0hxHYo4XUxFyyV",
+          "name": "JWT Auth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "ea02523b-a005-47ba-910e-4a32505a215a",
+              "name": "token",
+              "value": "={{ $json.token }}",
+              "type": "string"
+            },
+            {
+              "id": "a8c7e4b2-87ad-4159-a17f-1833f31df748",
+              "name": "email",
+              "value": "={{ $('Find documents').item.json.email }}",
+              "type": "string"
+            },
+            {
+              "id": "47d6ec09-395d-490c-9849-67adccc97f61",
+              "name": "id",
+              "value": "={{ $('Find documents').item.json._id }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1232,
+        -224
+      ],
+      "id": "a1f44e1f-2057-4eb4-9977-96928e6557d9",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "loose",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "34e42019-ce3c-41a7-9d53-083fc4656d1c",
+              "leftValue": "={{$json._id}}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        784,
+        -112
+      ],
+      "id": "59796088-7360-42e3-aa30-766a06d92679",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"message\": \"Email not found or password is incorrect\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        992,
+        -16
+      ],
+      "id": "981f374f-21c1-478e-90b4-2df2999b7d14",
+      "name": "Respond to Webhook1"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        768,
+        64
+      ],
+      "id": "bc4f1c04-4224-4314-8610-aebbf0912795",
+      "name": "Respond to Webhook2"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        560,
+        160
+      ],
+      "id": "8f1e7b34-746f-4c84-8d6f-c33b0171fa1c",
+      "name": "Respond to Webhook3"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Crypto": {
+      "main": [
+        [
+          {
+            "node": "Find documents",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond to Webhook3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Crypto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find documents": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond to Webhook2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "JWT": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "JWT",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond to Webhook1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "43490406-48ed-4902-821a-c966fec1477f",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "2f455c3b076788e6fa0cc0b037936bc00f41f746465bd84b64312c4c01bcdf7d"
+  },
+  "id": "Lvk468NQIsbK5730lMjgv",
+  "tags": []
+}
