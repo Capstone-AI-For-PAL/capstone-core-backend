@@ -8,41 +8,68 @@ OUTPUT_FILE = "test_presentation.pdf"
 # Sample Marp Markdown
 markdown_payload = """---
 marp: true
-theme: default
+theme: gaia
+class: lead
+backgroundColor: #f0f4f8
 paginate: true
-backgroundColor: #f0f0f0
+style: |
+  section {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  }
+  h1 {
+    color: #2c3e50;
+    margin-top: 0;
+  }
+  h2 {
+    color: #3498db;
+    margin-top: 0;
+  }
 ---
 
-# 🟢 Integration Test Successful!
-## The Slide Generator is Online
+![bg left:40%](https://images.unsplash.com/photo-1544367563-12123d8965cd?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80)
 
-**Status:** Operational
-**Service:** Python + Marp CLI (Dockerized)
+# **Unlocking Longevity**
 
----
+### Science, Strategy, and Living Better Longer
 
-# Why this works
+<br>
 
-If you are seeing this PDF, it means:
-
-1. The Python server received your JSON request.
-2. It saved the Markdown to a temporary file.
-3. It successfully called the `marp` executable.
-4. Chromium (headless) generated this PDF.
-5. The binary data was streamed back to you.
+**Overview**
+* The Science of Aging
+* Actionable Strategies
+* The Blue Zones
 
 ---
 
-# Next Steps
+## **The Science: Why Do We Age?**
 
-You can now connect this microservice to **n8n** using the HTTP Request Node.
+Current research identifies key "Hallmarks of Aging" that drive cellular decline.
 
-```json
-{
-  "service": "slide_generator",
-  "port": 5000,
-  "endpoint": "/generate"
-}```
+* **Telomere Attrition**
+    * Protective caps on our chromosomes shorten as cells divide, eventually stopping replication.
+* **Mitochondrial Dysfunction**
+    * The "power plants" of our cells lose efficiency over time, reducing energy and increasing oxidative stress.
+* **Cellular Senescence**
+    * "Zombie cells" stop dividing but don't die; they accumulate and damage surrounding healthy tissue.
+
+> **Key Insight:** Aging is now viewed by many researchers not as an inevitable decline, but as a treatable biological condition.
+
+---
+
+## **Blueprints for a Longer Life**
+
+Based on data from the **Blue Zones** (regions with the most centenarians).
+
+| Category | Strategy |
+| :--- | :--- |
+| **Nutrition** | **Plant-Slant Diet:** High intake of beans, nuts, and greens. Stop eating when 80% full (*Hara Hachi Bu*). |
+| **Movement** | **Natural Movement:** Gardening, walking, and manual tasks rather than intense gym sessions. |
+| **Recovery** | **Sleep & Stress:** 7-9 hours of quality sleep. Regular downshifting (meditation, naps, prayer). |
+| **Connection** | **Social Circles:** Strong ties to family and friends significantly boost life expectancy. |
+
+<br>
+
+**The Goal:** Increase *Healthspan* (years spent in good health), not just *Lifespan*.
 """
 
 def run_test(): 
