@@ -1,0 +1,346 @@
+{
+  "name": "RAG",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Upload your data to test RAG",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Upload your file(s)",
+              "fieldType": "file",
+              "acceptFileTypes": ".pdf, .csv",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "aa35e277-ce9c-4daf-ad05-7382c62399d0",
+      "name": "Upload your file here",
+      "type": "n8n-nodes-base.formTrigger",
+      "position": [
+        2128,
+        1120
+      ],
+      "webhookId": "82848bc4-5ea2-4e5a-8bb6-3c09b94a8c5d",
+      "typeVersion": 2.2
+    },
+    {
+      "parameters": {
+        "content": "### Readme\nLoad your data into a vector database with the 📚 **Load Data** flow, and then use your data as chat context with the 🐕 **Retriever** flow.\n\n**Quick start**\n1. Click on the `Execute Workflow` button to run the 📚 **Load Data** flow.\n2. Click on `Open Chat` button to run the 🐕 **Retriever** flow. Then ask a question about content from your document(s)\n\n\nFor more info, check our [docs on RAG in n8n](https://docs.n8n.io/advanced-ai/rag-in-n8n/)",
+        "height": 300,
+        "width": 440,
+        "color": 4
+      },
+      "id": "8bdb6611-8435-4f9d-8b7c-7159fa45e4f6",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        1584,
+        1056
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "### 📚 Load Data Flow",
+        "height": 460,
+        "width": 700,
+        "color": 7
+      },
+      "id": "436f38f7-7b18-4220-b649-51d0a3c9b0eb",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        2064,
+        1056
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "memoryKey": {
+          "__rl": true,
+          "mode": "list",
+          "value": "vector_store_key",
+          "cachedResultName": "vector_store_key"
+        }
+      },
+      "id": "cf3988c4-3c2c-4342-9444-0236eb343fc5",
+      "name": "Insert Data to Store",
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreInMemory",
+      "position": [
+        2304,
+        1120
+      ],
+      "typeVersion": 1.2
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "6dfcafa6-456f-4e77-bdf6-ebc0998ef9c7",
+      "name": "When chat message received",
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "position": [
+        2976,
+        1104
+      ],
+      "webhookId": "4091fa09-fb9a-4039-9411-7104d213f601",
+      "typeVersion": 1.1
+    },
+    {
+      "parameters": {
+        "content": "### 🐕 2. Retriever Flow",
+        "height": 460,
+        "width": 680,
+        "color": 7
+      },
+      "id": "3e366d31-57e1-496d-bb12-e6cbbde0341d",
+      "name": "Sticky Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        2848,
+        1056
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "### Embeddings\n\nThe Insert and Retrieve operation use the same embedding node.\n\nThis is to ensure that they are using the **exact same embeddings and settings**.\n\nDifferent embeddings might not work at all, or have unintended consequences.\n",
+        "height": 240,
+        "width": 320,
+        "color": 4
+      },
+      "id": "1d8b3bef-0ce5-4a7b-9d09-60390361b9b6",
+      "name": "Sticky Note3",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        3200,
+        1552
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "dataType": "binary",
+        "options": {}
+      },
+      "id": "a8124d45-6a2f-43b3-8365-4836ab00df91",
+      "name": "Default Data Loader1",
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "position": [
+        2576,
+        1344
+      ],
+      "typeVersion": 1.1
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.embeddingsGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        2736,
+        1696
+      ],
+      "id": "f12abe87-4424-46c7-9c62-723936a9f5dc",
+      "name": "Embeddings Google Gemini",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "NkQ04fDTcoiawVu2",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.retrieverVectorStore",
+      "typeVersion": 1,
+      "position": [
+        3136,
+        1264
+      ],
+      "id": "425066d8-0a95-439e-9e2f-80a9bb9fb769",
+      "name": "Vector Store Retriever"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chainRetrievalQa",
+      "typeVersion": 1.7,
+      "position": [
+        3168,
+        1104
+      ],
+      "id": "ab8e177b-d6ae-49fa-8dbd-f6cad4b907b6",
+      "name": "Question and Answer Chain"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        2944,
+        1328
+      ],
+      "id": "ac65a642-d433-4d31-9f2f-d35029f0c253",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "NkQ04fDTcoiawVu2",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mongoCollection": {
+          "__rl": true,
+          "value": "RAG",
+          "mode": "list",
+          "cachedResultName": "RAG"
+        },
+        "vectorIndexName": "test",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreMongoDBAtlas",
+      "typeVersion": 1.3,
+      "position": [
+        2912,
+        1664
+      ],
+      "id": "9fee3045-ab55-4263-af2e-008e36af82d7",
+      "name": "MongoDB Atlas Vector Store",
+      "credentials": {
+        "mongoDb": {
+          "id": "MWPgz4izAkyqV6OH",
+          "name": "MongoDB account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "memoryKey": {
+          "__rl": true,
+          "mode": "list",
+          "value": "vector_store_key"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreInMemory",
+      "typeVersion": 1.3,
+      "position": [
+        3056,
+        1424
+      ],
+      "id": "c8afaf01-e40e-48f7-b4dc-43c9a9a7031b",
+      "name": "Simple Vector Store"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Upload your file here": {
+      "main": [
+        [
+          {
+            "node": "Insert Data to Store",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Question and Answer Chain",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader1": {
+      "ai_document": [
+        [
+          {
+            "node": "Insert Data to Store",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings Google Gemini": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Insert Data to Store",
+            "type": "ai_embedding",
+            "index": 0
+          },
+          {
+            "node": "Simple Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Vector Store Retriever": {
+      "ai_retriever": [
+        [
+          {
+            "node": "Question and Answer Chain",
+            "type": "ai_retriever",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Question and Answer Chain",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "MongoDB Atlas Vector Store": {
+      "ai_vectorStore": [
+        []
+      ]
+    },
+    "Simple Vector Store": {
+      "ai_vectorStore": [
+        [
+          {
+            "node": "Vector Store Retriever",
+            "type": "ai_vectorStore",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "aa7c0905-9d7d-48f0-9a9d-2afb6622a806",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "033f1bc6215f63e899772bfa6952d5de23ea9ab6140b36a3b563a251130298dd"
+  },
+  "id": "AbJa0ADksb_69c3-oNQ-p",
+  "tags": []
+}
