@@ -60,25 +60,6 @@
     },
     {
       "parameters": {
-        "mode": "insert",
-        "memoryKey": {
-          "__rl": true,
-          "mode": "list",
-          "value": "vector_store_key",
-          "cachedResultName": "vector_store_key"
-        }
-      },
-      "id": "cf3988c4-3c2c-4342-9444-0236eb343fc5",
-      "name": "Insert Data to Store",
-      "type": "@n8n/n8n-nodes-langchain.vectorStoreInMemory",
-      "position": [
-        2304,
-        1120
-      ],
-      "typeVersion": 1.2
-    },
-    {
-      "parameters": {
         "options": {}
       },
       "id": "6dfcafa6-456f-4e77-bdf6-ebc0998ef9c7",
@@ -132,8 +113,8 @@
       "name": "Default Data Loader1",
       "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
       "position": [
-        2576,
-        1344
+        2512,
+        1328
       ],
       "typeVersion": 1.1
     },
@@ -142,8 +123,8 @@
       "type": "@n8n/n8n-nodes-langchain.embeddingsGoogleGemini",
       "typeVersion": 1,
       "position": [
-        2736,
-        1696
+        2304,
+        1648
       ],
       "id": "f12abe87-4424-46c7-9c62-723936a9f5dc",
       "name": "Embeddings Google Gemini",
@@ -159,7 +140,7 @@
       "type": "@n8n/n8n-nodes-langchain.retrieverVectorStore",
       "typeVersion": 1,
       "position": [
-        3136,
+        3168,
         1264
       ],
       "id": "425066d8-0a95-439e-9e2f-80a9bb9fb769",
@@ -201,44 +182,54 @@
       "parameters": {
         "mongoCollection": {
           "__rl": true,
-          "value": "RAG",
+          "value": "tmp",
           "mode": "list",
-          "cachedResultName": "RAG"
+          "cachedResultName": "tmp"
         },
-        "vectorIndexName": "test",
+        "vectorIndexName": "vector_index",
         "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.vectorStoreMongoDBAtlas",
       "typeVersion": 1.3,
       "position": [
-        2912,
-        1664
+        3088,
+        1408
       ],
       "id": "9fee3045-ab55-4263-af2e-008e36af82d7",
       "name": "MongoDB Atlas Vector Store",
       "credentials": {
         "mongoDb": {
-          "id": "MWPgz4izAkyqV6OH",
-          "name": "MongoDB account"
+          "id": "K1y2RTKvTElSmf02",
+          "name": "MongoDB account 2"
         }
       }
     },
     {
       "parameters": {
-        "memoryKey": {
+        "mode": "insert",
+        "mongoCollection": {
           "__rl": true,
+          "value": "tmp",
           "mode": "list",
-          "value": "vector_store_key"
-        }
+          "cachedResultName": "tmp"
+        },
+        "vectorIndexName": "vector_index",
+        "options": {}
       },
-      "type": "@n8n/n8n-nodes-langchain.vectorStoreInMemory",
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreMongoDBAtlas",
       "typeVersion": 1.3,
       "position": [
-        3056,
-        1424
+        2304,
+        1120
       ],
-      "id": "c8afaf01-e40e-48f7-b4dc-43c9a9a7031b",
-      "name": "Simple Vector Store"
+      "id": "d8210345-38fb-48e2-a4db-7001d01f16fb",
+      "name": "MongoDB Atlas Vector Store1",
+      "credentials": {
+        "mongoDb": {
+          "id": "K1y2RTKvTElSmf02",
+          "name": "MongoDB account 2"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -247,7 +238,7 @@
       "main": [
         [
           {
-            "node": "Insert Data to Store",
+            "node": "MongoDB Atlas Vector Store1",
             "type": "main",
             "index": 0
           }
@@ -269,7 +260,7 @@
       "ai_document": [
         [
           {
-            "node": "Insert Data to Store",
+            "node": "MongoDB Atlas Vector Store1",
             "type": "ai_document",
             "index": 0
           }
@@ -280,12 +271,12 @@
       "ai_embedding": [
         [
           {
-            "node": "Insert Data to Store",
+            "node": "MongoDB Atlas Vector Store1",
             "type": "ai_embedding",
             "index": 0
           },
           {
-            "node": "Simple Vector Store",
+            "node": "MongoDB Atlas Vector Store",
             "type": "ai_embedding",
             "index": 0
           }
@@ -316,11 +307,6 @@
     },
     "MongoDB Atlas Vector Store": {
       "ai_vectorStore": [
-        []
-      ]
-    },
-    "Simple Vector Store": {
-      "ai_vectorStore": [
         [
           {
             "node": "Vector Store Retriever",
@@ -336,7 +322,7 @@
     "executionOrder": "v1",
     "availableInMCP": false
   },
-  "versionId": "aa7c0905-9d7d-48f0-9a9d-2afb6622a806",
+  "versionId": "b414a129-dd86-409d-824c-a73541a37ec5",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "033f1bc6215f63e899772bfa6952d5de23ea9ab6140b36a3b563a251130298dd"
