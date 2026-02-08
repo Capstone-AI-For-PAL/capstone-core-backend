@@ -18,7 +18,7 @@
     {
       "parameters": {
         "options": {
-          "systemMessage": "=output a Marp-format slide only for the script ready to copy paste. Do not output any extra texts or symbols and do not include ``` as well so that the output is directly converted into Marp slide. The below are prompt:  {{ $json.chatInput }}"
+          "systemMessage": "=Create a presentation in Marp Markdown format based on the following input.\n\nSTRICT LAYOUT RULES:\n1. Frontmatter: Use the exact YAML frontmatter provided below.\n2. Content Splitting: You MUST create a NEW SLIDE (using '---') for every distinct section or major topic.\n3. \"One Header\" Rule: Never put two \"## H2 Headers\" on the same slide. If you start a new ## Header, you MUST put '---' before it.\n4. Bullet Limits: Maximum 5 bullet points per slide. If there are more, split them into two slides (e.g., \"Key Areas Part 1\" and \"Key Areas Part 2\").\n5. Do not output markdown code blocks (```). Just raw text.\n\n---\nmarp: true\ntheme: default\npaginate: true\nsize: 16:9\nstyle: |\n  section {\n    font-size: 25px;\n    padding: 40px;\n    justify-content: center; /* Keeps content centered vertically */\n  }\n  h1 {\n    font-size: 50px;\n    color: #0288d1;\n  }\n  h2 {\n    font-size: 35px;\n    color: #333;\n  }\n---\n\nInput Data: {{ $json.chatInput }}"
         }
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
@@ -148,7 +148,7 @@
     "executionOrder": "v1",
     "availableInMCP": false
   },
-  "versionId": "0f04d857-15ea-4b14-bceb-fc944331ae93",
+  "versionId": "6befb2bc-3b6c-404b-8cc0-120e0f871991",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "dacf661d18952437dcd120ba832369f336608e51c4a96e821e930948a4d1e07e"
