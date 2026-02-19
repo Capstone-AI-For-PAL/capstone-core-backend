@@ -13,8 +13,8 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 3.1,
       "position": [
-        416,
-        0
+        240,
+        208
       ],
       "id": "aaa7290b-dddd-47d7-9b71-5cebc984438a",
       "name": "AI Agent"
@@ -45,12 +45,59 @@
       "type": "n8n-nodes-base.formTrigger",
       "typeVersion": 2.5,
       "position": [
-        160,
-        0
+        32,
+        208
       ],
       "id": "892dc8fc-4788-4ef3-a62c-47c8b38be9e5",
       "name": "On form submission",
       "webhookId": "4641f4c7-aec3-4ca4-aee3-c58ecce81b2f"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"summary\": \"...\",\n  \"total_slides\": 24,\n  \"sections\": [\n    {\n      \"title\": \"Introduction\",\n      \"slides\": [\n        {\n          \"title\": \"...\",\n          \"content\": [\"...\"],\n          \"visual\": \"...\",\n          \"notes\": \"...\"\n        }\n      ]\n    }\n  ]\n}\n"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        480,
+        368
+      ],
+      "id": "f7577316-6bf2-4bdd-9e76-a457ad7f1bc0",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://llm_service:5001/chat",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n    \"messages\": [\n        {\n             \"role\": \"system\",\n             \"content\": \"You are an expert curriculum designer and instructional strategist.\\n\\nYour task is to generate a detailed slide outline for a course or lecture based on:\\n\\nINPUTS:\\n1) Student Goal – A structured description of what students expect to achieve.\\n2) Curriculum – Topics, constraints, duration, level, prerequisites, or required standards.\\n3) Uploaded Files – Reference materials (e.g., PDF slides, textbook excerpts, lecture notes). These must be used as grounding material and structure guidance.\\n\\nOBJECTIVE:\\nGenerate a detailed slide-by-slide outline that aligns with:\\n- The students' goals\\n- The provided curriculum\\n- The uploaded reference materials\\n\\nOUTPUT REQUIREMENTS:\\n\\n1. First, briefly summarize:\\n   - Target audience level\\n   - Learning objectives (refined and clarified if needed)\\n   - Total recommended number of slides\\n   - Estimated duration\\n\\n2. Then generate a structured slide outline in the following format:\\n\\n-----------------------------------\\nSection Title\\n-----------------------------------\\n\\nSlide 1: Title\\n- Purpose of the slide\\n- Key concepts covered\\n- Bullet point content\\n- Suggested visual (diagram/chart/code/example/etc.)\\n- Teaching notes (optional but recommended)\\n\\nSlide 2: Title\\n- Purpose\\n- Key concepts\\n- Content bullets\\n- Suggested visual\\n- Teaching notes\\n\\nContinue until complete.\\n\\n3. Ensure:\\n- Logical progression from fundamentals → deeper understanding → application.\\n- Content difficulty matches student level.\\n- Slides are not overloaded.\\n- Complex topics are broken into multiple slides.\\n- Practical examples and exercises are included where appropriate.\\n- If PDF materials are provided, incorporate structure and terminology from them.\\n\\n4. If information is missing or unclear:\\n- Make reasonable academic assumptions.\\n- State those assumptions clearly before generating the outline.\\n\\n5. If the curriculum duration is provided:\\n- Adjust slide count proportionally.\\n- Include recap and Q&A slide at the end.\\n\\nTone:\\nProfessional, structured, instructional-design oriented.\\n\\nDO NOT:\\n- Generate full lecture scripts.\\n- Repeat the entire PDF content.\\n- Provide generic outlines without aligning to goals.\\n\\nOUTPUT FORMAT:\\nClear headings\\nNumbered slides\\nStructured bullet points\\nConcise but detailed enough to directly create slides from\"\n        },\n        {\n            \"role\": \"user\",\n            \"content\": \"You are an expert curriculum designer.\\n\\nStudent Goal:\\n{{ $json.body.student_goals }}\\n\\nCurriculum:\\n{{ $json.body.curriculum }}\\n\\nReference Material: None\\n\\nGenerate a detailed slide outline with:\\n- total slide count\\n- section breakdown\\n- slide-by-slide detail\\n- suggested visuals\\n- teaching notes\"\n        }\n    ],\n    \"cunet_id\": \"{{ $json.body.cunet_id }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        416,
+        -80
+      ],
+      "id": "915f8c58-d180-4a9c-8fcd-653eb3310eda",
+      "name": "HTTP Request"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "chat",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        80,
+        -80
+      ],
+      "id": "996eb68a-05e1-408c-9ad1-e7fe54a33cd6",
+      "name": "Webhook",
+      "webhookId": "545bbbef-0c01-4813-a97a-e5d780cb2cea"
     },
     {
       "parameters": {
@@ -59,11 +106,46 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
       "typeVersion": 1,
       "position": [
-        288,
-        208
+        128,
+        384
       ],
       "id": "f9719546-ea95-40a1-8ee1-eef17aa8352b",
       "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "TjR9uwxCSrccqQWl",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.data }}\n\nJust send this to the output parser to convert the data to the specified format.",
+        "hasOutputParser": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        672,
+        -80
+      ],
+      "id": "72cb44ab-0e44-401d-b5a7-cb0e11568873",
+      "name": "AI Agent1"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        528,
+        128
+      ],
+      "id": "8bcfd864-c00e-432e-bbf9-21fc5b768cb0",
+      "name": "Google Gemini Chat Model1",
       "credentials": {
         "googlePalmApi": {
           "id": "TjR9uwxCSrccqQWl",
@@ -78,11 +160,11 @@
       "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
       "typeVersion": 1.3,
       "position": [
-        592,
-        208
+        816,
+        80
       ],
-      "id": "f7577316-6bf2-4bdd-9e76-a457ad7f1bc0",
-      "name": "Structured Output Parser"
+      "id": "4752a2ab-711f-45bb-90bb-2b2b8efd3f12",
+      "name": "Structured Output Parser1"
     }
   ],
   "pinData": {},
@@ -103,6 +185,39 @@
         ]
       ]
     },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "Google Gemini Chat Model": {
       "ai_languageModel": [
         [
@@ -114,11 +229,22 @@
         ]
       ]
     },
-    "Structured Output Parser": {
+    "Google Gemini Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser1": {
       "ai_outputParser": [
         [
           {
-            "node": "AI Agent",
+            "node": "AI Agent1",
             "type": "ai_outputParser",
             "index": 0
           }
@@ -132,7 +258,7 @@
     "binaryMode": "separate",
     "availableInMCP": false
   },
-  "versionId": "1306b979-8305-4ac8-9510-71bf5d2cac29",
+  "versionId": "a6316273-fe85-49c6-b9de-ce5540651a1c",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "0f70a61738a6ba6ab92ef8baed15c2ae20a0b5a4798ddc820950bfe7703f9a13"
