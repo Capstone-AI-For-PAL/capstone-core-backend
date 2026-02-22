@@ -3,3 +3,5 @@
 n8n_data/
 .venv/
 **/__pycache__/
+capstone-llm-service
+capstone-llm-service.exe
