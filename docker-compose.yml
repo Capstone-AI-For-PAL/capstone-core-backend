@@ -36,6 +36,8 @@ services:
     ports:
       - "8000:8000"
     restart: unless-stopped
+    environment:
+      - HF_TOKEN=${HF_TOKEN}
 
 volumes:
   n8n_data_vol:

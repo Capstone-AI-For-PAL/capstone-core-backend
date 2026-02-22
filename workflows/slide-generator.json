@@ -3,6 +3,7 @@
   "nodes": [
     {
       "parameters": {
+        "public": true,
         "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
@@ -18,7 +19,7 @@
     {
       "parameters": {
         "options": {
-          "systemMessage": "=Create a presentation in Marp Markdown format based on the following input.\n\nSTRICT LAYOUT RULES:\n1. Frontmatter: Use the exact YAML frontmatter provided below.\n2. Content Splitting: You MUST create a NEW SLIDE (using '---') for every distinct section or major topic.\n3. \"One Header\" Rule: Never put two \"## H2 Headers\" on the same slide. If you start a new ## Header, you MUST put '---' before it.\n4. Bullet Limits: Maximum 5 bullet points per slide. If there are more, split them into two slides (e.g., \"Key Areas Part 1\" and \"Key Areas Part 2\").\n5. Do not output markdown code blocks (```). Just raw text.\n\n---\nmarp: true\ntheme: default\npaginate: true\nsize: 16:9\nstyle: |\n  section {\n    font-size: 25px;\n    padding: 40px;\n    justify-content: center; /* Keeps content centered vertically */\n  }\n  h1 {\n    font-size: 50px;\n    color: #0288d1;\n  }\n  h2 {\n    font-size: 35px;\n    color: #333;\n  }\n---\n\nInput Data: {{ $json.chatInput }}"
+          "systemMessage": "=Create a presentation in Marp Markdown format based on the following input.\n\n\n\nSTRICT LAYOUT RULES:\n\n1. Frontmatter: The very first lines of your response MUST be the YAML frontmatter provided below. Do not include any text, greetings, or \"Sure, here is your presentation\" before it.\n\n2. Content Splitting: You MUST create a NEW SLIDE (using '---') for every distinct section or major topic.\n\n3. \"One Header\" Rule: Never put two \"## H2 Headers\" on the same slide. If you start a new ## Header, you MUST put '---' before it.\n\n4. Bullet Limits: Maximum 5 bullet points per slide. If there are more, split them into two slides (e.g., \"Key Areas Part 1\" and \"Key Areas Part 2\").\n\n5. Output raw Markdown text only. Do not use markdown code blocks (```). Ensure the first line of the output is the opening '---' of the frontmatter.\n\n\n\n---\n\nmarp: true\n\ntheme: default\n\npaginate: true\n\nsize: 16:9\n\nstyle: |\n\n  section {\n\n    font-size: 25px;\n\n    padding: 40px;\n\n    justify-content: center; /* Keeps content centered vertically */\n\n  }\n\n  h1 {\n\n    font-size: 50px;\n\n    color: #0288d1;\n\n  }\n\n  h2 {\n\n    font-size: 35px;\n\n    color: #333;\n\n  }\n\n---\n\n\n\nInput Data: {{ $json.chatInput }}"
         }
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
@@ -51,6 +52,68 @@
     },
     {
       "parameters": {
+        "operation": "upload",
+        "bucketName": "capstone-ai-education",
+        "fileName": "tmp.pdf",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.awsS3",
+      "typeVersion": 2,
+      "position": [
+        992,
+        -16
+      ],
+      "id": "b221a54a-56a1-42da-8605-a26e94ebe57e",
+      "name": "Upload a file",
+      "credentials": {
+        "aws": {
+          "id": "dxBCP5LgruhUqTMg",
+          "name": "AWS (IAM) account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://llm-service:8080/chat",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {}
+          ]
+        },
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "parameterType": "formBinaryData",
+              "name": "file",
+              "inputDataFieldName": "=data"
+            },
+            {
+              "name": "cunet_id",
+              "value": "6532155621"
+            },
+            {
+              "name": "messages",
+              "value": "={{ JSON.stringify([\n  {\n    \"role\": \"user\",\n    \"content\": \"You are a script generator. The input text contains pages separated by markers like '--- PAGE X ---'. \\n\\nRULES:\\n1. Group ALL text between two Page Markers into a SINGLE script.\\n2. Do NOT create separate items for bullet points. Combine them into one paragraph for that slide.\\n3. Output strictly valid JSON: {\\\"script\\\": [\\\"Script for Page 1\\\", \\\"Script for Page 2\\\"]}.\\n4. Do not include markdown formatting. \"  \n}\n]) }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        992,
+        256
+      ],
+      "id": "1a7b5a6c-cb96-4f70-bc25-01a9b4318ea4",
+      "name": "GenieScript"
+    },
+    {
+      "parameters": {
         "method": "POST",
         "url": "http://slide_generator:5000/generate",
         "sendBody": true,
@@ -67,33 +130,105 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        768,
+        784,
         0
       ],
       "id": "de945664-1254-43eb-a57f-dcee12275697",
-      "name": "HTTP Request"
+      "name": "GenerateSlide"
+    },
+    {
+      "parameters": {
+        "jsCode": "// 1. Get the raw text. \n// If the API returned a stringified JSON string (double-encoded), \n// we might need to parse it once to unwrap the outer quotes.\nlet content = $input.first().json.data;\n\nif (typeof content === 'string') {\n  try {\n    // Try to unwrap if it's a string inside a string (e.g. \"\\\"{\\\\\\\"a\\\\\\\":1}\\\"\")\n    // If this fails, it's just normal text, and we proceed.\n    const potentialObj = JSON.parse(content);\n    if (typeof potentialObj === 'string') {\n      content = potentialObj;\n    }\n  } catch (e) {\n    // It wasn't double-encoded, carry on with original content\n  }\n}\n\n// 2. The \"Smart\" Cleanup\n// Instead of replacing \"```json\", we just hunt for the first '{' and last '}'\n// This ignores all markdown, preambles, and outer quotes automatically.\nconst firstBracket = content.indexOf('{');\nconst lastBracket = content.lastIndexOf('}');\n\nif (firstBracket !== -1 && lastBracket !== -1) {\n  const jsonString = content.substring(firstBracket, lastBracket + 1);\n  \n  try {\n    const parsed = JSON.parse(jsonString);\n    return { json: parsed }; \n  } catch (e) {\n    return { json: { error: \"Inner parsing failed\", text: jsonString } };\n  }\n} else {\n  return { json: { error: \"No JSON object found\", text: content } };\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1200,
+        256
+      ],
+      "id": "5514ed36-ff16-4eb6-acfe-8c0f0cbc620b",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "script",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1408,
+        256
+      ],
+      "id": "664384c8-4641-4296-8765-364c237a1866",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "amount": 1
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2256,
+        352
+      ],
+      "id": "e39a5c73-4ac6-4821-a0a8-2e1067670505",
+      "name": "Wait",
+      "webhookId": "7f64ca86-4e93-4431-96a6-b7f6f5bea10d"
     },
     {
       "parameters": {
         "operation": "upload",
         "bucketName": "capstone-ai-education",
-        "fileName": "tmp.pdf",
+        "fileName": "=voices/audio_{{ $runIndex }}.wav",
         "additionalFields": {}
       },
       "type": "n8n-nodes-base.awsS3",
       "typeVersion": 2,
       "position": [
-        976,
-        0
+        2064,
+        352
       ],
-      "id": "b221a54a-56a1-42da-8605-a26e94ebe57e",
-      "name": "Upload a file",
+      "id": "906903d4-26f3-4c85-86b1-b8077c9efe2a",
+      "name": "Upload a file1",
       "credentials": {
         "aws": {
           "id": "dxBCP5LgruhUqTMg",
           "name": "AWS (IAM) account"
         }
       }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        1680,
+        256
+      ],
+      "id": "5f0a1fbe-7ef5-48e7-ba14-14e030175ba7",
+      "name": "Loop"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://voice-generator:8000/generate",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ \nJSON.stringify({\n  \"text\": $json.script,\n  \"model\": \"kokoro\",\n  \"voice\": \"af_heart\",\n  \"speed\": 1.0,\n  \"language\": \"a\"\n}) \n}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        1888,
+        352
+      ],
+      "id": "643d19af-6127-4b06-89b1-cb4c8f2df6fc",
+      "name": "GenerateVoice"
     }
   ],
   "pinData": {},
@@ -124,18 +259,101 @@
       "main": [
         [
           {
-            "node": "HTTP Request",
+            "node": "GenerateSlide",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "HTTP Request": {
+    "GenerateSlide": {
       "main": [
         [
           {
             "node": "Upload a file",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "GenieScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GenieScript": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload a file1": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop": {
+      "main": [
+        [],
+        [
+          {
+            "node": "GenerateVoice",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GenerateVoice": {
+      "main": [
+        [
+          {
+            "node": "Upload a file1",
             "type": "main",
             "index": 0
           }
@@ -143,12 +361,12 @@
       ]
     }
   },
-  "active": false,
+  "active": true,
   "settings": {
     "executionOrder": "v1",
     "availableInMCP": false
   },
-  "versionId": "6befb2bc-3b6c-404b-8cc0-120e0f871991",
+  "versionId": "e9340b7b-4a54-455e-b4b8-e6bd0f1242a9",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "dacf661d18952437dcd120ba832369f336608e51c4a96e821e930948a4d1e07e"
