@@ -13,7 +13,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 COPY requirements.txt .
 RUN pip install --upgrade pip \
- && pip install --prefix=/install --no-cache-dir -r requirements.txt
+ && pip install --prefix=/install --no-cache-dir -r requirements.txt \
+ && PYTHONPATH=/install/lib/python3.11/site-packages \
+    pip install --prefix=/install --no-cache-dir \
+    https://github.com/explosion/spacy-models/releases/download/en_core_web_sm-3.8.0/en_core_web_sm-3.8.0-py3-none-any.whl
 
 
 # ---------------------------------------------------------------------------
@@ -28,7 +31,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libsndfile1 \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy installed Python packages from builder
+# Copy installed Python packages from builder (includes en_core_web_sm)
 COPY --from=builder /install /usr/local
 
 # ---------------------------------------------------------------------------

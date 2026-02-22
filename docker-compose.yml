@@ -29,6 +29,14 @@ services:
       - "8080:8080"
     restart: unless-stopped
 
+  voice-generator:
+    build:
+      context: voice-generator
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+
 volumes:
   n8n_data_vol:
     driver: local
