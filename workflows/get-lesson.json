@@ -1,9 +1,8 @@
 {
-  "name": "GetOneLesson",
+  "name": "get-lesson",
   "nodes": [
     {
       "parameters": {
-        "httpMethod": "POST",
         "path": "lessons/:lessonId",
         "responseMode": "lastNode",
         "options": {}
@@ -93,7 +92,7 @@
     "executionOrder": "v1",
     "availableInMCP": false
   },
-  "versionId": "ee72f3bb-ea6d-4748-9576-11a93e610ace",
+  "versionId": "2284d5fc-252d-4bcf-b1f2-13fb10f13c4a",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "dacf661d18952437dcd120ba832369f336608e51c4a96e821e930948a4d1e07e"
