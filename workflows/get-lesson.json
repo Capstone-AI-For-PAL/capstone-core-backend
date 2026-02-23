@@ -1,0 +1,103 @@
+{
+  "name": "GetOneLesson",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "lessons/:lessonId",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -256,
+        -176
+      ],
+      "id": "f62d788f-c4af-4e3d-95f5-d6ee005ff8db",
+      "name": "Webhook",
+      "webhookId": "a7d64218-010b-4ff0-a255-3ea4f9d23c26"
+    },
+    {
+      "parameters": {
+        "collection": "lessons",
+        "options": {},
+        "query": "={ \"_id\": \"{{ $json._id }}\" }"
+      },
+      "type": "n8n-nodes-base.mongoDb",
+      "typeVersion": 1.2,
+      "position": [
+        160,
+        -176
+      ],
+      "id": "628f9084-5cb6-425d-9a00-76a0f239c64f",
+      "name": "Find documents",
+      "credentials": {
+        "mongoDb": {
+          "id": "pWePL90dwTVGzXVd",
+          "name": "MongoDB account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0ec37572-9abd-4d18-afdb-c2a8e55ae6cb",
+              "name": "_id",
+              "value": "={{ $json.params.lessonId }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -48,
+        -176
+      ],
+      "id": "a22727d6-bfa2-4463-b2c8-2d43afc583aa",
+      "name": "Edit Fields"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Find documents",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "ee72f3bb-ea6d-4748-9576-11a93e610ace",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "dacf661d18952437dcd120ba832369f336608e51c4a96e821e930948a4d1e07e"
+  },
+  "id": "YadCsXSJ0k3FYpt9XwhS-",
+  "tags": []
+}

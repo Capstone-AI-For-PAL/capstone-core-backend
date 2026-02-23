@@ -1,0 +1,536 @@
+{
+  "name": "async-generate-slide",
+  "nodes": [
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://llm-service:8080/chat",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {}
+          ]
+        },
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "parameterType": "formBinaryData",
+              "name": "file",
+              "inputDataFieldName": "=data"
+            },
+            {
+              "name": "cunet_id",
+              "value": "6532155621"
+            },
+            {
+              "name": "messages",
+              "value": "={{ JSON.stringify([\n  {\n    \"role\": \"user\",\n    \"content\": \"You are a script generator. The input text contains pages separated by markers like '--- PAGE X ---'. \\n\\nRULES:\\n1. Group ALL text between two Page Markers into a SINGLE script.\\n2. Do NOT create separate items for bullet points. Combine them into one paragraph for that slide.\\n3. Output strictly valid JSON: {\\\"script\\\": [\\\"Script for Page 1\\\", \\\"Script for Page 2\\\"]}.\\n4. Do not include markdown formatting.\\n\"  \n}\n]) }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        992,
+        256
+      ],
+      "id": "44c9e100-acaf-41f3-955a-0000c118fee2",
+      "name": "GenieScript"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://slide_generator:5000/generate",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "markdown",
+              "value": "={{ $json.output }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        736,
+        16
+      ],
+      "id": "da87c093-3fee-44b8-a119-3c5555be49fe",
+      "name": "GenerateSlide"
+    },
+    {
+      "parameters": {
+        "jsCode": "// 1. Get the raw text. \n// If the API returned a stringified JSON string (double-encoded), \n// we might need to parse it once to unwrap the outer quotes.\nlet content = $input.first().json.data;\n\nif (typeof content === 'string') {\n  try {\n    // Try to unwrap if it's a string inside a string (e.g. \"\\\"{\\\\\\\"a\\\\\\\":1}\\\"\")\n    // If this fails, it's just normal text, and we proceed.\n    const potentialObj = JSON.parse(content);\n    if (typeof potentialObj === 'string') {\n      content = potentialObj;\n    }\n  } catch (e) {\n    // It wasn't double-encoded, carry on with original content\n  }\n}\n\n// 2. The \"Smart\" Cleanup\n// Instead of replacing \"```json\", we just hunt for the first '{' and last '}'\n// This ignores all markdown, preambles, and outer quotes automatically.\nconst firstBracket = content.indexOf('{');\nconst lastBracket = content.lastIndexOf('}');\n\nif (firstBracket !== -1 && lastBracket !== -1) {\n  const jsonString = content.substring(firstBracket, lastBracket + 1);\n  \n  try {\n    const parsed = JSON.parse(jsonString);\n    return { json: parsed }; \n  } catch (e) {\n    return { json: { error: \"Inner parsing failed\", text: jsonString } };\n  }\n} else {\n  return { json: { error: \"No JSON object found\", text: content } };\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1312,
+        256
+      ],
+      "id": "27b6992a-73fe-4f2b-8134-5783fe96d8a9",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "script",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        1616,
+        256
+      ],
+      "id": "2e52e1ce-c951-4a53-915d-0ca6c7cf29ea",
+      "name": "Split Out"
+    },
+    {
+      "parameters": {
+        "amount": 1
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        2800,
+        352
+      ],
+      "id": "f6be3185-3f92-4a89-8d37-2e4503020755",
+      "name": "Wait",
+      "webhookId": "690b270f-fd81-4f0e-b15e-ae83ab241129"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        2096,
+        256
+      ],
+      "id": "1bbb8ea2-2b56-48cf-b46f-0cdd9f700748",
+      "name": "Loop"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://voice-generator:8000/generate",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ \nJSON.stringify({\n  \"text\": $json.script,\n  \"model\": \"kokoro\",\n  \"voice\": \"af_heart\",\n  \"speed\": 1.0,\n  \"language\": \"a\"\n}) \n}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        2352,
+        352
+      ],
+      "id": "a7fd7819-fd97-4586-8ed1-7d35f77657ce",
+      "name": "GenerateVoice"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "async-generate-slide",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -224,
+        16
+      ],
+      "id": "16b1ace1-dc7c-437c-a608-5cc51c379900",
+      "name": "Webhook",
+      "webhookId": "c956b764-c4a0-43bf-a872-44e78f63c768"
+    },
+    {
+      "parameters": {
+        "options": {
+          "responseCode": 201
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        128,
+        16
+      ],
+      "id": "82ab2d94-d0ee-4398-b340-00d2597e1d4e",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.slides }}",
+        "options": {
+          "systemMessage": "=Create a presentation in Marp Markdown format based on the following input.\n\n\n\nSTRICT LAYOUT RULES:\n\n1. Frontmatter: The very first lines of your response MUST be the YAML frontmatter provided below. Do not include any text, greetings, or \"Sure, here is your presentation\" before it.\n\n2. Content Splitting: You MUST create a NEW SLIDE (using '---') for every distinct section or major topic.\n\n3. \"One Header\" Rule: Never put two \"## H2 Headers\" on the same slide. If you start a new ## Header, you MUST put '---' before it.\n\n4. Bullet Limits: Maximum 5 bullet points per slide. If there are more, split them into two slides (e.g., \"Key Areas Part 1\" and \"Key Areas Part 2\").\n\n5. Output raw Markdown text only. Do not use markdown code blocks (```). Ensure the first line of the output is the opening '---' of the frontmatter.\n\n\n\n---\n\nmarp: true\n\ntheme: default\n\npaginate: true\n\nsize: 16:9\n\nstyle: |\n\n  section {\n\n    font-size: 25px;\n\n    padding: 40px;\n\n    justify-content: center; /* Keeps content centered vertically */\n\n  }\n\n  h1 {\n\n    font-size: 50px;\n\n    color: #0288d1;\n\n  }\n\n  h2 {\n\n    font-size: 35px;\n\n    color: #333;\n\n  }\n\n---\n\n\n\nInput Data: {{ $json.slides }}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        336,
+        16
+      ],
+      "id": "45541eeb-d553-40da-a6aa-ecf1fe2229e3",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        320,
+        192
+      ],
+      "id": "92440d3b-3ddd-4759-8e75-75677a29ebec",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "nkjyjxzIkBKuhyZh",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "chooseBranch",
+        "output": "empty"
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        2320,
+        0
+      ],
+      "id": "c7ebca8c-8f42-40b3-98c7-a21bc7453064",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "collection": "lessons",
+        "updateKey": "=_id",
+        "fields": "=status,audioURLs,slideURL",
+        "upsert": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mongoDb",
+      "typeVersion": 1.2,
+      "position": [
+        2720,
+        0
+      ],
+      "id": "16eb7b6c-8c13-4045-88a0-936a21c87abf",
+      "name": "Update documents",
+      "credentials": {
+        "mongoDb": {
+          "id": "pWePL90dwTVGzXVd",
+          "name": "MongoDB account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "c73f8e8e-dbb8-463f-b0b5-939b62a7a737",
+              "name": "_id",
+              "value": "={{ $json.body.lesson_id }}",
+              "type": "string"
+            },
+            {
+              "id": "b5e34414-db0e-4d95-ada8-88c79a2e70b5",
+              "name": "slides",
+              "value": "={{ $json.body.slides }}",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -32,
+        16
+      ],
+      "id": "c9bd7191-c6d8-41eb-9a1d-2beeb926ba84",
+      "name": "prepare"
+    },
+    {
+      "parameters": {
+        "operation": "upload",
+        "bucketName": "capstone-ai-education",
+        "fileName": "={{ $('prepare').item.json._id }}/audio/audio_{{ $runIndex + 1 }}.wav",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.awsS3",
+      "typeVersion": 2,
+      "position": [
+        2576,
+        352
+      ],
+      "id": "69429433-3905-4d46-a9f2-00cbb8085a99",
+      "name": "Audio Upload",
+      "credentials": {
+        "aws": {
+          "id": "dxBCP5LgruhUqTMg",
+          "name": "AWS (IAM) account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "upload",
+        "bucketName": "capstone-ai-education",
+        "fileName": "={{ $('prepare').item.json._id }}/slide.pdf",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.awsS3",
+      "typeVersion": 2,
+      "position": [
+        992,
+        -16
+      ],
+      "id": "bfd32198-585c-4727-bc8d-05fcab0bac4f",
+      "name": "Slide Upload",
+      "credentials": {
+        "aws": {
+          "id": "dxBCP5LgruhUqTMg",
+          "name": "AWS (IAM) account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "let audioURLs = []\nconst lesson_id = $('prepare').first().json._id\nfor (let i = 0; i < $('Code in JavaScript').first().json.script.length; i++) {\n  const url =`https://capstone-ai-education.s3.amazonaws.com/${lesson_id}/audio/audio_${i}.wav`\n  audioURLs.push(url)\n}\n\nreturn { \n  audioURLs, \n  slideURL: `https://capstone-ai-education.s3.amazonaws.com/${lesson_id}/slide.pdf`,\n  \"_id\": lesson_id,\n  \"status\": \"IN_PROGRESS\"\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2528,
+        0
+      ],
+      "id": "90342d86-99a7-4d41-8212-53b17e353360",
+      "name": "Code in JavaScript1"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "GenerateSlide": {
+      "main": [
+        [
+          {
+            "node": "Slide Upload",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "GenieScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GenieScript": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out": {
+      "main": [
+        [
+          {
+            "node": "Loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Loop",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ],
+        [
+          {
+            "node": "GenerateVoice",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GenerateVoice": {
+      "main": [
+        [
+          {
+            "node": "Audio Upload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "prepare",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to Webhook": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "GenerateSlide",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "prepare": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Audio Upload": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Slide Upload": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript1": {
+      "main": [
+        [
+          {
+            "node": "Update documents",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "850da779-27b6-47ba-8b91-02bf32b72a7a",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "dacf661d18952437dcd120ba832369f336608e51c4a96e821e930948a4d1e07e"
+  },
+  "id": "YMOjlACjstqlA2WY",
+  "tags": []
+}
