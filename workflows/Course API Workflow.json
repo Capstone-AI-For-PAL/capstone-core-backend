@@ -1,0 +1,723 @@
+{
+  "name": "Course API Workflow",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -16,
+        1072
+      ],
+      "id": "b5c65078-20f5-496a-81cd-63880277271a",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "collection": "courses",
+        "options": {},
+        "query": "={\n  \"userId\": \"{{ $json.query.userId }}\"\n}"
+      },
+      "type": "n8n-nodes-base.mongoDb",
+      "typeVersion": 1.2,
+      "position": [
+        224,
+        0
+      ],
+      "id": "79946871-cc1a-4fcc-b427-3a898c2b495b",
+      "name": "Find documents",
+      "credentials": {
+        "mongoDb": {
+          "id": "K1y2RTKvTElSmf02",
+          "name": "MongoDB account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "collection": "courses",
+        "options": {},
+        "query": "={\n  \"courseId\": \"{{ $json.params.courseId }}\"\n}"
+      },
+      "type": "n8n-nodes-base.mongoDb",
+      "typeVersion": 1.2,
+      "position": [
+        224,
+        160
+      ],
+      "id": "6f2cb7f9-faaf-4bff-802d-342112720426",
+      "name": "Find documents1",
+      "credentials": {
+        "mongoDb": {
+          "id": "K1y2RTKvTElSmf02",
+          "name": "MongoDB account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "path": "courses",
+        "responseMode": "lastNode",
+        "responseData": "allEntries",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "f2196693-82a3-4e3d-9474-b510597cd1f0",
+      "name": "Get courses by userId",
+      "webhookId": "d71cec1c-92e7-4aac-a066-4b314bc64450"
+    },
+    {
+      "parameters": {
+        "path": "courses/:courseId",
+        "responseMode": "lastNode",
+        "responseData": "allEntries",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        160
+      ],
+      "id": "06ff1853-9279-4d92-92bf-64a6d4708c8f",
+      "name": "Get courses by courseId",
+      "webhookId": "d71cec1c-92e7-4aac-a066-4b314bc64450"
+    },
+    {
+      "parameters": {
+        "httpMethod": "PUT",
+        "path": "courses/:courseId",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        320
+      ],
+      "id": "08c3acc1-f930-4103-99cd-cb1e75049551",
+      "name": "Update course",
+      "webhookId": "d71cec1c-92e7-4aac-a066-4b314bc64450"
+    },
+    {
+      "parameters": {
+        "operation": "findOneAndUpdate",
+        "collection": "courses",
+        "updateKey": "courseId",
+        "fields": "={{ Object.keys($json).join(', ') }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mongoDb",
+      "typeVersion": 1.2,
+      "position": [
+        432,
+        320
+      ],
+      "id": "08eb8483-be64-4900-b6e4-c17d61742e9c",
+      "name": "Find and update documents",
+      "alwaysOutputData": false,
+      "credentials": {
+        "mongoDb": {
+          "id": "K1y2RTKvTElSmf02",
+          "name": "MongoDB account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={{\n  {\n    \"courseId\": $json.params.courseId,\n    ...$json.body\n  }\n}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        224,
+        320
+      ],
+      "id": "7e8709cb-6afa-4894-8740-d47ad9422044",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "courses",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        512
+      ],
+      "id": "276f7bf6-2aaf-43ae-bcda-3b40e45cfeba",
+      "name": "Generate new course",
+      "webhookId": "d71cec1c-92e7-4aac-a066-4b314bc64450"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={{\n{\n  \"courseId\": $json.uuid,\n  \"status\": $json.body.status ?? \"DRAFT\",\n  \"goal\": $json.body.goal ?? \"\",\n  \"mentorId\": $json.body.mentorId ?? \"\",\n  \"notes_from_mentor\": $json.body.notes_from_mentor ?? \"\",\n  \"outline\": $json.body.outline ?? {},\n  \"lessonIds\": $json.body.lessonIds ?? [],\n  \"courseName\": $json.body.courseName ?? \"New Course\",\n  \"userId\": $json.body.userId\n}\n}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        640,
+        496
+      ],
+      "id": "4989d649-5291-439b-b628-41a100bc8669",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "operation": "insert",
+        "collection": "courses",
+        "fields": "courseId, status, goal, mentorId, notes_from_mentor, outline, lessonIds, userId, courseName",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mongoDb",
+      "typeVersion": 1.2,
+      "position": [
+        848,
+        496
+      ],
+      "id": "8cab67fb-b3a5-4388-9cc3-68c8b4461bd8",
+      "name": "Insert documents",
+      "alwaysOutputData": false,
+      "credentials": {
+        "mongoDb": {
+          "id": "K1y2RTKvTElSmf02",
+          "name": "MongoDB account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "98fb61f8-c642-47e7-a5f1-4e1f98d534dd",
+              "leftValue": "={{ $json.body?.userId }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        224,
+        512
+      ],
+      "id": "f9bdad0f-1aca-4193-be74-0a65e91a5393",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"error\": \"userId is required\"\n}",
+        "options": {
+          "responseCode": 400
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        432,
+        656
+      ],
+      "id": "e0efa405-7eb0-4a22-801b-553dbb1a7b9a",
+      "name": "error"
+    },
+    {
+      "parameters": {
+        "options": {
+          "responseCode": 201
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1040,
+        496
+      ],
+      "id": "0fb517ed-4d7c-4541-972e-b00a3e8a28e2",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "next-lesson/:courseId/",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        848
+      ],
+      "id": "bcad5e99-72d6-4abf-a3cb-38a8dfa34de7",
+      "name": "Next lesson",
+      "webhookId": "d71cec1c-92e7-4aac-a066-4b314bc64450"
+    },
+    {
+      "parameters": {
+        "action": "generate",
+        "dataPropertyName": "uuid"
+      },
+      "type": "n8n-nodes-base.crypto",
+      "typeVersion": 1,
+      "position": [
+        432,
+        496
+      ],
+      "id": "675b331e-e316-4588-9417-768037d06957",
+      "name": "course uuid"
+    },
+    {
+      "parameters": {
+        "action": "generate",
+        "dataPropertyName": "uuid"
+      },
+      "type": "n8n-nodes-base.crypto",
+      "typeVersion": 1,
+      "position": [
+        240,
+        848
+      ],
+      "id": "592dfeb3-9d26-4d69-bf55-6f7aed0afa94",
+      "name": "lesson uuid"
+    },
+    {
+      "parameters": {
+        "operation": "insert",
+        "collection": "lessons",
+        "fields": "lessonId, status, slide_URL, audio_URLs",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mongoDb",
+      "typeVersion": 1.2,
+      "position": [
+        1312,
+        1024
+      ],
+      "id": "eea78643-4037-410d-8fed-63da6926a4fe",
+      "name": "Insert lesson",
+      "alwaysOutputData": false,
+      "credentials": {
+        "mongoDb": {
+          "id": "K1y2RTKvTElSmf02",
+          "name": "MongoDB account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "collection": "courses",
+        "options": {},
+        "query": "={\n  \"courseId\": \"{{ $json.courseId }}\"\n}"
+      },
+      "type": "n8n-nodes-base.mongoDb",
+      "typeVersion": 1.2,
+      "position": [
+        656,
+        976
+      ],
+      "id": "4db070d5-8116-486a-a337-ee4e6e853291",
+      "name": "Get course",
+      "credentials": {
+        "mongoDb": {
+          "id": "K1y2RTKvTElSmf02",
+          "name": "MongoDB account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={{\n{\n  \"lessonId\": $json.uuid,\n  \"status\": \"GENERATING\",\n  \"slide_URL\": \"\",\n  \"audio_URLs\": [],\n  \"courseId\": $json.params.courseId\n}\n}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        432,
+        848
+      ],
+      "id": "09b49ea4-cc68-43e9-b664-dc211536b32f",
+      "name": "Generate empty lesson obj"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineAll",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        896,
+        864
+      ],
+      "id": "849edd41-69ab-4122-a202-5dbcfb3d32c6",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={{\n{\n  \"nextLessonNum\": $json.lessonIds.length,\n  \"lessonIds\": $json.lessonIds.append($json.lessonId),\n}\n}}",
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1104,
+        1024
+      ],
+      "id": "4b2ab1e2-c775-4387-9bf1-804a7917ff45",
+      "name": "Update lessonId"
+    },
+    {
+      "parameters": {
+        "operation": "findOneAndUpdate",
+        "collection": "courses",
+        "updateKey": "courseId",
+        "fields": "=lessonIds",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mongoDb",
+      "typeVersion": 1.2,
+      "position": [
+        1312,
+        864
+      ],
+      "id": "c376bb93-ea3d-4401-b413-4a2a3c842837",
+      "name": "Update lessonIds",
+      "alwaysOutputData": false,
+      "credentials": {
+        "mongoDb": {
+          "id": "K1y2RTKvTElSmf02",
+          "name": "MongoDB account 2"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        1552,
+        864
+      ],
+      "id": "530d9904-d856-46ce-b4b1-61ec1e49b856",
+      "name": "Merge1"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {
+          "responseCode": 201
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1760,
+        864
+      ],
+      "id": "f759e9af-229b-46be-96ab-c895ed4f77bb",
+      "name": "Respond to Webhook1"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:5678/webhook/async-generate-slide",
+        "sendBody": true,
+        "specifyBody": "=json",
+        "bodyParameters": {
+          "parameters": [
+            {}
+          ]
+        },
+        "jsonBody": "={{\n  {\n  \"title\": $json.outline.lessons[$json.nextLessonNum].title,\n  \"lessonId\": $json.lessonId,\n  \"slides\": $json.outline.lessons[$json.nextLessonNum].slides\n  }\n}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        1312,
+        1200
+      ],
+      "id": "0977ddf1-c526-4925-8a0b-e824363bc90e",
+      "name": "HTTP Request"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        []
+      ]
+    },
+    "Get courses by userId": {
+      "main": [
+        [
+          {
+            "node": "Find documents",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get courses by courseId": {
+      "main": [
+        [
+          {
+            "node": "Find documents1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update course": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Find and update documents",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate new course": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Insert documents",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "course uuid",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "error": {
+      "main": [
+        []
+      ]
+    },
+    "Insert documents": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Next lesson": {
+      "main": [
+        [
+          {
+            "node": "lesson uuid",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "course uuid": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "lesson uuid": {
+      "main": [
+        [
+          {
+            "node": "Generate empty lesson obj",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert lesson": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Generate empty lesson obj": {
+      "main": [
+        [
+          {
+            "node": "Get course",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get course": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Update lessonId",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update lessonId": {
+      "main": [
+        [
+          {
+            "node": "Update lessonIds",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Insert lesson",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update lessonIds": {
+      "main": [
+        [
+          {
+            "node": "Merge1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge1": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "733bf987-7c92-4f2a-bbbd-3b48e138852a",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "033f1bc6215f63e899772bfa6952d5de23ea9ab6140b36a3b563a251130298dd"
+  },
+  "id": "4Y_TJ4pwoDgP-9JJS6fD1",
+  "tags": []
+}
