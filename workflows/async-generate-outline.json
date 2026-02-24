@@ -1,0 +1,253 @@
+{
+  "name": "async-generate-outline",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "async-generate-outline",
+        "options": {
+          "responseCode": {
+            "values": {
+              "responseCode": 201
+            }
+          },
+          "responseData": "outline generation started"
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        64,
+        16
+      ],
+      "id": "de4bf610-fc7b-4a9e-b263-033bd1abcaa7",
+      "name": "Webhook",
+      "webhookId": "fb9d491c-0a9a-4068-a180-4f4ef76a4017"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineAll",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        720,
+        16
+      ],
+      "id": "4dd97144-22b7-48fb-92f9-4c912df1b70f",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n  \"courseId\": \"{{ $json.body.courseId }}\",\n  \"status\": \"GENERATING\"\n  \"goal\": \"{{ $json.body.goal }}\"\n  \"notes_from_mentor\": \"{{ $json.body.notesFromMentor }}\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        304,
+        -80
+      ],
+      "id": "68f14f7f-db1c-4b26-803a-93a79e8bf72a",
+      "name": "Status \"GENERATING\""
+    },
+    {
+      "parameters": {
+        "operation": "findOneAndUpdate",
+        "collection": "courses",
+        "updateKey": "courseId",
+        "fields": "=status, goal, notes_from_mentor",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mongoDb",
+      "typeVersion": 1.2,
+      "position": [
+        496,
+        -80
+      ],
+      "id": "acdab70c-d517-41ba-91d1-91b1119a6c6d",
+      "name": "Update status",
+      "credentials": {
+        "mongoDb": {
+          "id": "sjff9flDm6PtRdBH",
+          "name": "MongoDB account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n  \"courseId\": \"{{ $json.courseId }}\",\n  \"outline\": {{ $json.outline }},\n  \"status\": \"IN_PROGRESS\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        912,
+        16
+      ],
+      "id": "6b83049c-b551-40b3-a57d-2f400f757e86",
+      "name": "Status \"IN_PROGRESS\""
+    },
+    {
+      "parameters": {
+        "operation": "findOneAndUpdate",
+        "collection": "courses",
+        "updateKey": "courseId",
+        "fields": "outline, status",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mongoDb",
+      "typeVersion": 1.2,
+      "position": [
+        1088,
+        16
+      ],
+      "id": "bc29977e-ade6-4d07-b11b-cdf353129a1c",
+      "name": "Update outline and status",
+      "credentials": {
+        "mongoDb": {
+          "id": "sjff9flDm6PtRdBH",
+          "name": "MongoDB account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:5678/webhook-test/outline",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "multipart/form-data"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "goal",
+              "value": "={{ $json.body.goal }}"
+            },
+            {
+              "name": "notes_from_mentor",
+              "value": "={{ $json.body.notesFromMentor }}"
+            },
+            {
+              "name": "cunet_id",
+              "value": "={{ $json.body.cunet_id }}"
+            },
+            {
+              "parameterType": "formBinaryData",
+              "name": "materials",
+              "inputDataFieldName": "materials"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        400,
+        112
+      ],
+      "id": "71962990-1e62-4967-bdf8-6ae7c401a6cc",
+      "name": "Outline Generator"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Status \"GENERATING\"",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Outline Generator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Status \"IN_PROGRESS\"",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Status \"GENERATING\"": {
+      "main": [
+        [
+          {
+            "node": "Update status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update status": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Status \"IN_PROGRESS\"": {
+      "main": [
+        [
+          {
+            "node": "Update outline and status",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Outline Generator": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "efd48cc0-e60a-440a-b7e3-c78b2fdc65e0",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "7359c0c217c2f2526bf0a6c46f4839c44f96a0005dca2af79edc19e6ed7703f7"
+  },
+  "id": "daZGYx0R245644AB",
+  "tags": []
+}
