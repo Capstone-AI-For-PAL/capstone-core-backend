@@ -4,7 +4,7 @@
     {
       "parameters": {
         "httpMethod": "POST",
-        "path": "async-generate-outline",
+        "path": "generate/:courseId",
         "options": {
           "responseCode": {
             "values": {
@@ -33,7 +33,7 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.2,
       "position": [
-        720,
+        736,
         16
       ],
       "id": "4dd97144-22b7-48fb-92f9-4c912df1b70f",
@@ -48,7 +48,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        304,
+        288,
         -80
       ],
       "id": "68f14f7f-db1c-4b26-803a-93a79e8bf72a",
@@ -65,7 +65,7 @@
       "type": "n8n-nodes-base.mongoDb",
       "typeVersion": 1.2,
       "position": [
-        496,
+        512,
         -80
       ],
       "id": "acdab70c-d517-41ba-91d1-91b1119a6c6d",
@@ -86,7 +86,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        912,
+        960,
         16
       ],
       "id": "6b83049c-b551-40b3-a57d-2f400f757e86",
@@ -103,7 +103,7 @@
       "type": "n8n-nodes-base.mongoDb",
       "typeVersion": 1.2,
       "position": [
-        1088,
+        1184,
         16
       ],
       "id": "bc29977e-ade6-4d07-b11b-cdf353129a1c",
@@ -118,7 +118,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "http://localhost:5678/webhook-test/outline",
+        "url": "http://localhost:5678/webhook-test/generate-outline",
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
@@ -156,7 +156,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        400,
+        512,
         112
       ],
       "id": "71962990-1e62-4967-bdf8-6ae7c401a6cc",
@@ -243,7 +243,7 @@
     "binaryMode": "separate",
     "availableInMCP": false
   },
-  "versionId": "efd48cc0-e60a-440a-b7e3-c78b2fdc65e0",
+  "versionId": "504af84a-7d0e-4478-a019-d1397e2ab53b",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "7359c0c217c2f2526bf0a6c46f4839c44f96a0005dca2af79edc19e6ed7703f7"
