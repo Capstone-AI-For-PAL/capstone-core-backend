@@ -318,7 +318,7 @@
     },
     {
       "parameters": {
-        "jsCode": "let audioURLs = []\nconst lesson_id = $('Webhook').first().json._id\nfor (let i = 0; i < $('Code in JavaScript').first().json.script.length; i++) {\n  const url =`https://capstone-ai-education.s3.amazonaws.com/${lesson_id}/audio/audio_${i+1}.wav`\n  audioURLs.push(url)\n}\n\nreturn { \n  \"audio_URLs\": audioURLs, \n  \"slide_URL\": `https://capstone-ai-education.s3.amazonaws.com/${lesson_id}/slide.pdf`,\n  \"lessonId\": lesson_id,\n  \"status\": \"IN_PROGRESS\"\n};"
+        "jsCode": "let audioURLs = []\nconst lesson_id = $('prepare').first().json._id\nfor (let i = 0; i < $('Code in JavaScript').first().json.script.length; i++) {\n  const url =`https://capstone-ai-education.s3.amazonaws.com/${lesson_id}/audio/audio_${i+1}.wav`\n  audioURLs.push(url)\n}\n\nreturn { \n  \"audio_URLs\": audioURLs, \n  \"slide_URL\": `https://capstone-ai-education.s3.amazonaws.com/${lesson_id}/slide.pdf`,\n  \"lessonId\": lesson_id,\n  \"status\": \"IN_PROGRESS\"\n};"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -516,6 +516,11 @@
             "node": "Update documents",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -526,7 +531,7 @@
     "executionOrder": "v1",
     "availableInMCP": false
   },
-  "versionId": "e7412b42-a126-402f-895a-2ff433f1c29e",
+  "versionId": "3313160e-ca75-45e7-9d0c-1104003af82d",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "4436dab057415997b1e213a09c95779d30fd31c9c0911f2717b0dff86bc58428"
