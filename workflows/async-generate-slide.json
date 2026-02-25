@@ -200,7 +200,7 @@
       "name": "Google Gemini Chat Model",
       "credentials": {
         "googlePalmApi": {
-          "id": "nkjyjxzIkBKuhyZh",
+          "id": "fCKPlSoyz50wy8NZ",
           "name": "Google Gemini(PaLM) Api account"
         }
       }
@@ -223,8 +223,8 @@
       "parameters": {
         "operation": "update",
         "collection": "lessons",
-        "updateKey": "=_id",
-        "fields": "=status,audioURLs,slideURL",
+        "updateKey": "=lessonId",
+        "fields": "=status,audio_URLs,slide_URL",
         "upsert": true,
         "options": {}
       },
@@ -238,7 +238,7 @@
       "name": "Update documents",
       "credentials": {
         "mongoDb": {
-          "id": "pWePL90dwTVGzXVd",
+          "id": "HtD4Nt8obbMgCkbA",
           "name": "MongoDB account"
         }
       }
@@ -250,7 +250,7 @@
             {
               "id": "c73f8e8e-dbb8-463f-b0b5-939b62a7a737",
               "name": "_id",
-              "value": "={{ $json.body.lesson_id }}",
+              "value": "={{ $json.body.lessonId }}",
               "type": "string"
             },
             {
@@ -289,7 +289,7 @@
       "name": "Audio Upload",
       "credentials": {
         "aws": {
-          "id": "dxBCP5LgruhUqTMg",
+          "id": "93iP6G6TRWMwPuIA",
           "name": "AWS (IAM) account"
         }
       }
@@ -311,14 +311,14 @@
       "name": "Slide Upload",
       "credentials": {
         "aws": {
-          "id": "dxBCP5LgruhUqTMg",
+          "id": "93iP6G6TRWMwPuIA",
           "name": "AWS (IAM) account"
         }
       }
     },
     {
       "parameters": {
-        "jsCode": "let audioURLs = []\nconst lesson_id = $('prepare').first().json._id\nfor (let i = 0; i < $('Code in JavaScript').first().json.script.length; i++) {\n  const url =`https://capstone-ai-education.s3.amazonaws.com/${lesson_id}/audio/audio_${i}.wav`\n  audioURLs.push(url)\n}\n\nreturn { \n  audioURLs, \n  slideURL: `https://capstone-ai-education.s3.amazonaws.com/${lesson_id}/slide.pdf`,\n  \"_id\": lesson_id,\n  \"status\": \"IN_PROGRESS\"\n};"
+        "jsCode": "let audioURLs = []\nconst lesson_id = $('Webhook').first().json._id\nfor (let i = 0; i < $('Code in JavaScript').first().json.script.length; i++) {\n  const url =`https://capstone-ai-education.s3.amazonaws.com/${lesson_id}/audio/audio_${i+1}.wav`\n  audioURLs.push(url)\n}\n\nreturn { \n  \"audio_URLs\": audioURLs, \n  \"slide_URL\": `https://capstone-ai-education.s3.amazonaws.com/${lesson_id}/slide.pdf`,\n  \"lessonId\": lesson_id,\n  \"status\": \"IN_PROGRESS\"\n};"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -526,10 +526,10 @@
     "executionOrder": "v1",
     "availableInMCP": false
   },
-  "versionId": "850da779-27b6-47ba-8b91-02bf32b72a7a",
+  "versionId": "e7412b42-a126-402f-895a-2ff433f1c29e",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "dacf661d18952437dcd120ba832369f336608e51c4a96e821e930948a4d1e07e"
+    "instanceId": "4436dab057415997b1e213a09c95779d30fd31c9c0911f2717b0dff86bc58428"
   },
   "id": "YMOjlACjstqlA2WY",
   "tags": []

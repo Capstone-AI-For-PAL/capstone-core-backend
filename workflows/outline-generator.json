@@ -38,10 +38,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        320,
+        224,
         0
       ],
-      "id": "2b4458e7-4e63-43ec-899c-cd79811f0009",
+      "id": "0b3630a9-29dc-4327-a56b-82f7d9f3bc95",
       "name": "HTTP Request"
     },
     {
@@ -54,10 +54,10 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
-        96,
+        0,
         0
       ],
-      "id": "a4689254-a48d-4d93-b9be-53f7367e55d8",
+      "id": "dcdb46fb-fdea-431e-8f07-62c6c8010c1b",
       "name": "Webhook",
       "webhookId": "545bbbef-0c01-4813-a97a-e5d780cb2cea"
     },
@@ -71,27 +71,28 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 3.1,
       "position": [
-        544,
+        448,
         0
       ],
-      "id": "1dffd671-d47e-4aef-8175-4ac0a24a3f14",
+      "id": "cda3af4a-947f-4a6c-9162-8f17d2d3d75d",
       "name": "AI Agent"
     },
     {
       "parameters": {
+        "modelName": "models/gemini-flash-latest",
         "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
       "typeVersion": 1,
       "position": [
-        552,
+        464,
         224
       ],
-      "id": "437367c5-b9ee-480c-a444-704ae494416c",
+      "id": "6d247e9f-9342-46a5-9da5-fad048daadc3",
       "name": "Google Gemini Chat Model",
       "credentials": {
         "googlePalmApi": {
-          "id": "4W3B80W3YjCLaert",
+          "id": "fCKPlSoyz50wy8NZ",
           "name": "Google Gemini(PaLM) Api account"
         }
       }
@@ -103,10 +104,10 @@
       "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
       "typeVersion": 1.3,
       "position": [
-        680,
+        592,
         224
       ],
-      "id": "74eb8b05-6547-47fe-850a-ccd50a046713",
+      "id": "041c1822-5983-4657-8227-793e64f3d4cb",
       "name": "Structured Output Parser"
     },
     {
@@ -118,10 +119,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        896,
+        800,
         0
       ],
-      "id": "0abb622a-af7b-4b03-b9d9-8edbb9053c69",
+      "id": "241339cc-68cf-4d07-b158-fd4a946e98c4",
       "name": "Change field name"
     }
   ],
@@ -183,17 +184,17 @@
       ]
     }
   },
-  "active": false,
+  "active": true,
   "settings": {
     "executionOrder": "v1",
     "binaryMode": "separate",
     "availableInMCP": false
   },
-  "versionId": "d42dc23b-de76-415a-8c98-49289175cc89",
+  "versionId": "ed77b83c-5adc-46ee-9e61-90ece460edb9",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "7359c0c217c2f2526bf0a6c46f4839c44f96a0005dca2af79edc19e6ed7703f7"
+    "instanceId": "4436dab057415997b1e213a09c95779d30fd31c9c0911f2717b0dff86bc58428"
   },
-  "id": "ek3e0mYDSKDlee5F",
+  "id": "v5SpgiOEz7BCnLEA",
   "tags": []
 }
