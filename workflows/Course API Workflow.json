@@ -13,11 +13,11 @@
         224,
         0
       ],
-      "id": "4c69f1a1-8bb1-4d2d-b7f8-320e927453a3",
+      "id": "5dd729b3-595a-43be-85fa-6529571eedd3",
       "name": "Find documents",
       "credentials": {
         "mongoDb": {
-          "id": "HtD4Nt8obbMgCkbA",
+          "id": "YDwRGSFnFZwMGZ3A",
           "name": "MongoDB account"
         }
       }
@@ -34,11 +34,11 @@
         224,
         224
       ],
-      "id": "264e7033-a888-4933-aef0-e90e246d0f42",
+      "id": "d4c4c95b-983c-4655-8776-40b3ff38f582",
       "name": "Find documents1",
       "credentials": {
         "mongoDb": {
-          "id": "HtD4Nt8obbMgCkbA",
+          "id": "YDwRGSFnFZwMGZ3A",
           "name": "MongoDB account"
         }
       }
@@ -56,7 +56,7 @@
         0,
         0
       ],
-      "id": "a09b29b2-217b-41f9-ad81-a85bbb8a6ae5",
+      "id": "2696a9f1-24ab-4a7e-9800-f7628101be65",
       "name": "Get courses by userId",
       "webhookId": "d71cec1c-92e7-4aac-a066-4b314bc64450"
     },
@@ -73,7 +73,7 @@
         0,
         224
       ],
-      "id": "c5a79085-c155-4290-85a9-626bc8289fcd",
+      "id": "c8ba9d22-3e54-4f12-bd28-8a3e078fe0f9",
       "name": "Get courses by courseId",
       "webhookId": "d71cec1c-92e7-4aac-a066-4b314bc64450"
     },
@@ -90,7 +90,7 @@
         0,
         448
       ],
-      "id": "d077cfdf-9de0-42bd-97f6-2b13bae42174",
+      "id": "ee96e274-cf69-4640-b317-c56e16c88b05",
       "name": "Update course",
       "webhookId": "d71cec1c-92e7-4aac-a066-4b314bc64450"
     },
@@ -108,12 +108,12 @@
         448,
         448
       ],
-      "id": "bdb71178-6b36-4200-a274-6d6ce775a689",
+      "id": "719cf608-5348-4dc9-b0c1-b813eec181c4",
       "name": "Find and update documents",
       "alwaysOutputData": false,
       "credentials": {
         "mongoDb": {
-          "id": "HtD4Nt8obbMgCkbA",
+          "id": "YDwRGSFnFZwMGZ3A",
           "name": "MongoDB account"
         }
       }
@@ -130,7 +130,7 @@
         224,
         448
       ],
-      "id": "3acc3615-fe4b-4856-b654-8e2553bb81c8",
+      "id": "f9325814-7e49-422e-a11d-4a5270f9bd41",
       "name": "Edit Fields"
     },
     {
@@ -146,7 +146,7 @@
         0,
         768
       ],
-      "id": "5c0dc193-e4c6-4e47-9371-622bd56a49f9",
+      "id": "e48cd36d-04b8-49f4-ad60-50c61c9bb1a9",
       "name": "Generate new course",
       "webhookId": "d71cec1c-92e7-4aac-a066-4b314bc64450"
     },
@@ -162,7 +162,7 @@
         672,
         672
       ],
-      "id": "bec549c0-8bfc-4a3e-a7a9-45cdb5e448d9",
+      "id": "00c64c79-3021-4879-b885-ea4e34672e13",
       "name": "Edit Fields1"
     },
     {
@@ -178,12 +178,12 @@
         896,
         672
       ],
-      "id": "30afe3f1-1c07-48ad-bb1d-379ee1e3a63f",
+      "id": "12235b8a-2d3b-45ec-afb2-12bfb8585bee",
       "name": "Insert documents",
       "alwaysOutputData": false,
       "credentials": {
         "mongoDb": {
-          "id": "HtD4Nt8obbMgCkbA",
+          "id": "YDwRGSFnFZwMGZ3A",
           "name": "MongoDB account"
         }
       }
@@ -219,7 +219,7 @@
         224,
         768
       ],
-      "id": "bb86060a-d4a7-4f06-a43d-3ff58d0e579a",
+      "id": "f380b054-f01b-4440-8e7b-85f0caf34243",
       "name": "If"
     },
     {
@@ -236,7 +236,7 @@
         448,
         864
       ],
-      "id": "68e36311-ad3c-4eb5-893a-0cdc53e62d29",
+      "id": "e0bf245f-4ed0-473e-bb84-4da5009c3e53",
       "name": "error"
     },
     {
@@ -251,7 +251,7 @@
         1120,
         672
       ],
-      "id": "4b940923-9314-4b3d-9ffd-a96fc8fc2558",
+      "id": "877ae688-f2fd-4c27-8e46-fa261df731de",
       "name": "Respond to Webhook"
     },
     {
@@ -267,7 +267,7 @@
         0,
         1280
       ],
-      "id": "83b453c2-e2a0-4e90-abe3-e2149fbc4671",
+      "id": "eacc6bec-9aa3-4be7-9803-d9d40cf3116c",
       "name": "Next lesson",
       "webhookId": "d71cec1c-92e7-4aac-a066-4b314bc64450"
     },
@@ -282,7 +282,7 @@
         448,
         672
       ],
-      "id": "8c1d8ef9-8c8f-4e6f-ac24-e754aea92239",
+      "id": "7c1aea2d-f336-4fa8-bddd-18268c15b3a7",
       "name": "course uuid"
     },
     {
@@ -296,7 +296,7 @@
         224,
         1280
       ],
-      "id": "1e3bcd24-0907-4c5a-9fb4-c2518897c611",
+      "id": "c6f0bac7-e045-41fc-a146-57e86fca452d",
       "name": "lesson uuid"
     },
     {
@@ -312,12 +312,12 @@
         1344,
         1280
       ],
-      "id": "96b8bbba-736e-4153-9999-570a386206be",
+      "id": "70234a2a-1345-4d3b-9af4-23a09fcaea8f",
       "name": "Insert lesson",
       "alwaysOutputData": false,
       "credentials": {
         "mongoDb": {
-          "id": "HtD4Nt8obbMgCkbA",
+          "id": "YDwRGSFnFZwMGZ3A",
           "name": "MongoDB account"
         }
       }
@@ -334,11 +334,11 @@
         672,
         1360
       ],
-      "id": "c3d92e49-3c42-4f3c-907b-a1f56b327934",
+      "id": "baa3fcd1-1fa1-48c2-a1c9-7e4a2efb1232",
       "name": "Get course",
       "credentials": {
         "mongoDb": {
-          "id": "HtD4Nt8obbMgCkbA",
+          "id": "YDwRGSFnFZwMGZ3A",
           "name": "MongoDB account"
         }
       }
@@ -355,7 +355,7 @@
         448,
         1280
       ],
-      "id": "c4c43a57-ed03-4b38-81cf-7971fb3f755d",
+      "id": "6449a793-cf06-483a-8a50-9cd135e5c9ce",
       "name": "Generate empty lesson obj"
     },
     {
@@ -370,7 +370,7 @@
         896,
         1280
       ],
-      "id": "a15ad268-161e-4a62-b313-a71dcf53bf14",
+      "id": "5a1adc44-ade6-494f-a424-e5061400ef83",
       "name": "Merge"
     },
     {
@@ -386,7 +386,7 @@
         1120,
         1280
       ],
-      "id": "ce2b969f-b153-464b-b743-a6bebc19e218",
+      "id": "32d51ace-e1ec-484f-acab-f1bd25244a41",
       "name": "Update lessonId"
     },
     {
@@ -403,12 +403,12 @@
         1344,
         1088
       ],
-      "id": "2abb806b-f3e2-49a1-9c52-b7ed8fd58b50",
+      "id": "40cddb8d-e5d1-42f8-a34d-001c825b328d",
       "name": "Update lessonIds",
       "alwaysOutputData": false,
       "credentials": {
         "mongoDb": {
-          "id": "HtD4Nt8obbMgCkbA",
+          "id": "YDwRGSFnFZwMGZ3A",
           "name": "MongoDB account"
         }
       }
@@ -421,7 +421,7 @@
         1568,
         1184
       ],
-      "id": "0105fb8d-58de-49aa-8536-a423a9634a7b",
+      "id": "63fd0957-6789-4f13-9812-024d2168085d",
       "name": "Merge1"
     },
     {
@@ -437,7 +437,7 @@
         1792,
         1184
       ],
-      "id": "4e2734c3-a058-4e17-9dd5-98bb441eaa86",
+      "id": "2e4e9549-83e3-4001-9f00-56ca7d2ffd2e",
       "name": "Respond to Webhook1"
     },
     {
@@ -460,7 +460,7 @@
         1344,
         1472
       ],
-      "id": "1d4b3687-760d-4ffe-87e6-55511916e2e9",
+      "id": "31df6705-4ac2-41c0-a5d1-a55b88d89f9d",
       "name": "HTTP Request"
     },
     {
@@ -472,10 +472,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        224,
+        448,
         1696
       ],
-      "id": "22952c44-ae56-4f58-b715-00642c410985",
+      "id": "dc0b3176-d369-4599-b311-2d8179419aca",
       "name": "Status \"GENERATING\""
     },
     {
@@ -489,14 +489,14 @@
       "type": "n8n-nodes-base.mongoDb",
       "typeVersion": 1.2,
       "position": [
-        448,
+        672,
         1696
       ],
-      "id": "51292b1c-6beb-457a-9c8f-bd5181232e00",
+      "id": "55362ffb-594c-414e-a279-c30ea612009b",
       "name": "Update status",
       "credentials": {
         "mongoDb": {
-          "id": "HtD4Nt8obbMgCkbA",
+          "id": "YDwRGSFnFZwMGZ3A",
           "name": "MongoDB account"
         }
       }
@@ -510,10 +510,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        896,
-        1792
+        1120,
+        1888
       ],
-      "id": "9cb88472-530e-4e0a-89ea-7a7a0b322e47",
+      "id": "3a07e88a-c994-477f-9d43-eb2dfaa37c6d",
       "name": "Status \"IN_PROGRESS\""
     },
     {
@@ -527,22 +527,79 @@
       "type": "n8n-nodes-base.mongoDb",
       "typeVersion": 1.2,
       "position": [
-        1120,
-        1792
+        1344,
+        1888
       ],
-      "id": "fbcf66a6-55ec-4f30-bb8a-c41f723ede67",
+      "id": "adb317a7-de30-4ae8-accb-cae04edacf04",
       "name": "Update outline and status",
       "credentials": {
         "mongoDb": {
-          "id": "HtD4Nt8obbMgCkbA",
+          "id": "YDwRGSFnFZwMGZ3A",
           "name": "MongoDB account"
         }
       }
     },
     {
       "parameters": {
+        "httpMethod": "POST",
+        "path": "generate/:courseId",
+        "options": {
+          "responseCode": {
+            "values": {
+              "responseCode": 201
+            }
+          },
+          "responseData": "outline generation started"
+        }
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        1888
+      ],
+      "id": "4b929d3c-7edf-4ed1-9a0b-6ace69d56d72",
+      "name": "Generate",
+      "webhookId": "fb9d491c-0a9a-4068-a180-4f4ef76a4017"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "a8cea6b5-6d57-4923-8da7-916e6478356d",
+              "leftValue": "={{ $binary.materials }}",
+              "rightValue": "",
+              "operator": {
+                "type": "object",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        224,
+        1984
+      ],
+      "id": "83c7154b-79e0-4228-b980-7dbd31bcc396",
+      "name": "Check Materials"
+    },
+    {
+      "parameters": {
         "method": "POST",
-        "url": "http://localhost:5678/webhook/generate-outline",
+        "url": "http://localhost:5678/webhook-test/generate-outline",
         "sendHeaders": true,
         "headerParameters": {
           "parameters": [
@@ -562,7 +619,49 @@
             },
             {
               "name": "notes_from_mentor",
-              "value": "={{ $json.body.notesFromMentor }}"
+              "value": "={{ $json.body.notes_from_mentor }}"
+            },
+            {
+              "name": "cunet_id",
+              "value": "={{ $json.body.cunet_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        448,
+        2080
+      ],
+      "id": "13ae97ba-2a6a-45cd-ad7a-d74fb7a723bd",
+      "name": "Outline Generator (without materials)"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:5678/webhook-test/generate-outline",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "multipart/form-data"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "goal",
+              "value": "={{ $json.body.goal }}"
+            },
+            {
+              "name": "notes_from_mentor",
+              "value": "={{ $json.body.notes_from_mentor }}"
             },
             {
               "name": "cunet_id",
@@ -583,8 +682,8 @@
         448,
         1888
       ],
-      "id": "c823e941-555e-4535-ac22-4fc1b524d128",
-      "name": "Outline Generator"
+      "id": "deae0fd6-a544-4c2e-9725-1cbbb8104cba",
+      "name": "Outline Generator (with materials)"
     },
     {
       "parameters": {
@@ -595,34 +694,11 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.2,
       "position": [
-        672,
-        1792
+        896,
+        1888
       ],
-      "id": "8e0984ba-49c7-411c-8515-1d267679696a",
-      "name": "Merge2"
-    },
-    {
-      "parameters": {
-        "httpMethod": "POST",
-        "path": "generate/:courseId",
-        "options": {
-          "responseCode": {
-            "values": {
-              "responseCode": 201
-            }
-          },
-          "responseData": "outline generation started"
-        }
-      },
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2.1,
-      "position": [
-        0,
-        1792
-      ],
-      "id": "e996b54c-ead3-4a9f-8361-d1453f823487",
-      "name": "Generate",
-      "webhookId": "fb9d491c-0a9a-4068-a180-4f4ef76a4017"
+      "id": "f133ffcf-8426-4618-bb4e-47c50c6bbeb9",
+      "name": "Merge CourseId and Outline"
     }
   ],
   "pinData": {},
@@ -862,7 +938,7 @@
       "main": [
         [
           {
-            "node": "Merge2",
+            "node": "Merge CourseId and Outline",
             "type": "main",
             "index": 0
           }
@@ -880,28 +956,6 @@
         ]
       ]
     },
-    "Outline Generator": {
-      "main": [
-        [
-          {
-            "node": "Merge2",
-            "type": "main",
-            "index": 1
-          }
-        ]
-      ]
-    },
-    "Merge2": {
-      "main": [
-        [
-          {
-            "node": "Status \"IN_PROGRESS\"",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Generate": {
       "main": [
         [
@@ -911,7 +965,58 @@
             "index": 0
           },
           {
-            "node": "Outline Generator",
+            "node": "Check Materials",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check Materials": {
+      "main": [
+        [
+          {
+            "node": "Outline Generator (with materials)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Outline Generator (without materials)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Outline Generator (without materials)": {
+      "main": [
+        [
+          {
+            "node": "Merge CourseId and Outline",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Outline Generator (with materials)": {
+      "main": [
+        [
+          {
+            "node": "Merge CourseId and Outline",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge CourseId and Outline": {
+      "main": [
+        [
+          {
+            "node": "Status \"IN_PROGRESS\"",
             "type": "main",
             "index": 0
           }
@@ -919,17 +1024,17 @@
       ]
     }
   },
-  "active": true,
+  "active": false,
   "settings": {
     "executionOrder": "v1",
     "binaryMode": "separate",
     "availableInMCP": false
   },
-  "versionId": "a23ac730-be1c-4d9a-9fc3-72403fb2e57b",
+  "versionId": "8fc1cb54-e6b7-458b-9302-9be88144f400",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "4436dab057415997b1e213a09c95779d30fd31c9c0911f2717b0dff86bc58428"
+    "instanceId": "223bb2c504970140670b1688bb32145e3b1167df6033e11336f4b76346217546"
   },
-  "id": "AGgBKqTiV2ieyZUQ",
+  "id": "1KstaG3LVe2RiCTQLFg0H",
   "tags": []
 }

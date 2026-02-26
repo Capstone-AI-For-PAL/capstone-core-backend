@@ -3,6 +3,159 @@
   "nodes": [
     {
       "parameters": {
+        "httpMethod": "POST",
+        "path": "generate-outline",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -176,
+        96
+      ],
+      "id": "217404e3-8949-40cf-8891-ae72fdfd2d5c",
+      "name": "Webhook",
+      "webhookId": "545bbbef-0c01-4813-a97a-e5d780cb2cea"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.data }}\n\nJust send this to the output parser to convert the data to the specified format.",
+        "hasOutputParser": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        496,
+        96
+      ],
+      "id": "e04e4057-ffec-4c2c-8b3f-dabf68cac550",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-flash-latest",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        504,
+        320
+      ],
+      "id": "f187182e-c943-4356-902d-fd789dcfb1ea",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "vZYv2abav2dS2ojA",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"summary\": \"...\",\n  \"total_lessons\": 24,\n  \"lessons\": [\n    {\n      \"title\": \"Introduction\",\n      \"total_slides\": 15,\n      \"slides\": [\n        {\n          \"title\": \"...\",\n          \"content\": [\"...\"]\n        }\n      ]\n    }\n  ]\n}\n"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        632,
+        320
+      ],
+      "id": "fcdceb49-0712-4313-8a67-4963888a40c8",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n  \"outline\": {{ $json.output }}\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        848,
+        96
+      ],
+      "id": "e66e00b6-445a-42e5-9b84-27f37e7a8a84",
+      "name": "Change field name"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "92f82b09-6d2b-4beb-857a-eabca9e35526",
+              "leftValue": "={{ $binary.materials }}",
+              "rightValue": "",
+              "operator": {
+                "type": "object",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        48,
+        96
+      ],
+      "id": "fe93e5a9-62e4-4f46-92f2-3a6dd47753af",
+      "name": "Check Materials"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://llm-service:8080/chat",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "multipart/form-data"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "messages",
+              "value": "=[         {              \"role\": \"system\",              \"content\": \"You are an expert curriculum designer and instructional strategist.\\n\\nYour task is to generate a detailed slide outline for a course or lecture based on:\\n\\nINPUTS:\\n1) Student Goal – A structured description of what students expect to achieve.\\n2) Curriculum – Topics, constraints, duration, level, prerequisites, or required standards.\\n3) Uploaded Files – Reference materials (e.g., PDF slides, textbook excerpts, lecture notes). These must be used as grounding material and structure guidance.\\n\\nOBJECTIVE:\\nGenerate a detailed slide-by-slide outline that aligns with:\\n- The students' goals\\n- The provided curriculum\\n- The uploaded reference materials\\n\\nOUTPUT REQUIREMENTS:\\n\\n1. First, briefly summarize:\\n   - Target audience level\\n   - Learning objectives (refined and clarified if needed)\\n   - Total recommended number of slides\\n   - Estimated duration\\n\\n2. Then generate a structured slide outline in the following format:\\n\\n-----------------------------------\\nSection Title\\n-----------------------------------\\n\\nSlide 1: Title\\n- Purpose of the slide\\n- Key concepts covered\\n- Bullet point content\\n- Suggested visual (diagram/chart/code/example/etc.)\\n- Teaching notes (optional but recommended)\\n\\nSlide 2: Title\\n- Purpose\\n- Key concepts\\n- Content bullets\\n- Suggested visual\\n- Teaching notes\\n\\nContinue until complete.\\n\\n3. Ensure:\\n- Logical progression from fundamentals → deeper understanding → application.\\n- Content difficulty matches student level.\\n- Slides are not overloaded.\\n- Complex topics are broken into multiple slides.\\n- Practical examples and exercises are included where appropriate.\\n- If PDF materials are provided, incorporate structure and terminology from them.\\n\\n4. If information is missing or unclear:\\n- Make reasonable academic assumptions.\\n- State those assumptions clearly before generating the outline.\\n\\n5. If the curriculum duration is provided:\\n- Adjust slide count proportionally.\\n- Include recap and Q&A slide at the end.\\n\\nTone:\\nProfessional, structured, instructional-design oriented.\\n\\nDO NOT:\\n- Generate full lecture scripts.\\n- Repeat the entire PDF content.\\n- Provide generic outlines without aligning to goals.\\n\\nOUTPUT FORMAT:\\nClear headings\\nNumbered slides\\nStructured bullet points\\nConcise but detailed enough to directly create slides from\"         },         {             \"role\": \"user\",             \"content\": \"You are an expert curriculum designer.\\n\\nStudent Goal:\\n{{ $json.body.goal }}\\n\\nNotes From Mentor:\\n{{ $json.body.notes_from_mentor }}\\n\\nReference Material: See the attached files\\n\\nGenerate a detailed slide outline with:\\n- total slide count\\n- section breakdown\\n- slide-by-slide detail\\n- suggested visuals\\n- teaching notes\"         }     ]"
+            },
+            {
+              "name": "cunet_id",
+              "value": "={{ $json.body.cunet_id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        272,
+        192
+      ],
+      "id": "8a79e453-8a53-4516-80f7-379b142e9334",
+      "name": "LLM Service (without materials)"
+    },
+    {
+      "parameters": {
         "method": "POST",
         "url": "http://llm-service:8080/chat",
         "sendHeaders": true,
@@ -38,92 +191,11 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        224,
+        272,
         0
       ],
-      "id": "0b3630a9-29dc-4327-a56b-82f7d9f3bc95",
-      "name": "HTTP Request"
-    },
-    {
-      "parameters": {
-        "httpMethod": "POST",
-        "path": "generate-outline",
-        "responseMode": "lastNode",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2.1,
-      "position": [
-        0,
-        0
-      ],
-      "id": "dcdb46fb-fdea-431e-8f07-62c6c8010c1b",
-      "name": "Webhook",
-      "webhookId": "545bbbef-0c01-4813-a97a-e5d780cb2cea"
-    },
-    {
-      "parameters": {
-        "promptType": "define",
-        "text": "={{ $json.data }}\n\nJust send this to the output parser to convert the data to the specified format.",
-        "hasOutputParser": true,
-        "options": {}
-      },
-      "type": "@n8n/n8n-nodes-langchain.agent",
-      "typeVersion": 3.1,
-      "position": [
-        448,
-        0
-      ],
-      "id": "cda3af4a-947f-4a6c-9162-8f17d2d3d75d",
-      "name": "AI Agent"
-    },
-    {
-      "parameters": {
-        "modelName": "models/gemini-flash-latest",
-        "options": {}
-      },
-      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
-      "typeVersion": 1,
-      "position": [
-        464,
-        224
-      ],
-      "id": "6d247e9f-9342-46a5-9da5-fad048daadc3",
-      "name": "Google Gemini Chat Model",
-      "credentials": {
-        "googlePalmApi": {
-          "id": "fCKPlSoyz50wy8NZ",
-          "name": "Google Gemini(PaLM) Api account"
-        }
-      }
-    },
-    {
-      "parameters": {
-        "jsonSchemaExample": "{\n  \"summary\": \"...\",\n  \"total_lessons\": 24,\n  \"lessons\": [\n    {\n      \"title\": \"Introduction\",\n      \"total_slides\": 15,\n      \"slides\": [\n        {\n          \"title\": \"...\",\n          \"content\": [\"...\"]\n        }\n      ]\n    }\n  ]\n}\n"
-      },
-      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
-      "typeVersion": 1.3,
-      "position": [
-        592,
-        224
-      ],
-      "id": "041c1822-5983-4657-8227-793e64f3d4cb",
-      "name": "Structured Output Parser"
-    },
-    {
-      "parameters": {
-        "mode": "raw",
-        "jsonOutput": "={\n  \"outline\": {{ $json.output }}\n}",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        800,
-        0
-      ],
-      "id": "241339cc-68cf-4d07-b158-fd4a946e98c4",
-      "name": "Change field name"
+      "id": "46906737-a255-4478-a2ee-74e21e3c724f",
+      "name": "LLM Service (with materials)"
     }
   ],
   "pinData": {},
@@ -132,18 +204,7 @@
       "main": [
         [
           {
-            "node": "HTTP Request",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "HTTP Request": {
-      "main": [
-        [
-          {
-            "node": "AI Agent",
+            "node": "Check Materials",
             "type": "main",
             "index": 0
           }
@@ -182,19 +243,59 @@
           }
         ]
       ]
+    },
+    "Check Materials": {
+      "main": [
+        [
+          {
+            "node": "LLM Service (with materials)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "LLM Service (without materials)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LLM Service (without materials)": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LLM Service (with materials)": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
-  "active": true,
+  "active": false,
   "settings": {
     "executionOrder": "v1",
     "binaryMode": "separate",
     "availableInMCP": false
   },
-  "versionId": "ed77b83c-5adc-46ee-9e61-90ece460edb9",
+  "versionId": "7cd2f764-90ef-4f40-b537-53b91f0bc2be",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "4436dab057415997b1e213a09c95779d30fd31c9c0911f2717b0dff86bc58428"
+    "instanceId": "223bb2c504970140670b1688bb32145e3b1167df6033e11336f4b76346217546"
   },
-  "id": "v5SpgiOEz7BCnLEA",
+  "id": "KZoB0THpJaiv6qGhByL2Q",
   "tags": []
 }
