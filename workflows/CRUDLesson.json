@@ -1,0 +1,205 @@
+{
+  "name": "CRUDLesson",
+  "nodes": [
+    {
+      "parameters": {
+        "collection": "lessons",
+        "options": {},
+        "query": "={ \"lessonId\": \"{{ $json._id }}\" }"
+      },
+      "type": "n8n-nodes-base.mongoDb",
+      "typeVersion": 1.2,
+      "position": [
+        416,
+        0
+      ],
+      "id": "c7becd63-4a4c-480f-a776-8288e6f5ed5a",
+      "name": "Find documents",
+      "credentials": {
+        "mongoDb": {
+          "id": "pWePL90dwTVGzXVd",
+          "name": "MongoDB account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "0ec37572-9abd-4d18-afdb-c2a8e55ae6cb",
+              "name": "_id",
+              "value": "={{ $json.params.lessonId }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        208,
+        0
+      ],
+      "id": "9b744db2-360c-46fc-9510-28daa926229e",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "collection": "lessons",
+        "updateKey": "lessonId",
+        "fields": "status,slide_URL,audio_URLs",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mongoDb",
+      "typeVersion": 1.2,
+      "position": [
+        432,
+        208
+      ],
+      "id": "f25a9c66-2886-4bb6-b85e-a7673f8756d2",
+      "name": "Update documents",
+      "credentials": {
+        "mongoDb": {
+          "id": "pWePL90dwTVGzXVd",
+          "name": "MongoDB account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "d80974b2-309b-4659-8074-c26a51ea9c54",
+              "name": "lessonId",
+              "value": "={{ $json.body.lessonId }}",
+              "type": "string"
+            },
+            {
+              "id": "7fd42889-132f-4cea-bdcf-e6a574f36865",
+              "name": "status",
+              "value": "={{ $json.body.status }}",
+              "type": "string"
+            },
+            {
+              "id": "966c6f5e-28ae-48f3-aca0-3475b1c9c7e9",
+              "name": "slide_URL",
+              "value": "={{ $json.body.slide_URL }}",
+              "type": "string"
+            },
+            {
+              "id": "516decd0-e0b7-4305-a177-9f2b00e07ec8",
+              "name": "audio_URLs",
+              "value": "={{ $json.body.audio_URLs }}",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        224,
+        208
+      ],
+      "id": "a0be501f-58af-4aec-8c8d-d33b4d785ad0",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "httpMethod": "PUT",
+        "path": "lessons/:lessonId",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        16,
+        208
+      ],
+      "id": "8e0bfd5d-1011-43c7-afbe-4f5104bd40a4",
+      "name": "PUTLesson",
+      "webhookId": "c2c79d4b-b56d-4fdc-8aba-96e34d5f2a13"
+    },
+    {
+      "parameters": {
+        "path": "lessons/:lessonId",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "4a917e63-d4ad-4ed5-a7c9-80b36142bbcd",
+      "name": "GetOneLesson",
+      "webhookId": "a7d64218-010b-4ff0-a255-3ea4f9d23c26"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Find documents",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Update documents",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PUTLesson": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GetOneLesson": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "versionId": "97062183-59f0-4d05-a097-800e383b8011",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "dacf661d18952437dcd120ba832369f336608e51c4a96e821e930948a4d1e07e"
+  },
+  "id": "iiOeC1mV39qJY9suE9XdH",
+  "tags": []
+}
