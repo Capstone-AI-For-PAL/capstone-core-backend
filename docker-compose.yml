@@ -13,7 +13,7 @@ services:
       - ./workflows:/workflows
     restart: unless-stopped
 
-  slide_generator:
+  slide-generator:
     build:
       context: slide-generator
       dockerfile: Dockerfile
