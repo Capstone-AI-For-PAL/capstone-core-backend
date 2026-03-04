@@ -35,7 +35,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        992,
+        1120,
         256
       ],
       "id": "44c9e100-acaf-41f3-955a-0000c118fee2",
@@ -44,7 +44,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "http://slide_generator:5000/generate",
+        "url": "http://slide-generator:5000/generate",
         "sendBody": true,
         "bodyParameters": {
           "parameters": [
@@ -59,7 +59,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        736,
+        880,
         16
       ],
       "id": "da87c093-3fee-44b8-a119-3c5555be49fe",
@@ -72,7 +72,7 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1312,
+        1328,
         256
       ],
       "id": "27b6992a-73fe-4f2b-8134-5783fe96d8a9",
@@ -86,25 +86,11 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        1616,
+        1520,
         256
       ],
       "id": "2e52e1ce-c951-4a53-915d-0ca6c7cf29ea",
       "name": "Split Out"
-    },
-    {
-      "parameters": {
-        "amount": 1
-      },
-      "type": "n8n-nodes-base.wait",
-      "typeVersion": 1.1,
-      "position": [
-        2800,
-        352
-      ],
-      "id": "f6be3185-3f92-4a89-8d37-2e4503020755",
-      "name": "Wait",
-      "webhookId": "690b270f-fd81-4f0e-b15e-ae83ab241129"
     },
     {
       "parameters": {
@@ -113,7 +99,7 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        2128,
+        1776,
         256
       ],
       "id": "1bbb8ea2-2b56-48cf-b46f-0cdd9f700748",
@@ -131,7 +117,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        2352,
+        2000,
         352
       ],
       "id": "a7fd7819-fd97-4586-8ed1-7d35f77657ce",
@@ -202,8 +188,8 @@
       "type": "n8n-nodes-base.mongoDb",
       "typeVersion": 1.2,
       "position": [
-        1568,
-        -16
+        1520,
+        16
       ],
       "id": "16eb7b6c-8c13-4045-88a0-936a21c87abf",
       "name": "Update documents",
@@ -253,7 +239,7 @@
       "type": "n8n-nodes-base.awsS3",
       "typeVersion": 2,
       "position": [
-        2576,
+        2224,
         352
       ],
       "id": "69429433-3905-4d46-a9f2-00cbb8085a99",
@@ -263,7 +249,8 @@
           "id": "dxBCP5LgruhUqTMg",
           "name": "AWS (IAM) account"
         }
-      }
+      },
+      "onError": "continueRegularOutput"
     },
     {
       "parameters": {
@@ -275,8 +262,8 @@
       "type": "n8n-nodes-base.awsS3",
       "typeVersion": 2,
       "position": [
-        992,
-        -16
+        1120,
+        16
       ],
       "id": "bfd32198-585c-4727-bc8d-05fcab0bac4f",
       "name": "Slide Upload",
@@ -299,8 +286,8 @@
       "type": "n8n-nodes-base.mongoDb",
       "typeVersion": 1.2,
       "position": [
-        2656,
-        112
+        2192,
+        160
       ],
       "id": "a8b77def-54c7-4fc7-9317-b299cb0e40e3",
       "name": "Update documents1",
@@ -318,8 +305,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2464,
-        112
+        2000,
+        160
       ],
       "id": "1725bea2-a147-42f4-aba8-452e22cb346c",
       "name": "Code in JavaScript2"
@@ -331,8 +318,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1376,
-        -16
+        1328,
+        16
       ],
       "id": "90342d86-99a7-4d41-8212-53b17e353360",
       "name": "PrepareUpdateLessonSlide"
@@ -480,6 +467,100 @@
       ],
       "id": "f133fe02-4db0-4375-8b06-4852d22c8ea4",
       "name": "SlideMarpGenerator"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://slide-generator:5000/generate",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "markdown",
+              "value": "={{ $json.output }}"
+            },
+            {
+              "name": "fileType",
+              "value": "pptx"
+            }
+          ]
+        },
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        704,
+        -160
+      ],
+      "id": "fe1ac22e-8593-41c8-a7f6-e2f91d6d3d94",
+      "name": "GenerateSlidePPTX",
+      "onError": "continueErrorOutput"
+    },
+    {
+      "parameters": {
+        "operation": "upload",
+        "bucketName": "capstone-ai-education",
+        "fileName": "={{ $('prepare').item.json._id }}/slide.pptx",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.awsS3",
+      "typeVersion": 2,
+      "position": [
+        1120,
+        -176
+      ],
+      "id": "cd03a345-1da3-4ead-8367-997b30641815",
+      "name": "PPTXUpload",
+      "credentials": {
+        "aws": {
+          "id": "dxBCP5LgruhUqTMg",
+          "name": "AWS (IAM) account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const lesson_id = $('prepare').first().json._id\n\nreturn { \n  pptxSlideURL: `https://capstone-ai-education.s3.amazonaws.com/${lesson_id}/slide.pptx`,\n  \"_id\": lesson_id\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1328,
+        -176
+      ],
+      "id": "0a515fec-8b00-46a2-917b-ce20f262dd7e",
+      "name": "PrepareUpdateLessonSlide1"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "collection": "lessons",
+        "updateKey": "=_id",
+        "fields": "=pptxSlideURL",
+        "upsert": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mongoDb",
+      "typeVersion": 1.2,
+      "position": [
+        1536,
+        -176
+      ],
+      "id": "11bfa588-7bbc-4dfd-935f-3cf4a75e69e6",
+      "name": "Update documents2",
+      "credentials": {
+        "mongoDb": {
+          "id": "pWePL90dwTVGzXVd",
+          "name": "MongoDB account"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -523,17 +604,6 @@
       ]
     },
     "Split Out": {
-      "main": [
-        [
-          {
-            "node": "Loop",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Wait": {
       "main": [
         [
           {
@@ -615,7 +685,7 @@
       "main": [
         [
           {
-            "node": "Wait",
+            "node": "Loop",
             "type": "main",
             "index": 0
           }
@@ -695,6 +765,11 @@
             "node": "GenerateSlide",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "GenerateSlidePPTX",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -720,6 +795,46 @@
           }
         ]
       ]
+    },
+    "GenerateSlidePPTX": {
+      "main": [
+        [
+          {
+            "node": "PPTXUpload",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "GenerateSlide",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PPTXUpload": {
+      "main": [
+        [
+          {
+            "node": "PrepareUpdateLessonSlide1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PrepareUpdateLessonSlide1": {
+      "main": [
+        [
+          {
+            "node": "Update documents2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": true,
@@ -727,7 +842,7 @@
     "executionOrder": "v1",
     "availableInMCP": false
   },
-  "versionId": "7808c9ba-95cc-4896-93ef-1ae6bb40b6a0",
+  "versionId": "14a8c49b-d147-4b2a-aec9-463a1960c8b5",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "dacf661d18952437dcd120ba832369f336608e51c4a96e821e930948a4d1e07e"
