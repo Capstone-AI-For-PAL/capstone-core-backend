@@ -113,7 +113,7 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        2096,
+        2128,
         256
       ],
       "id": "1bbb8ea2-2b56-48cf-b46f-0cdd9f700748",
@@ -147,7 +147,7 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
-        -224,
+        -384,
         16
       ],
       "id": "16b1ace1-dc7c-437c-a608-5cc51c379900",
@@ -156,32 +156,17 @@
     },
     {
       "parameters": {
-        "options": {
-          "responseCode": 201
-        }
-      },
-      "type": "n8n-nodes-base.respondToWebhook",
-      "typeVersion": 1.5,
-      "position": [
-        128,
-        16
-      ],
-      "id": "82ab2d94-d0ee-4398-b340-00d2597e1d4e",
-      "name": "Respond to Webhook"
-    },
-    {
-      "parameters": {
         "promptType": "define",
-        "text": "={{ $json.slides }}",
+        "text": "={{ $json.data }}",
         "options": {
-          "systemMessage": "=Create a presentation in Marp Markdown format based on the following input.\n\n\n\nSTRICT LAYOUT RULES:\n\n1. Frontmatter: The very first lines of your response MUST be the YAML frontmatter provided below. Do not include any text, greetings, or \"Sure, here is your presentation\" before it.\n\n2. Content Splitting: You MUST create a NEW SLIDE (using '---') for every distinct section or major topic.\n\n3. \"One Header\" Rule: Never put two \"## H2 Headers\" on the same slide. If you start a new ## Header, you MUST put '---' before it.\n\n4. Bullet Limits: Maximum 5 bullet points per slide. If there are more, split them into two slides (e.g., \"Key Areas Part 1\" and \"Key Areas Part 2\").\n\n5. Output raw Markdown text only. Do not use markdown code blocks (```). Ensure the first line of the output is the opening '---' of the frontmatter.\n\n\n\n---\n\nmarp: true\n\ntheme: default\n\npaginate: true\n\nsize: 16:9\n\nstyle: |\n\n  section {\n\n    font-size: 25px;\n\n    padding: 40px;\n\n    justify-content: center; /* Keeps content centered vertically */\n\n  }\n\n  h1 {\n\n    font-size: 50px;\n\n    color: #0288d1;\n\n  }\n\n  h2 {\n\n    font-size: 35px;\n\n    color: #333;\n\n  }\n\n---\n\n\n\nInput Data: {{ $json.slides }}"
+          "systemMessage": "=Create a presentation in Marp Markdown format based on the following input.\n\n\n\nSTRICT LAYOUT RULES:\n\n1. Frontmatter: The very first lines of your response MUST be the YAML frontmatter provided below. Do not include any text, greetings, or \"Sure, here is your presentation\" before it.\n\n2. Content Splitting: You MUST create a NEW SLIDE (using '---') for every distinct section or major topic.\n\n3. \"One Header\" Rule: Never put two \"## H2 Headers\" on the same slide. If you start a new ## Header, you MUST put '---' before it.\n\n4. Bullet Limits: Maximum 5 bullet points per slide. If there are more, split them into two slides (e.g., \"Key Areas Part 1\" and \"Key Areas Part 2\").\n\n5. Output raw Markdown text only. Do not use markdown code blocks (```). Ensure the first line of the output is the opening '---' of the frontmatter.\n\n\n\n---\n\nmarp: true\n\ntheme: default\n\npaginate: true\n\nsize: 16:9\n\nstyle: |\n\n  section {\n\n    font-size: 25px;\n\n    padding: 40px;\n\n    justify-content: center; /* Keeps content centered vertically */\n\n  }\n\n  h1 {\n\n    font-size: 50px;\n\n    color: #0288d1;\n\n  }\n\n  h2 {\n\n    font-size: 35px;\n\n    color: #333;\n\n  }\n\n---\n\n\n\nInput Data: {{ $json.data }}"
         }
       },
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 3.1,
       "position": [
-        336,
-        16
+        464,
+        368
       ],
       "id": "45541eeb-d553-40da-a6aa-ecf1fe2229e3",
       "name": "AI Agent"
@@ -193,52 +178,38 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
       "typeVersion": 1,
       "position": [
-        320,
-        192
+        464,
+        560
       ],
       "id": "92440d3b-3ddd-4759-8e75-75677a29ebec",
       "name": "Google Gemini Chat Model",
       "credentials": {
         "googlePalmApi": {
-          "id": "fCKPlSoyz50wy8NZ",
+          "id": "nkjyjxzIkBKuhyZh",
           "name": "Google Gemini(PaLM) Api account"
         }
       }
     },
     {
       "parameters": {
-        "mode": "chooseBranch",
-        "output": "empty"
-      },
-      "type": "n8n-nodes-base.merge",
-      "typeVersion": 3.2,
-      "position": [
-        2320,
-        0
-      ],
-      "id": "c7ebca8c-8f42-40b3-98c7-a21bc7453064",
-      "name": "Merge"
-    },
-    {
-      "parameters": {
         "operation": "update",
         "collection": "lessons",
-        "updateKey": "=lessonId",
-        "fields": "=status,audio_URLs,slide_URL",
+        "updateKey": "=_id",
+        "fields": "=status,slideURL,slideStatus",
         "upsert": true,
         "options": {}
       },
       "type": "n8n-nodes-base.mongoDb",
       "typeVersion": 1.2,
       "position": [
-        2720,
-        0
+        1568,
+        -16
       ],
       "id": "16eb7b6c-8c13-4045-88a0-936a21c87abf",
       "name": "Update documents",
       "credentials": {
         "mongoDb": {
-          "id": "HtD4Nt8obbMgCkbA",
+          "id": "pWePL90dwTVGzXVd",
           "name": "MongoDB account"
         }
       }
@@ -250,7 +221,7 @@
             {
               "id": "c73f8e8e-dbb8-463f-b0b5-939b62a7a737",
               "name": "_id",
-              "value": "={{ $json.body.lessonId }}",
+              "value": "={{ $json.body.lesson_id }}",
               "type": "string"
             },
             {
@@ -266,7 +237,7 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -32,
+        -192,
         16
       ],
       "id": "c9bd7191-c6d8-41eb-9a1d-2beeb926ba84",
@@ -289,7 +260,7 @@
       "name": "Audio Upload",
       "credentials": {
         "aws": {
-          "id": "93iP6G6TRWMwPuIA",
+          "id": "dxBCP5LgruhUqTMg",
           "name": "AWS (IAM) account"
         }
       }
@@ -311,23 +282,204 @@
       "name": "Slide Upload",
       "credentials": {
         "aws": {
-          "id": "93iP6G6TRWMwPuIA",
+          "id": "dxBCP5LgruhUqTMg",
           "name": "AWS (IAM) account"
         }
       }
     },
     {
       "parameters": {
-        "jsCode": "let audioURLs = []\nconst lesson_id = $('prepare').first().json._id\nfor (let i = 0; i < $('Code in JavaScript').first().json.script.length; i++) {\n  const url =`https://capstone-ai-education.s3.amazonaws.com/${lesson_id}/audio/audio_${i+1}.wav`\n  audioURLs.push(url)\n}\n\nreturn { \n  \"audio_URLs\": audioURLs, \n  \"slide_URL\": `https://capstone-ai-education.s3.amazonaws.com/${lesson_id}/slide.pdf`,\n  \"lessonId\": lesson_id,\n  \"status\": \"IN_PROGRESS\"\n};"
+        "operation": "update",
+        "collection": "lessons",
+        "updateKey": "=_id",
+        "fields": "=audioURLs,audioStatus",
+        "upsert": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mongoDb",
+      "typeVersion": 1.2,
+      "position": [
+        2656,
+        112
+      ],
+      "id": "a8b77def-54c7-4fc7-9317-b299cb0e40e3",
+      "name": "Update documents1",
+      "credentials": {
+        "mongoDb": {
+          "id": "pWePL90dwTVGzXVd",
+          "name": "MongoDB account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "let audioURLs = []\nconst lesson_id = $('prepare').first().json._id\nfor (let i = 0; i < $('Code in JavaScript').first().json.script.length; i++) {\n  const url =`https://capstone-ai-education.s3.amazonaws.com/${lesson_id}/audio/audio_${i}.wav`\n  audioURLs.push(url)\n}\n\nreturn { \n  audioURLs, \n  \"_id\": lesson_id,\n  audioStatus: \"GENERATED\"\n};"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2528,
-        0
+        2464,
+        112
+      ],
+      "id": "1725bea2-a147-42f4-aba8-452e22cb346c",
+      "name": "Code in JavaScript2"
+    },
+    {
+      "parameters": {
+        "jsCode": "const lesson_id = $('prepare').first().json._id\n\nreturn { \n  slideURL: `https://capstone-ai-education.s3.amazonaws.com/${lesson_id}/slide.pdf`,\n  \"_id\": lesson_id,\n  \"status\": \"IN_PROGRESS\",\n  \"slideStatus\": \"GENERATED\"\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1376,
+        -16
       ],
       "id": "90342d86-99a7-4d41-8212-53b17e353360",
-      "name": "Code in JavaScript1"
+      "name": "PrepareUpdateLessonSlide"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://llm-service:8080/chat",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {}
+          ]
+        },
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "cunet_id",
+              "value": "6532155621"
+            },
+            {
+              "name": "messages",
+              "value": "={{ \n  JSON.stringify([{\n    \"role\": \"user\",\n    \"content\": `Act as an expert curriculum designer. I am providing you with an outline for a presentation in JSON format. Your task is to expand this into a highly detailed, text-heavy presentation that contains enough material to fill a 10-minute lecture.\n\nHere is the outline:\n${JSON.stringify($json.slides)}\n\nI do NOT want brief summaries or speaker notes. I want the slides themselves to be packed with comprehensive information. \n\nFor EVERY slide in the outline, generate the following structure:\n1. Slide Title: (Clear and descriptive).\n2. Slide Content: (This MUST be highly detailed and text-heavy. Provide 2 to 6 main bullet points. Include sub-bullets, full-sentence explanations, detailed step-by-step examples, and real-world context directly in this section. Do not hold back information; write everything the audience needs to know directly onto the slide).\n3. Each slide content should be distributed, if the content is too much, you can split them into separate slides so that it does not overflow.`\n  }]) \n}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        160,
+        16
+      ],
+      "id": "3acec40d-9694-4151-909d-a91f1895f194",
+      "name": "SlideContentGenerator"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.slides }}",
+        "options": {
+          "systemMessage": "={{ \n  JSON.stringify([{\n    \"role\": \"user\",\n    \"content\": `Act as an expert curriculum designer. I am providing you with an outline for a presentation in JSON format. Your task is to expand this into a highly detailed, text-heavy presentation that contains enough material to fill a 10-minute lecture.\n\nHere is the outline:\n${JSON.stringify($json.slides)}\n\nI do NOT want brief summaries or speaker notes. I want the slides themselves to be packed with comprehensive information. \n\nFor EVERY slide in the outline, generate the following structure:\n1. Slide Title: (Clear and descriptive).\n2. Slide Content: (This MUST be highly detailed and text-heavy. Provide 2 to 6 main bullet points. Include sub-bullets, full-sentence explanations, detailed step-by-step examples, and real-world context directly in this section. Do not hold back information; write everything the audience needs to know directly onto the slide).\n3. Each slide content should be distributed, if the content is too much, you can split them into separate slides so that it does not overflow.`\n  }]) \n}}"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        144,
+        368
+      ],
+      "id": "50a34444-7322-4de8-9c3b-cd8e2cb2def0",
+      "name": "AI Agent1"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        144,
+        544
+      ],
+      "id": "58311ef5-eb25-4fe2-8d48-1c825f612c33",
+      "name": "Google Gemini Chat Model1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "nkjyjxzIkBKuhyZh",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "98bb8c46-892e-4864-a574-c0424f444b71",
+              "name": "output",
+              "value": "={{ JSON.parse($json.data) }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        544,
+        16
+      ],
+      "id": "9a4a1784-44d3-4f87-8aa5-0f0cd0619d16",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "options": {
+          "responseCode": 201
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        -32,
+        16
+      ],
+      "id": "82ab2d94-d0ee-4398-b340-00d2597e1d4e",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://llm-service:8080/chat",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {}
+          ]
+        },
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "cunet_id",
+              "value": "6532155621"
+            },
+            {
+              "name": "messages",
+              "value": "={{ \n  JSON.stringify([{\n    \"role\": \"user\",\n    \"content\": `Create a presentation in Marp Markdown format based on the following input.\n\nSTRICT LAYOUT RULES:\n1. Frontmatter: The very first lines of your response MUST be the YAML frontmatter provided below. Do not include any text, greetings, or \"Sure, here is your presentation\" before it.\n2. Content Splitting: You MUST create a NEW SLIDE (using '---') for every distinct section or major topic.\n3. \"One Header\" Rule: Never put two \"## H2 Headers\" on the same slide. If you start a new ## Header, you MUST put '---' before it.\n4. Bullet Limits: Maximum 5 bullet points per slide. If there are more, split them into two slides (e.g., \"Key Areas Part 1\" and \"Key Areas Part 2\").\n5. Output raw Markdown text only. Do not use markdown code blocks (\\`\\`\\`). Ensure the first line of the output is the opening '---' of the frontmatter.\n\n---\nmarp: true\ntheme: default\npaginate: true\nsize: 16:9\nstyle: |\n  section {\n    font-size: 25px;\n    padding: 40px;\n    justify-content: center; /* Keeps content centered vertically */\n  }\n  h1 {\n    font-size: 50px;\n    color: #0288d1;\n  }\n  h2 {\n    font-size: 35px;\n    color: #333;\n  }\n---\n\nInput Data: ${$json.data}`\n  }])\n}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        352,
+        16
+      ],
+      "id": "f133fe02-4db0-4375-8b06-4852d22c8ea4",
+      "name": "SlideMarpGenerator"
     }
   ],
   "pinData": {},
@@ -396,9 +548,9 @@
       "main": [
         [
           {
-            "node": "Merge",
+            "node": "Code in JavaScript2",
             "type": "main",
-            "index": 1
+            "index": 0
           }
         ],
         [
@@ -432,17 +584,6 @@
         ]
       ]
     },
-    "Respond to Webhook": {
-      "main": [
-        [
-          {
-            "node": "AI Agent",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Google Gemini Chat Model": {
       "ai_languageModel": [
         [
@@ -456,24 +597,7 @@
     },
     "AI Agent": {
       "main": [
-        [
-          {
-            "node": "GenerateSlide",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Merge": {
-      "main": [
-        [
-          {
-            "node": "Code in JavaScript1",
-            "type": "main",
-            "index": 0
-          }
-        ]
+        []
       ]
     },
     "prepare": {
@@ -502,23 +626,95 @@
       "main": [
         [
           {
-            "node": "Merge",
+            "node": "PrepareUpdateLessonSlide",
             "type": "main",
             "index": 0
           }
         ]
       ]
     },
-    "Code in JavaScript1": {
+    "Code in JavaScript2": {
+      "main": [
+        [
+          {
+            "node": "Update documents1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PrepareUpdateLessonSlide": {
       "main": [
         [
           {
             "node": "Update documents",
             "type": "main",
             "index": 0
-          },
+          }
+        ]
+      ]
+    },
+    "SlideContentGenerator": {
+      "main": [
+        [
           {
-            "node": "Wait",
+            "node": "SlideMarpGenerator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent1": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "GenerateSlide",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond to Webhook": {
+      "main": [
+        [
+          {
+            "node": "SlideContentGenerator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "SlideMarpGenerator": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
             "type": "main",
             "index": 0
           }
@@ -531,10 +727,10 @@
     "executionOrder": "v1",
     "availableInMCP": false
   },
-  "versionId": "3313160e-ca75-45e7-9d0c-1104003af82d",
+  "versionId": "7808c9ba-95cc-4896-93ef-1ae6bb40b6a0",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "4436dab057415997b1e213a09c95779d30fd31c9c0911f2717b0dff86bc58428"
+    "instanceId": "dacf661d18952437dcd120ba832369f336608e51c4a96e821e930948a4d1e07e"
   },
   "id": "YMOjlACjstqlA2WY",
   "tags": []
