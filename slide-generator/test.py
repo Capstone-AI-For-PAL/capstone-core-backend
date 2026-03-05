@@ -6,10 +6,11 @@ URL = "http://localhost:5000/generate"
 OUTPUT_FILE = "test_presentation.pdf"
 
 # Sample Marp Markdown
-markdown_payload = """---
+markdown_payload = r"""---
 marp: true
 theme: gaia
 class: lead
+math: mathjax
 backgroundColor: #f0f4f8
 paginate: true
 style: |
@@ -70,6 +71,15 @@ Based on data from the **Blue Zones** (regions with the most centenarians).
 <br>
 
 **The Goal:** Increase *Healthspan* (years spent in good health), not just *Lifespan*.
+
+---
+
+## **Test mathematics formula**
+
+$$
+\frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+$$
+
 """
 
 def run_test(): 
