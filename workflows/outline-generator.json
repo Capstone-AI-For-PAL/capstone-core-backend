@@ -11,10 +11,10 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
-        -448,
+        32,
         96
       ],
-      "id": "edd1a750-71fa-4869-86eb-39e10f5549f7",
+      "id": "b9a31d9f-ddc4-4f9b-bad9-b741cb0ccadb",
       "name": "Webhook",
       "webhookId": "545bbbef-0c01-4813-a97a-e5d780cb2cea"
     },
@@ -27,10 +27,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        448,
+        928,
         96
       ],
-      "id": "66b9ba6a-dfb2-4772-925e-a4c63a7d412b",
+      "id": "c140eb37-e05d-4ba7-b4bf-8b8683e307a7",
       "name": "Change field name"
     },
     {
@@ -61,10 +61,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        -224,
+        256,
         96
       ],
-      "id": "43886f6d-a54a-4ffe-8f05-eca703a996f2",
+      "id": "22d3c1a7-2b5c-4607-b9da-8376ee1df4a5",
       "name": "Check Materials"
     },
     {
@@ -86,7 +86,7 @@
           "parameters": [
             {
               "name": "messages",
-              "value": "=[         {              \"role\": \"system\",              \"content\": \"You are an expert curriculum designer and instructional strategist.\\n\\nYour task is to generate a detailed slide outline for a course or lecture based on:\\n\\nINPUTS:\\n1) Student Goal – A structured description of what students expect to achieve.\\n2) Curriculum – Topics, constraints, duration, level, prerequisites, or required standards.\\n3) Uploaded Files – Reference materials (e.g., PDF slides, textbook excerpts, lecture notes). These must be used as grounding material and structure guidance.\\n\\nOBJECTIVE:\\nGenerate a detailed slide-by-slide outline that aligns with:\\n- The students' goals\\n- The provided curriculum\\n- The uploaded reference materials\\n\\nOUTPUT REQUIREMENTS:\\n\\n1. First, briefly summarize:\\n   - Target audience level\\n   - Learning objectives (refined and clarified if needed)\\n   - Total recommended number of slides\\n   - Estimated duration\\n\\n2. Then generate a structured slide outline in the following format:\\n\\n-----------------------------------\\nSection Title\\n-----------------------------------\\n\\nSlide 1: Title\\n- Purpose of the slide\\n- Key concepts covered\\n- Bullet point content\\n- Suggested visual (diagram/chart/code/example/etc.)\\n- Teaching notes (optional but recommended)\\n\\nSlide 2: Title\\n- Purpose\\n- Key concepts\\n- Content bullets\\n- Suggested visual\\n- Teaching notes\\n\\nContinue until complete.\\n\\n3. Ensure:\\n- Logical progression from fundamentals → deeper understanding → application.\\n- Content difficulty matches student level.\\n- Slides are not overloaded.\\n- Complex topics are broken into multiple slides.\\n- Practical examples and exercises are included where appropriate.\\n- If PDF materials are provided, incorporate structure and terminology from them.\\n\\n4. If information is missing or unclear:\\n- Make reasonable academic assumptions.\\n- State those assumptions clearly before generating the outline.\\n\\n5. If the curriculum duration is provided:\\n- Adjust slide count proportionally.\\n- Include recap and Q&A slide at the end.\\n\\nTone:\\nProfessional, structured, instructional-design oriented.\\n\\nDO NOT:\\n- Generate full lecture scripts.\\n- Repeat the entire PDF content.\\n- Provide generic outlines without aligning to goals.\\n\\nOUTPUT FORMAT:\\nClear headings\\nNumbered slides\\nStructured bullet points\\nConcise but detailed enough to directly create slides from\"         },         {             \"role\": \"user\",             \"content\": \"You are an expert curriculum designer.\\n\\nStudent Goal:\\n{{ $json.body.goal }}\\n\\nNotes From Mentor:\\n{{ $json.body.notes_from_mentor }}\\n\\nReference Material: See the attached files\\n\\nGenerate a detailed slide outline with:\\n- total slide count\\n- section breakdown\\n- slide-by-slide detail\\n- suggested visuals\\n- teaching notes\"         },{\n\"role\": \"user\",\n\"content\": \"Convert the output data into the following JSON format. Return only valid JSON and no markdown.{ \\\"summary\\\": \\\"...\\\", \\\"total_lessons\\\": 24, \\\"lessons\\\": [ { \\\"title\\\": \\\"...\\\", \\\"main_content\\\": \\\"...\\\", \\\"objective\\\": \\\"...\\\" } ] }\"\n}     ]"
+              "value": "={{ JSON.stringify([{\n  role: \"user\",\n  content: `You are an expert curriculum designer.\n\nStudent Goal:\n$json.body.goal\n\nNotes From Mentor:\n$json.body.notes_from_mentor\n\nYour task is to generate lessons grouped by topic and numbered hierarchically.\n\nConvert the generated slide outline into the following JSON format.\n\nReturn only valid JSON and no markdown.\n\n{\n  \"summary\": \"...\",\n  \"total_lessons\": 24,\n  \"lessons\": [\n    {\n      \"title\": \"1.1) ...\",\n      \"main_content\": \"...\",\n      \"objective\": \"...\"\n    }\n  ]\n}\n\nFORMAT RULES:\n\n1. Group lessons by their major section/topic from the slide outline.\n\n2. Use hierarchical numbering in the lesson titles:\n   - The first number represents the SECTION.\n   - The second number represents the LESSON within that section.\n\nExample numbering:\n\n1.1 Introduction to Addition  \n1.2 How Addition Works  \n1.3 Examples of Addition  \n\n2.1 Introduction to Subtraction  \n2.2 Understanding Negative Numbers  \n2.3 Subtraction Examples  \n\n3.1 Review of Math Operations\n\n3. Each lesson title MUST start with its number.\n\nExample lesson object:\n\n{\n  \"title\": \"2.2 Understanding Negative Numbers\",\n  \"main_content\": \"...\",\n  \"objective\": \"Students understand how negative numbers behave in subtraction\"\n}\n\n4. Ensure:\n- Lessons belonging to the same topic share the same first number.\n- Numbering increases sequentially.\n- The numbering is included inside the title string.\n- Titles are concise and instructional.\n\n5. total_lessons must equal the total number of lesson objects.\n\nReturn ONLY the JSON.`\n}])\n}}"
             },
             {
               "name": "cunet_id",
@@ -99,10 +99,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        0,
+        480,
         192
       ],
-      "id": "b3ab7efa-31f3-4835-98ee-346639b8cfd5",
+      "id": "231b3163-c033-4d36-bd26-28845516d74d",
       "name": "LLM Service (without materials)"
     },
     {
@@ -124,7 +124,7 @@
           "parameters": [
             {
               "name": "messages",
-              "value": "=[         {              \"role\": \"system\",              \"content\": \"You are an expert curriculum designer and instructional strategist.\\n\\nYour task is to generate a detailed slide outline for a course or lecture based on:\\n\\nINPUTS:\\n1) Student Goal – A structured description of what students expect to achieve.\\n2) Curriculum – Topics, constraints, duration, level, prerequisites, or required standards.\\n3) Uploaded Files – Reference materials (e.g., PDF slides, textbook excerpts, lecture notes). These must be used as grounding material and structure guidance.\\n\\nOBJECTIVE:\\nGenerate a detailed slide-by-slide outline that aligns with:\\n- The students' goals\\n- The provided curriculum\\n- The uploaded reference materials\\n\\nOUTPUT REQUIREMENTS:\\n\\n1. First, briefly summarize:\\n   - Target audience level\\n   - Learning objectives (refined and clarified if needed)\\n   - Total recommended number of slides\\n   - Estimated duration\\n\\n2. Then generate a structured slide outline in the following format:\\n\\n-----------------------------------\\nSection Title\\n-----------------------------------\\n\\nSlide 1: Title\\n- Purpose of the slide\\n- Key concepts covered\\n- Bullet point content\\n- Suggested visual (diagram/chart/code/example/etc.)\\n- Teaching notes (optional but recommended)\\n\\nSlide 2: Title\\n- Purpose\\n- Key concepts\\n- Content bullets\\n- Suggested visual\\n- Teaching notes\\n\\nContinue until complete.\\n\\n3. Ensure:\\n- Logical progression from fundamentals → deeper understanding → application.\\n- Content difficulty matches student level.\\n- Slides are not overloaded.\\n- Complex topics are broken into multiple slides.\\n- Practical examples and exercises are included where appropriate.\\n- If PDF materials are provided, incorporate structure and terminology from them.\\n\\n4. If information is missing or unclear:\\n- Make reasonable academic assumptions.\\n- State those assumptions clearly before generating the outline.\\n\\n5. If the curriculum duration is provided:\\n- Adjust slide count proportionally.\\n- Include recap and Q&A slide at the end.\\n\\nTone:\\nProfessional, structured, instructional-design oriented.\\n\\nDO NOT:\\n- Generate full lecture scripts.\\n- Repeat the entire PDF content.\\n- Provide generic outlines without aligning to goals.\\n\\nOUTPUT FORMAT:\\nClear headings\\nNumbered slides\\nStructured bullet points\\nConcise but detailed enough to directly create slides from\"         },         {             \"role\": \"user\",             \"content\": \"You are an expert curriculum designer.\\n\\nStudent Goal:\\n{{ $json.body.goal }}\\n\\nNotes From Mentor:\\n{{ $json.body.notes_from_mentor }}\\n\\nReference Material: See the attached files\\n\\nGenerate a detailed slide outline with:\\n- total slide count\\n- section breakdown\\n- slide-by-slide detail\\n- suggested visuals\\n- teaching notes\"         },{\n\"role\": \"user\",\n\"content\": \"Convert the output data into the following JSON format. Return only valid JSON and no markdown.{ \\\"summary\\\": \\\"...\\\", \\\"total_lessons\\\": 24, \\\"lessons\\\": [ { \\\"title\\\": \\\"...\\\", \\\"main_content\\\": \\\"...\\\", \\\"objective\\\": \\\"...\\\" } ] }\"\n}     ]"
+              "value": "={{ JSON.stringify([{\n  role: \"user\",\n  content: `You are an expert curriculum designer.\n\nStudent Goal:\n$json.body.goal\n\nNotes From Mentor:\n$json.body.notes_from_mentor\n\nReference Material: See the attached files.\n\nYour task is to generate lessons grouped by topic and numbered hierarchically.\n\nConvert the generated slide outline into the following JSON format.\n\nReturn only valid JSON and no markdown.\n\n{\n  \"summary\": \"...\",\n  \"total_lessons\": 24,\n  \"lessons\": [\n    {\n      \"title\": \"1.1) ...\",\n      \"main_content\": \"...\",\n      \"objective\": \"...\"\n    }\n  ]\n}\n\nFORMAT RULES:\n\n1. Group lessons by their major section/topic from the slide outline.\n\n2. Use hierarchical numbering in the lesson titles:\n   - The first number represents the SECTION.\n   - The second number represents the LESSON within that section.\n\nExample numbering:\n\n1.1 Introduction to Addition  \n1.2 How Addition Works  \n1.3 Examples of Addition  \n\n2.1 Introduction to Subtraction  \n2.2 Understanding Negative Numbers  \n2.3 Subtraction Examples  \n\n3.1 Review of Math Operations\n\n3. Each lesson title MUST start with its number.\n\nExample lesson object:\n\n{\n  \"title\": \"2.2 Understanding Negative Numbers\",\n  \"main_content\": \"...\",\n  \"objective\": \"Students understand how negative numbers behave in subtraction\"\n}\n\n4. Ensure:\n- Lessons belonging to the same topic share the same first number.\n- Numbering increases sequentially.\n- The numbering is included inside the title string.\n- Titles are concise and instructional.\n\n5. total_lessons must equal the total number of lesson objects.\n\nReturn ONLY the JSON.`\n}])\n}}"
             },
             {
               "name": "cunet_id",
@@ -142,10 +142,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        0,
+        480,
         0
       ],
-      "id": "775e83b3-7bdd-43bf-a2a6-3ed223d40293",
+      "id": "4e6db160-7972-4e96-b02f-a0bd49071d87",
       "name": "LLM Service (with materials)"
     },
     {
@@ -155,10 +155,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        224,
+        704,
         96
       ],
-      "id": "b637664c-9621-47db-a2a8-1408c1664d7d",
+      "id": "d6776b1a-f59d-472d-89e6-e9e63f4790ad",
       "name": "Code in JavaScript"
     }
   ],
@@ -227,13 +227,13 @@
       ]
     }
   },
-  "active": false,
+  "active": true,
   "settings": {
     "executionOrder": "v1",
     "binaryMode": "separate",
     "availableInMCP": false
   },
-  "versionId": "542e03c0-e859-45aa-ae2e-87128b5c3647",
+  "versionId": "93e26aa0-64ba-439a-935a-574a9a797007",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "7359c0c217c2f2526bf0a6c46f4839c44f96a0005dca2af79edc19e6ed7703f7"
