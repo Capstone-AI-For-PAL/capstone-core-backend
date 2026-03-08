@@ -17,7 +17,7 @@
       "name": "Find documents",
       "credentials": {
         "mongoDb": {
-          "id": "pWePL90dwTVGzXVd",
+          "id": "iCNt1Q8lHJktVzZ3",
           "name": "MongoDB account"
         }
       }
@@ -50,7 +50,7 @@
         "operation": "update",
         "collection": "lessons",
         "updateKey": "lessonId",
-        "fields": "status,slide_URL,audio_URLs",
+        "fields": "={{ Object.keys($json).filter(k => k !== 'lessonId').join(',') }}",
         "options": {}
       },
       "type": "n8n-nodes-base.mongoDb",
@@ -63,68 +63,10 @@
       "name": "Update documents",
       "credentials": {
         "mongoDb": {
-          "id": "pWePL90dwTVGzXVd",
+          "id": "iCNt1Q8lHJktVzZ3",
           "name": "MongoDB account"
         }
       }
-    },
-    {
-      "parameters": {
-        "assignments": {
-          "assignments": [
-            {
-              "id": "d80974b2-309b-4659-8074-c26a51ea9c54",
-              "name": "lessonId",
-              "value": "={{ $json.body.lessonId }}",
-              "type": "string"
-            },
-            {
-              "id": "7fd42889-132f-4cea-bdcf-e6a574f36865",
-              "name": "status",
-              "value": "={{ $json.body.status }}",
-              "type": "string"
-            },
-            {
-              "id": "966c6f5e-28ae-48f3-aca0-3475b1c9c7e9",
-              "name": "slide_URL",
-              "value": "={{ $json.body.slide_URL }}",
-              "type": "string"
-            },
-            {
-              "id": "516decd0-e0b7-4305-a177-9f2b00e07ec8",
-              "name": "audio_URLs",
-              "value": "={{ $json.body.audio_URLs }}",
-              "type": "array"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.set",
-      "typeVersion": 3.4,
-      "position": [
-        224,
-        208
-      ],
-      "id": "a0be501f-58af-4aec-8c8d-d33b4d785ad0",
-      "name": "Edit Fields1"
-    },
-    {
-      "parameters": {
-        "httpMethod": "PUT",
-        "path": "lessons/:lessonId",
-        "responseMode": "lastNode",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.webhook",
-      "typeVersion": 2.1,
-      "position": [
-        16,
-        208
-      ],
-      "id": "8e0bfd5d-1011-43c7-afbe-4f5104bd40a4",
-      "name": "PUTLesson",
-      "webhookId": "c2c79d4b-b56d-4fdc-8aba-96e34d5f2a13"
     },
     {
       "parameters": {
@@ -141,6 +83,36 @@
       "id": "4a917e63-d4ad-4ed5-a7c9-80b36142bbcd",
       "name": "GetOneLesson",
       "webhookId": "a7d64218-010b-4ff0-a255-3ea4f9d23c26"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nconst body = $input.first().json.body;\nconst params = $input.first().json.params;\n\nconst updateFields = {};\n\nupdateFields.lessonId = params.lessonId;\nif (body.status !== undefined) updateFields.status = body.status;\nif (body.slide_URL !== undefined) updateFields.slide_URL = body.slide_URL;\nif (body.audio_URLs !== undefined) updateFields.audio_URLs = body.audio_URLs;\n\nreturn [{ json: updateFields }];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        224,
+        208
+      ],
+      "id": "fd950262-9ebe-4a04-890d-cf874f84f819",
+      "name": "Mapping"
+    },
+    {
+      "parameters": {
+        "httpMethod": "PATCH",
+        "path": "lessons/:lessonId",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        16,
+        208
+      ],
+      "id": "8e0bfd5d-1011-43c7-afbe-4f5104bd40a4",
+      "name": "PATCHLesson",
+      "webhookId": "c2c79d4b-b56d-4fdc-8aba-96e34d5f2a13"
     }
   ],
   "pinData": {},
@@ -150,28 +122,6 @@
         [
           {
             "node": "Find documents",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Edit Fields1": {
-      "main": [
-        [
-          {
-            "node": "Update documents",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "PUTLesson": {
-      "main": [
-        [
-          {
-            "node": "Edit Fields1",
             "type": "main",
             "index": 0
           }
@@ -188,17 +138,39 @@
           }
         ]
       ]
+    },
+    "Mapping": {
+      "main": [
+        [
+          {
+            "node": "Update documents",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "PATCHLesson": {
+      "main": [
+        [
+          {
+            "node": "Mapping",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
-  "active": false,
+  "active": true,
   "settings": {
     "executionOrder": "v1",
     "availableInMCP": false
   },
-  "versionId": "97062183-59f0-4d05-a097-800e383b8011",
+  "versionId": "5619b990-5013-4c26-a78d-0664d54d6653",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "dacf661d18952437dcd120ba832369f336608e51c4a96e821e930948a4d1e07e"
+    "instanceId": "4436dab057415997b1e213a09c95779d30fd31c9c0911f2717b0dff86bc58428"
   },
   "id": "iiOeC1mV39qJY9suE9XdH",
   "tags": []
