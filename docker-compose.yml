@@ -13,13 +13,13 @@ services:
       - ./workflows:/workflows
     restart: unless-stopped
 
-  # slide-generator:
-  #   build:
-  #     context: slide-generator
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "5001:5000"
-  #   restart: unless-stopped
+  slide-generator:
+    build:
+      context: slide-generator
+      dockerfile: Dockerfile
+    ports:
+      - "5001:5000"
+    restart: unless-stopped
   
   llm-service:
     build:
@@ -29,15 +29,15 @@ services:
       - "8080:8080"
     restart: unless-stopped
 
-  # voice-generator:
-  #   build:
-  #     context: voice-generator
-  #     dockerfile: Dockerfile
-  #   ports:
-  #     - "8000:8000"
-  #   restart: unless-stopped
-  #   environment:
-  #     - HF_TOKEN=${HF_TOKEN}
+  voice-generator:
+    build:
+      context: voice-generator
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+    environment:
+      - HF_TOKEN=${HF_TOKEN}
 
 volumes:
   n8n_data_vol:
