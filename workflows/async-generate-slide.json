@@ -35,10 +35,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        288,
+        448,
         384
       ],
-      "id": "c1a17938-9d51-47f7-8250-c1f2e352adba",
+      "id": "6763d5de-20e2-43fe-8502-342b4436e36b",
       "name": "GenieScript"
     },
     {
@@ -59,10 +59,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        64,
-        216
+        224,
+        224
       ],
-      "id": "ba21cf71-20d4-442b-9322-427e07050470",
+      "id": "234f1991-81f6-4660-b7cb-27170dabf615",
       "name": "GenerateSlide"
     },
     {
@@ -72,10 +72,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        512,
+        672,
         384
       ],
-      "id": "5f33cd39-e626-4d9c-b026-823163ba8a9b",
+      "id": "97b32de4-17fe-4992-b097-83348722be77",
       "name": "Code in JavaScript"
     },
     {
@@ -86,10 +86,10 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        736,
+        896,
         384
       ],
-      "id": "55ae46b0-f5b9-49ff-989d-14c5d11951ff",
+      "id": "0525cb86-39b1-41dd-9994-a098867d30fb",
       "name": "Split Out"
     },
     {
@@ -99,10 +99,10 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        960,
+        1120,
         384
       ],
-      "id": "cd98c616-50fa-48ab-b62c-e12d31fad1fd",
+      "id": "3f715e37-d7c5-4e93-a7ea-f921454ac31b",
       "name": "Loop"
     },
     {
@@ -117,10 +117,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        1184,
-        312
+        1344,
+        320
       ],
-      "id": "53086777-dd25-4c66-aa31-0f3e4812b568",
+      "id": "dea2f472-624f-4694-93f2-f82e39318fda",
       "name": "GenerateVoice"
     },
     {
@@ -133,10 +133,10 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
-        -1504,
-        120
+        -1344,
+        128
       ],
-      "id": "1d1fe296-3843-45b4-b843-d0b3ef23f456",
+      "id": "de75e711-d9f5-444b-adad-9cde6079f919",
       "name": "Webhook",
       "webhookId": "c956b764-c4a0-43bf-a872-44e78f63c768"
     },
@@ -151,10 +151,10 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 3.1,
       "position": [
-        -1152,
-        712
+        -992,
+        720
       ],
-      "id": "968be506-463f-4cdf-828f-d4a6b1c987b6",
+      "id": "bdcabd68-f795-461d-aca4-128687619ba2",
       "name": "AI Agent"
     },
     {
@@ -164,10 +164,10 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
       "typeVersion": 1,
       "position": [
-        -1080,
-        936
+        -928,
+        944
       ],
-      "id": "80ab4c21-bb7d-4d4c-871f-5a25994cbb9d",
+      "id": "78a6a5d0-bb70-4b18-8c3a-cc43f594ee6d",
       "name": "Google Gemini Chat Model"
     },
     {
@@ -182,14 +182,14 @@
       "type": "n8n-nodes-base.mongoDb",
       "typeVersion": 1.2,
       "position": [
-        736,
+        896,
         192
       ],
-      "id": "bda2e0ba-4ea7-4f44-bdaf-98043e99bbda",
+      "id": "0d8b09fa-f0ef-46a8-921c-292d81343ef4",
       "name": "Update documents",
       "credentials": {
         "mongoDb": {
-          "id": "sjff9flDm6PtRdBH",
+          "id": "pWePL90dwTVGzXVd",
           "name": "MongoDB account"
         }
       }
@@ -209,6 +209,18 @@
               "name": "outline",
               "value": "={{ $json.body.outline }}",
               "type": "object"
+            },
+            {
+              "id": "12929382-7fd8-4f99-ad3b-41021f7d39fc",
+              "name": "toGenerateLessonIndex",
+              "value": "={{ $json.body.nextLessonNum }}",
+              "type": "number"
+            },
+            {
+              "id": "f2cc9f72-1735-4937-9bff-e0192ebaa625",
+              "name": "slide",
+              "value": "={{ $json.body.outline.lessons[$json.body.nextLessonNum] }}",
+              "type": "string"
             }
           ]
         },
@@ -217,10 +229,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -1280,
-        120
+        -1120,
+        128
       ],
-      "id": "857d6da2-ebb2-4b92-9008-30ca9fa58bbf",
+      "id": "7c015b8f-32ba-4636-ad65-b033cef0aa77",
       "name": "prepare"
     },
     {
@@ -233,11 +245,17 @@
       "type": "n8n-nodes-base.awsS3",
       "typeVersion": 2,
       "position": [
-        1408,
+        1568,
         384
       ],
-      "id": "7edde619-cd9f-4901-a2c9-15f4cef2513c",
+      "id": "013bc267-f09b-452c-a626-48118ca4fb83",
       "name": "Audio Upload",
+      "credentials": {
+        "aws": {
+          "id": "dxBCP5LgruhUqTMg",
+          "name": "AWS (IAM) account"
+        }
+      },
       "onError": "continueRegularOutput"
     },
     {
@@ -250,11 +268,17 @@
       "type": "n8n-nodes-base.awsS3",
       "typeVersion": 2,
       "position": [
-        288,
+        448,
         192
       ],
-      "id": "358e4ee1-65a6-4334-8e9d-69e5ede92898",
-      "name": "Slide Upload"
+      "id": "90fb7fc1-ae5e-40ac-b9b7-991cdb4341b1",
+      "name": "Slide Upload",
+      "credentials": {
+        "aws": {
+          "id": "dxBCP5LgruhUqTMg",
+          "name": "AWS (IAM) account"
+        }
+      }
     },
     {
       "parameters": {
@@ -268,14 +292,14 @@
       "type": "n8n-nodes-base.mongoDb",
       "typeVersion": 1.2,
       "position": [
-        1408,
-        120
+        1568,
+        128
       ],
-      "id": "4e2a91ba-5b8b-4583-9fe2-02afd74a58c8",
+      "id": "9fd0eada-e3d3-404c-b4df-b77e71e3be14",
       "name": "Update documents1",
       "credentials": {
         "mongoDb": {
-          "id": "sjff9flDm6PtRdBH",
+          "id": "pWePL90dwTVGzXVd",
           "name": "MongoDB account"
         }
       }
@@ -287,10 +311,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1184,
-        120
+        1344,
+        128
       ],
-      "id": "911e70e1-1255-4149-84dd-a8e97368348b",
+      "id": "4108df84-50f9-4b5a-b49e-eb0aa409badf",
       "name": "Code in JavaScript2"
     },
     {
@@ -300,10 +324,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        512,
+        672,
         192
       ],
-      "id": "a54553f4-1514-4d94-a481-b65ef190c8a7",
+      "id": "a175bfd1-a910-4fd5-b0c1-2ee9903fd8da",
       "name": "PrepareUpdateLessonSlide"
     },
     {
@@ -335,10 +359,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        -832,
-        120
+        -672,
+        128
       ],
-      "id": "dd167928-b1b1-4860-84d6-eee3ff1fe0f1",
+      "id": "1ad5ed50-bda3-4c45-8937-78090a3111e0",
       "name": "SlideContentGenerator"
     },
     {
@@ -352,10 +376,10 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 3.1,
       "position": [
-        -1504,
-        712
+        -1344,
+        720
       ],
-      "id": "53fd8286-7eda-423a-920b-123b12b6ab3f",
+      "id": "49c2af4a-3c8f-4c4f-9903-5b858ea44665",
       "name": "AI Agent1"
     },
     {
@@ -365,10 +389,10 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
       "typeVersion": 1,
       "position": [
-        -1432,
-        936
+        -1280,
+        944
       ],
-      "id": "2f9d9672-f340-4426-aa39-a2a3156b0eea",
+      "id": "eab01487-c249-4648-91f4-5de7bf5018ad",
       "name": "Google Gemini Chat Model1"
     },
     {
@@ -388,10 +412,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -384,
-        120
+        -224,
+        128
       ],
-      "id": "8a0d82f5-c8c2-4605-ae83-7cbad43e4753",
+      "id": "990cf00b-c678-4f57-a02c-d4f1317e2f01",
       "name": "Edit Fields"
     },
     {
@@ -403,10 +427,10 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5,
       "position": [
-        -1056,
-        120
+        -896,
+        128
       ],
-      "id": "662b8966-895b-4976-919d-dd3fd5bfc26f",
+      "id": "0019802b-ddce-48df-8347-47fa4f02107b",
       "name": "Respond to Webhook"
     },
     {
@@ -438,10 +462,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        -608,
-        120
+        -448,
+        128
       ],
-      "id": "91be223b-8820-4000-8db7-0ce85b4f86f1",
+      "id": "759a8aca-78be-452f-95cf-1baaf1d38ae8",
       "name": "SlideMarpGenerator"
     },
     {
@@ -472,10 +496,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        -160,
+        0,
         0
       ],
-      "id": "6c3ed0f9-99cd-4fe2-9865-4ade507aa396",
+      "id": "45a02fa1-ff4f-4817-84a9-3f3c1331abb6",
       "name": "GenerateSlidePPTX",
       "onError": "continueErrorOutput"
     },
@@ -489,11 +513,17 @@
       "type": "n8n-nodes-base.awsS3",
       "typeVersion": 2,
       "position": [
-        64,
+        224,
         0
       ],
-      "id": "2aa25519-2e87-4a1f-b6f4-00ff8403f53f",
-      "name": "PPTXUpload"
+      "id": "4f675827-7677-4038-87ba-6ce5ff2437d6",
+      "name": "PPTXUpload",
+      "credentials": {
+        "aws": {
+          "id": "dxBCP5LgruhUqTMg",
+          "name": "AWS (IAM) account"
+        }
+      }
     },
     {
       "parameters": {
@@ -502,10 +532,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        288,
+        448,
         0
       ],
-      "id": "72191344-a40a-4b3b-93e5-fb862b581ca4",
+      "id": "a40dd747-38bb-4202-804d-878eba176fb2",
       "name": "PrepareUpdateLessonSlide1"
     },
     {
@@ -520,14 +550,14 @@
       "type": "n8n-nodes-base.mongoDb",
       "typeVersion": 1.2,
       "position": [
-        512,
+        672,
         0
       ],
-      "id": "492cf645-1595-4f7f-a652-72915a4480c9",
+      "id": "72a5dfc0-f736-4c12-9ad7-ffb53e4e4aa0",
       "name": "Update documents2",
       "credentials": {
         "mongoDb": {
-          "id": "sjff9flDm6PtRdBH",
+          "id": "pWePL90dwTVGzXVd",
           "name": "MongoDB account"
         }
       }
@@ -805,13 +835,12 @@
   "active": false,
   "settings": {
     "executionOrder": "v1",
-    "binaryMode": "separate",
     "availableInMCP": false
   },
-  "versionId": "64fa7b0b-2fa4-4e3a-9153-9da492c7c877",
+  "versionId": "daa67478-eeaf-4eac-9fde-1d82045710b0",
   "meta": {
-    "instanceId": "7359c0c217c2f2526bf0a6c46f4839c44f96a0005dca2af79edc19e6ed7703f7"
+    "instanceId": "dacf661d18952437dcd120ba832369f336608e51c4a96e821e930948a4d1e07e"
   },
-  "id": "anSHLKetIXjxK6yd",
+  "id": "1e1nXToraIKc45p7uT4bZ",
   "tags": []
 }
