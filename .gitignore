@@ -5,3 +5,4 @@ n8n_data/
 **/__pycache__/
 capstone-llm-service
 capstone-llm-service.exe
+local
