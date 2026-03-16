@@ -361,7 +361,7 @@
     {
       "parameters": {
         "mode": "combine",
-        "combineBy": "combineAll",
+        "combineBy": "combineByPosition",
         "options": {}
       },
       "type": "n8n-nodes-base.merge",
@@ -451,7 +451,7 @@
             {}
           ]
         },
-        "jsonBody": "={{\n  {\n  \"lessonId\": $json.lessonId,\n  \"outline\": $json.outline,\n  \"nextLessonNum\": $json.nextLessonNum\n  }\n}}",
+        "jsonBody": "={{\n  {\n  \"courseId\": $json.courseId,\n  \"lessonId\": $json.lessonId,\n  \"outline\": $json.outline,\n  \"nextLessonNum\": $json.nextLessonNum\n  }\n}}",
         "options": {}
       },
       "type": "n8n-nodes-base.httpRequest",
@@ -1065,7 +1065,7 @@
     "binaryMode": "separate",
     "availableInMCP": false
   },
-  "versionId": "2415aa31-f767-4453-bafb-f6f843358be5",
+  "versionId": "b548afde-1088-4e20-86a4-c5d6613c4206",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "033f1bc6215f63e899772bfa6952d5de23ea9ab6140b36a3b563a251130298dd"
