@@ -170,7 +170,7 @@
     },
     {
       "parameters": {
-        "jsCode": "let out = [];\nfor (const item of $input.all()) {\n  out.push({data: item.json.document.pageContent, score: item.json.score});\n}\n\nreturn out;\n"
+        "jsCode": "let out = [];\nfor (const item of $input.all()) {\n  out.push({data: item.json.document.pageContent, score: item.json.score});\n}\n\nreturn {rag_data: out};\n"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -255,7 +255,7 @@
     "executionOrder": "v1",
     "availableInMCP": false
   },
-  "versionId": "a31d90f1-b383-4a7a-9547-13fee82be20a",
+  "versionId": "5cd61611-de01-459b-9d38-8d15bb3ddb49",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "033f1bc6215f63e899772bfa6952d5de23ea9ab6140b36a3b563a251130298dd"

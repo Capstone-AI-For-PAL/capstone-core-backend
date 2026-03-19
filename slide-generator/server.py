@@ -3,11 +3,20 @@ import subprocess
 import os
 import uuid
 import traceback
+import logging
+import sys
 
 app = Flask(__name__)
 
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s %(levelname)s %(name)s - %(message)s",
+    handlers=[logging.StreamHandler(sys.stdout)],
+)
+logger = logging.getLogger("slide-generator")
+
 SUPPORTED_FILE_TYPES = {"pdf", "pptx"}
-MARP_FLAG = {"pdf": "--pdf", "pptx": "--pptx"}
+MARP_FLAG = {"pdf": "--pdf", "pptx": "--pptx-editable"}
 MIME_TYPE = {
     "pdf": "application/pdf",
     "pptx": "application/vnd.openxmlformats-officedocument.presentationml.presentation",
@@ -34,7 +43,12 @@ def generate_slides():
                 "error": f"Invalid fileType '{file_type}'. Must be one of: {', '.join(sorted(SUPPORTED_FILE_TYPES))}"
             }, 400
 
-        print(f"Received request to /generate with content-type: {request.content_type}, fileType: {file_type}, markdown length: {len(markdown_content)} characters")
+        logger.info(
+            "Received request to /generate with content-type: %s, fileType: %s, markdown length: %d characters",
+            request.content_type,
+            file_type,
+            len(markdown_content),
+        )
         
         # Create unique filenames
         run_id = str(uuid.uuid4())
@@ -54,18 +68,22 @@ def generate_slides():
             "--allow-local-files",
         ]
 
-        print(f"Executing: {' '.join(cmd)}")
-        subprocess.run(cmd, check=True, capture_output=True, text=True)
+        logger.info("Executing: %s", ' '.join(cmd))
+        result = subprocess.run(cmd, check=True, capture_output=True, text=True)
+        if result.stdout:
+            logger.info("Marp stdout: %s", result.stdout.strip())
+        if result.stderr:
+            logger.warning("Marp stderr: %s", result.stderr.strip())
 
         return send_file(output_filename, mimetype=MIME_TYPE[file_type], as_attachment=True)
 
     except subprocess.CalledProcessError as e:
-        print(f"Marp Error: {e.stderr}")
+        logger.error("Marp Error: %s", e.stderr)
         return {"error": "Marp failed to generate file", "details": e.stderr}, 500
 
     except Exception as e:
         error_trace = traceback.format_exc()
-        print(f"Server Error: {error_trace}")
+        logger.exception("Server Error: %s", error_trace)
         return {"error": "Internal Server Error", "details": str(e), "trace": error_trace}, 500
 
     finally:

@@ -7,6 +7,7 @@ RUN apt-get update && apt-get install -y \
     python3 \
     python3-pip \
     python3-venv \
+    libreoffice \
     && rm -rf /var/lib/apt/lists/*
 
 # 2. Install Marp CLI Globally (THIS FIXES THE PATH ISSUE)
@@ -16,8 +17,10 @@ RUN npm install -g @marp-team/marp-cli
 ENV VIRTUAL_ENV=/opt/venv
 RUN python3 -m venv $VIRTUAL_ENV
 ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+ENV PYTHONUNBUFFERED=1
 
-RUN pip install flask requests
+COPY requirement.txt /tmp/requirement.txt
+RUN pip install --no-cache-dir -r /tmp/requirement.txt && rm /tmp/requirement.txt
 
 COPY server.py /home/marp/app/server.py
 RUN chown -R marp:marp /home/marp/app
