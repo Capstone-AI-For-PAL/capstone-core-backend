@@ -18,6 +18,7 @@ class Exercise {
 class Question {
     _id: ObjectId;
     exerciseId: ObjectId;
+    question: string;
     choices: []string;
     answer: string;
     correctAnswer: string;
@@ -34,6 +35,7 @@ class Question {
 {
     "questions": [
         {
+            "question": string,
             "choices": []string,
             "correctAnswer": string,
             "score": number

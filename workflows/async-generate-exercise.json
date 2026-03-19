@@ -1,0 +1,172 @@
+{
+  "name": "async-generate-exercise",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "async-generate-exercise",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "d0315c10-91e2-4b51-8f75-08f440941cb6",
+      "name": "Webhook",
+      "webhookId": "2371ee90-5f18-43e6-8521-50d21e6fa010"
+    },
+    {
+      "parameters": {
+        "collection": "lessons",
+        "options": {
+          "projection": "{\n  \"content\": true\n}"
+        }
+      },
+      "type": "n8n-nodes-base.mongoDb",
+      "typeVersion": 1.2,
+      "position": [
+        224,
+        0
+      ],
+      "id": "4fcc1ab8-f0e9-4511-beb5-28b603340a0c",
+      "name": "Find documents",
+      "credentials": {
+        "mongoDb": {
+          "id": "sjff9flDm6PtRdBH",
+          "name": "MongoDB account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "let raw = $input.first().json.data\n\n// remove surrounding quotes if present\nif (raw.startsWith('\"') && raw.endsWith('\"')) {\n  raw = JSON.parse(raw);\n}\n\n// remove markdown code blocks\nraw = raw.replace(/```json/g, '').replace(/```/g, '').trim();\n\nconst parsed = JSON.parse(raw);\n\nreturn [{ output: parsed }]\n// return [{ json: parsed }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        672,
+        0
+      ],
+      "id": "96f31c80-2c97-483c-9781-72f28571c90f",
+      "name": "Remove json```"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://llm-service:8080/chat",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {}
+          ]
+        },
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "cunet_id",
+              "value": "6532027021"
+            },
+            {
+              "name": "messages",
+              "value": "={{ JSON.stringify([\n  {\n    role: \"user\",\n    content: `Act as an expert educational content creator.\n\nYou are given a list of slides in the following format:\n[\n  { \"title\": string, \"content\": string }\n]\n\nYour task is to generate a set of exercises based on the slide content.\n\nRequirements:\n- Generate around 10 questions total.\n- Questions must cover key concepts from the slides.\n- Use multiple choice format.\n- Each question should have:\n  - 4 choices (A, B, C, D), OR\n  - 2 choices for True/False questions.\n- Mix difficulty levels (easy, medium, hard).\n- Ensure questions test understanding, not just memorization.\n\nOutput format (STRICT JSON, no explanation, no markdown, no extra text):\n\n{\n  \"questions\": [\n    {\n      \"number\": 1,\n      \"question\": \"string\",\n      \"choices\": [\"string\", \"string\", \"string\", \"string\"],\n      \"correctAnswer\": \"string\",\n      \"score\": number\n    }\n  ]\n}\n\nRules:\n- \"number\" must start from 1 and increment.\n- \"choices\" must include the correct answer.\n- \"correctAnswer\" must exactly match one of the choices.\n- \"score\" should reflect difficulty (e.g., 1 = easy, 2 = medium, 3 = hard).\n- Return ONLY valid JSON.\n- Do NOT include backticks, explanations, or extra text.\n\nNow generate the exercises based on this slide content: $json.content`\n  }\n])\n }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.3,
+      "position": [
+        448,
+        0
+      ],
+      "id": "33d831d3-4438-424b-be01-262842f7a1f2",
+      "name": "LLM exercise"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n  \"questions\": {{ $json.output }}\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        896,
+        0
+      ],
+      "id": "a20b068c-a758-404c-aad6-777775be7b62",
+      "name": "Edit Fields"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Find documents",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find documents": {
+      "main": [
+        [
+          {
+            "node": "LLM exercise",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Remove json```": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "LLM exercise": {
+      "main": [
+        [
+          {
+            "node": "Remove json```",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "a46aee55-ac2c-41e8-9838-77997d97a2c2",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "7359c0c217c2f2526bf0a6c46f4839c44f96a0005dca2af79edc19e6ed7703f7"
+  },
+  "id": "sy1hBLNjUQDjHcVm",
+  "tags": []
+}

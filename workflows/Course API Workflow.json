@@ -10,15 +10,15 @@
       "type": "n8n-nodes-base.mongoDb",
       "typeVersion": 1.2,
       "position": [
-        224,
-        0
+        2256,
+        752
       ],
-      "id": "7473fd43-e0f4-412d-8bfa-4d7f7bf9e1e3",
+      "id": "a8d87cf1-f96a-4d81-b050-051e6e8e7841",
       "name": "Find documents",
       "credentials": {
         "mongoDb": {
-          "id": "K1y2RTKvTElSmf02",
-          "name": "MongoDB account 2"
+          "id": "sjff9flDm6PtRdBH",
+          "name": "MongoDB account"
         }
       }
     },
@@ -31,15 +31,15 @@
       "type": "n8n-nodes-base.mongoDb",
       "typeVersion": 1.2,
       "position": [
-        224,
-        224
+        2256,
+        976
       ],
-      "id": "327b2b98-a813-4bad-bf33-df9ab735497a",
+      "id": "cfd24d47-87a9-47f2-a6ae-12b44a0bcfa0",
       "name": "Find documents1",
       "credentials": {
         "mongoDb": {
-          "id": "K1y2RTKvTElSmf02",
-          "name": "MongoDB account 2"
+          "id": "sjff9flDm6PtRdBH",
+          "name": "MongoDB account"
         }
       }
     },
@@ -53,10 +53,10 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
-        0,
-        0
+        2032,
+        752
       ],
-      "id": "d68ddd7d-3e26-464b-8700-6cf8a3f64335",
+      "id": "7022cf16-a415-4493-bf43-8f75de5c0283",
       "name": "Get courses by userId",
       "webhookId": "d71cec1c-92e7-4aac-a066-4b314bc64450"
     },
@@ -70,10 +70,10 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
-        0,
-        224
+        2032,
+        976
       ],
-      "id": "2706f84e-13af-4140-ab38-54cdcef61630",
+      "id": "e83779ec-931d-4a0a-9d6d-a04e1098afcd",
       "name": "Get courses by courseId",
       "webhookId": "d71cec1c-92e7-4aac-a066-4b314bc64450"
     },
@@ -87,10 +87,10 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
-        0,
-        448
+        2032,
+        1200
       ],
-      "id": "363c3665-f391-47ce-8274-7c22e188ab9f",
+      "id": "4576d86e-8fb0-4b03-ab7e-7d31944bcb1f",
       "name": "Update course",
       "webhookId": "d71cec1c-92e7-4aac-a066-4b314bc64450"
     },
@@ -105,16 +105,16 @@
       "type": "n8n-nodes-base.mongoDb",
       "typeVersion": 1.2,
       "position": [
-        448,
-        448
+        2480,
+        1200
       ],
-      "id": "3f4142fe-464d-4098-b1f2-6d9621c3db77",
+      "id": "36e8ceac-02a6-45c6-8adf-4454461d0acb",
       "name": "Find and update documents",
       "alwaysOutputData": false,
       "credentials": {
         "mongoDb": {
-          "id": "K1y2RTKvTElSmf02",
-          "name": "MongoDB account 2"
+          "id": "sjff9flDm6PtRdBH",
+          "name": "MongoDB account"
         }
       }
     },
@@ -127,10 +127,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        224,
-        448
+        2256,
+        1200
       ],
-      "id": "7a01e458-4757-473c-ae49-8f1ae3cec1ff",
+      "id": "176ea364-91d7-4825-ba59-9c9a037ba712",
       "name": "Edit Fields"
     },
     {
@@ -143,10 +143,10 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
-        0,
-        768
+        2032,
+        1520
       ],
-      "id": "072048c9-1e6e-488f-92df-04c01d065313",
+      "id": "80a1fa8e-61b2-45d6-ba5f-7d5e7c3b7c30",
       "name": "Generate new course",
       "webhookId": "d71cec1c-92e7-4aac-a066-4b314bc64450"
     },
@@ -159,10 +159,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        672,
-        672
+        2704,
+        1424
       ],
-      "id": "a55ec20d-76e8-4405-9425-984154c85277",
+      "id": "a28a95a9-33ea-485e-a49c-e5ace85e6aee",
       "name": "Edit Fields1"
     },
     {
@@ -175,16 +175,16 @@
       "type": "n8n-nodes-base.mongoDb",
       "typeVersion": 1.2,
       "position": [
-        896,
-        672
+        2928,
+        1424
       ],
-      "id": "b4554b18-5422-4c7c-83f2-14a9e3df0ca5",
+      "id": "0924842c-ba8d-4da5-befe-031817fbce4d",
       "name": "Insert documents",
       "alwaysOutputData": false,
       "credentials": {
         "mongoDb": {
-          "id": "K1y2RTKvTElSmf02",
-          "name": "MongoDB account 2"
+          "id": "sjff9flDm6PtRdBH",
+          "name": "MongoDB account"
         }
       }
     },
@@ -216,10 +216,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        224,
-        768
+        2256,
+        1520
       ],
-      "id": "881b79c6-4746-4595-bb0d-be41529c6d37",
+      "id": "4da18b74-289d-43aa-b61c-37709cf337dd",
       "name": "If"
     },
     {
@@ -233,10 +233,10 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5,
       "position": [
-        448,
-        864
+        2480,
+        1616
       ],
-      "id": "7340c9e9-e758-4a87-9107-aff6932a773c",
+      "id": "4b6aaf36-c9cc-49d6-a836-67f68b4ba6c7",
       "name": "error"
     },
     {
@@ -248,10 +248,10 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5,
       "position": [
-        1120,
-        672
+        3152,
+        1424
       ],
-      "id": "8f4be49b-74ca-4ab0-876f-12eaec3bb866",
+      "id": "2c871133-f606-45e6-b516-92cb35537f6f",
       "name": "Respond to Webhook"
     },
     {
@@ -264,10 +264,10 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
-        0,
-        1280
+        2032,
+        2032
       ],
-      "id": "21d239d4-0290-4c99-a8b0-fd2f8c2a60c3",
+      "id": "83788bdf-9a77-4a18-b906-e5c8a371062d",
       "name": "Next lesson",
       "webhookId": "d71cec1c-92e7-4aac-a066-4b314bc64450"
     },
@@ -279,10 +279,10 @@
       "type": "n8n-nodes-base.crypto",
       "typeVersion": 1,
       "position": [
-        448,
-        672
+        2480,
+        1424
       ],
-      "id": "1862bf88-9258-48fb-99b5-606deec7b0fd",
+      "id": "bb882224-ba7f-4025-b44a-93ce727ed375",
       "name": "course uuid"
     },
     {
@@ -293,10 +293,10 @@
       "type": "n8n-nodes-base.crypto",
       "typeVersion": 1,
       "position": [
-        224,
-        1280
+        2256,
+        2032
       ],
-      "id": "b058a6e5-0c38-4994-a1c1-37062b4c04fa",
+      "id": "c223e890-e45b-4200-ba0b-03e98a34de15",
       "name": "lesson uuid"
     },
     {
@@ -309,16 +309,16 @@
       "type": "n8n-nodes-base.mongoDb",
       "typeVersion": 1.2,
       "position": [
-        1344,
-        1280
+        3376,
+        2032
       ],
-      "id": "1196c91a-db59-47cc-8042-d2b8b6ee515d",
+      "id": "bfbeb195-e45b-4a43-b31e-8ce762e230fa",
       "name": "Insert lesson",
       "alwaysOutputData": false,
       "credentials": {
         "mongoDb": {
-          "id": "K1y2RTKvTElSmf02",
-          "name": "MongoDB account 2"
+          "id": "sjff9flDm6PtRdBH",
+          "name": "MongoDB account"
         }
       }
     },
@@ -331,15 +331,15 @@
       "type": "n8n-nodes-base.mongoDb",
       "typeVersion": 1.2,
       "position": [
-        672,
-        1360
+        2704,
+        2104
       ],
-      "id": "ca6ead9a-5f99-43c6-802b-7215dc707cae",
+      "id": "8e95c6e0-1c9c-4fb4-8a7d-fd00fcd6a952",
       "name": "Get course",
       "credentials": {
         "mongoDb": {
-          "id": "K1y2RTKvTElSmf02",
-          "name": "MongoDB account 2"
+          "id": "sjff9flDm6PtRdBH",
+          "name": "MongoDB account"
         }
       }
     },
@@ -352,10 +352,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        448,
-        1280
+        2480,
+        2032
       ],
-      "id": "3ecc296a-c170-4fda-a776-65ad02e6134d",
+      "id": "ed85df6e-84cf-44aa-95fe-c0515dfe18ff",
       "name": "Generate empty lesson obj"
     },
     {
@@ -367,10 +367,10 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.2,
       "position": [
-        896,
-        1280
+        2928,
+        2032
       ],
-      "id": "e0223206-fdb0-4340-8ec6-86b2ef09e1dc",
+      "id": "c3acfae5-06f9-41a7-9aab-0c5449180493",
       "name": "Merge"
     },
     {
@@ -383,10 +383,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1120,
-        1280
+        3152,
+        2032
       ],
-      "id": "fa3a1861-c1b9-4548-99c7-ac020bf4085d",
+      "id": "ee947ed2-96a6-40f7-ba90-09a88f27f4d7",
       "name": "Update lessonId"
     },
     {
@@ -400,16 +400,16 @@
       "type": "n8n-nodes-base.mongoDb",
       "typeVersion": 1.2,
       "position": [
-        1344,
-        1088
+        3376,
+        1840
       ],
-      "id": "380c2cc7-ccbf-4218-98a5-5915b1460959",
+      "id": "a1b0a396-d143-47c5-9604-c9a1195479b1",
       "name": "Update lessonIds",
       "alwaysOutputData": false,
       "credentials": {
         "mongoDb": {
-          "id": "K1y2RTKvTElSmf02",
-          "name": "MongoDB account 2"
+          "id": "sjff9flDm6PtRdBH",
+          "name": "MongoDB account"
         }
       }
     },
@@ -418,10 +418,10 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.2,
       "position": [
-        1568,
-        1184
+        3600,
+        1936
       ],
-      "id": "513a465d-9ec1-4d6a-9e99-37d55e391257",
+      "id": "27acc1d5-36f5-448b-8bc9-f20a4af5289c",
       "name": "Merge1"
     },
     {
@@ -434,10 +434,10 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5,
       "position": [
-        1792,
-        1184
+        3824,
+        1936
       ],
-      "id": "00bb548b-7c0c-4793-ad8a-e52c9229e9b1",
+      "id": "be10b80a-15d6-4503-808d-60336845d705",
       "name": "Respond to Webhook1"
     },
     {
@@ -457,10 +457,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        1344,
-        1472
+        3376,
+        2224
       ],
-      "id": "b9cc47b4-c989-40da-ba09-7eaebf8904da",
+      "id": "7d03b65f-b65f-44cb-be60-50c53e25b263",
       "name": "HTTP Request"
     },
     {
@@ -472,10 +472,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        448,
-        1696
+        2256,
+        2448
       ],
-      "id": "9afb8427-39c4-4816-a469-2fe44a287a8c",
+      "id": "5eba0049-3cdf-44cd-a3b1-78045809e1a1",
       "name": "Status \"GENERATING\""
     },
     {
@@ -489,15 +489,15 @@
       "type": "n8n-nodes-base.mongoDb",
       "typeVersion": 1.2,
       "position": [
-        672,
-        1696
+        2480,
+        2448
       ],
-      "id": "60ecaa89-fead-4b0b-9d84-a068557619ec",
+      "id": "67c6939e-d50a-4f26-a4fc-dcd6d342aeb7",
       "name": "Update status",
       "credentials": {
         "mongoDb": {
-          "id": "K1y2RTKvTElSmf02",
-          "name": "MongoDB account 2"
+          "id": "sjff9flDm6PtRdBH",
+          "name": "MongoDB account"
         }
       }
     },
@@ -510,10 +510,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1120,
-        1888
+        2928,
+        2640
       ],
-      "id": "34324855-e5fa-4eff-843f-067831b447f9",
+      "id": "9843ce04-143d-428c-9536-3fa37a9e8274",
       "name": "Status \"IN_PROGRESS\""
     },
     {
@@ -527,15 +527,15 @@
       "type": "n8n-nodes-base.mongoDb",
       "typeVersion": 1.2,
       "position": [
-        1344,
-        1888
+        3152,
+        2640
       ],
-      "id": "40e889cb-3b02-4214-972a-5a73bcbdcd8d",
+      "id": "89704404-340c-4771-b78e-9b482a524a1a",
       "name": "Update outline and status",
       "credentials": {
         "mongoDb": {
-          "id": "K1y2RTKvTElSmf02",
-          "name": "MongoDB account 2"
+          "id": "sjff9flDm6PtRdBH",
+          "name": "MongoDB account"
         }
       }
     },
@@ -555,10 +555,10 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
-        0,
-        1888
+        2032,
+        2640
       ],
-      "id": "9c737375-8472-46ab-9cb7-6fd6f97ebe64",
+      "id": "a35cff49-c3b3-4009-a9fb-2768519e2dea",
       "name": "Generate",
       "webhookId": "fb9d491c-0a9a-4068-a180-4f4ef76a4017"
     },
@@ -590,10 +590,10 @@
       "type": "n8n-nodes-base.if",
       "typeVersion": 2.3,
       "position": [
-        224,
-        1984
+        2256,
+        2832
       ],
-      "id": "7d1b5c54-72b9-4d91-891e-a5953a8670c4",
+      "id": "c988a8e5-157f-4e86-ae1b-64d020a3e010",
       "name": "Check Materials"
     },
     {
@@ -632,10 +632,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        496,
-        2272
+        2480,
+        3024
       ],
-      "id": "c4f64e04-ace0-4006-bf8b-9426d07bd02f",
+      "id": "76bfd9e7-db53-4599-ba1e-83803a6caca5",
       "name": "Outline Generator (without materials)"
     },
     {
@@ -679,10 +679,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.4,
       "position": [
-        496,
-        1888
+        2480,
+        2640
       ],
-      "id": "4feb923f-6116-4a81-9331-5d01b5f5b8bd",
+      "id": "93b4e4d8-5f75-4911-834e-264629fcf9f4",
       "name": "Outline Generator (with materials)"
     },
     {
@@ -694,10 +694,10 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.2,
       "position": [
-        896,
-        1888
+        2704,
+        2640
       ],
-      "id": "8f47aa0c-8c39-4abd-a5f8-1c846d2dff35",
+      "id": "566f44d6-3d4f-4ac0-9da0-4f72acb192ee",
       "name": "Merge CourseId and Outline"
     },
     {
@@ -724,11 +724,408 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        496,
-        2080
+        2480,
+        2832
       ],
-      "id": "be2d3ec0-7f40-46b3-8bf1-ae5b3f51785d",
+      "id": "6f4bc04d-fe9e-4a2b-9316-c9756199f946",
       "name": "Upload to RAG"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "exercises/:lessonId",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        2032,
+        3248
+      ],
+      "id": "57d859a0-3042-4027-becb-66215b8bcdd1",
+      "name": "Generate new exercise",
+      "webhookId": "d71cec1c-92e7-4aac-a066-4b314bc64450"
+    },
+    {
+      "parameters": {
+        "options": {
+          "responseCode": 201
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        3376,
+        3248
+      ],
+      "id": "9e9c0681-39eb-4767-bd52-d32dccb93dfb",
+      "name": "Respond to Webhook2"
+    },
+    {
+      "parameters": {
+        "action": "generate",
+        "dataPropertyName": "exerciseId"
+      },
+      "type": "n8n-nodes-base.crypto",
+      "typeVersion": 1,
+      "position": [
+        2256,
+        3248
+      ],
+      "id": "ca4879cf-8a87-4f76-8e97-d4144b94af8b",
+      "name": "exercise uuid"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={{\n{\n  \"exerciseId\": $('exercise uuid').item.json.exerciseId,\n  \"lessonId\": $('Generate new exercise').item.json.params.lessonId,\n  \"version\": $json.totalExercises + 1,\n  \"questions\": $('Exercise Generator').item.json.questions.questions,\n  \"createdAt\": new Date(),\n}\n}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2928,
+        3248
+      ],
+      "id": "73f8d04c-acaf-4694-a3b8-93dd3a20d292",
+      "name": "Prepare Fields"
+    },
+    {
+      "parameters": {
+        "operation": "insert",
+        "collection": "exercises",
+        "fields": "exerciseId, lessonId, version, questions, createdAt",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mongoDb",
+      "typeVersion": 1.2,
+      "position": [
+        3152,
+        3248
+      ],
+      "id": "0c664ace-9a1d-4a00-a492-81bfbae4e403",
+      "name": "Insert Exercise",
+      "alwaysOutputData": false,
+      "credentials": {
+        "mongoDb": {
+          "id": "sjff9flDm6PtRdBH",
+          "name": "MongoDB account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "collection": "exercises",
+        "options": {},
+        "query": "={\n  \"exerciseId\": \"{{ $json.params.id }}\"\n}"
+      },
+      "type": "n8n-nodes-base.mongoDb",
+      "typeVersion": 1.2,
+      "position": [
+        2256,
+        3472
+      ],
+      "id": "09398c2a-7949-47ec-934d-4a50e65bee6d",
+      "name": "Find documents2",
+      "credentials": {
+        "mongoDb": {
+          "id": "sjff9flDm6PtRdBH",
+          "name": "MongoDB account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "collection": "exercises",
+        "options": {},
+        "query": "={\n  \"lessonId\": \"{{ $json.params.id }}\"\n}"
+      },
+      "type": "n8n-nodes-base.mongoDb",
+      "typeVersion": 1.2,
+      "position": [
+        2256,
+        3696
+      ],
+      "id": "c0c14530-de8a-45a2-bfc5-547143c4ffee",
+      "name": "Find documents3",
+      "credentials": {
+        "mongoDb": {
+          "id": "sjff9flDm6PtRdBH",
+          "name": "MongoDB account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "path": "exercises/:id",
+        "responseMode": "lastNode",
+        "responseData": "allEntries",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        2032,
+        3472
+      ],
+      "id": "3ec8f642-bcbf-43e6-997b-3b35f0b1d0ed",
+      "name": "Get exercise by exerciseId",
+      "webhookId": "d71cec1c-92e7-4aac-a066-4b314bc64450"
+    },
+    {
+      "parameters": {
+        "path": "exercises/lesson/:lessonId",
+        "responseMode": "lastNode",
+        "responseData": "allEntries",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        2032,
+        3696
+      ],
+      "id": "bc39e2da-f7b8-46f3-b81e-89eeea3e481b",
+      "name": "Get exercises by lessonId",
+      "webhookId": "d71cec1c-92e7-4aac-a066-4b314bc64450"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "exercises/submit/:id",
+        "responseMode": "lastNode",
+        "responseData": "allEntries",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        2032,
+        3920
+      ],
+      "id": "1d2aecc3-dc1e-410c-a37e-a5f2a4d8c811",
+      "name": "Submit Answer",
+      "webhookId": "d71cec1c-92e7-4aac-a066-4b314bc64450"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n  \"exerciseId\": {{ $json.params.id }},\n  \"answer\": {{ $json.body.answer }}\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2256,
+        3920
+      ],
+      "id": "3020b43a-bb01-4d0d-b25f-3c4a5c41e106",
+      "name": "Prepare Answer"
+    },
+    {
+      "parameters": {
+        "jsCode": "const input = $input.first().json;\nconst preparedAnswers = $('Prepare Answer').first().json.answer || [];\n\n// Build answer map safely\nconst answerMap = new Map();\nfor (const item of preparedAnswers) {\n  if (item?.number !== undefined) {\n    answerMap.set(item.number, item.answer ?? null);\n  }\n}\n\nconst newQuestions = (input.questions || []).map(q => {\n  const userAnswer = answerMap.has(q.number)\n    ? answerMap.get(q.number)\n    : null;\n\n  const isCorrect = userAnswer === q.correctAnswer;\n\n  return {\n    ...q,\n    answer: userAnswer,\n    isCorrect: isCorrect\n  };\n});\n\n// Calculate score safely\nconst totalScore = newQuestions.reduce((sum, q) => {\n  return sum + (q.isCorrect ? (q.score || 0) : 0);\n}, 0);\n\nreturn [\n  {\n    json: {\n      exerciseId: input.exerciseId,\n      questions: newQuestions,\n      score: totalScore ?? 0,\n      submittedAt: new Date()\n    }\n  }\n];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2704,
+        3920
+      ],
+      "id": "d59dab69-f104-49c9-84e8-3a5ef1809edc",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "collection": "exercises",
+        "options": {},
+        "query": "={\n  \"exerciseId\": \"{{ $json.exerciseId }}\"\n}"
+      },
+      "type": "n8n-nodes-base.mongoDb",
+      "typeVersion": 1.2,
+      "position": [
+        2480,
+        3920
+      ],
+      "id": "a182700f-d724-4869-b4f6-515403b8a8e6",
+      "name": "Get Exercise",
+      "credentials": {
+        "mongoDb": {
+          "id": "sjff9flDm6PtRdBH",
+          "name": "MongoDB account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "findOneAndUpdate",
+        "collection": "exercises",
+        "updateKey": "exerciseId",
+        "fields": "questions, score, submittedAt",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mongoDb",
+      "typeVersion": 1.2,
+      "position": [
+        2928,
+        3920
+      ],
+      "id": "8dda6ac5-eec1-4b4f-9048-96724361581e",
+      "name": "Update answer and score",
+      "credentials": {
+        "mongoDb": {
+          "id": "sjff9flDm6PtRdBH",
+          "name": "MongoDB account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "aggregate",
+        "collection": "exercises",
+        "query": "=[\n  {\n    \"$match\": {\n      \"lessonId\": \"{{ $json.params.lessonId }}\"\n    }\n  },\n  {\n    \"$group\": {\n      \"_id\": null,\n      \"maxScore\": { \"$max\": \"$score\" }\n    }\n  },\n  {\n    \"$project\": {\n      \"_id\": 0,\n      \"maxScore\": 1\n    }\n  }\n]\n"
+      },
+      "type": "n8n-nodes-base.mongoDb",
+      "typeVersion": 1.2,
+      "position": [
+        2256,
+        4144
+      ],
+      "id": "4763023b-a217-48f4-864d-1bd99873867f",
+      "name": "Aggregate documents",
+      "credentials": {
+        "mongoDb": {
+          "id": "sjff9flDm6PtRdBH",
+          "name": "MongoDB account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "if ($input.all().length === 0) {\n  return [{\n    json: {\n      maxScore: 0\n    }\n  }];\n}\n\nreturn $input.all();\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2480,
+        4144
+      ],
+      "id": "79a0705b-e3a3-45cf-a704-a8135cc20283",
+      "name": "Code in JavaScript1"
+    },
+    {
+      "parameters": {
+        "operation": "aggregate",
+        "collection": "courses",
+        "query": "=[\n  {\n    \"$match\": {\n      \"courseId\": \"{{ $json.params.courseId }}\"\n    }\n  },\n  {\n    \"$lookup\": {\n      \"from\": \"exercises\",\n      \"localField\": \"lessonIds\",\n      \"foreignField\": \"lessonId\",\n      \"as\": \"exercises\"\n    }\n  },\n  {\n    \"$unwind\": \"$exercises\"\n  },\n  {\n    \"$group\": {\n      \"_id\": \"$exercises.lessonId\",\n      \"maxScore\": { \"$max\": \"$exercises.score\" }\n    }\n  },\n  {\n    \"$group\": {\n      \"_id\": null,\n      \"avgMaxScore\": { \"$avg\": \"$maxScore\" }\n    }\n  },\n  {\n    \"$project\": {\n      \"_id\": 0,\n      \"avgMaxScore\": 1\n    }\n  }\n]\n"
+      },
+      "type": "n8n-nodes-base.mongoDb",
+      "typeVersion": 1.2,
+      "position": [
+        2256,
+        4368
+      ],
+      "id": "d347a278-fc1c-435c-9ba5-8d0fcef6152c",
+      "name": "Aggregate documents1",
+      "credentials": {
+        "mongoDb": {
+          "id": "sjff9flDm6PtRdBH",
+          "name": "MongoDB account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "if ($input.all().length === 0) {\n  return [{\n    json: {\n      avgMaxScore: 0\n    }\n  }];\n}\n\nreturn $input.all();\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2480,
+        4368
+      ],
+      "id": "e8d9cc56-4fce-448c-92e6-9e39101bcc8e",
+      "name": "Code in JavaScript2"
+    },
+    {
+      "parameters": {
+        "path": "exercises/max-score/:lessonId",
+        "responseMode": "lastNode",
+        "responseData": "allEntries",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        2032,
+        4144
+      ],
+      "id": "9121b52f-59f1-4e5b-944d-03dada8ea69d",
+      "name": "Get maximum score by lessonId",
+      "webhookId": "d71cec1c-92e7-4aac-a066-4b314bc64450"
+    },
+    {
+      "parameters": {
+        "path": "exercises/average-score/:courseId",
+        "responseMode": "lastNode",
+        "responseData": "allEntries",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        2032,
+        4368
+      ],
+      "id": "895fa6bb-a1b2-43b5-9444-ef239dbc66a2",
+      "name": "Get average score by courseId",
+      "webhookId": "d71cec1c-92e7-4aac-a066-4b314bc64450"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:5678/webhook/async-generate-exercise",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "lessonId",
+              "value": "={{ $json.params.lessonId }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        2480,
+        3248
+      ],
+      "id": "2166e03f-2bc1-427d-bfa0-92afd23b4cad",
+      "name": "Exercise Generator"
+    },
+    {
+      "parameters": {
+        "operation": "aggregate",
+        "collection": "exercises",
+        "query": "=[\n  {\n    \"$match\": {\n      \"lessonId\": \"{{ $('Generate new exercise').item.json.params.lessonId }}\"\n    }\n  },\n  {\n    \"$count\": \"totalExercises\"\n  }\n]\n"
+      },
+      "type": "n8n-nodes-base.mongoDb",
+      "typeVersion": 1.2,
+      "position": [
+        2704,
+        3248
+      ],
+      "id": "23712991-830b-4c08-b072-c5b3b4a6d77b",
+      "name": "Aggregate documents2",
+      "credentials": {
+        "mongoDb": {
+          "id": "sjff9flDm6PtRdBH",
+          "name": "MongoDB account"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -1057,6 +1454,182 @@
           }
         ]
       ]
+    },
+    "Generate new exercise": {
+      "main": [
+        [
+          {
+            "node": "exercise uuid",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "exercise uuid": {
+      "main": [
+        [
+          {
+            "node": "Exercise Generator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Fields": {
+      "main": [
+        [
+          {
+            "node": "Insert Exercise",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert Exercise": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get exercise by exerciseId": {
+      "main": [
+        [
+          {
+            "node": "Find documents2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get exercises by lessonId": {
+      "main": [
+        [
+          {
+            "node": "Find documents3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Submit Answer": {
+      "main": [
+        [
+          {
+            "node": "Prepare Answer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Answer": {
+      "main": [
+        [
+          {
+            "node": "Get Exercise",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Exercise": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Update answer and score",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate documents": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate documents1": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get maximum score by lessonId": {
+      "main": [
+        [
+          {
+            "node": "Aggregate documents",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get average score by courseId": {
+      "main": [
+        [
+          {
+            "node": "Aggregate documents1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Exercise Generator": {
+      "main": [
+        [
+          {
+            "node": "Aggregate documents2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate documents2": {
+      "main": [
+        [
+          {
+            "node": "Prepare Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": true,
@@ -1065,11 +1638,11 @@
     "binaryMode": "separate",
     "availableInMCP": false
   },
-  "versionId": "b548afde-1088-4e20-86a4-c5d6613c4206",
+  "versionId": "22deb328-59b9-4b77-aa9f-37944a3d9350",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "033f1bc6215f63e899772bfa6952d5de23ea9ab6140b36a3b563a251130298dd"
+    "instanceId": "7359c0c217c2f2526bf0a6c46f4839c44f96a0005dca2af79edc19e6ed7703f7"
   },
-  "id": "IBnl6kerSHz4ubQ0",
+  "id": "HOTgHJ5SfMVbX69z",
   "tags": []
 }
