@@ -23,7 +23,8 @@
         "collection": "lessons",
         "options": {
           "projection": "{\n  \"content\": true\n}"
-        }
+        },
+        "query": "={\n  \"lessonId\": \"{{ $json.body.lessonId }}\"\n}"
       },
       "type": "n8n-nodes-base.mongoDb",
       "typeVersion": 1.2,
@@ -91,7 +92,7 @@
     {
       "parameters": {
         "mode": "raw",
-        "jsonOutput": "={\n  \"questions\": {{ $json.output }}\n}",
+        "jsonOutput": "={\n  \"output\": {{ $json.output }}\n}",
         "options": {}
       },
       "type": "n8n-nodes-base.set",
@@ -102,6 +103,21 @@
       ],
       "id": "a20b068c-a758-404c-aad6-777775be7b62",
       "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={\n  \"questions\": {{ $json.output.questions }},\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1104,
+        0
+      ],
+      "id": "12313b74-4dc5-4e0d-bb3d-aee51c3d5962",
+      "name": "Select questions"
     }
   ],
   "pinData": {},
@@ -152,7 +168,13 @@
     },
     "Edit Fields": {
       "main": [
-        []
+        [
+          {
+            "node": "Select questions",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     }
   },
@@ -162,7 +184,7 @@
     "binaryMode": "separate",
     "availableInMCP": false
   },
-  "versionId": "a46aee55-ac2c-41e8-9838-77997d97a2c2",
+  "versionId": "0c92dfba-b299-4242-b099-8836d3b25a93",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "7359c0c217c2f2526bf0a6c46f4839c44f96a0005dca2af79edc19e6ed7703f7"

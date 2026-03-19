@@ -13,11 +13,11 @@
         416,
         0
       ],
-      "id": "c7becd63-4a4c-480f-a776-8288e6f5ed5a",
+      "id": "0aa7e904-e20d-45bb-83a3-66f54f5ff906",
       "name": "Find documents",
       "credentials": {
         "mongoDb": {
-          "id": "iCNt1Q8lHJktVzZ3",
+          "id": "sjff9flDm6PtRdBH",
           "name": "MongoDB account"
         }
       }
@@ -42,7 +42,7 @@
         208,
         0
       ],
-      "id": "9b744db2-360c-46fc-9510-28daa926229e",
+      "id": "1a3b000e-1ff9-4e89-b05a-bf7a3fd259ad",
       "name": "Edit Fields"
     },
     {
@@ -59,11 +59,11 @@
         432,
         208
       ],
-      "id": "f25a9c66-2886-4bb6-b85e-a7673f8756d2",
+      "id": "48055573-8b93-4d73-b5d1-94fac19fb6a8",
       "name": "Update documents",
       "credentials": {
         "mongoDb": {
-          "id": "iCNt1Q8lHJktVzZ3",
+          "id": "sjff9flDm6PtRdBH",
           "name": "MongoDB account"
         }
       }
@@ -80,7 +80,7 @@
         0,
         0
       ],
-      "id": "4a917e63-d4ad-4ed5-a7c9-80b36142bbcd",
+      "id": "ed8e0844-793a-4505-9e33-1f92a67023a6",
       "name": "GetOneLesson",
       "webhookId": "a7d64218-010b-4ff0-a255-3ea4f9d23c26"
     },
@@ -94,7 +94,7 @@
         224,
         208
       ],
-      "id": "fd950262-9ebe-4a04-890d-cf874f84f819",
+      "id": "15dc5a58-8b37-4efc-82fe-e848ce7d3e83",
       "name": "Mapping"
     },
     {
@@ -110,8 +110,8 @@
         16,
         208
       ],
-      "id": "8e0bfd5d-1011-43c7-afbe-4f5104bd40a4",
-      "name": "PATCHLesson",
+      "id": "7a40ac89-333b-454b-a40c-9b847618b3d2",
+      "name": "PatchLesson",
       "webhookId": "c2c79d4b-b56d-4fdc-8aba-96e34d5f2a13"
     }
   ],
@@ -150,7 +150,7 @@
         ]
       ]
     },
-    "PATCHLesson": {
+    "PatchLesson": {
       "main": [
         [
           {
@@ -165,13 +165,14 @@
   "active": true,
   "settings": {
     "executionOrder": "v1",
+    "binaryMode": "separate",
     "availableInMCP": false
   },
-  "versionId": "5619b990-5013-4c26-a78d-0664d54d6653",
+  "versionId": "dd4bf9f5-e9b5-4781-8d54-7e1795db3aa8",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "4436dab057415997b1e213a09c95779d30fd31c9c0911f2717b0dff86bc58428"
+    "instanceId": "7359c0c217c2f2526bf0a6c46f4839c44f96a0005dca2af79edc19e6ed7703f7"
   },
-  "id": "iiOeC1mV39qJY9suE9XdH",
+  "id": "eRQa06hev39zJhlQ",
   "tags": []
 }
