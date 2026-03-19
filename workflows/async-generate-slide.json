@@ -35,10 +35,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        368,
+        224,
         384
       ],
-      "id": "61083ab9-402c-4fb0-9118-26c1b07cb5f3",
+      "id": "42156e4d-6ede-4d58-90a2-d96d7be4052c",
       "name": "GenieScript"
     },
     {
@@ -59,10 +59,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        144,
+        0,
         288
       ],
-      "id": "d0d68fb6-b674-4a03-8b37-b0cae6afd30e",
+      "id": "e782974d-cc6e-4bfa-8d0f-e85dc7f23a0a",
       "name": "GenerateSlide"
     },
     {
@@ -72,10 +72,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        592,
+        448,
         384
       ],
-      "id": "14edbd69-f8dc-48e0-83db-1178e5488574",
+      "id": "f5a5eed2-8ca3-4349-af41-2e3af3adc202",
       "name": "Code in JavaScript"
     },
     {
@@ -86,10 +86,10 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        816,
+        672,
         384
       ],
-      "id": "344cbfaa-9c3a-4cd5-a2e5-22d6bca8810a",
+      "id": "b6e137e2-9918-43b5-a0d3-74ad3a9b4f8d",
       "name": "Split Out"
     },
     {
@@ -99,10 +99,10 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        1040,
+        896,
         384
       ],
-      "id": "c40ea605-129a-42a6-a8cd-75fa1c78cbe9",
+      "id": "db72d3fa-cf16-4ac7-aaae-6c1a2d78aa17",
       "name": "Loop"
     },
     {
@@ -117,10 +117,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        1264,
+        1120,
         384
       ],
-      "id": "46a6928f-f270-4b8f-a40c-f710c55f3ad1",
+      "id": "e5eab266-f436-4ed4-b5ab-dbfc3298b3c7",
       "name": "GenerateVoice"
     },
     {
@@ -133,48 +133,18 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
-        -1648,
-        192
+        -2016,
+        272
       ],
-      "id": "96ca182a-9c54-4ad6-ba44-f8cd010b4b9b",
+      "id": "10e63e2b-772f-4a23-8bb7-c8368223a129",
       "name": "Webhook",
       "webhookId": "c956b764-c4a0-43bf-a872-44e78f63c768"
     },
     {
       "parameters": {
-        "promptType": "define",
-        "text": "={{ $json.data }}",
-        "options": {
-          "systemMessage": "=Create a presentation in Marp Markdown format based on the following input.\n\n\n\nSTRICT LAYOUT RULES:\n\n1. Frontmatter: The very first lines of your response MUST be the YAML frontmatter provided below. Do not include any text, greetings, or \"Sure, here is your presentation\" before it.\n\n2. Content Splitting: You MUST create a NEW SLIDE (using '---') for every distinct section or major topic.\n\n3. \"One Header\" Rule: Never put two \"## H2 Headers\" on the same slide. If you start a new ## Header, you MUST put '---' before it.\n\n4. Bullet Limits: Maximum 5 bullet points per slide. If there are more, split them into two slides (e.g., \"Key Areas Part 1\" and \"Key Areas Part 2\").\n\n5. Output raw Markdown text only. Do not use markdown code blocks (```). Ensure the first line of the output is the opening '---' of the frontmatter.\n\n\n\n---\n\nmarp: true\n\ntheme: default\n\npaginate: true\n\nsize: 16:9\n\nstyle: |\n\n  section {\n\n    font-size: 25px;\n\n    padding: 40px;\n\n    justify-content: center; /* Keeps content centered vertically */\n\n  }\n\n  h1 {\n\n    font-size: 50px;\n\n    color: #0288d1;\n\n  }\n\n  h2 {\n\n    font-size: 35px;\n\n    color: #333;\n\n  }\n\n---\n\n\n\nInput Data: {{ $json.data }}"
-        }
-      },
-      "type": "@n8n/n8n-nodes-langchain.agent",
-      "typeVersion": 3.1,
-      "position": [
-        -1296,
-        832
-      ],
-      "id": "5aaa9ab6-9e04-4ecc-a57b-4b29b90d8d5d",
-      "name": "AI Agent"
-    },
-    {
-      "parameters": {
-        "options": {}
-      },
-      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
-      "typeVersion": 1,
-      "position": [
-        -1224,
-        1056
-      ],
-      "id": "c7703439-8cfb-4102-b27a-7d144d9cdfae",
-      "name": "Google Gemini Chat Model"
-    },
-    {
-      "parameters": {
         "operation": "update",
         "collection": "lessons",
-        "updateKey": "=_id",
+        "updateKey": "=lessonId",
         "fields": "=status,slideURL,slideStatus",
         "upsert": true,
         "options": {}
@@ -182,14 +152,14 @@
       "type": "n8n-nodes-base.mongoDb",
       "typeVersion": 1.2,
       "position": [
-        816,
+        672,
         192
       ],
-      "id": "d1e2a888-7973-4150-b49b-31991f955f92",
+      "id": "61906291-921d-410f-b08a-061a571ace66",
       "name": "Update documents",
       "credentials": {
         "mongoDb": {
-          "id": "sjff9flDm6PtRdBH",
+          "id": "pWePL90dwTVGzXVd",
           "name": "MongoDB account"
         }
       }
@@ -204,11 +174,17 @@
       "type": "n8n-nodes-base.awsS3",
       "typeVersion": 2,
       "position": [
-        1488,
-        456
+        1344,
+        464
       ],
-      "id": "db051a60-4145-4740-939f-b278f71151a3",
+      "id": "84073fe6-8a6a-4ba5-9e90-e7779c7fef68",
       "name": "Audio Upload",
+      "credentials": {
+        "aws": {
+          "id": "dxBCP5LgruhUqTMg",
+          "name": "AWS (IAM) account"
+        }
+      },
       "onError": "continueRegularOutput"
     },
     {
@@ -221,17 +197,23 @@
       "type": "n8n-nodes-base.awsS3",
       "typeVersion": 2,
       "position": [
-        368,
+        224,
         192
       ],
-      "id": "53d5915a-43da-43a4-a6bf-5a0c65f9a651",
-      "name": "Slide Upload"
+      "id": "711d7e0d-04af-49d9-91b3-fc65a6c7d017",
+      "name": "Slide Upload",
+      "credentials": {
+        "aws": {
+          "id": "dxBCP5LgruhUqTMg",
+          "name": "AWS (IAM) account"
+        }
+      }
     },
     {
       "parameters": {
         "operation": "update",
         "collection": "lessons",
-        "updateKey": "=_id",
+        "updateKey": "=lessonId",
         "fields": "=audioURLs,audioStatus",
         "upsert": true,
         "options": {}
@@ -239,42 +221,42 @@
       "type": "n8n-nodes-base.mongoDb",
       "typeVersion": 1.2,
       "position": [
-        1488,
+        1344,
         192
       ],
-      "id": "d177867b-cd99-4a44-ac00-f463d08dbd29",
+      "id": "cc4c4368-7fc5-4565-9496-f4943095ef3e",
       "name": "Update documents1",
       "credentials": {
         "mongoDb": {
-          "id": "sjff9flDm6PtRdBH",
+          "id": "pWePL90dwTVGzXVd",
           "name": "MongoDB account"
         }
       }
     },
     {
       "parameters": {
-        "jsCode": "let audioURLs = []\nconst lesson_id = $('prepare').first().json._id\nfor (let i = 0; i < $('Code in JavaScript').first().json.script.length; i++) {\n  const url =`https://capstone-ai-education.s3.amazonaws.com/${lesson_id}/audio/audio_${i}.wav`\n  audioURLs.push(url)\n}\n\nreturn { \n  audioURLs, \n  \"_id\": lesson_id,\n  audioStatus: \"GENERATED\"\n};"
+        "jsCode": "let audioURLs = []\nconst lesson_id = $('prepare').first().json._id\nfor (let i = 0; i < $('Code in JavaScript').first().json.script.length; i++) {\n  const url =`https://capstone-ai-education.s3.amazonaws.com/${lesson_id}/audio/audio_${i + 1}.wav`\n  audioURLs.push(url)\n}\n\nreturn { \n  audioURLs, \n  \"lessonId\": lesson_id,\n  audioStatus: \"GENERATED\"\n};"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1264,
+        1120,
         192
       ],
-      "id": "b148c330-dca7-4cbe-a408-a0261763e5fd",
+      "id": "6d68d7b8-6cc1-456b-b681-329a36a699bc",
       "name": "Code in JavaScript2"
     },
     {
       "parameters": {
-        "jsCode": "const lesson_id = $('prepare').first().json._id\n\nreturn { \n  slideURL: `https://capstone-ai-education.s3.amazonaws.com/${lesson_id}/slide.pdf`,\n  \"_id\": lesson_id,\n  \"status\": \"IN_PROGRESS\",\n  \"slideStatus\": \"GENERATED\"\n};"
+        "jsCode": "const lesson_id = $('prepare').first().json._id\n\nreturn { \n  slideURL: `https://capstone-ai-education.s3.amazonaws.com/${lesson_id}/slide.pdf`,\n  \"lessonId\": lesson_id,\n  \"status\": \"IN_PROGRESS\",\n  \"slideStatus\": \"GENERATED\"\n};"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        592,
+        448,
         192
       ],
-      "id": "3e8e3ebe-bff3-47da-a7d3-39a188baca6a",
+      "id": "74ad4539-14cf-4c7b-92e3-2aba6d623c9a",
       "name": "PrepareUpdateLessonSlide"
     },
     {
@@ -297,7 +279,7 @@
             },
             {
               "name": "messages",
-              "value": "={{ \n  JSON.stringify([{\n    \"role\": \"user\",\n    \"content\": `Act as an expert curriculum designer and instructional strategist.\n\nYour task is to generate highly detailed slide content for a 10-minute lecture.\n\nYou will receive TWO types of input:\n\n1. CURRENT SLIDE (PRIMARY SOURCE)\nThis is the slide you must expand and generate content for. The slide title and topic here must drive the explanation.\n\n2. COURSE OUTLINE (CONTEXT ONLY)\nThis provides the structure of the entire lecture. Use it only to:\n- Maintain logical flow\n- Avoid repeating previous slides\n- Ensure continuity with surrounding topics\n\nDo NOT regenerate the entire outline. Focus only on the CURRENT SLIDE.\n\n---\n\nINPUTS\n\nCURRENT SLIDE:\n${JSON.stringify($json.slide)}\n\nCOURSE OUTLINE:\n${JSON.stringify($json.outline)}\n\nDATA FROM RAG:\n${JSON.stringify($json.rag_data)}\n\n---\n\nOBJECTIVE\n\nExpand the CURRENT SLIDE into one or more detailed presentation slides suitable for teaching.\n\nThe generated content must:\n- Follow logically from the previous slide in the outline\n- Prepare the audience for the next slide\n- Include explanations, examples, and real-world context\n- Be understandable without additional narration\n\n---\n\nOUTPUT FORMAT\n\nReturn a JSON array of slide objects.\n\nEach slide must contain:\n\n{\n  \"title\": \"...\",\n  \"content\": [\n    {\n      \"bullet\": \"...\",\n      \"sub_points\": [\"...\", \"...\"]\n    }\n  ]\n}\n\n---\n\nCONTENT RULES\n\n1. Slide Title\n- Maximum 60 characters\n- Clear and descriptive\n- If continuation is required, append \"(Cont.)\"\n\n2. Slide Content\n- Maximum 4 main bullet points\n- Each bullet may include sub-bullets\n- Sub-bullets must contain full-sentence explanations\n- Total words per slide must NOT exceed 150 words\n\n3. MANDATORY SPLITTING\nIf the explanation exceeds ~80 words for a topic:\n- Stop writing\n- Create a new slide\n- Continue under the same title with \"(Cont.)\"\n\nAchieve depth by generating MORE slides instead of denser slides.\n\n---\n\nIMPORTANT PRIORITY\n\nWhen generating content:\n\n1️. Prioritize the CURRENT SLIDE topic  \n2️. Use the COURSE OUTLINE only to maintain flow  \n3️. Never introduce topics not present in the outline\n`\n  }]) \n}}"
+              "value": "={{ \n  JSON.stringify([{\n    \"role\": \"user\",\n    \"content\": `Act as an expert curriculum designer and instructional strategist.\n\nYour task is to generate HIGH-DENSITY, comprehensive slide content for the CURRENT SLIDE topic.\n\n---\nINPUTS\nCURRENT SLIDE: ${JSON.stringify($json.slide)}\nCOURSE OUTLINE: ${JSON.stringify($json.outline)}\nDATA FROM RAG: ${JSON.stringify($json.rag_data)}\n\n---\nOBJECTIVE: \"MAXIMUM DENSITY, ZERO OVERFLOW\"\n\nGenerate as much detailed text as possible for the CURRENT SLIDE without exceeding the visual limits of a single slide. You must exhaust the RAG data provided.\n\n---\nSTRICT FORMATTING RULES (TO PREVENT OVERFLOW)\n\n1. NO MULTIPLE SLIDES: Output exactly ONE slide object in the JSON array for this specific topic. \n2. BULLET STRUCTURE: \n   - Exactly 4 main bullet points. \n   - Exactly 3 sub-bullets per main bullet.\n3. CHARACTER BUDGET (CRITICAL):\n   - Each sub-bullet MUST be between 120 and 150 characters. \n   - This ensures the text is \"long\" but stops before it creates a scrollbar or overflows the container.\n4. CONTENT DEPTH:\n   - Avoid \"fluff.\" Use the extra character space for technical definitions, specific data points from RAG, and \"how-to\" context.\n   - Write in complete, sophisticated sentences.\n\n---\nOUTPUT FORMAT\nReturn a JSON array with exactly ONE object with SLIDE IN RANGE 7-12 slide objects:\n\n[\n  {\n    \"title\": \"Max 60 Char Descriptive Title\",\n    \"content\": [\n      {\n        \"bullet\": \"Primary Concept\",\n        \"sub_points\": [\n          \"Detailed 150-character explanation sentence one.\",\n          \"Detailed 150-character explanation sentence two.\",\n          \"Detailed 150-character explanation sentence three.\"\n        ]\n      }\n    ]\n  }\n]\n\n---\nPRIORITY\n1. Use every relevant technical detail from the RAG DATA.\n2. Ensure the text is \"edge-to-edge\" within the character limits provided.\n3. Have 7-12 slides\n4. Do not move to the next topic in the outline.`\n  }]) \n}}"
             }
           ]
         },
@@ -306,41 +288,11 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        -752,
+        -896,
         288
       ],
-      "id": "a3d57331-8d62-470e-89af-a3a699e88afc",
+      "id": "5be99665-ddda-4a2c-81af-930d7eb76bf2",
       "name": "SlideContentGenerator"
-    },
-    {
-      "parameters": {
-        "promptType": "define",
-        "text": "={{ $json.slides }}",
-        "options": {
-          "systemMessage": "={{ \n  JSON.stringify([{\n    \"role\": \"user\",\n    \"content\": `Act as an expert curriculum designer. I am providing you with an outline for a presentation in JSON format. Your task is to expand this into a highly detailed, text-heavy presentation that contains enough material to fill a 10-minute lecture.\n\nHere is the outline:\n${JSON.stringify($json.slides)}\n\nI do NOT want brief summaries or speaker notes. I want the slides themselves to be packed with comprehensive information. \n\nFor EVERY slide in the outline, generate the following structure:\n1. Slide Title: (Clear and descriptive).\n2. Slide Content: (This MUST be highly detailed and text-heavy. Provide 2 to 6 main bullet points. Include sub-bullets, full-sentence explanations, detailed step-by-step examples, and real-world context directly in this section. Do not hold back information; write everything the audience needs to know directly onto the slide).\n3. Each slide content should be distributed, if the content is too much, you can split them into separate slides so that it does not overflow.`\n  }]) \n}}"
-        }
-      },
-      "type": "@n8n/n8n-nodes-langchain.agent",
-      "typeVersion": 3.1,
-      "position": [
-        -1648,
-        832
-      ],
-      "id": "6d4abd38-8686-4512-8b98-741a42b8ddf0",
-      "name": "AI Agent1"
-    },
-    {
-      "parameters": {
-        "options": {}
-      },
-      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
-      "typeVersion": 1,
-      "position": [
-        -1576,
-        1056
-      ],
-      "id": "37e767b5-0438-4a1d-846c-f394147a4f98",
-      "name": "Google Gemini Chat Model1"
     },
     {
       "parameters": {
@@ -359,10 +311,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -304,
+        -448,
         192
       ],
-      "id": "8bce300f-6fb3-41b1-bfa9-5915daf317b2",
+      "id": "fb401a62-caac-4808-b7e3-ed0e149cc044",
       "name": "Edit Fields"
     },
     {
@@ -374,10 +326,10 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5,
       "position": [
-        -976,
+        -1120,
         288
       ],
-      "id": "a0f8120a-4f74-4703-bbf7-2504f068efc7",
+      "id": "62884b79-98ed-4d37-bbdf-36a834bbf0e3",
       "name": "Respond to Webhook"
     },
     {
@@ -409,10 +361,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        -528,
+        -672,
         192
       ],
-      "id": "30dada9c-f4f7-4f08-bf45-25112352918c",
+      "id": "29a1d69d-af9d-4139-8317-b6af67c2ebe4",
       "name": "SlideMarpGenerator"
     },
     {
@@ -443,10 +395,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        -80,
+        -224,
         48
       ],
-      "id": "4dd73eaa-7207-4130-9916-3596aa3b5c1f",
+      "id": "ea6d0a42-26e1-4a55-a37c-f172979cf08b",
       "name": "GenerateSlidePPTX",
       "onError": "continueErrorOutput"
     },
@@ -460,30 +412,36 @@
       "type": "n8n-nodes-base.awsS3",
       "typeVersion": 2,
       "position": [
-        144,
+        0,
         0
       ],
-      "id": "d8e762da-bb5f-4387-ac12-22779f506449",
-      "name": "PPTXUpload"
+      "id": "293ac05b-23c1-4930-aa9c-922dd7c7413b",
+      "name": "PPTXUpload",
+      "credentials": {
+        "aws": {
+          "id": "dxBCP5LgruhUqTMg",
+          "name": "AWS (IAM) account"
+        }
+      }
     },
     {
       "parameters": {
-        "jsCode": "const lesson_id = $('prepare').first().json._id\n\nreturn { \n  pptxSlideURL: `https://capstone-ai-education.s3.amazonaws.com/${lesson_id}/slide.pptx`,\n  \"_id\": lesson_id\n};"
+        "jsCode": "const lesson_id = $('prepare').first().json._id\n\nreturn { \n  pptxSlideURL: `https://capstone-ai-education.s3.amazonaws.com/${lesson_id}/slide.pptx`,\n  \"lessonId\": lesson_id\n};"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        368,
+        224,
         0
       ],
-      "id": "c52fdfc3-dca8-4a3d-b971-f93d07ea11d3",
+      "id": "5b1c6974-8c6e-4847-b8ee-ef9461afbaf4",
       "name": "PrepareUpdateLessonSlide1"
     },
     {
       "parameters": {
         "operation": "update",
         "collection": "lessons",
-        "updateKey": "=_id",
+        "updateKey": "=lessonId",
         "fields": "=pptxSlideURL",
         "upsert": true,
         "options": {}
@@ -491,14 +449,14 @@
       "type": "n8n-nodes-base.mongoDb",
       "typeVersion": 1.2,
       "position": [
-        592,
+        448,
         0
       ],
-      "id": "f61e4332-0b2b-4d91-b15a-a6c7a22ec474",
+      "id": "31f0b22f-82b5-4e55-8b3f-88d1bd3cba86",
       "name": "Update documents2",
       "credentials": {
         "mongoDb": {
-          "id": "sjff9flDm6PtRdBH",
+          "id": "pWePL90dwTVGzXVd",
           "name": "MongoDB account"
         }
       }
@@ -526,10 +484,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        -1648,
-        384
+        -1792,
+        400
       ],
-      "id": "1e93b79b-3036-4f8d-8598-ab69009d6dbd",
+      "id": "0ad0e777-2dac-4409-839c-9ea1a415af40",
       "name": "GetDataFromRAG"
     },
     {
@@ -541,10 +499,10 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.2,
       "position": [
-        -1424,
+        -1568,
         288
       ],
-      "id": "0872a51c-12ef-482e-8c6f-65a63856ceb5",
+      "id": "2a181c2b-1a84-4b0d-b067-1aa3b5a14adf",
       "name": "Merge"
     },
     {
@@ -594,10 +552,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -1200,
+        -1344,
         288
       ],
-      "id": "9523a448-ab2b-42f9-8b4b-facd2271e01c",
+      "id": "df3374ac-5fe2-4f92-9b4c-14081b590e73",
       "name": "prepare"
     },
     {
@@ -609,10 +567,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -304,
-        504
+        -448,
+        512
       ],
-      "id": "e46659da-5b3b-4ec0-91b2-9ee5d8550056",
+      "id": "560dcef6-562f-47c0-a7d4-c9dafeed0eda",
       "name": "Edit Fields1"
     },
     {
@@ -627,14 +585,14 @@
       "type": "n8n-nodes-base.mongoDb",
       "typeVersion": 1.2,
       "position": [
-        -80,
-        504
+        -224,
+        512
       ],
-      "id": "85add7ee-1ada-46f7-b54c-3c84026370e2",
+      "id": "afaf8e81-c2dc-481c-bbbd-91778969ffe2",
       "name": "Update content",
       "credentials": {
         "mongoDb": {
-          "id": "sjff9flDm6PtRdBH",
+          "id": "pWePL90dwTVGzXVd",
           "name": "MongoDB account"
         }
       }
@@ -646,10 +604,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -528,
-        504
+        -672,
+        512
       ],
-      "id": "517ee758-a8cd-485c-8149-c64a8b6c43e9",
+      "id": "407259dc-cc1b-462b-a74b-034b769ebfb9",
       "name": "Remove json```"
     }
   ],
@@ -740,16 +698,10 @@
             "node": "Merge",
             "type": "main",
             "index": 0
-          }
-        ]
-      ]
-    },
-    "Google Gemini Chat Model": {
-      "ai_languageModel": [
-        [
+          },
           {
-            "node": "AI Agent",
-            "type": "ai_languageModel",
+            "node": "GetDataFromRAG",
+            "type": "main",
             "index": 0
           }
         ]
@@ -809,28 +761,6 @@
           },
           {
             "node": "SlideMarpGenerator",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Google Gemini Chat Model1": {
-      "ai_languageModel": [
-        [
-          {
-            "node": "AI Agent1",
-            "type": "ai_languageModel",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "AI Agent1": {
-      "main": [
-        [
-          {
-            "node": "AI Agent",
             "type": "main",
             "index": 0
           }
@@ -959,11 +889,6 @@
         ]
       ]
     },
-    "Update content": {
-      "main": [
-        []
-      ]
-    },
     "Remove json```": {
       "main": [
         [
@@ -976,17 +901,17 @@
       ]
     }
   },
-  "active": false,
+  "active": true,
   "settings": {
     "executionOrder": "v1",
     "binaryMode": "separate",
     "availableInMCP": false
   },
-  "versionId": "48c94001-51ce-4dbc-9bed-635e6d70e436",
+  "versionId": "ad239113-4333-4718-81d2-63c72d0a2797",
   "meta": {
     "templateCredsSetupCompleted": true,
-    "instanceId": "7359c0c217c2f2526bf0a6c46f4839c44f96a0005dca2af79edc19e6ed7703f7"
+    "instanceId": "dacf661d18952437dcd120ba832369f336608e51c4a96e821e930948a4d1e07e"
   },
-  "id": "anSHLKetIXjxK6yd",
+  "id": "AgP9TY1YlostDaKQzKSwd",
   "tags": []
 }
