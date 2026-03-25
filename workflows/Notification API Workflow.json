@@ -1,0 +1,547 @@
+{
+  "name": "Notification API Workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "collection": "notifications",
+        "options": {},
+        "query": "={\n  \"mentorId\": \"{{ $json.params.mentorId }}\"\n}"
+      },
+      "type": "n8n-nodes-base.mongoDb",
+      "typeVersion": 1.2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "66a83b27-cb8d-42bc-9906-2bb3b1c4524f",
+      "name": "Find documents",
+      "credentials": {
+        "mongoDb": {
+          "id": "YDwRGSFnFZwMGZ3A",
+          "name": "MongoDB account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "path": "notifications/:mentorId",
+        "responseMode": "lastNode",
+        "responseData": "allEntries",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -16,
+        0
+      ],
+      "id": "98032bab-3735-4904-bb6d-073f275d8006",
+      "name": "Get notifications by mentorId",
+      "webhookId": "d71cec1c-92e7-4aac-a066-4b314bc64450"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={{\n{\n  \"notificationId\": $('notification uuid').item.json.uuid,\n  \"mentorId\": $json.mentorId,\n  \"courseId\": $('notification uuid').item.json.body.courseId,\n  \"userId\": $json.userId,\n  \"status\": \"UNREAD\",\n  \"courseCreatedAt\": $json.courseCreatedAt ?? Date()\n}\n}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        880,
+        224
+      ],
+      "id": "c958e693-0bf0-4a04-a88c-abc3e10b9b07",
+      "name": "Edit Fields1"
+    },
+    {
+      "parameters": {
+        "operation": "insert",
+        "collection": "notifications",
+        "fields": "notificationId, mentorId, courseId, userId,  status, courseCreatedAt",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mongoDb",
+      "typeVersion": 1.2,
+      "position": [
+        1104,
+        224
+      ],
+      "id": "6c4a4706-7cd8-44b9-b1bc-19696ca7a2cc",
+      "name": "Insert documents",
+      "alwaysOutputData": false,
+      "credentials": {
+        "mongoDb": {
+          "id": "YDwRGSFnFZwMGZ3A",
+          "name": "MongoDB account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "c3d91bfc-e7fd-4cf4-8051-2f41237417ac",
+              "leftValue": "={{ $json.body.courseId }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        208,
+        320
+      ],
+      "id": "c7975b41-4086-4bb6-b1c4-6573d16eab01",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "{\n  \"error\": \"Please enter all inputs\"\n}",
+        "options": {
+          "responseCode": 400
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        432,
+        416
+      ],
+      "id": "5184af63-44f4-49d0-966c-e589eb846f00",
+      "name": "error"
+    },
+    {
+      "parameters": {
+        "options": {
+          "responseCode": 201
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1328,
+        224
+      ],
+      "id": "914b4139-ef39-451c-b636-85357bc313fd",
+      "name": "Respond to Webhook"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "notifications",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -16,
+        320
+      ],
+      "id": "2d73abb1-5c45-478b-8090-3a6c153167d5",
+      "name": "Create new notification",
+      "webhookId": "d71cec1c-92e7-4aac-a066-4b314bc64450"
+    },
+    {
+      "parameters": {
+        "action": "generate",
+        "dataPropertyName": "uuid"
+      },
+      "type": "n8n-nodes-base.crypto",
+      "typeVersion": 1,
+      "position": [
+        432,
+        224
+      ],
+      "id": "c19b8dbd-a1e4-4f5b-86bb-bbe5001e2bb0",
+      "name": "notification uuid"
+    },
+    {
+      "parameters": {
+        "collection": "courses",
+        "options": {
+          "projection": "{\n  \"mentorId\": true,\n  \"userId\": true,\n  \"createdAt\": true\n}"
+        },
+        "query": "={\n  \"courseId\": \"{{ $json.body.courseId }}\"\n}"
+      },
+      "type": "n8n-nodes-base.mongoDb",
+      "typeVersion": 1.2,
+      "position": [
+        656,
+        224
+      ],
+      "id": "33eb712e-8486-4e6b-9fc2-0df0a6180f07",
+      "name": "Find documents1",
+      "credentials": {
+        "mongoDb": {
+          "id": "YDwRGSFnFZwMGZ3A",
+          "name": "MongoDB account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "findOneAndUpdate",
+        "collection": "notifications",
+        "updateKey": "notificationId",
+        "fields": "status",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mongoDb",
+      "typeVersion": 1.2,
+      "position": [
+        432,
+        640
+      ],
+      "id": "2457cc51-b3d4-4711-849c-f0b416f65d38",
+      "name": "Find and update documents",
+      "alwaysOutputData": false,
+      "credentials": {
+        "mongoDb": {
+          "id": "YDwRGSFnFZwMGZ3A",
+          "name": "MongoDB account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={{\n  {\n    \"notificationId\": $json.params.notificationId,\n    \"status\": $json.body.status ?? \"READ\"\n  }\n}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        208,
+        640
+      ],
+      "id": "5d527e56-43f7-4938-88b6-81166cf2c76b",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={{\n  {\n    \"notificationId\": $json.notificationId,\n    \"status\": $('Update notifications by mentorId').item.json.body.status ?? \"READ\"\n  }\n}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        656,
+        1056
+      ],
+      "id": "d19bef8d-05f6-4887-8bbb-e20d0cd06fd9",
+      "name": "Edit Fields2"
+    },
+    {
+      "parameters": {
+        "httpMethod": "PATCH",
+        "path": "notifications/:notificationId",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -16,
+        640
+      ],
+      "id": "37a6a00e-2285-4738-84a1-092751431414",
+      "name": "Update notification by notificationId",
+      "webhookId": "d71cec1c-92e7-4aac-a066-4b314bc64450"
+    },
+    {
+      "parameters": {
+        "httpMethod": "PATCH",
+        "path": "notifications/all/:mentorId",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -16,
+        1056
+      ],
+      "id": "aa36577d-2364-42e1-9718-fef8648ecb67",
+      "name": "Update notifications by mentorId",
+      "webhookId": "d71cec1c-92e7-4aac-a066-4b314bc64450"
+    },
+    {
+      "parameters": {
+        "collection": "notifications",
+        "options": {
+          "projection": "{\n  \"notificationId\": true\n}"
+        },
+        "query": "={\n  \"mentorId\": \"{{ $json.params.mentorId }}\"\n}"
+      },
+      "type": "n8n-nodes-base.mongoDb",
+      "typeVersion": 1.2,
+      "position": [
+        208,
+        1056
+      ],
+      "id": "51d0266d-32f1-4266-a23a-6f0254be4cd1",
+      "name": "Find documents2",
+      "credentials": {
+        "mongoDb": {
+          "id": "YDwRGSFnFZwMGZ3A",
+          "name": "MongoDB account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        432,
+        1056
+      ],
+      "id": "e8773683-26d3-4917-8dab-10823651b47a",
+      "name": "Loop Over Items"
+    },
+    {
+      "parameters": {
+        "operation": "findOneAndUpdate",
+        "collection": "notifications",
+        "updateKey": "notificationId",
+        "fields": "status",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mongoDb",
+      "typeVersion": 1.2,
+      "position": [
+        880,
+        1128
+      ],
+      "id": "c8056469-5aca-4201-8d74-5d2fb89a35f5",
+      "name": "Find and update documents1",
+      "alwaysOutputData": true,
+      "credentials": {
+        "mongoDb": {
+          "id": "YDwRGSFnFZwMGZ3A",
+          "name": "MongoDB account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "noData",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        656,
+        864
+      ],
+      "id": "6039a388-2f75-4f9f-8c74-5e0d7bcf7070",
+      "name": "Respond to Webhook1"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Get notifications by mentorId": {
+      "main": [
+        [
+          {
+            "node": "Find documents",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields1": {
+      "main": [
+        [
+          {
+            "node": "Insert documents",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert documents": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "notification uuid",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "error",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create new notification": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "notification uuid": {
+      "main": [
+        [
+          {
+            "node": "Find documents1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find documents1": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Find and update documents",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "Find and update documents1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update notification by notificationId": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update notifications by mentorId": {
+      "main": [
+        [
+          {
+            "node": "Find documents2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find documents2": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find and update documents1": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "6fe3e924-f798-48b0-80e5-22ca86752622",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "223bb2c504970140670b1688bb32145e3b1167df6033e11336f4b76346217546"
+  },
+  "id": "sAPiyaUwrKpI2u3cnkK0X",
+  "tags": []
+}
