@@ -550,7 +550,7 @@
       "parameters": {
         "operation": "insert",
         "collection": "courses",
-        "fields": "courseId, status, goal, mentorId, notes_from_mentor, outline, lessonIds, userId, courseName, createdAt",
+        "fields": "courseId, status, goal, mentorId, notes_from_mentor, outline, lessonIds, userId, courseName, totalLessonsCompleted, totalLessons, avgScore, scores, createdAt",
         "options": {}
       },
       "type": "n8n-nodes-base.mongoDb",
@@ -684,7 +684,7 @@
       "parameters": {
         "operation": "insert",
         "collection": "lessons",
-        "fields": "lessonId, status, slide_URL, audio_URLs, createdAt",
+        "fields": "lessonId, status, slide_URL, audio_URLs, maxScore, courseId, createdAt",
         "options": {}
       },
       "type": "n8n-nodes-base.mongoDb",
@@ -757,7 +757,7 @@
     {
       "parameters": {
         "mode": "raw",
-        "jsonOutput": "={{\n{\n  \"nextLessonNum\": $json.lessonIds.length,\n  \"lessonIds\": $json.lessonIds.append($json.lessonId),\n  \"totalLessons\": $json.totalLessons + 1,\n  \"scores\": $json.scores.append(0),\n  \"createdAt\": Date()\n}\n}}",
+        "jsonOutput": "={{\n{\n  \"nextLessonNum\": $json.lessonIds.length,\n  \"lessonIds\": $json.lessonIds.append($json.lessonId),\n  \"totalLessons\": $json.totalLessons + 1,\n  \"scores\": $json.scores.append(0),\n  \"courseId\": $json.courseId,\n  \"maxScore\": -1,\n  \"createdAt\": Date()\n}\n}}",
         "includeOtherFields": true,
         "options": {}
       },
@@ -1151,6 +1151,143 @@
       ],
       "id": "e56a3f15-1183-4a4d-b284-7992ac4e98f4",
       "name": "HTTP Request1"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={{\n  {\n    \"lessonId\": $json.lessonId,\n    \"courseId\": $json.courseId,\n    \"maxScore\": max($json.maxScore ?? 0, $('Update answer and score').item.json.score),\n\"isFirstAttempt\": ($json.maxScore == -1)\n  }\n}}\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1184,
+        3216
+      ],
+      "id": "1cba733f-aee3-4586-8d22-03990b6f94d5",
+      "name": "Calculate new max score"
+    },
+    {
+      "parameters": {
+        "collection": "lessons",
+        "options": {
+          "projection": "{\n  \"lessonId\": true,\n  \"courseId\": true,\n  \"maxScore\": true\n}"
+        },
+        "query": "={\n  \"lessonId\": \"{{ $('Get Exercise').item.json.lessonId }}\"\n}"
+      },
+      "type": "n8n-nodes-base.mongoDb",
+      "typeVersion": 1.2,
+      "position": [
+        960,
+        3216
+      ],
+      "id": "588e392b-a164-4dd5-ba6e-fce5dd6ee4d7",
+      "name": "Find lesson",
+      "credentials": {
+        "mongoDb": {
+          "id": "YDwRGSFnFZwMGZ3A",
+          "name": "MongoDB account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "collection": "lessons",
+        "updateKey": "lessonId",
+        "fields": "maxScore",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mongoDb",
+      "typeVersion": 1.2,
+      "position": [
+        1408,
+        3216
+      ],
+      "id": "91bfd67a-7c2b-4303-ba9f-684bd528d71a",
+      "name": "Update lesson",
+      "credentials": {
+        "mongoDb": {
+          "id": "YDwRGSFnFZwMGZ3A",
+          "name": "MongoDB account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "collection": "courses",
+        "options": {
+          "projection": "{\n  \"courseId\": true,\n  \"lessonIds\": true,\n  \"totalLessonsCompleted\": true,\n  \"avgScore\": true,\n  \"scores\": true\n}"
+        },
+        "query": "={\n  \"courseId\": \"{{ $json.courseId }}\"\n}"
+      },
+      "type": "n8n-nodes-base.mongoDb",
+      "typeVersion": 1.2,
+      "position": [
+        1632,
+        3216
+      ],
+      "id": "a4d56dfa-81b8-4224-baf7-6470ddc20730",
+      "name": "Find documents4",
+      "credentials": {
+        "mongoDb": {
+          "id": "YDwRGSFnFZwMGZ3A",
+          "name": "MongoDB account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={{\n{\n  \"courseId\": $('Find documents4').item.json.courseId,\n  \"totalLessonsCompleted\": $('Find documents4').item.json.totalLessonsCompleted + $('Calculate new max score').item.json.isFirstAttempt,\n  \"scores\": $('Find documents4').item.json.scores.map((score, i) => {\n    if (i == $json.index) {\n      return $('Calculate new max score').item.json.maxScore;\n    }\nreturn score;\n  }),\n  \"avgScore\": ($('Find documents4').item.json.avgScore * $('Find documents4').item.json.totalLessonsCompleted - $('Find documents4').item.json.scores[$json.index] + $('Calculate new max score').item.json.maxScore) / ($('Find documents4').item.json.totalLessonsCompleted + $('Calculate new max score').item.json.isFirstAttempt)\n}\n}}\n\n",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        2080,
+        3216
+      ],
+      "id": "9b355c81-81d2-42da-9e22-ad94e6b14e31",
+      "name": "Find index of lesson"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={{\n  {\n    \"index\": $json.lessonIds.indexOf($('Calculate new max score').item.json.lessonId)\n  }\n}}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        1856,
+        3216
+      ],
+      "id": "a5d52718-6649-45b4-935a-f849287f8dde",
+      "name": "Get index"
+    },
+    {
+      "parameters": {
+        "operation": "findOneAndUpdate",
+        "collection": "courses",
+        "updateKey": "courseId",
+        "fields": "totalLessonsCompleted, scores, avgScore",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mongoDb",
+      "typeVersion": 1.2,
+      "position": [
+        2304,
+        3216
+      ],
+      "id": "21cb4570-ae44-47d4-ab52-680e114d124e",
+      "name": "Update course's avgScore",
+      "credentials": {
+        "mongoDb": {
+          "id": "YDwRGSFnFZwMGZ3A",
+          "name": "MongoDB account"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -1666,6 +1803,83 @@
           }
         ]
       ]
+    },
+    "Update answer and score": {
+      "main": [
+        [
+          {
+            "node": "Find lesson",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculate new max score": {
+      "main": [
+        [
+          {
+            "node": "Update lesson",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find lesson": {
+      "main": [
+        [
+          {
+            "node": "Calculate new max score",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find documents4": {
+      "main": [
+        [
+          {
+            "node": "Get index",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Find index of lesson": {
+      "main": [
+        [
+          {
+            "node": "Update course's avgScore",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get index": {
+      "main": [
+        [
+          {
+            "node": "Find index of lesson",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Update lesson": {
+      "main": [
+        [
+          {
+            "node": "Find documents4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": true,
@@ -1674,7 +1888,7 @@
     "binaryMode": "separate",
     "availableInMCP": false
   },
-  "versionId": "2d40eae0-0e44-4a72-98f1-8e813e852fae",
+  "versionId": "2c0ac93f-59c1-4f43-810f-8fcb6798b8a4",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "223bb2c504970140670b1688bb32145e3b1167df6033e11336f4b76346217546"
