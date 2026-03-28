@@ -2,12 +2,12 @@ package genie
 
 import (
 	"bytes"
+	"capstone-llm-service/config"
 	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
 	"net/http"
-	"os"
 	"sync"
 	"time"
 
@@ -104,11 +104,11 @@ type Client struct {
 	sf     singleflight.Group
 }
 
-func NewClient() *Client {
+func NewClient(config config.Config) *Client {
 	return &Client{
-		apiKey: os.Getenv("GENIE_API_KEY"),
-		appID:  os.Getenv("GENIE_APP_ID"),
-		model:  os.Getenv("GENIE_MODEL"),
+		apiKey: config.GenieApiKey,
+		appID:  config.GenieAppId,
+		model:  config.GenieModel,
 		tokens: make(map[string]tokenData),
 	}
 }
