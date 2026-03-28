@@ -60,8 +60,8 @@ func MakeGenerateSlidesHandler(client *genie.Client) http.HandlerFunc {
 		for slideNumber, slide := range req.Slides {
 			inputPayload := map[string]interface{}{
 				"slide":           slide,
-				"outline":         req.OutlineContext,
-				"outline_context": req.OutlineContext,
+				"outline":         req.Outline,
+				"outline_context": req.Outline,
 				"rag_data":        req.RagData,
 			}
 
@@ -103,7 +103,41 @@ func MakeGenerateSlidesHandler(client *genie.Client) http.HandlerFunc {
 			}
 		}
 
+		var sb strings.Builder
+		sb.WriteString("---\nmarp: true\ntheme: default\nmath: mathjax\npaginate: true\nsize: 16:9\nstyle: |\n  section {\n    font-size: 25px;\n    padding: 40px;\n    justify-content: center; /* Keeps content centered vertically */\n  }\n  h1 {\n    font-size: 40px;\n    color: #0288d1;\n  }\n  h2 {\n    font-size: 35px;\n    color: #333;\n  }\n---\n")
+		sb.WriteString(fmt.Sprintf("# Lesson: # %s\n", req.Lesson.Title))
+
+		for _, s := range results {
+			sb.WriteString("\n\n---\n")
+			sb.WriteString(fmt.Sprintf("# %s\n", s.Title))
+			for _, b := range s.Content {
+				sb.WriteString("\n---\n")
+				bulletHeader := fmt.Sprintf("## %s\n\n", b.Bullet)
+				sb.WriteString(bulletHeader)
+
+				wordCount := 0
+
+				for _, sp := range b.SubPoints {
+					spWordCount := len(strings.Fields(sp))
+
+					// If adding this subpoint exceeds 150 words AND the page already has some subpoints, otherwise leave it overflow
+					if wordCount+spWordCount > 150 && wordCount > 0 {
+						sb.WriteString("\n---\n")
+						sb.WriteString(bulletHeader)
+						wordCount = 0
+					}
+
+					sb.WriteString(fmt.Sprintf("* %s\n", sp))
+					wordCount += spWordCount
+				}
+			}
+		}
+
+		log.Println("Outputting as markdown")
 		w.Header().Set("Content-Type", "application/json")
-		_ = json.NewEncoder(w).Encode(SlideGenerationResponse{Results: results})
+		_ = json.NewEncoder(w).Encode(SlideGenerationResponse{
+			Data:     results,
+			Markdown: sb.String(),
+		})
 	}
 }

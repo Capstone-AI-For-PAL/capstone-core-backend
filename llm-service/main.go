@@ -13,7 +13,7 @@ func main() {
 	genieClient := genie.NewClient(config)
 	registerRoutes(http.DefaultServeMux, genieClient)
 
-	port := config.Port
+	port := ":" + config.Port
 	log.Println("🚀 server started " + port)
 	log.Fatal(http.ListenAndServe(port, nil))
 }

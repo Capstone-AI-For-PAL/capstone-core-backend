@@ -14,11 +14,18 @@ type SlideInput struct {
 }
 
 type SlideGenerationRequest struct {
-	Prompt         string       `json:"prompt"`
-	Slides         []SlideInput `json:"slides"`
-	OutlineContext string       `json:"outline_context"`
-	RagData        string       `json:"rag_data"`
-	CunetId        string       `json:"cunet_id"`
+	Prompt  string       `json:"prompt"`
+	Slides  []SlideInput `json:"slides"`
+	Lesson  LessonInput  `json:"lesson"`
+	Outline string       `json:"outline"`
+	RagData string       `json:"rag_data"`
+	CunetId string       `json:"cunet_id"`
+}
+
+type LessonInput struct {
+	Title       string `json:"title"`
+	MainContent string `json:"main_content"`
+	Objective   string `json:"objective"`
 }
 
 type OrchestratedSlideBullet struct {
@@ -32,5 +39,6 @@ type OrchestratedSlide struct {
 }
 
 type SlideGenerationResponse struct {
-	Results []OrchestratedSlide `json:"results"`
+	Data     []OrchestratedSlide `json:"data"`
+	Markdown string              `json:"markdown"`
 }
