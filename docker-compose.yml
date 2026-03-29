@@ -28,6 +28,10 @@ services:
     ports:
       - "8080:8080"
     restart: unless-stopped
+    environment:
+      - GENIE_API_KEY=${GENIE_API_KEY}
+      - GENIE_APP_ID=${GENIE_APP_ID}
+      - GENIE_MODEL=${GENIE_MODEL}
 
   voice-generator:
     build:

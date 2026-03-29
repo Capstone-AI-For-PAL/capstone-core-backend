@@ -1,3 +1,4 @@
 .DS_Store
 .env
 capstone-llm-service
+main
