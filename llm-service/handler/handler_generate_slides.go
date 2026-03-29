@@ -43,7 +43,7 @@ func MakeGenerateSlidesHandler(client *genie.Client) http.HandlerFunc {
 			return
 		}
 
-		if len(req.Slides) == 0 {
+		if len(req.Sections) == 0 {
 			http.Error(w, "missing required fields: slides", http.StatusBadRequest)
 			return
 		}
@@ -55,9 +55,9 @@ func MakeGenerateSlidesHandler(client *genie.Client) http.HandlerFunc {
 			promptTemplate = defaultSlidesPrompt()
 		}
 
-		results := make([]OrchestratedSlide, 0)
+		results := make([]MarkdownInput, 0, len(req.Sections))
 
-		for slideNumber, slide := range req.Slides {
+		for sectionNumber, slide := range req.Sections {
 			inputPayload := map[string]interface{}{
 				"slide":           slide,
 				"outline":         req.Outline,
@@ -67,7 +67,7 @@ func MakeGenerateSlidesHandler(client *genie.Client) http.HandlerFunc {
 
 			payloadBytes, err := json.Marshal(inputPayload)
 			if err != nil {
-				log.Printf("Error marshaling slide input (slide %d): %v", slideNumber, err)
+				log.Printf("Error marshaling slide input (slide %d): %v", sectionNumber, err)
 				http.Error(w, "failed to prepare slide input", http.StatusInternalServerError)
 				return
 			}
@@ -83,61 +83,81 @@ func MakeGenerateSlidesHandler(client *genie.Client) http.HandlerFunc {
 			}
 
 			res, err := client.Chat(messages, email, req.CunetId)
+			log.Println("Generated slide: ", res)
 			if err != nil {
-				log.Printf("Slide generation error (slide %d): %v", slideNumber, err)
+				log.Printf("Slide generation error (section %d): %v", sectionNumber+1, err)
 				continue
 			}
 
 			generatedSlides, err := decodeOrchestratedSlides(res)
 			if err != nil {
-				log.Printf("Invalid slide JSON from model (slide %d): %v", slideNumber, err)
+				log.Printf("Invalid slide JSON from model (section %d): %v", sectionNumber+1, err)
 				continue
 			}
+			log.Printf("Generated section %d: %s with %d slides", sectionNumber+1, slide.Title, len(generatedSlides))
 
-			for slideIdx, genSlide := range generatedSlides {
-				results = append(results, OrchestratedSlide{
-					Title:   genSlide.Title,
-					Content: genSlide.Content,
-				})
-				log.Printf("Generated slide %d.%d: %s with %d bullets", slideNumber, slideIdx+1, genSlide.Title, len(genSlide.Content))
-			}
+			results = append(results, MarkdownInput{
+				Title:  slide.Title,
+				Slides: convertToMarkdownInput(generatedSlides),
+			})
+			log.Printf("Generated markdown for section %d with length %d", sectionNumber+1, len(results[len(results)-1].Slides))
 		}
 
-		var sb strings.Builder
-		sb.WriteString("---\nmarp: true\ntheme: default\nmath: mathjax\npaginate: true\nsize: 16:9\nstyle: |\n  section {\n    font-size: 25px;\n    padding: 40px;\n    justify-content: center; /* Keeps content centered vertically */\n  }\n  h1 {\n    font-size: 40px;\n    color: #0288d1;\n  }\n  h2 {\n    font-size: 35px;\n    color: #333;\n  }\n---\n")
-		sb.WriteString(fmt.Sprintf("# Lesson: # %s\n", req.Lesson.Title))
+		log.Println("Generating markdown")
+		markdown := generateMarkdown(results, req.Lesson)
+		log.Println("Outputting as markdown with length: ", len(markdown))
 
-		for _, s := range results {
-			sb.WriteString("\n\n---\n")
-			sb.WriteString(fmt.Sprintf("# %s\n", s.Title))
-			for _, b := range s.Content {
-				sb.WriteString("\n---\n")
-				bulletHeader := fmt.Sprintf("## %s\n\n", b.Bullet)
-				sb.WriteString(bulletHeader)
-
-				wordCount := 0
-
-				for _, sp := range b.SubPoints {
-					spWordCount := len(strings.Fields(sp))
-
-					// If adding this subpoint exceeds 150 words AND the page already has some subpoints, otherwise leave it overflow
-					if wordCount+spWordCount > 150 && wordCount > 0 {
-						sb.WriteString("\n---\n")
-						sb.WriteString(bulletHeader)
-						wordCount = 0
-					}
-
-					sb.WriteString(fmt.Sprintf("* %s\n", sp))
-					wordCount += spWordCount
-				}
-			}
-		}
-
-		log.Println("Outputting as markdown")
 		w.Header().Set("Content-Type", "application/json")
 		_ = json.NewEncoder(w).Encode(SlideGenerationResponse{
 			Data:     results,
-			Markdown: sb.String(),
+			Markdown: markdown,
 		})
 	}
+}
+
+func convertToMarkdownInput(generatedSlides []OrchestratedSlide) []SlideMarkdownInput {
+	markdownInputs := make([]SlideMarkdownInput, 0)
+	for _, s := range generatedSlides {
+		for _, b := range s.Content {
+			markdownInputs = append(markdownInputs, SlideMarkdownInput{
+				SlideHeader: b.Bullet,
+				SubPoints:   b.SubPoints,
+			})
+		}
+	}
+	return markdownInputs
+}
+
+func generateMarkdown(results []MarkdownInput, lesson LessonInput) string {
+	var sb strings.Builder
+	sb.WriteString("---\nmarp: true\ntheme: default\nmath: mathjax\npaginate: true\nsize: 16:9\nstyle: |\n  section {\n    font-size: 25px;\n    padding: 40px;\n    justify-content: center; /* Keeps content centered vertically */\n  }\n  h1 {\n    font-size: 40px;\n    color: #0288d1;\n  }\n  h2 {\n    font-size: 35px;\n    color: #333;\n  }\n---\n")
+	sb.WriteString(fmt.Sprintf("# Lesson: %s\n", lesson.Title))
+
+	for _, s := range results {
+		sb.WriteString("\n\n---\n")
+		sb.WriteString(fmt.Sprintf("# %s\n", s.Title))
+		for _, b := range s.Slides {
+			sb.WriteString("\n---\n")
+			bulletHeader := fmt.Sprintf("## %s\n\n", b.SlideHeader)
+			sb.WriteString(bulletHeader)
+
+			wordCount := 0
+
+			for _, sp := range b.SubPoints {
+				spWordCount := len(strings.Fields(sp))
+
+				// If adding this subpoint exceeds 150 words AND the page already has some subpoints, otherwise leave it overflow
+				if wordCount+spWordCount > 150 && wordCount > 0 {
+					sb.WriteString("\n---\n")
+					sb.WriteString(bulletHeader)
+					wordCount = 0
+				}
+
+				sb.WriteString(fmt.Sprintf("* %s\n", sp))
+				wordCount += spWordCount
+			}
+		}
+	}
+
+	return sb.String()
 }

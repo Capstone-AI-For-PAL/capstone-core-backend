@@ -7,19 +7,19 @@ type ChatRequest struct {
 	CunetId  string          `json:"cunet_id"`
 }
 
-type SlideInput struct {
+type SectionInput struct {
 	Title       string `json:"slide_title"`
 	MainContent string `json:"main_content"`
 	Objective   string `json:"objective"`
 }
 
 type SlideGenerationRequest struct {
-	Prompt  string       `json:"prompt"`
-	Slides  []SlideInput `json:"slides"`
-	Lesson  LessonInput  `json:"lesson"`
-	Outline string       `json:"outline"`
-	RagData string       `json:"rag_data"`
-	CunetId string       `json:"cunet_id"`
+	Prompt   string         `json:"prompt"`
+	Sections []SectionInput `json:"sections"`
+	Lesson   LessonInput    `json:"lesson"`
+	Outline  string         `json:"outline"`
+	RagData  string         `json:"rag_data"`
+	CunetId  string         `json:"cunet_id"`
 }
 
 type LessonInput struct {
@@ -37,8 +37,17 @@ type OrchestratedSlide struct {
 	Title   string                    `json:"title"`
 	Content []OrchestratedSlideBullet `json:"content"`
 }
+type MarkdownInput struct {
+	Title  string               `json:"title"`
+	Slides []SlideMarkdownInput `json:"slides"`
+}
+
+type SlideMarkdownInput struct {
+	SlideHeader string   `json:"slide_header"`
+	SubPoints   []string `json:"sub_points"`
+}
 
 type SlideGenerationResponse struct {
-	Data     []OrchestratedSlide `json:"data"`
-	Markdown string              `json:"markdown"`
+	Data     []MarkdownInput `json:"data"`
+	Markdown string          `json:"markdown"`
 }
