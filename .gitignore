@@ -6,3 +6,6 @@ n8n_data/
 capstone-llm-service
 capstone-llm-service.exe
 local
+
+#n8n credential
+/workflows/credentials
