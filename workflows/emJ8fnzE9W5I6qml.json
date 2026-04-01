@@ -1,5 +1,11 @@
 {
+  "updatedAt": "2026-03-27T05:37:16.541Z",
+  "createdAt": "2026-03-27T05:37:16.541Z",
+  "id": "emJ8fnzE9W5I6qml",
   "name": "outline-generator",
+  "description": null,
+  "active": false,
+  "isArchived": false,
   "nodes": [
     {
       "parameters": {
@@ -162,7 +168,6 @@
       "name": "Code in JavaScript"
     }
   ],
-  "pinData": {},
   "connections": {
     "Webhook": {
       "main": [
@@ -227,17 +232,43 @@
       ]
     }
   },
-  "active": true,
   "settings": {
     "executionOrder": "v1",
     "binaryMode": "separate",
     "availableInMCP": false
   },
-  "versionId": "93e26aa0-64ba-439a-935a-574a9a797007",
+  "staticData": null,
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "7359c0c217c2f2526bf0a6c46f4839c44f96a0005dca2af79edc19e6ed7703f7"
   },
-  "id": "emJ8fnzE9W5I6qml",
-  "tags": []
+  "pinData": {},
+  "versionId": "057451c2-dd13-4533-8d25-1dd527664ac7",
+  "activeVersionId": null,
+  "versionCounter": 11,
+  "triggerCount": 1,
+  "tags": [],
+  "shared": [
+    {
+      "updatedAt": "2026-04-01T12:10:09.336Z",
+      "createdAt": "2026-04-01T12:10:09.336Z",
+      "role": "workflow:owner",
+      "workflowId": "emJ8fnzE9W5I6qml",
+      "projectId": "8xNve8SXUWTM8hnk",
+      "project": {
+        "updatedAt": "2026-04-01T12:09:43.119Z",
+        "createdAt": "2026-04-01T12:09:15.023Z",
+        "id": "8xNve8SXUWTM8hnk",
+        "name": "Thanakrit Wong-asa <gainthanakrit@gmail.com>",
+        "type": "personal",
+        "icon": null,
+        "description": null,
+        "creatorId": "9b88402d-de46-439d-8b84-c31e1c5ed145"
+      }
+    }
+  ],
+  "versionMetadata": {
+    "name": "Version 4e05aea2",
+    "description": ""
+  }
 }

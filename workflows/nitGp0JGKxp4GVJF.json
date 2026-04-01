@@ -1,5 +1,11 @@
 {
+  "updatedAt": "2026-04-01T11:26:42.219Z",
+  "createdAt": "2026-04-01T11:19:56.621Z",
+  "id": "nitGp0JGKxp4GVJF",
   "name": "async-generate-slide-v2",
+  "description": null,
+  "active": true,
+  "isArchived": false,
   "nodes": [
     {
       "parameters": {
@@ -159,8 +165,8 @@
       "name": "Update documents",
       "credentials": {
         "mongoDb": {
-          "id": "pWePL90dwTVGzXVd",
-          "name": "MongoDB account"
+          "id": "f8Us5RfnRMksaqPf",
+          "name": "Admin Mongo"
         }
       }
     },
@@ -181,8 +187,8 @@
       "name": "Audio Upload",
       "credentials": {
         "aws": {
-          "id": "dxBCP5LgruhUqTMg",
-          "name": "AWS (IAM) account"
+          "id": "mDZycvBQipzv9pQW",
+          "name": "Admin AWS (IAM)"
         }
       },
       "onError": "continueRegularOutput"
@@ -204,8 +210,8 @@
       "name": "Slide Upload",
       "credentials": {
         "aws": {
-          "id": "dxBCP5LgruhUqTMg",
-          "name": "AWS (IAM) account"
+          "id": "mDZycvBQipzv9pQW",
+          "name": "Admin AWS (IAM)"
         }
       }
     },
@@ -228,8 +234,8 @@
       "name": "Update documents1",
       "credentials": {
         "mongoDb": {
-          "id": "pWePL90dwTVGzXVd",
-          "name": "MongoDB account"
+          "id": "f8Us5RfnRMksaqPf",
+          "name": "Admin Mongo"
         }
       }
     },
@@ -349,8 +355,8 @@
       "name": "PPTXUpload",
       "credentials": {
         "aws": {
-          "id": "dxBCP5LgruhUqTMg",
-          "name": "AWS (IAM) account"
+          "id": "mDZycvBQipzv9pQW",
+          "name": "Admin AWS (IAM)"
         }
       }
     },
@@ -386,8 +392,8 @@
       "name": "Update documents2",
       "credentials": {
         "mongoDb": {
-          "id": "pWePL90dwTVGzXVd",
-          "name": "MongoDB account"
+          "id": "f8Us5RfnRMksaqPf",
+          "name": "Admin Mongo"
         }
       }
     },
@@ -519,8 +525,8 @@
       "name": "Update content",
       "credentials": {
         "mongoDb": {
-          "id": "pWePL90dwTVGzXVd",
-          "name": "MongoDB account"
+          "id": "f8Us5RfnRMksaqPf",
+          "name": "Admin Mongo"
         }
       }
     },
@@ -629,7 +635,6 @@
       "name": "SlideContentGenerator"
     }
   ],
-  "pinData": {},
   "connections": {
     "GenerateSlide": {
       "main": [
@@ -919,17 +924,43 @@
       ]
     }
   },
-  "active": false,
   "settings": {
     "executionOrder": "v1",
     "binaryMode": "separate",
     "availableInMCP": false
   },
-  "versionId": "070113cf-f133-4ae3-8226-14910536ef09",
+  "staticData": null,
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "dacf661d18952437dcd120ba832369f336608e51c4a96e821e930948a4d1e07e"
   },
-  "id": "nitGp0JGKxp4GVJF",
-  "tags": []
+  "pinData": {},
+  "versionId": "9683e06d-f7da-4f97-b7d3-1169061b8b78",
+  "activeVersionId": "9683e06d-f7da-4f97-b7d3-1169061b8b78",
+  "versionCounter": 14,
+  "triggerCount": 1,
+  "tags": [],
+  "shared": [
+    {
+      "updatedAt": "2026-04-01T12:10:09.341Z",
+      "createdAt": "2026-04-01T12:10:09.341Z",
+      "role": "workflow:owner",
+      "workflowId": "nitGp0JGKxp4GVJF",
+      "projectId": "8xNve8SXUWTM8hnk",
+      "project": {
+        "updatedAt": "2026-04-01T12:09:43.119Z",
+        "createdAt": "2026-04-01T12:09:15.023Z",
+        "id": "8xNve8SXUWTM8hnk",
+        "name": "Thanakrit Wong-asa <gainthanakrit@gmail.com>",
+        "type": "personal",
+        "icon": null,
+        "description": null,
+        "creatorId": "9b88402d-de46-439d-8b84-c31e1c5ed145"
+      }
+    }
+  ],
+  "versionMetadata": {
+    "name": "Version 127bf0a8",
+    "description": ""
+  }
 }

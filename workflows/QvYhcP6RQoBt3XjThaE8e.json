@@ -1,5 +1,11 @@
 {
+  "updatedAt": "2026-03-27T05:37:16.530Z",
+  "createdAt": "2026-03-27T05:37:16.530Z",
+  "id": "QvYhcP6RQoBt3XjThaE8e",
   "name": "S3Read",
+  "description": null,
+  "active": false,
+  "isArchived": false,
   "nodes": [
     {
       "parameters": {},
@@ -28,13 +34,12 @@
       "name": "Get many files",
       "credentials": {
         "aws": {
-          "id": "3I41mmxVvjUcJ1aw",
+          "id": "3htKfO31rESwA3SU",
           "name": "AWS (IAM) account"
         }
       }
     }
   ],
-  "pinData": {},
   "connections": {
     "When clicking ‘Execute workflow’": {
       "main": [
@@ -48,16 +53,42 @@
       ]
     }
   },
-  "active": false,
   "settings": {
     "executionOrder": "v1",
     "availableInMCP": false
   },
-  "versionId": "05861312-5c02-4d16-9b26-bc2d72e36d3a",
+  "staticData": null,
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "2f455c3b076788e6fa0cc0b037936bc00f41f746465bd84b64312c4c01bcdf7d"
   },
-  "id": "QvYhcP6RQoBt3XjThaE8e",
-  "tags": []
+  "pinData": {},
+  "versionId": "a4663498-ab72-4eab-b4b3-9b5a15bb7b1b",
+  "activeVersionId": null,
+  "versionCounter": 6,
+  "triggerCount": 0,
+  "tags": [],
+  "shared": [
+    {
+      "updatedAt": "2026-04-01T12:10:09.327Z",
+      "createdAt": "2026-04-01T12:10:09.327Z",
+      "role": "workflow:owner",
+      "workflowId": "QvYhcP6RQoBt3XjThaE8e",
+      "projectId": "8xNve8SXUWTM8hnk",
+      "project": {
+        "updatedAt": "2026-04-01T12:09:43.119Z",
+        "createdAt": "2026-04-01T12:09:15.023Z",
+        "id": "8xNve8SXUWTM8hnk",
+        "name": "Thanakrit Wong-asa <gainthanakrit@gmail.com>",
+        "type": "personal",
+        "icon": null,
+        "description": null,
+        "creatorId": "9b88402d-de46-439d-8b84-c31e1c5ed145"
+      }
+    }
+  ],
+  "versionMetadata": {
+    "name": null,
+    "description": null
+  }
 }

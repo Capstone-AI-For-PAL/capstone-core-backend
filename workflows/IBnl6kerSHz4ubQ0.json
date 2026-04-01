@@ -1,5 +1,11 @@
 {
+  "updatedAt": "2026-04-01T11:41:36.649Z",
+  "createdAt": "2026-03-27T05:37:16.504Z",
+  "id": "IBnl6kerSHz4ubQ0",
   "name": "Course API Workflow",
+  "description": null,
+  "active": true,
+  "isArchived": false,
   "nodes": [
     {
       "parameters": {
@@ -80,8 +86,8 @@
       "alwaysOutputData": false,
       "credentials": {
         "mongoDb": {
-          "id": "K1y2RTKvTElSmf02",
-          "name": "MongoDB account 2"
+          "id": "f8Us5RfnRMksaqPf",
+          "name": "Admin Mongo"
         }
       }
     },
@@ -101,8 +107,8 @@
       "name": "Find documents2",
       "credentials": {
         "mongoDb": {
-          "id": "K1y2RTKvTElSmf02",
-          "name": "MongoDB account 2"
+          "id": "f8Us5RfnRMksaqPf",
+          "name": "Admin Mongo"
         }
       }
     },
@@ -122,8 +128,8 @@
       "name": "Find documents3",
       "credentials": {
         "mongoDb": {
-          "id": "K1y2RTKvTElSmf02",
-          "name": "MongoDB account 2"
+          "id": "f8Us5RfnRMksaqPf",
+          "name": "Admin Mongo"
         }
       }
     },
@@ -205,8 +211,8 @@
       "name": "Get Exercise",
       "credentials": {
         "mongoDb": {
-          "id": "K1y2RTKvTElSmf02",
-          "name": "MongoDB account 2"
+          "id": "f8Us5RfnRMksaqPf",
+          "name": "Admin Mongo"
         }
       }
     },
@@ -228,8 +234,8 @@
       "name": "Update answer and score",
       "credentials": {
         "mongoDb": {
-          "id": "K1y2RTKvTElSmf02",
-          "name": "MongoDB account 2"
+          "id": "f8Us5RfnRMksaqPf",
+          "name": "Admin Mongo"
         }
       }
     },
@@ -249,8 +255,8 @@
       "name": "Aggregate documents",
       "credentials": {
         "mongoDb": {
-          "id": "K1y2RTKvTElSmf02",
-          "name": "MongoDB account 2"
+          "id": "f8Us5RfnRMksaqPf",
+          "name": "Admin Mongo"
         }
       }
     },
@@ -283,8 +289,8 @@
       "name": "Aggregate documents1",
       "credentials": {
         "mongoDb": {
-          "id": "K1y2RTKvTElSmf02",
-          "name": "MongoDB account 2"
+          "id": "f8Us5RfnRMksaqPf",
+          "name": "Admin Mongo"
         }
       }
     },
@@ -376,8 +382,8 @@
       "alwaysOutputData": true,
       "credentials": {
         "mongoDb": {
-          "id": "K1y2RTKvTElSmf02",
-          "name": "MongoDB account 2"
+          "id": "f8Us5RfnRMksaqPf",
+          "name": "Admin Mongo"
         }
       }
     },
@@ -415,8 +421,8 @@
       "name": "Find documents",
       "credentials": {
         "mongoDb": {
-          "id": "K1y2RTKvTElSmf02",
-          "name": "MongoDB account 2"
+          "id": "f8Us5RfnRMksaqPf",
+          "name": "Admin Mongo"
         }
       }
     },
@@ -436,8 +442,8 @@
       "name": "Find documents1",
       "credentials": {
         "mongoDb": {
-          "id": "K1y2RTKvTElSmf02",
-          "name": "MongoDB account 2"
+          "id": "f8Us5RfnRMksaqPf",
+          "name": "Admin Mongo"
         }
       }
     },
@@ -494,8 +500,8 @@
       "alwaysOutputData": false,
       "credentials": {
         "mongoDb": {
-          "id": "K1y2RTKvTElSmf02",
-          "name": "MongoDB account 2"
+          "id": "f8Us5RfnRMksaqPf",
+          "name": "Admin Mongo"
         }
       }
     },
@@ -547,8 +553,8 @@
       "alwaysOutputData": false,
       "credentials": {
         "mongoDb": {
-          "id": "K1y2RTKvTElSmf02",
-          "name": "MongoDB account 2"
+          "id": "f8Us5RfnRMksaqPf",
+          "name": "Admin Mongo"
         }
       }
     },
@@ -681,8 +687,8 @@
       "alwaysOutputData": false,
       "credentials": {
         "mongoDb": {
-          "id": "K1y2RTKvTElSmf02",
-          "name": "MongoDB account 2"
+          "id": "f8Us5RfnRMksaqPf",
+          "name": "Admin Mongo"
         }
       }
     },
@@ -702,8 +708,8 @@
       "name": "Get course",
       "credentials": {
         "mongoDb": {
-          "id": "K1y2RTKvTElSmf02",
-          "name": "MongoDB account 2"
+          "id": "f8Us5RfnRMksaqPf",
+          "name": "Admin Mongo"
         }
       }
     },
@@ -772,8 +778,8 @@
       "alwaysOutputData": false,
       "credentials": {
         "mongoDb": {
-          "id": "K1y2RTKvTElSmf02",
-          "name": "MongoDB account 2"
+          "id": "f8Us5RfnRMksaqPf",
+          "name": "Admin Mongo"
         }
       }
     },
@@ -807,7 +813,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "http://localhost:5678/webhook/async-generate-slide",
+        "url": "http://localhost:5678/webhook/56b21e8a-e903-482c-a2ad-5419bb7e153d",
         "sendBody": true,
         "specifyBody": "=json",
         "bodyParameters": {
@@ -860,8 +866,8 @@
       "name": "Update status",
       "credentials": {
         "mongoDb": {
-          "id": "K1y2RTKvTElSmf02",
-          "name": "MongoDB account 2"
+          "id": "f8Us5RfnRMksaqPf",
+          "name": "Admin Mongo"
         }
       }
     },
@@ -898,8 +904,8 @@
       "name": "Update outline and status",
       "credentials": {
         "mongoDb": {
-          "id": "K1y2RTKvTElSmf02",
-          "name": "MongoDB account 2"
+          "id": "f8Us5RfnRMksaqPf",
+          "name": "Admin Mongo"
         }
       }
     },
@@ -1168,8 +1174,8 @@
       "name": "Find lesson",
       "credentials": {
         "mongoDb": {
-          "id": "K1y2RTKvTElSmf02",
-          "name": "MongoDB account 2"
+          "id": "f8Us5RfnRMksaqPf",
+          "name": "Admin Mongo"
         }
       }
     },
@@ -1191,8 +1197,8 @@
       "name": "Update lesson",
       "credentials": {
         "mongoDb": {
-          "id": "K1y2RTKvTElSmf02",
-          "name": "MongoDB account 2"
+          "id": "f8Us5RfnRMksaqPf",
+          "name": "Admin Mongo"
         }
       }
     },
@@ -1214,8 +1220,8 @@
       "name": "Find documents4",
       "credentials": {
         "mongoDb": {
-          "id": "K1y2RTKvTElSmf02",
-          "name": "MongoDB account 2"
+          "id": "f8Us5RfnRMksaqPf",
+          "name": "Admin Mongo"
         }
       }
     },
@@ -1267,8 +1273,8 @@
       "name": "Update course's avgScore",
       "credentials": {
         "mongoDb": {
-          "id": "K1y2RTKvTElSmf02",
-          "name": "MongoDB account 2"
+          "id": "f8Us5RfnRMksaqPf",
+          "name": "Admin Mongo"
         }
       }
     },
@@ -1371,8 +1377,8 @@
       "name": "Find documents6",
       "credentials": {
         "mongoDb": {
-          "id": "K1y2RTKvTElSmf02",
-          "name": "MongoDB account 2"
+          "id": "f8Us5RfnRMksaqPf",
+          "name": "Admin Mongo"
         }
       }
     },
@@ -1468,8 +1474,8 @@
       "name": "Audio Upload",
       "credentials": {
         "aws": {
-          "id": "1jm79MBQZJbrxJPX",
-          "name": "AWS (IAM) account"
+          "id": "mDZycvBQipzv9pQW",
+          "name": "Admin AWS (IAM)"
         }
       },
       "onError": "continueRegularOutput"
@@ -1493,8 +1499,8 @@
       "name": "Update documents1",
       "credentials": {
         "mongoDb": {
-          "id": "K1y2RTKvTElSmf02",
-          "name": "MongoDB account 2"
+          "id": "f8Us5RfnRMksaqPf",
+          "name": "Admin Mongo"
         }
       }
     },
@@ -1547,8 +1553,8 @@
       "name": "Update documents",
       "credentials": {
         "mongoDb": {
-          "id": "K1y2RTKvTElSmf02",
-          "name": "MongoDB account 2"
+          "id": "f8Us5RfnRMksaqPf",
+          "name": "Admin Mongo"
         }
       }
     },
@@ -1570,8 +1576,8 @@
       "name": "Slide Upload",
       "credentials": {
         "aws": {
-          "id": "1jm79MBQZJbrxJPX",
-          "name": "AWS (IAM) account"
+          "id": "mDZycvBQipzv9pQW",
+          "name": "Admin AWS (IAM)"
         }
       }
     },
@@ -1648,8 +1654,8 @@
       "name": "Update documents2",
       "credentials": {
         "mongoDb": {
-          "id": "K1y2RTKvTElSmf02",
-          "name": "MongoDB account 2"
+          "id": "f8Us5RfnRMksaqPf",
+          "name": "Admin Mongo"
         }
       }
     },
@@ -1669,7 +1675,6 @@
       "name": "Edit Fields2"
     }
   ],
-  "pinData": {},
   "connections": {
     "Generate new exercise": {
       "main": [
@@ -2456,17 +2461,43 @@
       ]
     }
   },
-  "active": true,
   "settings": {
     "executionOrder": "v1",
     "binaryMode": "separate",
     "availableInMCP": false
   },
-  "versionId": "e4c60dd0-9fec-4441-826b-7cfe8275294a",
+  "staticData": null,
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "033f1bc6215f63e899772bfa6952d5de23ea9ab6140b36a3b563a251130298dd"
   },
-  "id": "IBnl6kerSHz4ubQ0",
-  "tags": []
+  "pinData": {},
+  "versionId": "45d43b6d-9104-452c-94bf-5f533f3a7a30",
+  "activeVersionId": "45d43b6d-9104-452c-94bf-5f533f3a7a30",
+  "versionCounter": 21,
+  "triggerCount": 13,
+  "tags": [],
+  "shared": [
+    {
+      "updatedAt": "2026-04-01T12:10:09.322Z",
+      "createdAt": "2026-04-01T12:10:09.322Z",
+      "role": "workflow:owner",
+      "workflowId": "IBnl6kerSHz4ubQ0",
+      "projectId": "8xNve8SXUWTM8hnk",
+      "project": {
+        "updatedAt": "2026-04-01T12:09:43.119Z",
+        "createdAt": "2026-04-01T12:09:15.023Z",
+        "id": "8xNve8SXUWTM8hnk",
+        "name": "Thanakrit Wong-asa <gainthanakrit@gmail.com>",
+        "type": "personal",
+        "icon": null,
+        "description": null,
+        "creatorId": "9b88402d-de46-439d-8b84-c31e1c5ed145"
+      }
+    }
+  ],
+  "versionMetadata": {
+    "name": "Version 9bc8d262",
+    "description": ""
+  }
 }

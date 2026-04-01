@@ -1,5 +1,11 @@
 {
+  "updatedAt": "2026-04-01T11:29:12.633Z",
+  "createdAt": "2026-03-27T05:37:16.496Z",
+  "id": "eRQa06hev39zJhlQ",
   "name": "CRUDLesson",
+  "description": null,
+  "active": true,
+  "isArchived": false,
   "nodes": [
     {
       "parameters": {
@@ -17,8 +23,8 @@
       "name": "Find documents",
       "credentials": {
         "mongoDb": {
-          "id": "sjff9flDm6PtRdBH",
-          "name": "MongoDB account"
+          "id": "f8Us5RfnRMksaqPf",
+          "name": "Admin Mongo"
         }
       }
     },
@@ -63,8 +69,8 @@
       "name": "Update documents",
       "credentials": {
         "mongoDb": {
-          "id": "sjff9flDm6PtRdBH",
-          "name": "MongoDB account"
+          "id": "f8Us5RfnRMksaqPf",
+          "name": "Admin Mongo"
         }
       }
     },
@@ -115,7 +121,6 @@
       "webhookId": "c2c79d4b-b56d-4fdc-8aba-96e34d5f2a13"
     }
   ],
-  "pinData": {},
   "connections": {
     "Edit Fields": {
       "main": [
@@ -162,17 +167,43 @@
       ]
     }
   },
-  "active": true,
   "settings": {
     "executionOrder": "v1",
     "binaryMode": "separate",
     "availableInMCP": false
   },
-  "versionId": "dd4bf9f5-e9b5-4781-8d54-7e1795db3aa8",
+  "staticData": null,
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "7359c0c217c2f2526bf0a6c46f4839c44f96a0005dca2af79edc19e6ed7703f7"
   },
-  "id": "eRQa06hev39zJhlQ",
-  "tags": []
+  "pinData": {},
+  "versionId": "91e69cef-89a3-45c9-b454-326193d19f95",
+  "activeVersionId": "91e69cef-89a3-45c9-b454-326193d19f95",
+  "versionCounter": 18,
+  "triggerCount": 2,
+  "tags": [],
+  "shared": [
+    {
+      "updatedAt": "2026-04-01T12:10:09.333Z",
+      "createdAt": "2026-04-01T12:10:09.333Z",
+      "role": "workflow:owner",
+      "workflowId": "eRQa06hev39zJhlQ",
+      "projectId": "8xNve8SXUWTM8hnk",
+      "project": {
+        "updatedAt": "2026-04-01T12:09:43.119Z",
+        "createdAt": "2026-04-01T12:09:15.023Z",
+        "id": "8xNve8SXUWTM8hnk",
+        "name": "Thanakrit Wong-asa <gainthanakrit@gmail.com>",
+        "type": "personal",
+        "icon": null,
+        "description": null,
+        "creatorId": "9b88402d-de46-439d-8b84-c31e1c5ed145"
+      }
+    }
+  ],
+  "versionMetadata": {
+    "name": "Version 0d293cd1",
+    "description": ""
+  }
 }

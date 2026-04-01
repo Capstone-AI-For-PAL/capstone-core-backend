@@ -1,5 +1,11 @@
 {
+  "updatedAt": "2026-03-27T05:37:16.528Z",
+  "createdAt": "2026-03-27T05:37:16.528Z",
+  "id": "oZHfg2FY4kc-pM1NEpdtV",
   "name": "RegisterFlow",
+  "description": null,
+  "active": false,
+  "isArchived": false,
   "nodes": [
     {
       "parameters": {
@@ -50,7 +56,7 @@
       "name": "Insert documents",
       "credentials": {
         "mongoDb": {
-          "id": "zoh5cWvgtjKOQ61h",
+          "id": "S3ZEEFJeZT0vCiOl",
           "name": "MongoDB account"
         }
       },
@@ -116,7 +122,6 @@
       "name": "Edit Fields"
     }
   ],
-  "pinData": {},
   "connections": {
     "Webhook": {
       "main": [
@@ -170,16 +175,42 @@
       ]
     }
   },
-  "active": false,
   "settings": {
     "executionOrder": "v1",
     "availableInMCP": false
   },
-  "versionId": "332283fc-8b5b-48f9-a667-18d53e3f8903",
+  "staticData": null,
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "2f455c3b076788e6fa0cc0b037936bc00f41f746465bd84b64312c4c01bcdf7d"
   },
-  "id": "oZHfg2FY4kc-pM1NEpdtV",
-  "tags": []
+  "pinData": {},
+  "versionId": "c61516b4-7f0f-457a-8c34-252b548d5993",
+  "activeVersionId": null,
+  "versionCounter": 3,
+  "triggerCount": 0,
+  "tags": [],
+  "shared": [
+    {
+      "updatedAt": "2026-04-01T12:10:09.343Z",
+      "createdAt": "2026-04-01T12:10:09.343Z",
+      "role": "workflow:owner",
+      "workflowId": "oZHfg2FY4kc-pM1NEpdtV",
+      "projectId": "8xNve8SXUWTM8hnk",
+      "project": {
+        "updatedAt": "2026-04-01T12:09:43.119Z",
+        "createdAt": "2026-04-01T12:09:15.023Z",
+        "id": "8xNve8SXUWTM8hnk",
+        "name": "Thanakrit Wong-asa <gainthanakrit@gmail.com>",
+        "type": "personal",
+        "icon": null,
+        "description": null,
+        "creatorId": "9b88402d-de46-439d-8b84-c31e1c5ed145"
+      }
+    }
+  ],
+  "versionMetadata": {
+    "name": null,
+    "description": null
+  }
 }

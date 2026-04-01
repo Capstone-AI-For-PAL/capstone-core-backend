@@ -1,5 +1,11 @@
 {
+  "updatedAt": "2026-04-01T11:31:56.038Z",
+  "createdAt": "2026-03-27T05:37:16.533Z",
+  "id": "sy1hBLNjUQDjHcVm",
   "name": "async-generate-exercise",
+  "description": null,
+  "active": true,
+  "isArchived": false,
   "nodes": [
     {
       "parameters": {
@@ -36,8 +42,8 @@
       "name": "Find documents",
       "credentials": {
         "mongoDb": {
-          "id": "sjff9flDm6PtRdBH",
-          "name": "MongoDB account"
+          "id": "f8Us5RfnRMksaqPf",
+          "name": "Admin Mongo"
         }
       }
     },
@@ -120,7 +126,6 @@
       "name": "Select questions"
     }
   ],
-  "pinData": {},
   "connections": {
     "Webhook": {
       "main": [
@@ -178,17 +183,43 @@
       ]
     }
   },
-  "active": true,
   "settings": {
     "executionOrder": "v1",
     "binaryMode": "separate",
     "availableInMCP": false
   },
-  "versionId": "03f7f3b1-77cc-407f-8e55-dee2c77e2733",
+  "staticData": null,
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "7359c0c217c2f2526bf0a6c46f4839c44f96a0005dca2af79edc19e6ed7703f7"
   },
-  "id": "sy1hBLNjUQDjHcVm",
-  "tags": []
+  "pinData": {},
+  "versionId": "04342566-49b3-4e2f-98b8-3af49bde1be3",
+  "activeVersionId": "04342566-49b3-4e2f-98b8-3af49bde1be3",
+  "versionCounter": 16,
+  "triggerCount": 1,
+  "tags": [],
+  "shared": [
+    {
+      "updatedAt": "2026-04-01T12:10:09.348Z",
+      "createdAt": "2026-04-01T12:10:09.348Z",
+      "role": "workflow:owner",
+      "workflowId": "sy1hBLNjUQDjHcVm",
+      "projectId": "8xNve8SXUWTM8hnk",
+      "project": {
+        "updatedAt": "2026-04-01T12:09:43.119Z",
+        "createdAt": "2026-04-01T12:09:15.023Z",
+        "id": "8xNve8SXUWTM8hnk",
+        "name": "Thanakrit Wong-asa <gainthanakrit@gmail.com>",
+        "type": "personal",
+        "icon": null,
+        "description": null,
+        "creatorId": "9b88402d-de46-439d-8b84-c31e1c5ed145"
+      }
+    }
+  ],
+  "versionMetadata": {
+    "name": "Version 8bf59b9b",
+    "description": ""
+  }
 }

@@ -1,5 +1,11 @@
 {
+  "updatedAt": "2026-03-27T06:03:22.191Z",
+  "createdAt": "2026-03-27T05:37:16.519Z",
+  "id": "AbJa0ADksb_69c3-oNQ-p",
   "name": "RAG Example",
+  "description": null,
+  "active": false,
+  "isArchived": false,
   "nodes": [
     {
       "parameters": {
@@ -130,7 +136,7 @@
       "name": "Embeddings Google Gemini",
       "credentials": {
         "googlePalmApi": {
-          "id": "NkQ04fDTcoiawVu2",
+          "id": "Ru2X0sDNqFdT6BuX",
           "name": "Google Gemini(PaLM) Api account"
         }
       }
@@ -173,7 +179,7 @@
       "name": "Google Gemini Chat Model",
       "credentials": {
         "googlePalmApi": {
-          "id": "NkQ04fDTcoiawVu2",
+          "id": "Ru2X0sDNqFdT6BuX",
           "name": "Google Gemini(PaLM) Api account"
         }
       }
@@ -232,7 +238,6 @@
       }
     }
   ],
-  "pinData": {},
   "connections": {
     "Upload your file here": {
       "main": [
@@ -317,16 +322,42 @@
       ]
     }
   },
-  "active": false,
   "settings": {
     "executionOrder": "v1",
     "availableInMCP": false
   },
-  "versionId": "b414a129-dd86-409d-824c-a73541a37ec5",
+  "staticData": null,
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "033f1bc6215f63e899772bfa6952d5de23ea9ab6140b36a3b563a251130298dd"
   },
-  "id": "AbJa0ADksb_69c3-oNQ-p",
-  "tags": []
+  "pinData": {},
+  "versionId": "f3190e73-ecfb-4089-b86a-a6e783e95bf6",
+  "activeVersionId": null,
+  "versionCounter": 27,
+  "triggerCount": 2,
+  "tags": [],
+  "shared": [
+    {
+      "updatedAt": "2026-04-01T12:10:09.311Z",
+      "createdAt": "2026-04-01T12:10:09.311Z",
+      "role": "workflow:owner",
+      "workflowId": "AbJa0ADksb_69c3-oNQ-p",
+      "projectId": "8xNve8SXUWTM8hnk",
+      "project": {
+        "updatedAt": "2026-04-01T12:09:43.119Z",
+        "createdAt": "2026-04-01T12:09:15.023Z",
+        "id": "8xNve8SXUWTM8hnk",
+        "name": "Thanakrit Wong-asa <gainthanakrit@gmail.com>",
+        "type": "personal",
+        "icon": null,
+        "description": null,
+        "creatorId": "9b88402d-de46-439d-8b84-c31e1c5ed145"
+      }
+    }
+  ],
+  "versionMetadata": {
+    "name": null,
+    "description": null
+  }
 }

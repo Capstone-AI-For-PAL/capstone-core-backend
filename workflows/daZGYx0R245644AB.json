@@ -1,5 +1,11 @@
 {
+  "updatedAt": "2026-03-27T05:55:18.090Z",
+  "createdAt": "2026-03-27T05:37:16.535Z",
+  "id": "daZGYx0R245644AB",
   "name": "async-generate-outline",
+  "description": null,
+  "active": false,
+  "isArchived": false,
   "nodes": [
     {
       "parameters": {
@@ -72,7 +78,7 @@
       "name": "Update status",
       "credentials": {
         "mongoDb": {
-          "id": "sjff9flDm6PtRdBH",
+          "id": "S3ZEEFJeZT0vCiOl",
           "name": "MongoDB account"
         }
       }
@@ -110,7 +116,7 @@
       "name": "Update outline and status",
       "credentials": {
         "mongoDb": {
-          "id": "sjff9flDm6PtRdBH",
+          "id": "S3ZEEFJeZT0vCiOl",
           "name": "MongoDB account"
         }
       }
@@ -163,7 +169,6 @@
       "name": "Outline Generator"
     }
   ],
-  "pinData": {},
   "connections": {
     "Webhook": {
       "main": [
@@ -237,17 +242,43 @@
       ]
     }
   },
-  "active": false,
   "settings": {
     "executionOrder": "v1",
     "binaryMode": "separate",
     "availableInMCP": false
   },
-  "versionId": "504af84a-7d0e-4478-a019-d1397e2ab53b",
+  "staticData": null,
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "7359c0c217c2f2526bf0a6c46f4839c44f96a0005dca2af79edc19e6ed7703f7"
   },
-  "id": "daZGYx0R245644AB",
-  "tags": []
+  "pinData": {},
+  "versionId": "00d24113-3d1f-4965-8e5c-f79b2b075e6d",
+  "activeVersionId": null,
+  "versionCounter": 8,
+  "triggerCount": 1,
+  "tags": [],
+  "shared": [
+    {
+      "updatedAt": "2026-04-01T12:10:09.331Z",
+      "createdAt": "2026-04-01T12:10:09.331Z",
+      "role": "workflow:owner",
+      "workflowId": "daZGYx0R245644AB",
+      "projectId": "8xNve8SXUWTM8hnk",
+      "project": {
+        "updatedAt": "2026-04-01T12:09:43.119Z",
+        "createdAt": "2026-04-01T12:09:15.023Z",
+        "id": "8xNve8SXUWTM8hnk",
+        "name": "Thanakrit Wong-asa <gainthanakrit@gmail.com>",
+        "type": "personal",
+        "icon": null,
+        "description": null,
+        "creatorId": "9b88402d-de46-439d-8b84-c31e1c5ed145"
+      }
+    }
+  ],
+  "versionMetadata": {
+    "name": "Version 6adc31ec",
+    "description": ""
+  }
 }

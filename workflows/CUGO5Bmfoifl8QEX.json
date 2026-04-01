@@ -1,5 +1,11 @@
 {
+  "updatedAt": "2026-04-01T11:45:10.682Z",
+  "createdAt": "2026-04-01T11:44:35.915Z",
+  "id": "CUGO5Bmfoifl8QEX",
   "name": "RAG",
+  "description": null,
+  "active": true,
+  "isArchived": false,
   "nodes": [
     {
       "parameters": {
@@ -8,12 +14,12 @@
         "width": 620,
         "color": 7
       },
-      "id": "436f38f7-7b18-4220-b649-51d0a3c9b0eb",
+      "id": "25e12ffa-711f-49af-8935-5113b128b3e2",
       "name": "Sticky Note1",
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        2192,
-        1056
+        304,
+        -80
       ],
       "typeVersion": 1
     },
@@ -31,12 +37,12 @@
           }
         }
       },
-      "id": "a8124d45-6a2f-43b3-8365-4836ab00df91",
+      "id": "876ff98d-c407-4e61-a932-0b52cc2f82f3",
       "name": "Default Data Loader1",
       "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
       "position": [
-        2640,
-        1328
+        752,
+        192
       ],
       "typeVersion": 1.1
     },
@@ -47,15 +53,15 @@
       "type": "@n8n/n8n-nodes-langchain.embeddingsGoogleGemini",
       "typeVersion": 1,
       "position": [
-        2592,
-        1616
+        704,
+        480
       ],
-      "id": "f12abe87-4424-46c7-9c62-723936a9f5dc",
+      "id": "b21bd306-59dd-48a5-a42f-0703376f40c9",
       "name": "Embeddings Google Gemini",
       "credentials": {
         "googlePalmApi": {
-          "id": "NkQ04fDTcoiawVu2",
-          "name": "Google Gemini(PaLM) Api account"
+          "id": "0XZ6c3acWLkU4sjC",
+          "name": "Gain Gemini API"
         }
       }
     },
@@ -74,15 +80,15 @@
       "type": "@n8n/n8n-nodes-langchain.vectorStoreMongoDBAtlas",
       "typeVersion": 1.3,
       "position": [
-        2432,
-        1120
+        544,
+        -16
       ],
-      "id": "d8210345-38fb-48e2-a4db-7001d01f16fb",
+      "id": "cdbe5e02-3ab7-45e2-bedd-5ad3343129c2",
       "name": "MongoDB Atlas Vector Store1",
       "credentials": {
         "mongoDb": {
-          "id": "K1y2RTKvTElSmf02",
-          "name": "MongoDB account 2"
+          "id": "f8Us5RfnRMksaqPf",
+          "name": "Admin Mongo"
         }
       }
     },
@@ -104,15 +110,15 @@
       "type": "@n8n/n8n-nodes-langchain.vectorStoreMongoDBAtlas",
       "typeVersion": 1.3,
       "position": [
-        3120,
-        1120
+        1232,
+        -16
       ],
-      "id": "72de0b2f-034a-4393-8bd7-19778c4515e7",
+      "id": "82dba72f-a89a-4e3a-a53f-f035cdce8391",
       "name": "MongoDB Atlas Vector Store2",
       "credentials": {
         "mongoDb": {
-          "id": "K1y2RTKvTElSmf02",
-          "name": "MongoDB account 2"
+          "id": "f8Us5RfnRMksaqPf",
+          "name": "Admin Mongo"
         }
       }
     },
@@ -127,10 +133,10 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
-        2240,
-        1120
+        352,
+        -16
       ],
-      "id": "bc3a05e1-9085-444d-b017-8f66978b579c",
+      "id": "58d7c618-6e70-4218-ac3a-907786f3a5a6",
       "name": "Upload",
       "webhookId": "316fdbe5-c36d-4fb4-a158-6c770474c3fe"
     },
@@ -141,12 +147,12 @@
         "width": 840,
         "color": 7
       },
-      "id": "3e366d31-57e1-496d-bb12-e6cbbde0341d",
+      "id": "2487c336-5abb-455e-9cfe-0bac83a42f47",
       "name": "Query",
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        2848,
-        1056
+        960,
+        -80
       ],
       "typeVersion": 1
     },
@@ -161,10 +167,10 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
-        2896,
-        1120
+        1008,
+        -16
       ],
-      "id": "c905a7ae-ae41-4a86-b8e0-c7d60282e614",
+      "id": "c3793679-0e46-49be-844e-244d4d88746e",
       "name": "Query1",
       "webhookId": "92735671-0418-4b93-b968-5de2cd180702"
     },
@@ -175,14 +181,13 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        3456,
-        1120
+        1568,
+        -16
       ],
-      "id": "3735d4ce-2eac-4215-9b09-2890ffdc6912",
+      "id": "ae7db819-5a50-4638-ab6e-c5c263379f8e",
       "name": "Code in JavaScript"
     }
   ],
-  "pinData": {},
   "connections": {
     "Default Data Loader1": {
       "ai_document": [
@@ -209,11 +214,6 @@
             "index": 0
           }
         ]
-      ]
-    },
-    "MongoDB Atlas Vector Store1": {
-      "main": [
-        []
       ]
     },
     "Upload": {
@@ -250,16 +250,42 @@
       ]
     }
   },
-  "active": true,
   "settings": {
     "executionOrder": "v1",
+    "binaryMode": "separate",
     "availableInMCP": false
   },
-  "versionId": "5cd61611-de01-459b-9d38-8d15bb3ddb49",
+  "staticData": null,
   "meta": {
-    "templateCredsSetupCompleted": true,
-    "instanceId": "033f1bc6215f63e899772bfa6952d5de23ea9ab6140b36a3b563a251130298dd"
+    "templateCredsSetupCompleted": true
   },
-  "id": "AbJa0ADksb_69c3-oNQ-p",
-  "tags": []
+  "pinData": {},
+  "versionId": "ac5e3426-62aa-4f6a-be2e-55553057dbd0",
+  "activeVersionId": "ac5e3426-62aa-4f6a-be2e-55553057dbd0",
+  "versionCounter": 11,
+  "triggerCount": 2,
+  "tags": [],
+  "shared": [
+    {
+      "updatedAt": "2026-04-01T12:10:09.318Z",
+      "createdAt": "2026-04-01T12:10:09.318Z",
+      "role": "workflow:owner",
+      "workflowId": "CUGO5Bmfoifl8QEX",
+      "projectId": "8xNve8SXUWTM8hnk",
+      "project": {
+        "updatedAt": "2026-04-01T12:09:43.119Z",
+        "createdAt": "2026-04-01T12:09:15.023Z",
+        "id": "8xNve8SXUWTM8hnk",
+        "name": "Thanakrit Wong-asa <gainthanakrit@gmail.com>",
+        "type": "personal",
+        "icon": null,
+        "description": null,
+        "creatorId": "9b88402d-de46-439d-8b84-c31e1c5ed145"
+      }
+    }
+  ],
+  "versionMetadata": {
+    "name": "Version 73ad0fc1",
+    "description": ""
+  }
 }

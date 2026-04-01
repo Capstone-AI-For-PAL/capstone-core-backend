@@ -1,5 +1,11 @@
 {
+  "updatedAt": "2026-03-27T05:37:16.544Z",
+  "createdAt": "2026-03-27T05:37:16.544Z",
+  "id": "bSG0GG8K2wzyXDGJ19WlZ",
   "name": "slide-generator",
+  "description": null,
+  "active": false,
+  "isArchived": false,
   "nodes": [
     {
       "parameters": {
@@ -45,7 +51,7 @@
       "name": "Google Gemini Chat Model",
       "credentials": {
         "googlePalmApi": {
-          "id": "nkjyjxzIkBKuhyZh",
+          "id": "Ru2X0sDNqFdT6BuX",
           "name": "Google Gemini(PaLM) Api account"
         }
       }
@@ -67,7 +73,7 @@
       "name": "Upload a file",
       "credentials": {
         "aws": {
-          "id": "dxBCP5LgruhUqTMg",
+          "id": "3htKfO31rESwA3SU",
           "name": "AWS (IAM) account"
         }
       }
@@ -194,7 +200,7 @@
       "name": "Upload a file1",
       "credentials": {
         "aws": {
-          "id": "dxBCP5LgruhUqTMg",
+          "id": "3htKfO31rESwA3SU",
           "name": "AWS (IAM) account"
         }
       }
@@ -231,7 +237,6 @@
       "name": "GenerateVoice"
     }
   ],
-  "pinData": {},
   "connections": {
     "When chat message received": {
       "main": [
@@ -361,16 +366,42 @@
       ]
     }
   },
-  "active": true,
   "settings": {
     "executionOrder": "v1",
     "availableInMCP": false
   },
-  "versionId": "e9340b7b-4a54-455e-b4b8-e6bd0f1242a9",
+  "staticData": null,
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "dacf661d18952437dcd120ba832369f336608e51c4a96e821e930948a4d1e07e"
   },
-  "id": "bSG0GG8K2wzyXDGJ19WlZ",
-  "tags": []
+  "pinData": {},
+  "versionId": "a43b932c-d19c-4d65-b1b7-a21ea3b9e2f3",
+  "activeVersionId": null,
+  "versionCounter": 6,
+  "triggerCount": 0,
+  "tags": [],
+  "shared": [
+    {
+      "updatedAt": "2026-04-01T12:10:09.329Z",
+      "createdAt": "2026-04-01T12:10:09.329Z",
+      "role": "workflow:owner",
+      "workflowId": "bSG0GG8K2wzyXDGJ19WlZ",
+      "projectId": "8xNve8SXUWTM8hnk",
+      "project": {
+        "updatedAt": "2026-04-01T12:09:43.119Z",
+        "createdAt": "2026-04-01T12:09:15.023Z",
+        "id": "8xNve8SXUWTM8hnk",
+        "name": "Thanakrit Wong-asa <gainthanakrit@gmail.com>",
+        "type": "personal",
+        "icon": null,
+        "description": null,
+        "creatorId": "9b88402d-de46-439d-8b84-c31e1c5ed145"
+      }
+    }
+  ],
+  "versionMetadata": {
+    "name": null,
+    "description": null
+  }
 }

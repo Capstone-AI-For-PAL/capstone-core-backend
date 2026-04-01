@@ -1,5 +1,11 @@
 {
+  "updatedAt": "2026-03-27T05:37:16.507Z",
+  "createdAt": "2026-03-27T05:37:16.507Z",
+  "id": "Lvk468NQIsbK5730lMjgv",
   "name": "LoginFlow",
+  "description": null,
+  "active": false,
+  "isArchived": false,
   "nodes": [
     {
       "parameters": {
@@ -51,7 +57,7 @@
       "alwaysOutputData": true,
       "credentials": {
         "mongoDb": {
-          "id": "zoh5cWvgtjKOQ61h",
+          "id": "S3ZEEFJeZT0vCiOl",
           "name": "MongoDB account"
         }
       },
@@ -245,7 +251,6 @@
       "name": "Respond to Webhook3"
     }
   ],
-  "pinData": {},
   "connections": {
     "Webhook": {
       "main": [
@@ -346,16 +351,42 @@
       ]
     }
   },
-  "active": false,
   "settings": {
     "executionOrder": "v1",
     "availableInMCP": false
   },
-  "versionId": "43490406-48ed-4902-821a-c966fec1477f",
+  "staticData": null,
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "2f455c3b076788e6fa0cc0b037936bc00f41f746465bd84b64312c4c01bcdf7d"
   },
-  "id": "Lvk468NQIsbK5730lMjgv",
-  "tags": []
+  "pinData": {},
+  "versionId": "cd2c0f71-bea1-408b-b5a8-07119410bbc7",
+  "activeVersionId": null,
+  "versionCounter": 3,
+  "triggerCount": 0,
+  "tags": [],
+  "shared": [
+    {
+      "updatedAt": "2026-04-01T12:10:09.324Z",
+      "createdAt": "2026-04-01T12:10:09.324Z",
+      "role": "workflow:owner",
+      "workflowId": "Lvk468NQIsbK5730lMjgv",
+      "projectId": "8xNve8SXUWTM8hnk",
+      "project": {
+        "updatedAt": "2026-04-01T12:09:43.119Z",
+        "createdAt": "2026-04-01T12:09:15.023Z",
+        "id": "8xNve8SXUWTM8hnk",
+        "name": "Thanakrit Wong-asa <gainthanakrit@gmail.com>",
+        "type": "personal",
+        "icon": null,
+        "description": null,
+        "creatorId": "9b88402d-de46-439d-8b84-c31e1c5ed145"
+      }
+    }
+  ],
+  "versionMetadata": {
+    "name": null,
+    "description": null
+  }
 }
