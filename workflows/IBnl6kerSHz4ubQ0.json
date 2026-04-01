@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-04-01T11:41:36.649Z",
+  "updatedAt": "2026-04-01T15:52:15.884Z",
   "createdAt": "2026-03-27T05:37:16.504Z",
   "id": "IBnl6kerSHz4ubQ0",
   "name": "Course API Workflow",
@@ -813,7 +813,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "http://localhost:5678/webhook/56b21e8a-e903-482c-a2ad-5419bb7e153d",
+        "url": "http://localhost:5678/webhook/v2/async-generate-slides",
         "sendBody": true,
         "specifyBody": "=json",
         "bodyParameters": {
@@ -2472,32 +2472,32 @@
     "instanceId": "033f1bc6215f63e899772bfa6952d5de23ea9ab6140b36a3b563a251130298dd"
   },
   "pinData": {},
-  "versionId": "45d43b6d-9104-452c-94bf-5f533f3a7a30",
-  "activeVersionId": "45d43b6d-9104-452c-94bf-5f533f3a7a30",
-  "versionCounter": 21,
+  "versionId": "058db4a3-ebf1-4a80-a1ac-5663a8061bff",
+  "activeVersionId": "058db4a3-ebf1-4a80-a1ac-5663a8061bff",
+  "versionCounter": 27,
   "triggerCount": 13,
   "tags": [],
   "shared": [
     {
-      "updatedAt": "2026-04-01T12:10:09.322Z",
-      "createdAt": "2026-04-01T12:10:09.322Z",
+      "updatedAt": "2026-04-01T15:25:50.810Z",
+      "createdAt": "2026-04-01T15:25:50.810Z",
       "role": "workflow:owner",
       "workflowId": "IBnl6kerSHz4ubQ0",
-      "projectId": "8xNve8SXUWTM8hnk",
+      "projectId": "lNYB3qnlXW3ffKTz",
       "project": {
-        "updatedAt": "2026-04-01T12:09:43.119Z",
-        "createdAt": "2026-04-01T12:09:15.023Z",
-        "id": "8xNve8SXUWTM8hnk",
+        "updatedAt": "2026-04-01T15:25:23.370Z",
+        "createdAt": "2026-04-01T15:24:56.925Z",
+        "id": "lNYB3qnlXW3ffKTz",
         "name": "Thanakrit Wong-asa <gainthanakrit@gmail.com>",
         "type": "personal",
         "icon": null,
         "description": null,
-        "creatorId": "9b88402d-de46-439d-8b84-c31e1c5ed145"
+        "creatorId": "c98857a0-a5cb-4b74-89f6-496e1140c40b"
       }
     }
   ],
   "versionMetadata": {
-    "name": "Version 9bc8d262",
+    "name": "Version 058db4a3",
     "description": ""
   }
 }

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-04-01T11:26:42.219Z",
+  "updatedAt": "2026-04-01T15:52:30.761Z",
   "createdAt": "2026-04-01T11:19:56.621Z",
   "id": "nitGp0JGKxp4GVJF",
   "name": "async-generate-slide-v2",
@@ -41,8 +41,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        -944,
-        560
+        -880,
+        528
       ],
       "id": "33567794-2e8f-4544-b7fd-3348f0e83e3b",
       "name": "GenieScript"
@@ -65,8 +65,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        -1168,
-        464
+        -1104,
+        432
       ],
       "id": "a79528c4-7fb4-4ac0-9f52-0cb0aaf9b406",
       "name": "GenerateSlide"
@@ -78,8 +78,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -720,
-        560
+        -656,
+        528
       ],
       "id": "ff8d61b5-1620-4201-b804-60bec27ac7b0",
       "name": "Code in JavaScript"
@@ -92,8 +92,8 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        -496,
-        560
+        -432,
+        528
       ],
       "id": "daab1dce-4265-4925-b425-23b6a0e29141",
       "name": "Split Out"
@@ -105,8 +105,8 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        -272,
-        560
+        -208,
+        528
       ],
       "id": "2cc841e4-fd6b-4d1d-8669-4995e6a7d5cf",
       "name": "Loop"
@@ -123,8 +123,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        -48,
-        560
+        16,
+        464
       ],
       "id": "93e8b52b-a8e6-402a-a5dc-aea10a6294a4",
       "name": "GenerateVoice"
@@ -132,7 +132,7 @@
     {
       "parameters": {
         "httpMethod": "POST",
-        "path": "56b21e8a-e903-482c-a2ad-5419bb7e153d",
+        "path": "v2/async-generate-slides",
         "responseMode": "responseNode",
         "options": {}
       },
@@ -140,7 +140,7 @@
       "typeVersion": 2.1,
       "position": [
         -3344,
-        624
+        176
       ],
       "id": "f5c9d462-d895-47b6-be91-ccd626dd1ea9",
       "name": "Webhook",
@@ -158,8 +158,8 @@
       "type": "n8n-nodes-base.mongoDb",
       "typeVersion": 1.2,
       "position": [
-        -496,
-        368
+        -432,
+        336
       ],
       "id": "c6b47ded-25bf-4a6e-b729-1144ece2ec3d",
       "name": "Update documents",
@@ -180,8 +180,8 @@
       "type": "n8n-nodes-base.awsS3",
       "typeVersion": 2,
       "position": [
-        176,
-        640
+        240,
+        528
       ],
       "id": "d9d4ade2-c306-402e-af4d-035d33ef2f69",
       "name": "Audio Upload",
@@ -203,8 +203,8 @@
       "type": "n8n-nodes-base.awsS3",
       "typeVersion": 2,
       "position": [
-        -944,
-        368
+        -880,
+        336
       ],
       "id": "9550dcf9-e4eb-4e17-89dd-32ea7e18a6c7",
       "name": "Slide Upload",
@@ -227,8 +227,8 @@
       "type": "n8n-nodes-base.mongoDb",
       "typeVersion": 1.2,
       "position": [
-        176,
-        368
+        240,
+        272
       ],
       "id": "4c3d315c-d4cb-47a7-a29a-d617a8649ed1",
       "name": "Update documents1",
@@ -246,8 +246,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -48,
-        368
+        16,
+        272
       ],
       "id": "19b6aae8-9feb-459f-8660-e679fc893219",
       "name": "Code in JavaScript2"
@@ -259,8 +259,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -720,
-        368
+        -656,
+        336
       ],
       "id": "3d751d21-c1eb-4b17-82b0-bc2e59001d7a",
       "name": "PrepareUpdateLessonSlide"
@@ -282,8 +282,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -1616,
-        368
+        -1552,
+        272
       ],
       "id": "9ec9ba13-646e-440f-a500-9a75c3240cb4",
       "name": "Edit Fields"
@@ -297,8 +297,8 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5,
       "position": [
-        -2464,
-        640
+        -2448,
+        176
       ],
       "id": "6258a1b4-95d5-4906-b6b4-9d32b490ab75",
       "name": "Respond to Webhook"
@@ -331,8 +331,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        -1392,
-        224
+        -1328,
+        240
       ],
       "id": "66b69c3f-d09d-40d1-aa14-1cae26a7bb21",
       "name": "GenerateSlidePPTX",
@@ -348,8 +348,8 @@
       "type": "n8n-nodes-base.awsS3",
       "typeVersion": 2,
       "position": [
-        -1168,
-        176
+        -1104,
+        144
       ],
       "id": "a9a7272d-555c-476f-beff-1b1e6fb25b90",
       "name": "PPTXUpload",
@@ -367,8 +367,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -944,
-        176
+        -880,
+        144
       ],
       "id": "d4e95c24-0475-4cb3-8fe8-bbd8473c15fc",
       "name": "PrepareUpdateLessonSlide1"
@@ -385,8 +385,8 @@
       "type": "n8n-nodes-base.mongoDb",
       "typeVersion": 1.2,
       "position": [
-        -720,
-        176
+        -656,
+        144
       ],
       "id": "5d1ada79-54c5-433a-a4ba-0469f6e679e9",
       "name": "Update documents2",
@@ -421,7 +421,7 @@
       "typeVersion": 4.3,
       "position": [
         -3120,
-        752
+        240
       ],
       "id": "730734a8-4623-46a6-9859-a2f8f3a00185",
       "name": "GetDataFromRAG"
@@ -432,7 +432,7 @@
       "typeVersion": 3.2,
       "position": [
         -2896,
-        640
+        176
       ],
       "id": "7abd0cf0-93ee-4f34-8d19-b2c6bf081f80",
       "name": "Merge",
@@ -486,7 +486,7 @@
       "typeVersion": 3.4,
       "position": [
         -2672,
-        640
+        176
       ],
       "id": "2f89ff1b-dab3-431f-8ba0-1ffbe2dca514",
       "name": "prepare"
@@ -500,8 +500,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -1616,
-        800
+        -1552,
+        48
       ],
       "id": "17f2d6c2-0ef9-405b-9e93-e28db17033ad",
       "name": "Edit Fields1"
@@ -518,8 +518,8 @@
       "type": "n8n-nodes-base.mongoDb",
       "typeVersion": 1.2,
       "position": [
-        -1392,
-        800
+        -1328,
+        48
       ],
       "id": "012fdea7-9d48-4426-ad9f-8aecf665974c",
       "name": "Update content",
@@ -537,8 +537,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -2096,
-        640
+        -2000,
+        176
       ],
       "id": "9c29c2ab-d3a5-46d3-871e-b1c26b4de9c6",
       "name": "Parse Output"
@@ -575,8 +575,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        -2272,
-        640
+        -2224,
+        176
       ],
       "id": "cf863219-50e3-45fa-b3c0-bddc9b124772",
       "name": "SlideContentOrchestrator"
@@ -628,8 +628,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        -1872,
-        640
+        -1776,
+        176
       ],
       "id": "534d8075-0e29-4897-9ba8-7afd02ad9370",
       "name": "SlideContentGenerator"
@@ -935,32 +935,32 @@
     "instanceId": "dacf661d18952437dcd120ba832369f336608e51c4a96e821e930948a4d1e07e"
   },
   "pinData": {},
-  "versionId": "9683e06d-f7da-4f97-b7d3-1169061b8b78",
-  "activeVersionId": "9683e06d-f7da-4f97-b7d3-1169061b8b78",
-  "versionCounter": 14,
+  "versionId": "9183ee18-f13a-4325-b9b9-b6955da438da",
+  "activeVersionId": "9183ee18-f13a-4325-b9b9-b6955da438da",
+  "versionCounter": 25,
   "triggerCount": 1,
   "tags": [],
   "shared": [
     {
-      "updatedAt": "2026-04-01T12:10:09.341Z",
-      "createdAt": "2026-04-01T12:10:09.341Z",
+      "updatedAt": "2026-04-01T15:25:50.826Z",
+      "createdAt": "2026-04-01T15:25:50.826Z",
       "role": "workflow:owner",
       "workflowId": "nitGp0JGKxp4GVJF",
-      "projectId": "8xNve8SXUWTM8hnk",
+      "projectId": "lNYB3qnlXW3ffKTz",
       "project": {
-        "updatedAt": "2026-04-01T12:09:43.119Z",
-        "createdAt": "2026-04-01T12:09:15.023Z",
-        "id": "8xNve8SXUWTM8hnk",
+        "updatedAt": "2026-04-01T15:25:23.370Z",
+        "createdAt": "2026-04-01T15:24:56.925Z",
+        "id": "lNYB3qnlXW3ffKTz",
         "name": "Thanakrit Wong-asa <gainthanakrit@gmail.com>",
         "type": "personal",
         "icon": null,
         "description": null,
-        "creatorId": "9b88402d-de46-439d-8b84-c31e1c5ed145"
+        "creatorId": "c98857a0-a5cb-4b74-89f6-496e1140c40b"
       }
     }
   ],
   "versionMetadata": {
-    "name": "Version 127bf0a8",
+    "name": "Version 9183ee18",
     "description": ""
   }
 }

@@ -4,7 +4,7 @@
   "id": "emJ8fnzE9W5I6qml",
   "name": "outline-generator",
   "description": null,
-  "active": false,
+  "active": true,
   "isArchived": false,
   "nodes": [
     {
@@ -243,27 +243,27 @@
     "instanceId": "7359c0c217c2f2526bf0a6c46f4839c44f96a0005dca2af79edc19e6ed7703f7"
   },
   "pinData": {},
-  "versionId": "057451c2-dd13-4533-8d25-1dd527664ac7",
-  "activeVersionId": null,
-  "versionCounter": 11,
+  "versionId": "aa2d87cb-e0ce-43c4-9f08-e0f818ecfa80",
+  "activeVersionId": "aa2d87cb-e0ce-43c4-9f08-e0f818ecfa80",
+  "versionCounter": 14,
   "triggerCount": 1,
   "tags": [],
   "shared": [
     {
-      "updatedAt": "2026-04-01T12:10:09.336Z",
-      "createdAt": "2026-04-01T12:10:09.336Z",
+      "updatedAt": "2026-04-01T15:25:50.823Z",
+      "createdAt": "2026-04-01T15:25:50.823Z",
       "role": "workflow:owner",
       "workflowId": "emJ8fnzE9W5I6qml",
-      "projectId": "8xNve8SXUWTM8hnk",
+      "projectId": "lNYB3qnlXW3ffKTz",
       "project": {
-        "updatedAt": "2026-04-01T12:09:43.119Z",
-        "createdAt": "2026-04-01T12:09:15.023Z",
-        "id": "8xNve8SXUWTM8hnk",
+        "updatedAt": "2026-04-01T15:25:23.370Z",
+        "createdAt": "2026-04-01T15:24:56.925Z",
+        "id": "lNYB3qnlXW3ffKTz",
         "name": "Thanakrit Wong-asa <gainthanakrit@gmail.com>",
         "type": "personal",
         "icon": null,
         "description": null,
-        "creatorId": "9b88402d-de46-439d-8b84-c31e1c5ed145"
+        "creatorId": "c98857a0-a5cb-4b74-89f6-496e1140c40b"
       }
     }
   ],

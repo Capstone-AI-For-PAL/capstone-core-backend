@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-04-01T11:45:10.682Z",
+  "updatedAt": "2026-04-01T15:28:55.076Z",
   "createdAt": "2026-04-01T11:44:35.915Z",
   "id": "CUGO5Bmfoifl8QEX",
   "name": "RAG",
@@ -260,32 +260,32 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "ac5e3426-62aa-4f6a-be2e-55553057dbd0",
-  "activeVersionId": "ac5e3426-62aa-4f6a-be2e-55553057dbd0",
-  "versionCounter": 11,
+  "versionId": "ecba374b-d2e2-4708-bd18-31c06073994b",
+  "activeVersionId": "ecba374b-d2e2-4708-bd18-31c06073994b",
+  "versionCounter": 16,
   "triggerCount": 2,
   "tags": [],
   "shared": [
     {
-      "updatedAt": "2026-04-01T12:10:09.318Z",
-      "createdAt": "2026-04-01T12:10:09.318Z",
+      "updatedAt": "2026-04-01T15:25:50.806Z",
+      "createdAt": "2026-04-01T15:25:50.806Z",
       "role": "workflow:owner",
       "workflowId": "CUGO5Bmfoifl8QEX",
-      "projectId": "8xNve8SXUWTM8hnk",
+      "projectId": "lNYB3qnlXW3ffKTz",
       "project": {
-        "updatedAt": "2026-04-01T12:09:43.119Z",
-        "createdAt": "2026-04-01T12:09:15.023Z",
-        "id": "8xNve8SXUWTM8hnk",
+        "updatedAt": "2026-04-01T15:25:23.370Z",
+        "createdAt": "2026-04-01T15:24:56.925Z",
+        "id": "lNYB3qnlXW3ffKTz",
         "name": "Thanakrit Wong-asa <gainthanakrit@gmail.com>",
         "type": "personal",
         "icon": null,
         "description": null,
-        "creatorId": "9b88402d-de46-439d-8b84-c31e1c5ed145"
+        "creatorId": "c98857a0-a5cb-4b74-89f6-496e1140c40b"
       }
     }
   ],
   "versionMetadata": {
-    "name": "Version 73ad0fc1",
+    "name": "Version ecba374b",
     "description": ""
   }
 }
