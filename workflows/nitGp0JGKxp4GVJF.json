@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-04-01T15:52:30.761Z",
+  "updatedAt": "2026-04-02T02:22:59.534Z",
   "createdAt": "2026-04-01T11:19:56.621Z",
   "id": "nitGp0JGKxp4GVJF",
   "name": "async-generate-slide-v2",
@@ -566,7 +566,7 @@
             },
             {
               "name": "messages",
-              "value": "={{ \n  JSON.stringify([{\n    \"role\": \"user\",\n    \"content\": `Expand the following detail to generate slides to teach users. \n\nCRITICAL INSTRUCTION: You are an API endpoint. You must output ONLY a raw, valid JSON array. Do not include markdown formatting, backticks, or any conversational text.\n\nStrictly limiting to only 5 parts\n\nExample Input:\nMAIN OBJECTIVE: \"Teach basic math\"\nCOURSE OUTLINE: \"1. Addition\"\nDATA FROM RAG: \"1+1=2\"\n\nExample Output:\n[\n  {\n    \"slide_title\": \"the topic of the slide\",\n    \"main_content\": \"Addition is the process of bringing two or more numbers together to make a new total.\",\n    \"objective\": \"Understand the concept of addition.\"\n  }\n]\n\nNow process this input:\nMAIN OBJECTIVE: ${JSON.stringify($json.slide)}\nCOURSE OUTLINE: ${JSON.stringify($json.outline)}\nDATA FROM RAG: ${JSON.stringify($json.rag_data)}`\n  }]) \n}}"
+              "value": "={{ \n  JSON.stringify([{\n    \"role\": \"user\",\n    \"content\": `Expand the following detail to generate slides to teach users. \n\nCRITICAL INSTRUCTION: You are an API endpoint. You must output ONLY a raw, valid JSON array. Do not include markdown formatting, backticks, or any conversational text.\n\nStrictly limiting to only 2 parts\n\nExample Input:\nMAIN OBJECTIVE: \"Teach basic math\"\nCOURSE OUTLINE: \"1. Addition\"\nDATA FROM RAG: \"1+1=2\"\n\nExample Output:\n[\n  {\n    \"slide_title\": \"the topic of the slide\",\n    \"main_content\": \"Addition is the process of bringing two or more numbers together to make a new total.\",\n    \"objective\": \"Understand the concept of addition.\"\n  }\n]\n\nNow process this input:\nMAIN OBJECTIVE: ${JSON.stringify($json.slide)}\nCOURSE OUTLINE: ${JSON.stringify($json.outline)}\nDATA FROM RAG: ${JSON.stringify($json.rag_data)}`\n  }]) \n}}"
             }
           ]
         },
@@ -935,9 +935,9 @@
     "instanceId": "dacf661d18952437dcd120ba832369f336608e51c4a96e821e930948a4d1e07e"
   },
   "pinData": {},
-  "versionId": "9183ee18-f13a-4325-b9b9-b6955da438da",
-  "activeVersionId": "9183ee18-f13a-4325-b9b9-b6955da438da",
-  "versionCounter": 25,
+  "versionId": "eb7d7761-487a-4e94-9e90-fd0078319abc",
+  "activeVersionId": null,
+  "versionCounter": 27,
   "triggerCount": 1,
   "tags": [],
   "shared": [
@@ -960,7 +960,7 @@
     }
   ],
   "versionMetadata": {
-    "name": "Version 9183ee18",
-    "description": ""
+    "name": null,
+    "description": null
   }
 }
