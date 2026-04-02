@@ -1,10 +1,10 @@
 {
-  "updatedAt": "2026-03-27T05:37:16.541Z",
+  "updatedAt": "2026-04-02T21:27:35.534Z",
   "createdAt": "2026-03-27T05:37:16.541Z",
   "id": "emJ8fnzE9W5I6qml",
   "name": "outline-generator",
   "description": null,
-  "active": true,
+  "active": false,
   "isArchived": false,
   "nodes": [
     {
@@ -92,7 +92,7 @@
           "parameters": [
             {
               "name": "messages",
-              "value": "={{ JSON.stringify([{\n  role: \"user\",\n  content: `You are an expert curriculum designer.\n\nStudent Goal:\n$json.body.goal\n\nNotes From Mentor:\n$json.body.notes_from_mentor\n\nYour task is to generate lessons grouped by topic and numbered hierarchically.\n\nConvert the generated slide outline into the following JSON format.\n\nReturn only valid JSON and no markdown.\n\n{\n  \"summary\": \"...\",\n  \"total_lessons\": 24,\n  \"lessons\": [\n    {\n      \"title\": \"1.1) ...\",\n      \"main_content\": \"...\",\n      \"objective\": \"...\"\n    }\n  ]\n}\n\nFORMAT RULES:\n\n1. Group lessons by their major section/topic from the slide outline.\n\n2. Use hierarchical numbering in the lesson titles:\n   - The first number represents the SECTION.\n   - The second number represents the LESSON within that section.\n\nExample numbering:\n\n1.1 Introduction to Addition  \n1.2 How Addition Works  \n1.3 Examples of Addition  \n\n2.1 Introduction to Subtraction  \n2.2 Understanding Negative Numbers  \n2.3 Subtraction Examples  \n\n3.1 Review of Math Operations\n\n3. Each lesson title MUST start with its number.\n\nExample lesson object:\n\n{\n  \"title\": \"2.2 Understanding Negative Numbers\",\n  \"main_content\": \"...\",\n  \"objective\": \"Students understand how negative numbers behave in subtraction\"\n}\n\n4. Ensure:\n- Lessons belonging to the same topic share the same first number.\n- Numbering increases sequentially.\n- The numbering is included inside the title string.\n- Titles are concise and instructional.\n\n5. total_lessons must equal the total number of lesson objects.\n\nReturn ONLY the JSON.`\n}])\n}}"
+              "value": "={{ JSON.stringify([{\n  role: \"user\",\n  content: `You are an expert curriculum designer.\n\nStudent Goal:\n${$json.body.goal}\n\nNotes From Mentor:\n${$json.body.notes_from_mentor}\n\nYour task is to generate lessons grouped by topic and numbered hierarchically.\n\nConvert the generated slide outline into the following JSON format.\n\nReturn only valid JSON and no markdown.\n\n{\n  \"summary\": \"...\",\n  \"total_lessons\": 24,\n  \"lessons\": [\n    {\n      \"title\": \"1.1) ...\",\n      \"main_content\": \"...\",\n      \"objective\": \"...\"\n    }\n  ]\n}\n\nFORMAT RULES:\n\n1. Group lessons by their major section/topic from the slide outline.\n\n2. Use hierarchical numbering in the lesson titles:\n   - The first number represents the SECTION.\n   - The second number represents the LESSON within that section.\n\nExample numbering:\n\n1.1 Introduction to Addition  \n1.2 How Addition Works  \n1.3 Examples of Addition  \n\n2.1 Introduction to Subtraction  \n2.2 Understanding Negative Numbers  \n2.3 Subtraction Examples  \n\n3.1 Review of Math Operations\n\n3. Each lesson title MUST start with its number.\n\nExample lesson object:\n\n{\n  \"title\": \"2.2 Understanding Negative Numbers\",\n  \"main_content\": \"...\",\n  \"objective\": \"Students understand how negative numbers behave in subtraction\"\n}\n\n4. Ensure:\n- Lessons belonging to the same topic share the same first number.\n- Numbering increases sequentially.\n- The numbering is included inside the title string.\n- Titles are concise and instructional.\n\n5. total_lessons must equal the total number of lesson objects.\n\nReturn ONLY the JSON.`\n}])\n}}"
             },
             {
               "name": "cunet_id",
@@ -130,7 +130,7 @@
           "parameters": [
             {
               "name": "messages",
-              "value": "={{ JSON.stringify([{\n  role: \"user\",\n  content: `You are an expert curriculum designer.\n\nStudent Goal:\n$json.body.goal\n\nNotes From Mentor:\n$json.body.notes_from_mentor\n\nReference Material: See the attached files.\n\nYour task is to generate lessons grouped by topic and numbered hierarchically.\n\nConvert the generated slide outline into the following JSON format.\n\nReturn only valid JSON and no markdown.\n\n{\n  \"summary\": \"...\",\n  \"total_lessons\": 24,\n  \"lessons\": [\n    {\n      \"title\": \"1.1) ...\",\n      \"main_content\": \"...\",\n      \"objective\": \"...\"\n    }\n  ]\n}\n\nFORMAT RULES:\n\n1. Group lessons by their major section/topic from the slide outline.\n\n2. Use hierarchical numbering in the lesson titles:\n   - The first number represents the SECTION.\n   - The second number represents the LESSON within that section.\n\nExample numbering:\n\n1.1 Introduction to Addition  \n1.2 How Addition Works  \n1.3 Examples of Addition  \n\n2.1 Introduction to Subtraction  \n2.2 Understanding Negative Numbers  \n2.3 Subtraction Examples  \n\n3.1 Review of Math Operations\n\n3. Each lesson title MUST start with its number.\n\nExample lesson object:\n\n{\n  \"title\": \"2.2 Understanding Negative Numbers\",\n  \"main_content\": \"...\",\n  \"objective\": \"Students understand how negative numbers behave in subtraction\"\n}\n\n4. Ensure:\n- Lessons belonging to the same topic share the same first number.\n- Numbering increases sequentially.\n- The numbering is included inside the title string.\n- Titles are concise and instructional.\n\n5. total_lessons must equal the total number of lesson objects.\n\nReturn ONLY the JSON.`\n}])\n}}"
+              "value": "={{ JSON.stringify([{\n  role: \"user\",\n  content: `You are an expert curriculum designer.\n\nStudent Goal:\n${$json.body.goal}\n\nNotes From Mentor:\n${$json.body.notes_from_mentor}\n\nReference Material: See the attached files.\n\nYour task is to generate lessons grouped by topic and numbered hierarchically.\n\nConvert the generated slide outline into the following JSON format.\n\nReturn only valid JSON and no markdown.\n\n{\n  \"summary\": \"...\",\n  \"total_lessons\": 24,\n  \"lessons\": [\n    {\n      \"title\": \"1.1) ...\",\n      \"main_content\": \"...\",\n      \"objective\": \"...\"\n    }\n  ]\n}\n\nFORMAT RULES:\n\n1. Group lessons by their major section/topic from the slide outline.\n\n2. Use hierarchical numbering in the lesson titles:\n   - The first number represents the SECTION.\n   - The second number represents the LESSON within that section.\n\nExample numbering:\n\n1.1 Introduction to Addition  \n1.2 How Addition Works  \n1.3 Examples of Addition  \n\n2.1 Introduction to Subtraction  \n2.2 Understanding Negative Numbers  \n2.3 Subtraction Examples  \n\n3.1 Review of Math Operations\n\n3. Each lesson title MUST start with its number.\n\nExample lesson object:\n\n{\n  \"title\": \"2.2 Understanding Negative Numbers\",\n  \"main_content\": \"...\",\n  \"objective\": \"Students understand how negative numbers behave in subtraction\"\n}\n\n4. Ensure:\n- Lessons belonging to the same topic share the same first number.\n- Numbering increases sequentially.\n- The numbering is included inside the title string.\n- Titles are concise and instructional.\n\n5. total_lessons must equal the total number of lesson objects.\n\nReturn ONLY the JSON.`\n}])\n}}"
             },
             {
               "name": "cunet_id",
@@ -243,32 +243,32 @@
     "instanceId": "7359c0c217c2f2526bf0a6c46f4839c44f96a0005dca2af79edc19e6ed7703f7"
   },
   "pinData": {},
-  "versionId": "aa2d87cb-e0ce-43c4-9f08-e0f818ecfa80",
-  "activeVersionId": "aa2d87cb-e0ce-43c4-9f08-e0f818ecfa80",
-  "versionCounter": 14,
+  "versionId": "d23e0284-c57a-41bf-a85d-08471b8c9264",
+  "activeVersionId": null,
+  "versionCounter": 19,
   "triggerCount": 1,
   "tags": [],
   "shared": [
     {
-      "updatedAt": "2026-04-01T15:25:50.823Z",
-      "createdAt": "2026-04-01T15:25:50.823Z",
+      "updatedAt": "2026-04-02T20:37:22.419Z",
+      "createdAt": "2026-04-02T20:37:22.419Z",
       "role": "workflow:owner",
       "workflowId": "emJ8fnzE9W5I6qml",
-      "projectId": "lNYB3qnlXW3ffKTz",
+      "projectId": "g5rrwpexO24xgiUV",
       "project": {
-        "updatedAt": "2026-04-01T15:25:23.370Z",
-        "createdAt": "2026-04-01T15:24:56.925Z",
-        "id": "lNYB3qnlXW3ffKTz",
-        "name": "Thanakrit Wong-asa <gainthanakrit@gmail.com>",
+        "updatedAt": "2026-02-11T07:28:25.562Z",
+        "createdAt": "2026-02-11T07:02:34.781Z",
+        "id": "g5rrwpexO24xgiUV",
+        "name": "Kamanun Maneesri <kamanun.m@gmail.com>",
         "type": "personal",
         "icon": null,
         "description": null,
-        "creatorId": "c98857a0-a5cb-4b74-89f6-496e1140c40b"
+        "creatorId": "3e71b027-1d63-42d8-8cdf-041a9571e245"
       }
     }
   ],
   "versionMetadata": {
-    "name": "Version 4e05aea2",
-    "description": ""
+    "name": null,
+    "description": null
   }
 }

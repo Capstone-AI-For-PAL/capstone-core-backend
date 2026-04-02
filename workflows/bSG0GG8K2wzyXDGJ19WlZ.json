@@ -51,7 +51,7 @@
       "name": "Google Gemini Chat Model",
       "credentials": {
         "googlePalmApi": {
-          "id": "Ru2X0sDNqFdT6BuX",
+          "id": "vZYv2abav2dS2ojA",
           "name": "Google Gemini(PaLM) Api account"
         }
       }
@@ -73,7 +73,7 @@
       "name": "Upload a file",
       "credentials": {
         "aws": {
-          "id": "3htKfO31rESwA3SU",
+          "id": "4s470AWhcUCJYmfF",
           "name": "AWS (IAM) account"
         }
       }
@@ -200,7 +200,7 @@
       "name": "Upload a file1",
       "credentials": {
         "aws": {
-          "id": "3htKfO31rESwA3SU",
+          "id": "4s470AWhcUCJYmfF",
           "name": "AWS (IAM) account"
         }
       }
@@ -376,27 +376,27 @@
     "instanceId": "dacf661d18952437dcd120ba832369f336608e51c4a96e821e930948a4d1e07e"
   },
   "pinData": {},
-  "versionId": "81e5fbd0-c8f2-45c2-8265-8dbb376ac829",
+  "versionId": "b47fbe98-113a-41e8-8240-22527b6ebace",
   "activeVersionId": null,
-  "versionCounter": 7,
+  "versionCounter": 8,
   "triggerCount": 0,
   "tags": [],
   "shared": [
     {
-      "updatedAt": "2026-04-01T15:25:50.817Z",
-      "createdAt": "2026-04-01T15:25:50.817Z",
+      "updatedAt": "2026-04-02T20:37:22.412Z",
+      "createdAt": "2026-04-02T20:37:22.412Z",
       "role": "workflow:owner",
       "workflowId": "bSG0GG8K2wzyXDGJ19WlZ",
-      "projectId": "lNYB3qnlXW3ffKTz",
+      "projectId": "g5rrwpexO24xgiUV",
       "project": {
-        "updatedAt": "2026-04-01T15:25:23.370Z",
-        "createdAt": "2026-04-01T15:24:56.925Z",
-        "id": "lNYB3qnlXW3ffKTz",
-        "name": "Thanakrit Wong-asa <gainthanakrit@gmail.com>",
+        "updatedAt": "2026-02-11T07:28:25.562Z",
+        "createdAt": "2026-02-11T07:02:34.781Z",
+        "id": "g5rrwpexO24xgiUV",
+        "name": "Kamanun Maneesri <kamanun.m@gmail.com>",
         "type": "personal",
         "icon": null,
         "description": null,
-        "creatorId": "c98857a0-a5cb-4b74-89f6-496e1140c40b"
+        "creatorId": "3e71b027-1d63-42d8-8cdf-041a9571e245"
       }
     }
   ],

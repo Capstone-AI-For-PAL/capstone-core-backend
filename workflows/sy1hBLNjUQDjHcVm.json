@@ -4,7 +4,7 @@
   "id": "sy1hBLNjUQDjHcVm",
   "name": "async-generate-exercise",
   "description": null,
-  "active": true,
+  "active": false,
   "isArchived": false,
   "nodes": [
     {
@@ -194,27 +194,27 @@
     "instanceId": "7359c0c217c2f2526bf0a6c46f4839c44f96a0005dca2af79edc19e6ed7703f7"
   },
   "pinData": {},
-  "versionId": "93569fed-78b8-4ec0-a8c4-38f0a14c0d17",
-  "activeVersionId": "93569fed-78b8-4ec0-a8c4-38f0a14c0d17",
-  "versionCounter": 19,
+  "versionId": "a1dacefb-263d-4ba5-bfb6-2ceb2a3bfc07",
+  "activeVersionId": null,
+  "versionCounter": 20,
   "triggerCount": 1,
   "tags": [],
   "shared": [
     {
-      "updatedAt": "2026-04-01T15:25:50.835Z",
-      "createdAt": "2026-04-01T15:25:50.835Z",
+      "updatedAt": "2026-04-02T20:37:22.428Z",
+      "createdAt": "2026-04-02T20:37:22.428Z",
       "role": "workflow:owner",
       "workflowId": "sy1hBLNjUQDjHcVm",
-      "projectId": "lNYB3qnlXW3ffKTz",
+      "projectId": "g5rrwpexO24xgiUV",
       "project": {
-        "updatedAt": "2026-04-01T15:25:23.370Z",
-        "createdAt": "2026-04-01T15:24:56.925Z",
-        "id": "lNYB3qnlXW3ffKTz",
-        "name": "Thanakrit Wong-asa <gainthanakrit@gmail.com>",
+        "updatedAt": "2026-02-11T07:28:25.562Z",
+        "createdAt": "2026-02-11T07:02:34.781Z",
+        "id": "g5rrwpexO24xgiUV",
+        "name": "Kamanun Maneesri <kamanun.m@gmail.com>",
         "type": "personal",
         "icon": null,
         "description": null,
-        "creatorId": "c98857a0-a5cb-4b74-89f6-496e1140c40b"
+        "creatorId": "3e71b027-1d63-42d8-8cdf-041a9571e245"
       }
     }
   ],

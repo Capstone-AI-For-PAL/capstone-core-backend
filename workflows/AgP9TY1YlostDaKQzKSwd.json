@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-03-27T05:46:39.360Z",
+  "updatedAt": "2026-04-02T21:23:32.077Z",
   "createdAt": "2026-03-27T05:37:16.538Z",
   "id": "AgP9TY1YlostDaKQzKSwd",
   "name": "async-generate-slide",
@@ -41,10 +41,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        224,
+        448,
         384
       ],
-      "id": "42156e4d-6ede-4d58-90a2-d96d7be4052c",
+      "id": "8fa15604-e229-4c4f-833c-52531267c920",
       "name": "GenieScript"
     },
     {
@@ -65,10 +65,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        0,
-        288
+        224,
+        224
       ],
-      "id": "e782974d-cc6e-4bfa-8d0f-e85dc7f23a0a",
+      "id": "e72a9b94-f18f-43c9-b6af-e7db44d8f6e9",
       "name": "GenerateSlide"
     },
     {
@@ -78,10 +78,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        448,
+        672,
         384
       ],
-      "id": "f5a5eed2-8ca3-4349-af41-2e3af3adc202",
+      "id": "6f704685-2073-4e6f-a388-c2793444368f",
       "name": "Code in JavaScript"
     },
     {
@@ -92,10 +92,10 @@
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        672,
+        896,
         384
       ],
-      "id": "b6e137e2-9918-43b5-a0d3-74ad3a9b4f8d",
+      "id": "d3630f39-edff-4469-a453-2c97b2142db0",
       "name": "Split Out"
     },
     {
@@ -105,10 +105,10 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        896,
+        1120,
         384
       ],
-      "id": "db72d3fa-cf16-4ac7-aaae-6c1a2d78aa17",
+      "id": "baf21bfe-0a3e-49eb-9563-30c3748ccb9b",
       "name": "Loop"
     },
     {
@@ -123,10 +123,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        1120,
-        384
+        1344,
+        320
       ],
-      "id": "e5eab266-f436-4ed4-b5ab-dbfc3298b3c7",
+      "id": "4072f1d1-97e2-480f-b7cb-c596857c67ee",
       "name": "GenerateVoice"
     },
     {
@@ -139,10 +139,10 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
-        -2016,
-        272
+        -2464,
+        128
       ],
-      "id": "10e63e2b-772f-4a23-8bb7-c8368223a129",
+      "id": "cebb00e0-ee93-4bde-acfa-ea78596001a5",
       "name": "Webhook",
       "webhookId": "c956b764-c4a0-43bf-a872-44e78f63c768"
     },
@@ -158,14 +158,14 @@
       "type": "n8n-nodes-base.mongoDb",
       "typeVersion": 1.2,
       "position": [
-        672,
+        896,
         192
       ],
-      "id": "61906291-921d-410f-b08a-061a571ace66",
+      "id": "22831d1e-91a1-458f-8913-481eb3683311",
       "name": "Update documents",
       "credentials": {
         "mongoDb": {
-          "id": "S3ZEEFJeZT0vCiOl",
+          "id": "YDwRGSFnFZwMGZ3A",
           "name": "MongoDB account"
         }
       }
@@ -180,14 +180,14 @@
       "type": "n8n-nodes-base.awsS3",
       "typeVersion": 2,
       "position": [
-        1344,
-        464
+        1568,
+        384
       ],
-      "id": "84073fe6-8a6a-4ba5-9e90-e7779c7fef68",
+      "id": "d902776d-91e2-455c-a15c-7a20a71ad7d5",
       "name": "Audio Upload",
       "credentials": {
         "aws": {
-          "id": "3htKfO31rESwA3SU",
+          "id": "4s470AWhcUCJYmfF",
           "name": "AWS (IAM) account"
         }
       },
@@ -203,14 +203,14 @@
       "type": "n8n-nodes-base.awsS3",
       "typeVersion": 2,
       "position": [
-        224,
+        448,
         192
       ],
-      "id": "711d7e0d-04af-49d9-91b3-fc65a6c7d017",
+      "id": "5a1c9a02-be67-43b9-aa84-4f2250e05cfc",
       "name": "Slide Upload",
       "credentials": {
         "aws": {
-          "id": "3htKfO31rESwA3SU",
+          "id": "4s470AWhcUCJYmfF",
           "name": "AWS (IAM) account"
         }
       }
@@ -227,14 +227,14 @@
       "type": "n8n-nodes-base.mongoDb",
       "typeVersion": 1.2,
       "position": [
-        1344,
-        192
+        1568,
+        128
       ],
-      "id": "cc4c4368-7fc5-4565-9496-f4943095ef3e",
+      "id": "b1d8b3a0-5a66-41a5-8991-9e8f1c7d00fc",
       "name": "Update documents1",
       "credentials": {
         "mongoDb": {
-          "id": "S3ZEEFJeZT0vCiOl",
+          "id": "YDwRGSFnFZwMGZ3A",
           "name": "MongoDB account"
         }
       }
@@ -246,10 +246,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        1120,
-        192
+        1344,
+        128
       ],
-      "id": "6d68d7b8-6cc1-456b-b681-329a36a699bc",
+      "id": "7686f2de-5362-4f92-89c3-540b6240ce58",
       "name": "Code in JavaScript2"
     },
     {
@@ -259,10 +259,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        448,
+        672,
         192
       ],
-      "id": "74ad4539-14cf-4c7b-92e3-2aba6d623c9a",
+      "id": "29cbfd3b-3ea9-4b4e-94de-3ba1bf4902a1",
       "name": "PrepareUpdateLessonSlide"
     },
     {
@@ -294,10 +294,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        -896,
-        288
+        -1344,
+        128
       ],
-      "id": "5be99665-ddda-4a2c-81af-930d7eb76bf2",
+      "id": "fa5e00c9-a332-4f8f-a95a-57a2149b568b",
       "name": "SlideContentGenerator"
     },
     {
@@ -317,10 +317,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -448,
-        192
+        -224,
+        128
       ],
-      "id": "fb401a62-caac-4808-b7e3-ed0e149cc044",
+      "id": "b691dece-dd04-43af-a981-71728e0539b8",
       "name": "Edit Fields"
     },
     {
@@ -332,10 +332,10 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5,
       "position": [
-        -1120,
-        288
+        -1568,
+        128
       ],
-      "id": "62884b79-98ed-4d37-bbdf-36a834bbf0e3",
+      "id": "da91c80a-8f84-479a-8e85-ccbe3bbde335",
       "name": "Respond to Webhook"
     },
     {
@@ -358,7 +358,7 @@
             },
             {
               "name": "messages",
-              "value": "={{ \n  JSON.stringify([{\n    \"role\": \"user\",\n    \"content\": `Create a presentation in Marp Markdown format based on the following input.\n\nSTRICT LAYOUT RULES:\n1. Frontmatter: The very first lines of your response MUST be the YAML frontmatter provided below. Do not include any text, greetings, or \"Sure, here is your presentation\" before it.\n2. Content Splitting: You MUST create a NEW SLIDE (using '---') for every distinct section or major topic.\n3. \"One Header\" Rule: Never put two \"## H2 Headers\" on the same slide. If you start a new ## Header, you MUST put '---' before it.\n4. Bullet Limits: Maximum 5 bullet points per slide. If there are more, split them into two slides (e.g., \"Key Areas Part 1\" and \"Key Areas Part 2\").\n5. Strict Mathematical Formatting: You MUST format ALL mathematical formulas, variables, and equations using strict LaTeX syntax. \n   - For inline equations, enclose the math in single dollar signs with NO spaces between the dollar sign and the math (e.g., $E=mc^2$). \n   - For standalone block equations, use double dollar signs with NO spaces between the dollar signs and the math (e.g., $$\\\\frac{dT}{dt} = -k(T - T_{ambient})$$). \n   - Never leave equations as plain text. Ensure all variables (like 'x', 'y', 'T') are consistently formatted in LaTeX.\n6. Raw Output: Output raw Markdown text only. Do not wrap the response in markdown code blocks (\\`\\`\\`). Ensure the very first line of the output is the opening '---' of the frontmatter.\n\n---\nmarp: true\ntheme: default\nmath: mathjax\npaginate: true\nsize: 16:9\nstyle: |\n  section {\n    font-size: 25px;\n    padding: 40px;\n    justify-content: center; /* Keeps content centered vertically */\n  }\n  h1 {\n    font-size: 40px;\n    color: #0288d1;\n  }\n  h2 {\n    font-size: 35px;\n    color: #333;\n  }\n---\n\nInput Data: ${$json.data}`\n  }])\n}}"
+              "value": "={{ \n  JSON.stringify([{\n    \"role\": \"user\",\n    \"content\": `Create a presentation in Marp Markdown format based on the following input.\n\nSTRICT LAYOUT RULES:\n1. Frontmatter: The very first lines of your response MUST be the YAML frontmatter provided below. Do not include any text, greetings, or \"Sure, here is your presentation\" before it.\n2. Content Splitting: You MUST create a NEW SLIDE (using '---') for every distinct section or major topic.\n3. \"One Header\" Rule: Never put two \"## H2 Headers\" on the same slide. If you start a new ## Header, you MUST put '---' before it.\n4. Bullet Limits: Maximum 5 bullet points per slide. If there are more, split them into two slides (e.g., \"Key Areas Part 1\" and \"Key Areas Part 2\").\n5. Strict Mathematical Formatting: You MUST format ALL mathematical formulas, variables, and equations using strict LaTeX syntax. \n   - For inline equations, enclose the math in single dollar signs with NO spaces between the dollar sign and the math (e.g., $E=mc^2$). \n   - For standalone block equations, use double dollar signs with NO spaces between the dollar signs and the math (e.g., $$\\\\frac{dT}{dt} = -k(T - T_{ambient})$$). \n   - Never leave equations as plain text. Ensure all variables (like 'x', 'y', 'T') are consistently formatted in LaTeX.\n6. Raw Output: Output raw Markdown text only. Do not wrap the response in markdown code blocks (\\`\\`\\`). Ensure the very first line of the output is the opening '---' of the frontmatter.\n\n---\nmarp: true\ntheme: default\nmath: mathjax\npaginate: true\nsize: 16:9\nstyle: |\n  section {\n    font-size: 25px;\n    padding: 40px;\n    justify-content: center; /* Keeps content centered vertically */\n  }\n  h1 {\n    font-size: 40px;\n    color: #0288d1;\n  }\n  h2 {\n    font-size: 35px;\n    color: #333;\n  }\n---\n\nInput Data: ${$('SlideContentGenerator').item.json.data}`\n  }])\n}}"
             }
           ]
         },
@@ -367,10 +367,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        -672,
-        192
+        -448,
+        128
       ],
-      "id": "29a1d69d-af9d-4139-8317-b6af67c2ebe4",
+      "id": "82c04971-fe19-435e-8496-b69d73361da4",
       "name": "SlideMarpGenerator"
     },
     {
@@ -401,10 +401,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        -224,
-        48
+        0,
+        0
       ],
-      "id": "ea6d0a42-26e1-4a55-a37c-f172979cf08b",
+      "id": "39e91d4b-65d0-472e-bd2d-04eeeb7550cf",
       "name": "GenerateSlidePPTX",
       "onError": "continueErrorOutput"
     },
@@ -418,14 +418,14 @@
       "type": "n8n-nodes-base.awsS3",
       "typeVersion": 2,
       "position": [
-        0,
+        224,
         0
       ],
-      "id": "293ac05b-23c1-4930-aa9c-922dd7c7413b",
+      "id": "1861fddf-b134-49ba-bc0f-a1c93b2ebca5",
       "name": "PPTXUpload",
       "credentials": {
         "aws": {
-          "id": "3htKfO31rESwA3SU",
+          "id": "4s470AWhcUCJYmfF",
           "name": "AWS (IAM) account"
         }
       }
@@ -437,10 +437,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        224,
+        448,
         0
       ],
-      "id": "5b1c6974-8c6e-4847-b8ee-ef9461afbaf4",
+      "id": "b43a992f-8e8c-4154-9084-4a822c1c830d",
       "name": "PrepareUpdateLessonSlide1"
     },
     {
@@ -455,14 +455,14 @@
       "type": "n8n-nodes-base.mongoDb",
       "typeVersion": 1.2,
       "position": [
-        448,
+        672,
         0
       ],
-      "id": "31f0b22f-82b5-4e55-8b3f-88d1bd3cba86",
+      "id": "69bfc722-099d-4b9c-9a4d-e14a7f7f1106",
       "name": "Update documents2",
       "credentials": {
         "mongoDb": {
-          "id": "S3ZEEFJeZT0vCiOl",
+          "id": "YDwRGSFnFZwMGZ3A",
           "name": "MongoDB account"
         }
       }
@@ -490,10 +490,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        -1792,
-        400
+        -2240,
+        192
       ],
-      "id": "0ad0e777-2dac-4409-839c-9ea1a415af40",
+      "id": "a1d905f7-d1d8-44bf-b962-a0aaeb8728a0",
       "name": "GetDataFromRAG"
     },
     {
@@ -505,10 +505,10 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.2,
       "position": [
-        -1568,
-        288
+        -2016,
+        128
       ],
-      "id": "2a181c2b-1a84-4b0d-b067-1aa3b5a14adf",
+      "id": "fef9038a-ff36-44ed-b15b-af9483bb5fad",
       "name": "Merge"
     },
     {
@@ -558,10 +558,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -1344,
-        288
+        -1792,
+        128
       ],
-      "id": "df3374ac-5fe2-4f92-9b4c-14081b590e73",
+      "id": "92d46807-0b78-4639-8931-cffff45bca38",
       "name": "prepare"
     },
     {
@@ -573,10 +573,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -448,
-        512
+        -896,
+        128
       ],
-      "id": "560dcef6-562f-47c0-a7d4-c9dafeed0eda",
+      "id": "a11a44bf-a66b-4f51-8f65-aa96ee8cd78c",
       "name": "Edit Fields1"
     },
     {
@@ -591,17 +591,18 @@
       "type": "n8n-nodes-base.mongoDb",
       "typeVersion": 1.2,
       "position": [
-        -224,
-        512
+        -672,
+        128
       ],
-      "id": "afaf8e81-c2dc-481c-bbbd-91778969ffe2",
+      "id": "1f577c87-e724-4129-883d-8de41cfdd014",
       "name": "Update content",
       "credentials": {
         "mongoDb": {
-          "id": "S3ZEEFJeZT0vCiOl",
+          "id": "YDwRGSFnFZwMGZ3A",
           "name": "MongoDB account"
         }
-      }
+      },
+      "onError": "continueRegularOutput"
     },
     {
       "parameters": {
@@ -610,10 +611,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -672,
-        512
+        -1120,
+        128
       ],
-      "id": "407259dc-cc1b-462b-a74b-034b769ebfb9",
+      "id": "cef7c3c6-2ce0-4a01-ae80-f20e69be14c1",
       "name": "Remove json```"
     }
   ],
@@ -763,11 +764,6 @@
             "node": "Remove json```",
             "type": "main",
             "index": 0
-          },
-          {
-            "node": "SlideMarpGenerator",
-            "type": "main",
-            "index": 0
           }
         ]
       ]
@@ -904,6 +900,17 @@
           }
         ]
       ]
+    },
+    "Update content": {
+      "main": [
+        [
+          {
+            "node": "SlideMarpGenerator",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "settings": {
@@ -917,27 +924,27 @@
     "instanceId": "dacf661d18952437dcd120ba832369f336608e51c4a96e821e930948a4d1e07e"
   },
   "pinData": {},
-  "versionId": "ab77cd1e-1109-415a-b335-5cc9ac7c0e61",
+  "versionId": "68d00242-d9c3-41ce-bcef-4009db70d5ef",
   "activeVersionId": null,
-  "versionCounter": 19,
+  "versionCounter": 23,
   "triggerCount": 1,
   "tags": [],
   "shared": [
     {
-      "updatedAt": "2026-04-01T15:25:50.803Z",
-      "createdAt": "2026-04-01T15:25:50.803Z",
+      "updatedAt": "2026-04-02T20:37:22.400Z",
+      "createdAt": "2026-04-02T20:37:22.400Z",
       "role": "workflow:owner",
       "workflowId": "AgP9TY1YlostDaKQzKSwd",
-      "projectId": "lNYB3qnlXW3ffKTz",
+      "projectId": "g5rrwpexO24xgiUV",
       "project": {
-        "updatedAt": "2026-04-01T15:25:23.370Z",
-        "createdAt": "2026-04-01T15:24:56.925Z",
-        "id": "lNYB3qnlXW3ffKTz",
-        "name": "Thanakrit Wong-asa <gainthanakrit@gmail.com>",
+        "updatedAt": "2026-02-11T07:28:25.562Z",
+        "createdAt": "2026-02-11T07:02:34.781Z",
+        "id": "g5rrwpexO24xgiUV",
+        "name": "Kamanun Maneesri <kamanun.m@gmail.com>",
         "type": "personal",
         "icon": null,
         "description": null,
-        "creatorId": "c98857a0-a5cb-4b74-89f6-496e1140c40b"
+        "creatorId": "3e71b027-1d63-42d8-8cdf-041a9571e245"
       }
     }
   ],

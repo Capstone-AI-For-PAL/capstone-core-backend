@@ -4,7 +4,7 @@
   "id": "IBnl6kerSHz4ubQ0",
   "name": "Course API Workflow",
   "description": null,
-  "active": true,
+  "active": false,
   "isArchived": false,
   "nodes": [
     {
@@ -2472,27 +2472,27 @@
     "instanceId": "033f1bc6215f63e899772bfa6952d5de23ea9ab6140b36a3b563a251130298dd"
   },
   "pinData": {},
-  "versionId": "058db4a3-ebf1-4a80-a1ac-5663a8061bff",
-  "activeVersionId": "058db4a3-ebf1-4a80-a1ac-5663a8061bff",
-  "versionCounter": 27,
+  "versionId": "89cd421d-1a1d-44e0-9bae-88e2c46093cf",
+  "activeVersionId": null,
+  "versionCounter": 28,
   "triggerCount": 13,
   "tags": [],
   "shared": [
     {
-      "updatedAt": "2026-04-01T15:25:50.810Z",
-      "createdAt": "2026-04-01T15:25:50.810Z",
+      "updatedAt": "2026-04-02T20:37:22.404Z",
+      "createdAt": "2026-04-02T20:37:22.404Z",
       "role": "workflow:owner",
       "workflowId": "IBnl6kerSHz4ubQ0",
-      "projectId": "lNYB3qnlXW3ffKTz",
+      "projectId": "g5rrwpexO24xgiUV",
       "project": {
-        "updatedAt": "2026-04-01T15:25:23.370Z",
-        "createdAt": "2026-04-01T15:24:56.925Z",
-        "id": "lNYB3qnlXW3ffKTz",
-        "name": "Thanakrit Wong-asa <gainthanakrit@gmail.com>",
+        "updatedAt": "2026-02-11T07:28:25.562Z",
+        "createdAt": "2026-02-11T07:02:34.781Z",
+        "id": "g5rrwpexO24xgiUV",
+        "name": "Kamanun Maneesri <kamanun.m@gmail.com>",
         "type": "personal",
         "icon": null,
         "description": null,
-        "creatorId": "c98857a0-a5cb-4b74-89f6-496e1140c40b"
+        "creatorId": "3e71b027-1d63-42d8-8cdf-041a9571e245"
       }
     }
   ],

@@ -136,7 +136,7 @@
       "name": "Embeddings Google Gemini",
       "credentials": {
         "googlePalmApi": {
-          "id": "Ru2X0sDNqFdT6BuX",
+          "id": "vZYv2abav2dS2ojA",
           "name": "Google Gemini(PaLM) Api account"
         }
       }
@@ -179,7 +179,7 @@
       "name": "Google Gemini Chat Model",
       "credentials": {
         "googlePalmApi": {
-          "id": "Ru2X0sDNqFdT6BuX",
+          "id": "vZYv2abav2dS2ojA",
           "name": "Google Gemini(PaLM) Api account"
         }
       }
@@ -332,27 +332,27 @@
     "instanceId": "033f1bc6215f63e899772bfa6952d5de23ea9ab6140b36a3b563a251130298dd"
   },
   "pinData": {},
-  "versionId": "19df5e84-9cd1-49c0-80b7-5a8144a35bfc",
+  "versionId": "aef0ec39-297a-4a54-9ebf-3d93293e5402",
   "activeVersionId": null,
-  "versionCounter": 28,
+  "versionCounter": 29,
   "triggerCount": 2,
   "tags": [],
   "shared": [
     {
-      "updatedAt": "2026-04-01T15:25:50.798Z",
-      "createdAt": "2026-04-01T15:25:50.798Z",
+      "updatedAt": "2026-04-02T20:37:22.398Z",
+      "createdAt": "2026-04-02T20:37:22.398Z",
       "role": "workflow:owner",
       "workflowId": "AbJa0ADksb_69c3-oNQ-p",
-      "projectId": "lNYB3qnlXW3ffKTz",
+      "projectId": "g5rrwpexO24xgiUV",
       "project": {
-        "updatedAt": "2026-04-01T15:25:23.370Z",
-        "createdAt": "2026-04-01T15:24:56.925Z",
-        "id": "lNYB3qnlXW3ffKTz",
-        "name": "Thanakrit Wong-asa <gainthanakrit@gmail.com>",
+        "updatedAt": "2026-02-11T07:28:25.562Z",
+        "createdAt": "2026-02-11T07:02:34.781Z",
+        "id": "g5rrwpexO24xgiUV",
+        "name": "Kamanun Maneesri <kamanun.m@gmail.com>",
         "type": "personal",
         "icon": null,
         "description": null,
-        "creatorId": "c98857a0-a5cb-4b74-89f6-496e1140c40b"
+        "creatorId": "3e71b027-1d63-42d8-8cdf-041a9571e245"
       }
     }
   ],
