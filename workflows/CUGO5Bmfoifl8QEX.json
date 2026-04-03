@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-04-01T15:28:55.076Z",
+  "updatedAt": "2026-04-03T06:50:06.776Z",
   "createdAt": "2026-04-01T11:44:35.915Z",
   "id": "CUGO5Bmfoifl8QEX",
   "name": "RAG",
@@ -11,27 +11,28 @@
       "parameters": {
         "content": "### 📚 Load Data Flow",
         "height": 460,
-        "width": 620,
+        "width": 860,
         "color": 7
       },
       "id": "25e12ffa-711f-49af-8935-5113b128b3e2",
       "name": "Sticky Note1",
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        304,
+        64,
         -80
       ],
       "typeVersion": 1
     },
     {
       "parameters": {
-        "dataType": "binary",
+        "jsonMode": "expressionData",
+        "jsonData": "={{ $json.data }}",
         "options": {
           "metadata": {
             "metadataValues": [
               {
                 "name": "courseId",
-                "value": "={{$json.body.courseId }}"
+                "value": "={{$('Upload').item.json.body.courseId }}"
               }
             ]
           }
@@ -60,8 +61,8 @@
       "name": "Embeddings Google Gemini",
       "credentials": {
         "googlePalmApi": {
-          "id": "0XZ6c3acWLkU4sjC",
-          "name": "Gain Gemini API"
+          "id": "NkQ04fDTcoiawVu2",
+          "name": "Google Gemini(PaLM) Api account"
         }
       }
     },
@@ -87,8 +88,8 @@
       "name": "MongoDB Atlas Vector Store1",
       "credentials": {
         "mongoDb": {
-          "id": "f8Us5RfnRMksaqPf",
-          "name": "Admin Mongo"
+          "id": "K1y2RTKvTElSmf02",
+          "name": "MongoDB account 2"
         }
       }
     },
@@ -117,8 +118,8 @@
       "name": "MongoDB Atlas Vector Store2",
       "credentials": {
         "mongoDb": {
-          "id": "f8Us5RfnRMksaqPf",
-          "name": "Admin Mongo"
+          "id": "K1y2RTKvTElSmf02",
+          "name": "MongoDB account 2"
         }
       }
     },
@@ -133,7 +134,7 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
-        352,
+        112,
         -16
       ],
       "id": "58d7c618-6e70-4218-ac3a-907786f3a5a6",
@@ -186,6 +187,49 @@
       ],
       "id": "ae7db819-5a50-4638-ab6e-c5c263379f8e",
       "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://llm-service:8080/chat",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Content-Type",
+              "value": "multipart/form-data"
+            }
+          ]
+        },
+        "sendBody": true,
+        "contentType": "multipart-form-data",
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "messages",
+              "value": "={{ JSON.stringify([{\n  role: \"user\",\n  content: `You are a professional document digitization expert specializing in high-fidelity OCR and structural preservation.\n\nTask: Transcribe the attached document into clean Markdown text.\n\nGuidelines:\n\nFidelity: Transcribe every piece of text exactly as written. Do not summarize, do not paraphrase, and do not skip any sections.\n\nStructural Formatting: >    - Use Markdown headers (#, ##) for titles and sections.\n\nUse Markdown tables for any tabular data found.\n\nUse bullet points for lists.\n\nImage Description: For any non-text elements (charts, diagrams, or photos), provide a brief, objective description in brackets, e.g., [Diagram showing the flow of water through a turbine].\n\nNo Meta-Talk: Do not begin your response with \"Here is the transcription\" or \"I have processed the document.\" Provide only the transcribed content.\n\nHandling Artifacts: If a word is illegible, mark it as [illegible]. Ignore watermarks or page numbers if they interrupt the flow of a sentence.\n\nOutput: Raw Markdown text only.`\n}])\n}}"
+            },
+            {
+              "name": "cunet_id",
+              "value": "={{ $json.body.cunet_id }}"
+            },
+            {
+              "parameterType": "formBinaryData",
+              "name": "file",
+              "inputDataFieldName": "=data0"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        336,
+        -16
+      ],
+      "id": "72d69a8f-f72c-464d-b5b8-6a8ad82667de",
+      "name": "LLM Service"
     }
   ],
   "connections": {
@@ -220,7 +264,7 @@
       "main": [
         [
           {
-            "node": "MongoDB Atlas Vector Store1",
+            "node": "LLM Service",
             "type": "main",
             "index": 0
           }
@@ -248,6 +292,17 @@
           }
         ]
       ]
+    },
+    "LLM Service": {
+      "main": [
+        [
+          {
+            "node": "MongoDB Atlas Vector Store1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "settings": {
@@ -260,32 +315,32 @@
     "templateCredsSetupCompleted": true
   },
   "pinData": {},
-  "versionId": "d293278c-5823-442d-ad58-e7a3814c024c",
+  "versionId": "2e62ce4e-7c37-4a69-b96e-4f4535c77c75",
   "activeVersionId": null,
-  "versionCounter": 17,
+  "versionCounter": 83,
   "triggerCount": 2,
   "tags": [],
   "shared": [
     {
-      "updatedAt": "2026-04-02T20:37:22.402Z",
-      "createdAt": "2026-04-02T20:37:22.402Z",
+      "updatedAt": "2026-04-02T07:51:54.225Z",
+      "createdAt": "2026-04-02T07:51:54.225Z",
       "role": "workflow:owner",
       "workflowId": "CUGO5Bmfoifl8QEX",
-      "projectId": "g5rrwpexO24xgiUV",
+      "projectId": "LRqUvPxAU4bcEgvn",
       "project": {
-        "updatedAt": "2026-02-11T07:28:25.562Z",
-        "createdAt": "2026-02-11T07:02:34.781Z",
-        "id": "g5rrwpexO24xgiUV",
-        "name": "Kamanun Maneesri <kamanun.m@gmail.com>",
+        "updatedAt": "2026-01-25T08:20:32.883Z",
+        "createdAt": "2026-01-09T03:50:12.425Z",
+        "id": "LRqUvPxAU4bcEgvn",
+        "name": "a b <kraiwit.wit@gmail.com>",
         "type": "personal",
         "icon": null,
         "description": null,
-        "creatorId": "3e71b027-1d63-42d8-8cdf-041a9571e245"
+        "creatorId": "e92b805f-305d-4602-8abe-04e6cfdf95eb"
       }
     }
   ],
   "versionMetadata": {
-    "name": "Version ecba374b",
-    "description": ""
+    "name": null,
+    "description": null
   }
 }
