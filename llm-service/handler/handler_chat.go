@@ -67,41 +67,46 @@ func MakeChatHandler(client *genie.Client) http.HandlerFunc {
 				lastMsg.Content = append(lastMsg.Content, part)
 			}
 
-			// Process uploaded files
+			// Process uploaded files (supports multiple files per key)
 			for _, key := range []string{"image", "file"} {
-				file, _, err := r.FormFile(key)
-				if err != nil {
-					if err != http.ErrMissingFile {
-						log.Printf("Error retrieving file for key %s: %v", key, err)
-					}
+				fileHeaders, ok := r.MultipartForm.File[key]
+				if !ok || len(fileHeaders) == 0 {
 					continue
 				}
 
-				func() {
-					log.Printf("Processing file upload for key: %s", key)
-					defer file.Close()
-
-					buf := new(bytes.Buffer)
-					if _, err := io.Copy(buf, file); err != nil {
-						log.Printf("Error reading file content: %v", err)
-						return
+				for _, fh := range fileHeaders {
+					file, err := fh.Open()
+					if err != nil {
+						log.Printf("Error opening file for key %s: %v", key, err)
+						continue
 					}
 
-					fileType := http.DetectContentType(buf.Bytes())
-					log.Printf("Detected file type: %s", fileType)
+					func() {
+						log.Printf("Processing file upload for key: %s, filename: %s", key, fh.Filename)
+						defer file.Close()
 
-					// Encode to base64
-					encoded := base64.StdEncoding.EncodeToString(buf.Bytes())
-					dataURL := fmt.Sprintf("data:%s;base64,%s", fileType, encoded)
+						buf := new(bytes.Buffer)
+						if _, err := io.Copy(buf, file); err != nil {
+							log.Printf("Error reading file content: %v", err)
+							return
+						}
 
-					part := genie.ContentPart{
-						Type: "image_url",
-						ImageURL: &genie.ImageURL{
-							URL: dataURL,
-						},
-					}
-					appendPart(part)
-				}()
+						fileType := http.DetectContentType(buf.Bytes())
+						log.Printf("Detected file type: %s", fileType)
+
+						// Encode to base64
+						encoded := base64.StdEncoding.EncodeToString(buf.Bytes())
+						dataURL := fmt.Sprintf("data:%s;base64,%s", fileType, encoded)
+
+						part := genie.ContentPart{
+							Type: "image_url",
+							ImageURL: &genie.ImageURL{
+								URL: dataURL,
+							},
+						}
+						appendPart(part)
+					}()
+				}
 			}
 		} else {
 			http.Error(w, "unsupported content type", 400)
