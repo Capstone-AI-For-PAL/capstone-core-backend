@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-04-02T02:22:59.534Z",
+  "updatedAt": "2026-04-08T08:56:21.573Z",
   "createdAt": "2026-04-01T11:19:56.621Z",
   "id": "nitGp0JGKxp4GVJF",
   "name": "async-generate-slide-v2",
@@ -7,46 +7,6 @@
   "active": false,
   "isArchived": false,
   "nodes": [
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "http://llm-service:8080/chat",
-        "sendHeaders": true,
-        "headerParameters": {
-          "parameters": [
-            {}
-          ]
-        },
-        "sendBody": true,
-        "contentType": "multipart-form-data",
-        "bodyParameters": {
-          "parameters": [
-            {
-              "parameterType": "formBinaryData",
-              "name": "file",
-              "inputDataFieldName": "=data"
-            },
-            {
-              "name": "cunet_id",
-              "value": "6532155621"
-            },
-            {
-              "name": "messages",
-              "value": "={{ JSON.stringify([\n  {\n    \"role\": \"user\",\n    \"content\": \"You are a script generator. The input text contains pages separated by markers like '--- PAGE X ---'. \\n\\nRULES:\\n1. Group ALL text between two Page Markers into a SINGLE script.\\n2. Do NOT create separate items for bullet points. Combine them into one paragraph for that slide.\\n3. Output strictly valid JSON: {\\\"script\\\": [\\\"Script for Page 1\\\", \\\"Script for Page 2\\\"]}.\\n4. Do not include markdown formatting.\\n\"  \n}\n]) }}"
-            }
-          ]
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.3,
-      "position": [
-        -880,
-        528
-      ],
-      "id": "33567794-2e8f-4544-b7fd-3348f0e83e3b",
-      "name": "GenieScript"
-    },
     {
       "parameters": {
         "method": "POST",
@@ -65,51 +25,25 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        -1104,
-        432
+        -720,
+        592
       ],
-      "id": "a79528c4-7fb4-4ac0-9f52-0cb0aaf9b406",
+      "id": "20b0590f-94f7-4617-b977-b25b5b8838fb",
       "name": "GenerateSlide"
     },
     {
       "parameters": {
-        "jsCode": "// 1. Get the raw text. \n// If the API returned a stringified JSON string (double-encoded), \n// we might need to parse it once to unwrap the outer quotes.\nlet content = $input.first().json.data;\n\nif (typeof content === 'string') {\n  try {\n    // Try to unwrap if it's a string inside a string (e.g. \"\\\"{\\\\\\\"a\\\\\\\":1}\\\"\")\n    // If this fails, it's just normal text, and we proceed.\n    const potentialObj = JSON.parse(content);\n    if (typeof potentialObj === 'string') {\n      content = potentialObj;\n    }\n  } catch (e) {\n    // It wasn't double-encoded, carry on with original content\n  }\n}\n\n// 2. The \"Smart\" Cleanup\n// Instead of replacing \"```json\", we just hunt for the first '{' and last '}'\n// This ignores all markdown, preambles, and outer quotes automatically.\nconst firstBracket = content.indexOf('{');\nconst lastBracket = content.lastIndexOf('}');\n\nif (firstBracket !== -1 && lastBracket !== -1) {\n  const jsonString = content.substring(firstBracket, lastBracket + 1);\n  \n  try {\n    const parsed = JSON.parse(jsonString);\n    return { json: parsed }; \n  } catch (e) {\n    return { json: { error: \"Inner parsing failed\", text: jsonString } };\n  }\n} else {\n  return { json: { error: \"No JSON object found\", text: content } };\n}"
-      },
-      "type": "n8n-nodes-base.code",
-      "typeVersion": 2,
-      "position": [
-        -656,
-        528
-      ],
-      "id": "ff8d61b5-1620-4201-b804-60bec27ac7b0",
-      "name": "Code in JavaScript"
-    },
-    {
-      "parameters": {
-        "fieldToSplitOut": "script",
+        "fieldToSplitOut": "transcripts",
         "options": {}
       },
       "type": "n8n-nodes-base.splitOut",
       "typeVersion": 1,
       "position": [
-        -432,
-        528
+        -880,
+        992
       ],
-      "id": "daab1dce-4265-4925-b425-23b6a0e29141",
+      "id": "7a8748b7-5516-4b36-86c6-a59281c33568",
       "name": "Split Out"
-    },
-    {
-      "parameters": {
-        "options": {}
-      },
-      "type": "n8n-nodes-base.splitInBatches",
-      "typeVersion": 3,
-      "position": [
-        -208,
-        528
-      ],
-      "id": "2cc841e4-fd6b-4d1d-8669-4995e6a7d5cf",
-      "name": "Loop"
     },
     {
       "parameters": {
@@ -117,17 +51,18 @@
         "url": "http://voice-generator:8000/generate",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={{ \nJSON.stringify({\n  \"text\": $json.script,\n  \"model\": \"kokoro\",\n  \"voice\": \"af_heart\",\n  \"speed\": 1.0,\n  \"language\": \"a\"\n}) \n}}",
+        "jsonBody": "={{ \nJSON.stringify({\n  \"text\": $json.transcript,\n  \"model\": \"kokoro\",\n  \"voice\": \"af_heart\",\n  \"speed\": 1.0,\n  \"language\": \"a\"\n}) \n}}",
         "options": {}
       },
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        16,
-        464
+        -416,
+        1008
       ],
-      "id": "93e8b52b-a8e6-402a-a5dc-aea10a6294a4",
-      "name": "GenerateVoice"
+      "id": "ceab7295-2867-4c26-a66d-4f1c9124875c",
+      "name": "GenerateVoice",
+      "onError": "continueRegularOutput"
     },
     {
       "parameters": {
@@ -139,12 +74,12 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
-        -3344,
-        176
+        -2960,
+        336
       ],
-      "id": "f5c9d462-d895-47b6-be91-ccd626dd1ea9",
+      "id": "c14b9f4a-d8a1-4926-ba71-69170be74562",
       "name": "Webhook",
-      "webhookId": "56b21e8a-e903-482c-a2ad-5419bb7e153d"
+      "webhookId": "5403afe2-3068-4775-a1dc-b556ba931fe3"
     },
     {
       "parameters": {
@@ -158,15 +93,15 @@
       "type": "n8n-nodes-base.mongoDb",
       "typeVersion": 1.2,
       "position": [
-        -432,
-        336
+        -48,
+        496
       ],
-      "id": "c6b47ded-25bf-4a6e-b729-1144ece2ec3d",
+      "id": "58be8365-6cca-4fee-8a21-aa1331d1ac1d",
       "name": "Update documents",
       "credentials": {
         "mongoDb": {
-          "id": "f8Us5RfnRMksaqPf",
-          "name": "Admin Mongo"
+          "id": "pWePL90dwTVGzXVd",
+          "name": "MongoDB account"
         }
       }
     },
@@ -174,21 +109,21 @@
       "parameters": {
         "operation": "upload",
         "bucketName": "capstone-ai-education",
-        "fileName": "={{ $('prepare').item.json._id }}/audio/audio_{{ $runIndex + 1 }}.wav",
+        "fileName": "={{ $('prepare').item.json._id }}/audio/audio_{{ $runIndex*2 + $position + 1 }}.wav",
         "additionalFields": {}
       },
       "type": "n8n-nodes-base.awsS3",
       "typeVersion": 2,
       "position": [
-        240,
-        528
+        -208,
+        1008
       ],
-      "id": "d9d4ade2-c306-402e-af4d-035d33ef2f69",
+      "id": "b26f15d6-fdc6-4a78-a478-5f0901db5508",
       "name": "Audio Upload",
       "credentials": {
         "aws": {
-          "id": "mDZycvBQipzv9pQW",
-          "name": "Admin AWS (IAM)"
+          "id": "dxBCP5LgruhUqTMg",
+          "name": "AWS (IAM) account"
         }
       },
       "onError": "continueRegularOutput"
@@ -203,15 +138,15 @@
       "type": "n8n-nodes-base.awsS3",
       "typeVersion": 2,
       "position": [
-        -880,
-        336
+        -496,
+        496
       ],
-      "id": "9550dcf9-e4eb-4e17-89dd-32ea7e18a6c7",
+      "id": "15e06d16-cbaa-4b59-9548-6ec3b60d6718",
       "name": "Slide Upload",
       "credentials": {
         "aws": {
-          "id": "mDZycvBQipzv9pQW",
-          "name": "Admin AWS (IAM)"
+          "id": "dxBCP5LgruhUqTMg",
+          "name": "AWS (IAM) account"
         }
       }
     },
@@ -227,29 +162,29 @@
       "type": "n8n-nodes-base.mongoDb",
       "typeVersion": 1.2,
       "position": [
-        240,
-        272
+        -208,
+        800
       ],
-      "id": "4c3d315c-d4cb-47a7-a29a-d617a8649ed1",
+      "id": "898bc999-6597-4ecc-b8ae-8a476e1b63e0",
       "name": "Update documents1",
       "credentials": {
         "mongoDb": {
-          "id": "f8Us5RfnRMksaqPf",
-          "name": "Admin Mongo"
+          "id": "pWePL90dwTVGzXVd",
+          "name": "MongoDB account"
         }
       }
     },
     {
       "parameters": {
-        "jsCode": "let audioURLs = []\nconst lesson_id = $('prepare').first().json._id\nfor (let i = 0; i < $('Code in JavaScript').first().json.script.length; i++) {\n  const url =`https://capstone-ai-education.s3.amazonaws.com/${lesson_id}/audio/audio_${i + 1}.wav`\n  audioURLs.push(url)\n}\n\nreturn { \n  audioURLs, \n  \"lessonId\": lesson_id,\n  audioStatus: \"GENERATED\"\n};"
+        "jsCode": "let audioURLs = []\nconst lesson_id = $('prepare').first().json._id\n\nfor (let i = 0; i < $('SlideContentGenerator').first().json.transcripts.length; i++) {\n  const url =`https://capstone-ai-education.s3.amazonaws.com/${lesson_id}/audio/audio_${i + 1}.wav`\n  audioURLs.push(url)\n}\n\nreturn { \n  audioURLs, \n  \"lessonId\": lesson_id,\n  audioStatus: \"GENERATED\"\n};"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        16,
-        272
+        -416,
+        800
       ],
-      "id": "19b6aae8-9feb-459f-8660-e679fc893219",
+      "id": "024cf9f7-2525-4c1c-82d4-dafbe5081a10",
       "name": "Code in JavaScript2"
     },
     {
@@ -259,10 +194,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -656,
-        336
+        -272,
+        496
       ],
-      "id": "3d751d21-c1eb-4b17-82b0-bc2e59001d7a",
+      "id": "b8dda499-259e-4af7-926b-541c8ac37e04",
       "name": "PrepareUpdateLessonSlide"
     },
     {
@@ -282,10 +217,10 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -1552,
-        272
+        -1168,
+        432
       ],
-      "id": "9ec9ba13-646e-440f-a500-9a75c3240cb4",
+      "id": "93ddc493-2c0b-45d2-ba21-7dd03e94d655",
       "name": "Edit Fields"
     },
     {
@@ -297,10 +232,10 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5,
       "position": [
-        -2448,
-        176
+        -2064,
+        336
       ],
-      "id": "6258a1b4-95d5-4906-b6b4-9d32b490ab75",
+      "id": "16f3b7d9-889b-4f0c-96fb-230b5a5b7e06",
       "name": "Respond to Webhook"
     },
     {
@@ -331,10 +266,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        -1328,
-        240
+        -944,
+        400
       ],
-      "id": "66b69c3f-d09d-40d1-aa14-1cae26a7bb21",
+      "id": "8fd75111-3c87-4377-b4fb-9403ad0770b1",
       "name": "GenerateSlidePPTX",
       "onError": "continueErrorOutput"
     },
@@ -348,15 +283,15 @@
       "type": "n8n-nodes-base.awsS3",
       "typeVersion": 2,
       "position": [
-        -1104,
-        144
+        -720,
+        304
       ],
-      "id": "a9a7272d-555c-476f-beff-1b1e6fb25b90",
+      "id": "93dc4ec9-7e25-429d-85f9-e250de77f7d1",
       "name": "PPTXUpload",
       "credentials": {
         "aws": {
-          "id": "mDZycvBQipzv9pQW",
-          "name": "Admin AWS (IAM)"
+          "id": "dxBCP5LgruhUqTMg",
+          "name": "AWS (IAM) account"
         }
       }
     },
@@ -367,10 +302,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -880,
-        144
+        -496,
+        304
       ],
-      "id": "d4e95c24-0475-4cb3-8fe8-bbd8473c15fc",
+      "id": "2e0c375d-75ff-461c-95b9-240eb0d2d433",
       "name": "PrepareUpdateLessonSlide1"
     },
     {
@@ -385,15 +320,15 @@
       "type": "n8n-nodes-base.mongoDb",
       "typeVersion": 1.2,
       "position": [
-        -656,
-        144
+        -272,
+        304
       ],
-      "id": "5d1ada79-54c5-433a-a4ba-0469f6e679e9",
+      "id": "c374da11-2550-40d9-8227-e5905b4c0541",
       "name": "Update documents2",
       "credentials": {
         "mongoDb": {
-          "id": "f8Us5RfnRMksaqPf",
-          "name": "Admin Mongo"
+          "id": "pWePL90dwTVGzXVd",
+          "name": "MongoDB account"
         }
       }
     },
@@ -420,10 +355,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        -3120,
-        240
+        -2736,
+        400
       ],
-      "id": "730734a8-4623-46a6-9859-a2f8f3a00185",
+      "id": "6a182d1d-84fe-448a-aa3f-cfcc1dd8e0e0",
       "name": "GetDataFromRAG"
     },
     {
@@ -431,10 +366,10 @@
       "type": "n8n-nodes-base.merge",
       "typeVersion": 3.2,
       "position": [
-        -2896,
-        176
+        -2512,
+        336
       ],
-      "id": "7abd0cf0-93ee-4f34-8d19-b2c6bf081f80",
+      "id": "7e3c9b53-133c-4e59-8c30-0363845324e8",
       "name": "Merge",
       "alwaysOutputData": true
     },
@@ -477,6 +412,12 @@
               "name": "rag_data",
               "value": "={{ $json.rag_data[0].data }}",
               "type": "string"
+            },
+            {
+              "id": "0620d50f-306c-4b79-8d0d-c3f3bdacc407",
+              "name": "lessonId",
+              "value": "={{ $json.body.lessonId }}",
+              "type": "string"
             }
           ]
         },
@@ -485,25 +426,25 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -2672,
-        176
+        -2288,
+        336
       ],
-      "id": "2f89ff1b-dab3-431f-8ba0-1ffbe2dca514",
+      "id": "ad8de093-adb1-49da-a1e1-e32328ba6a79",
       "name": "prepare"
     },
     {
       "parameters": {
         "mode": "raw",
-        "jsonOutput": "={\n  \"lessonId\": {{ $('prepare').item.json._id }},\n  \"content\": {{ $json.data }}\n}",
+        "jsonOutput": "={\n  \"lessonId\": {{ $('prepare').item.json._id }},\n  \"content\": {{ $json.sections }}\n}",
         "options": {}
       },
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        -1552,
-        48
+        -1168,
+        208
       ],
-      "id": "17f2d6c2-0ef9-405b-9e93-e28db17033ad",
+      "id": "f7749f14-5ad3-4666-b59b-e181f03b1d2d",
       "name": "Edit Fields1"
     },
     {
@@ -518,15 +459,15 @@
       "type": "n8n-nodes-base.mongoDb",
       "typeVersion": 1.2,
       "position": [
-        -1328,
-        48
+        -944,
+        208
       ],
-      "id": "012fdea7-9d48-4426-ad9f-8aecf665974c",
+      "id": "97a53a55-68b4-4e78-81b8-ebac2aec743d",
       "name": "Update content",
       "credentials": {
         "mongoDb": {
-          "id": "f8Us5RfnRMksaqPf",
-          "name": "Admin Mongo"
+          "id": "pWePL90dwTVGzXVd",
+          "name": "MongoDB account"
         }
       }
     },
@@ -537,10 +478,10 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        -2000,
-        176
+        -1648,
+        336
       ],
-      "id": "9c29c2ab-d3a5-46d3-871e-b1c26b4de9c6",
+      "id": "2051145d-6b8b-4910-9066-3e04707ef432",
       "name": "Parse Output"
     },
     {
@@ -575,10 +516,10 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        -2224,
-        176
+        -1840,
+        336
       ],
-      "id": "cf863219-50e3-45fa-b3c0-bddc9b124772",
+      "id": "63fdb8b4-8f57-49f4-830e-725acd96e690",
       "name": "SlideContentOrchestrator"
     },
     {
@@ -619,7 +560,11 @@
             },
             {
               "name": "prompt",
-              "value": "=Act as an expert curriculum designer and senior instructional strategist. Your objective is to generate comprehensive, high-density slide content for the current lesson based on the provided inputs.  CRITICAL INSTRUCTION: Previous generations resulted in sparse, fragmented slides with very little information per page. You must solve this by consolidating knowledge. Do not use brief, 3-word phrases. You must write deep, detailed, and highly informative content.  INPUTS TO USE: 1. DETAILS TO GENERATE: Follow detail from 'slides' input. 2. TARGET LESSON: The specific topic to teach is defined in the 'lesson' input.  3. COURSE CONTEXT: Use 'outline_context' to understand where this lesson fits in the broader curriculum. 4. KNOWLEDGE BASE: Synthesize facts from 'rag_data' (if available) to enrich the explanations. If 'rag_data' is null, rely on standard, high-quality industry knowledge.  FORMAT & DEPTH REQUIREMENTS: - Generate a JSON array of 5 to 8 slide objects. - Schema: [{\"title\":\"...\",\"content\":[{\"bullet\":\"...\",\"sub_points\":[\"...\",\"...\",\"...\"]}]}] - The \"bullet\" field should introduce a core concept or framework. - The \"sub_points\" array MUST contain complete sentences (15-30 words each). They must provide deep explanations, practical real-world examples, and actionable takeaways, not just simple keywords. - Ensure every slide is dense enough to take an instructor 2-3 minutes to explain verbally.  OUTPUT: Return ONLY a valid, raw JSON array. Do not wrap the output in markdown backticks (```json) and do not include any conversational text."
+              "value": "="
+            },
+            {
+              "name": "lesson_id",
+              "value": "={{ $('prepare').item.json.lessonId }}"
             }
           ]
         },
@@ -628,11 +573,63 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        -1776,
-        176
+        -1472,
+        336
       ],
-      "id": "534d8075-0e29-4897-9ba8-7afd02ad9370",
+      "id": "81473171-49c3-4f00-bad6-1cb66b5b7ade",
       "name": "SlideContentGenerator"
+    },
+    {
+      "parameters": {
+        "operation": "insert",
+        "collection": "logs",
+        "fields": "=log_type,markdown,transcripts,sections",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mongoDb",
+      "typeVersion": 1.2,
+      "position": [
+        -944,
+        0
+      ],
+      "id": "c694c2d2-52af-4353-a09b-1ba608bdffd1",
+      "name": "Insert Log",
+      "credentials": {
+        "mongoDb": {
+          "id": "pWePL90dwTVGzXVd",
+          "name": "MongoDB account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field called 'myNewField' to the JSON of each one\nfor (const item of $input.all()) {\n  item.json.myNewField = 1;\n    return {\n  \"log_type\": \"GENERATED_SLIDE\",\n  \"lesson_id\": $('prepare').first().json._id,\n  \"course_id\": $('prepare').first().json.courseId,\n  \"markdown\": item.json.markdown,\n  \"transcripts\": item.json.transcripts,\n  \"sections\": item.json.sections\n}\n}\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -1168,
+        0
+      ],
+      "id": "97dc00ae-3080-40ed-b6ee-8dcda21d07c8",
+      "name": "EncodeLog"
+    },
+    {
+      "parameters": {
+        "batchSize": 2,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        -656,
+        992
+      ],
+      "id": "7a4f9290-19cf-43f6-ac9a-728442a45fda",
+      "name": "Loop",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
+      "onError": "continueRegularOutput"
     }
   ],
   "connections": {
@@ -641,33 +638,6 @@
         [
           {
             "node": "Slide Upload",
-            "type": "main",
-            "index": 0
-          },
-          {
-            "node": "GenieScript",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "GenieScript": {
-      "main": [
-        [
-          {
-            "node": "Code in JavaScript",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Code in JavaScript": {
-      "main": [
-        [
-          {
-            "node": "Split Out",
             "type": "main",
             "index": 0
           }
@@ -679,24 +649,6 @@
         [
           {
             "node": "Loop",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Loop": {
-      "main": [
-        [
-          {
-            "node": "Code in JavaScript2",
-            "type": "main",
-            "index": 0
-          }
-        ],
-        [
-          {
-            "node": "GenerateVoice",
             "type": "main",
             "index": 0
           }
@@ -919,6 +871,45 @@
             "node": "Edit Fields1",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "Split Out",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "EncodeLog",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "EncodeLog": {
+      "main": [
+        [
+          {
+            "node": "Insert Log",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript2",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "GenerateVoice",
+            "type": "main",
+            "index": 0
           }
         ]
       ]
@@ -934,28 +925,317 @@
     "templateCredsSetupCompleted": true,
     "instanceId": "dacf661d18952437dcd120ba832369f336608e51c4a96e821e930948a4d1e07e"
   },
-  "pinData": {},
-  "versionId": "cc8b3152-98eb-4a16-ad1f-a6ae06fdcaa7",
+  "pinData": {
+    "SlideContentGenerator": [
+      {
+        "json": {
+          "sections": [
+            {
+              "title": "Introduction to Design Thinking",
+              "slides": [
+                {
+                  "title": "What is Design Thinking?",
+                  "layout": "hero_image",
+                  "key_points": [
+                    "User-centered problem-solving approach",
+                    "Non-linear and iterative process",
+                    "Aims for innovative, user-validated solutions"
+                  ],
+                  "images": [
+                    {
+                      "url": "https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db78f/slides_images/1.png",
+                      "caption": "Design Thinking is a flexible, iterative process focused on understanding users and continuously improving solutions.",
+                      "width": 800,
+                      "height": 400
+                    }
+                  ],
+                  "transcript": "Design Thinking is a powerful methodology that places the user at the very heart of the innovation process. It's not a rigid, step-by-step framework, but rather a dynamic and iterative way of thinking that allows teams to continuously learn, adapt, and refine their ideas. Our goal is always to create solutions that are not only desirable for users but also feasible and viable for implementation."
+                },
+                {
+                  "title": "The Five Core Phases",
+                  "layout": "text_only",
+                  "key_points": [
+                    "Empathize: Understand user needs",
+                    "Define: Clearly state the problem",
+                    "Ideate: Generate creative solutions",
+                    "Prototype: Build tangible representations",
+                    "Test: Validate and refine with users"
+                  ],
+                  "images": null,
+                  "transcript": "The Design Thinking process is typically broken down into five distinct, yet interconnected, phases: Empathize, Define, Ideate, Prototype, and Test. While we often visualize them sequentially, it's crucial to remember that this process is non-linear. You'll frequently find yourself looping back to earlier stages as you gain new insights, making it a continuous cycle of learning and improvement."
+                },
+                {
+                  "title": "Phase 1: Empathize",
+                  "layout": "two_column",
+                  "key_points": [
+                    "Deeply understand your users",
+                    "Observe, engage, and immerse",
+                    "Uncover unspoken needs and motivations"
+                  ],
+                  "images": [
+                    {
+                      "url": "https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db78f/slides_images/2.png",
+                      "caption": "The Empathize phase involves conducting research to understand users' experiences, needs, and pain points.",
+                      "width": 450,
+                      "height": 300
+                    },
+                    {
+                      "url": "https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db78f/slides_images/3.png",
+                      "caption": "Empathy maps and user personas help consolidate observations into a clear understanding of the target user.",
+                      "width": 450,
+                      "height": 300
+                    }
+                  ],
+                  "transcript": "The Empathize phase is all about putting yourself in your users' shoes. This involves conducting user interviews, observations, and ethnographic studies to truly understand their experiences, needs, and pain points, even those they might not articulate themselves. The goal is to build deep empathy for who you're designing for, recognizing that the best solutions come from a profound understanding of human behavior."
+                },
+                {
+                  "title": "Phase 2: Define",
+                  "layout": "two_column",
+                  "key_points": [
+                    "Synthesize research findings",
+                    "Identify core user problems",
+                    "Formulate a clear problem statement (POV)"
+                  ],
+                  "images": [
+                    {
+                      "url": "https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db78f/slides_images/4.png",
+                      "caption": "During the Define phase, insights from user research are synthesized to identify key user needs and challenges.",
+                      "width": 450,
+                      "height": 300
+                    },
+                    {
+                      "url": "https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db78f/slides_images/5.png",
+                      "caption": "A clearly defined Point-of-View (POV) statement frames the problem from the user's perspective, guiding solution generation.",
+                      "width": 450,
+                      "height": 300
+                    }
+                  ],
+                  "transcript": "Once you've gathered your empathic insights, the next step is to Define the problem. This phase involves synthesizing all your research findings to pinpoint the core problem you're trying to solve. You'll articulate this as a clear, actionable problem statement, often called a Point-of-View (POV) statement. This statement focuses on the user's need, rather than a solution, providing a strong foundation for the next creative phase."
+                },
+                {
+                  "title": "Phase 3 & 4: Ideate & Prototype",
+                  "layout": "two_column",
+                  "key_points": [
+                    "Ideate: Brainstorm diverse solutions",
+                    "Encourage wild ideas, defer judgment",
+                    "Prototype: Build low-fidelity models",
+                    "Test assumptions quickly and cheaply"
+                  ],
+                  "images": [
+                    {
+                      "url": "https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db78f/slides_images/6.png",
+                      "caption": "The Ideate phase encourages generating a wide range of creative solutions without judgment, fostering innovation.",
+                      "width": 450,
+                      "height": 300
+                    },
+                    {
+                      "url": "https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db78f/slides_images/7.png",
+                      "caption": "Prototyping involves creating tangible, often low-fidelity, models to test concepts and gather early feedback.",
+                      "width": 450,
+                      "height": 300
+                    }
+                  ],
+                  "transcript": "With a defined problem, we move into Ideation, where the aim is to generate as many potential solutions as possible, no matter how wild or impractical they might seem initially. This is a judgment-free zone where creativity reigns supreme. Following Ideation, we transition to Prototype. This phase involves building tangible, often low-fidelity, representations of your best ideas. The goal isn't perfection, but rather creating something that can be quickly tested to gather early feedback and iterate."
+                },
+                {
+                  "title": "Phase 5: Test & Iterate",
+                  "layout": "hero_image",
+                  "key_points": [
+                    "Test prototypes with real users",
+                    "Gather feedback and observe behavior",
+                    "Iterate and refine based on learnings"
+                  ],
+                  "images": [
+                    {
+                      "url": "https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db78f/slides_images/8.png",
+                      "caption": "The Test phase involves observing real users interact with prototypes to gather feedback and identify areas for improvement.",
+                      "width": 800,
+                      "height": 400
+                    }
+                  ],
+                  "transcript": "The final formal phase is Test, but it's really an ongoing cycle. Here, you put your prototypes in front of actual users to observe how they interact with your solution, gather their feedback, and identify what works and what doesn't. This critical step provides invaluable insights that will lead you to refine your designs, iterate on your prototypes, and sometimes even redefine your problem statement. This constant loop of learning and refinement is what makes Design Thinking so effective in creating truly impactful solutions."
+                }
+              ]
+            },
+            {
+              "title": "Conducting Effective User Interviews",
+              "slides": [
+                {
+                  "title": "Understanding User Interviews",
+                  "layout": "hero_image",
+                  "key_points": [
+                    "Core qualitative research method",
+                    "Directly gather user insights",
+                    "Understand behaviors, motivations, and pain points"
+                  ],
+                  "images": [
+                    {
+                      "url": "https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db78f/slides_images/9.png",
+                      "caption": "User interviews are direct conversations to understand real user experiences.",
+                      "width": 800,
+                      "height": 400
+                    }
+                  ],
+                  "transcript": "Welcome to our session on conducting effective user interviews. This is a foundational skill in product design, allowing us to move beyond assumptions and truly connect with our users. User interviews are not just casual chats; they are structured conversations designed to gather deep qualitative data about people's experiences, needs, and challenges. They are crucial for building empathy and uncovering insights that data alone cannot provide."
+                },
+                {
+                  "title": "Crafting Open-Ended & Neutral Questions",
+                  "layout": "two_column",
+                  "key_points": [
+                    "Avoid 'yes/no' questions",
+                    "Focus on 'how' and 'why'",
+                    "Prevent leading the participant",
+                    "Maintain neutrality in phrasing"
+                  ],
+                  "images": [
+                    {
+                      "url": "https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db78f/slides_images/10.png",
+                      "caption": "Leading questions bias responses and prevent honest feedback.",
+                      "width": 450,
+                      "height": 300
+                    },
+                    {
+                      "url": "https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db78f/slides_images/11.png",
+                      "caption": "Open-ended questions encourage users to share their full perspective.",
+                      "width": 450,
+                      "height": 300
+                    }
+                  ],
+                  "transcript": "The quality of your interview insights directly depends on the questions you ask. We must strive for open-ended questions that encourage detailed narratives, moving beyond simple 'yes' or 'no' answers. For example, instead of asking 'Do you like this feature?', try 'Can you tell me about a time you used this feature, and what that experience was like for you?' Equally important is neutrality; avoid questions that suggest a preferred answer or reveal your own biases. This ensures you're truly hearing the user's perspective, not your own."
+                },
+                {
+                  "title": "Mastering Active Listening",
+                  "layout": "two_column",
+                  "key_points": [
+                    "Listen more, talk less",
+                    "Observe non-verbal cues (body language)",
+                    "Paraphrase to confirm understanding",
+                    "Use silence effectively"
+                  ],
+                  "images": [
+                    {
+                      "url": "https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db78f/slides_images/12.png",
+                      "caption": "Active listening involves full attention to verbal and non-verbal communication.",
+                      "width": 450,
+                      "height": 300
+                    },
+                    {
+                      "url": "https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db78f/slides_images/13.png",
+                      "caption": "Probing deeper and paraphrasing helps clarify and validate understanding.",
+                      "width": 450,
+                      "height": 300
+                    }
+                  ],
+                  "transcript": "Active listening is perhaps the most critical skill in user interviewing. It means giving your full, undivided attention to the participant, not just hearing their words, but understanding the meaning and emotion behind them. This involves observing their body language, tone, and pauses. Techniques like paraphrasing their statements back to them 'So, if I understand correctly...' helps you confirm your interpretation and makes the user feel heard. Don't be afraid of silence; it often prompts users to elaborate further, revealing deeper insights."
+                },
+                {
+                  "title": "Uncovering Deep Pain Points and Unmet Needs",
+                  "layout": "text_only",
+                  "key_points": [
+                    "Go beyond surface-level complaints",
+                    "Ask 'why' repeatedly (5 Whys technique)",
+                    "Identify emotional impact of frustrations",
+                    "Discover implicit user needs"
+                  ],
+                  "images": null,
+                  "transcript": "The ultimate goal of user interviews is to uncover deep-seated pain points and unmet needs that users might not even articulate directly. This requires patience and persistence. When a user mentions a problem, don't stop at the first answer; keep asking 'why' to peel back the layers and get to the root cause of their frustration. Understanding the emotional context of these pain points is also vital, as it often highlights the true impact on their lives and reveals opportunities for truly innovative solutions. These insights will directly inform how we define the problem and ideate solutions later."
+                }
+              ]
+            }
+          ],
+          "markdown": "---\nmarp: true\ntheme: default\npaginate: true\nbackgroundColor: #f8f9fa\nsize: 16:9\nstyle: |\n  section {\n    font-family: 'Segoe UI', system-ui, sans-serif;\n    font-size: 24px;\n    padding: 50px 70px;\n    display: flex;\n    flex-direction: column;\n    box-sizing: border-box;\n  }\n  h1 {\n    font-size: 38px;\n    color: #1a73e8;\n    margin: 0 0 16px 0;\n    border-bottom: 2px solid #e8eaed;\n    padding-bottom: 10px;\n  }\n  ul {\n    margin: 0 0 20px 0;\n    color: #3c4043;\n    padding-left: 1.5em;\n  }\n  li {\n    margin-bottom: 8px;\n  }\n  /* Fixed bounds to prevent overflow */\n  .hero-container {\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    width: 100%;\n    height: 360px; /* Fixed hero height */\n    margin-top: auto;\n    margin-bottom: auto;\n  }\n  .hero-container img {\n    max-width: 100%;\n    max-height: 100%;\n    object-fit: contain;\n    border-radius: 8px;\n  }\n  .grid-2 {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n    gap: 40px;\n    margin-top: 10px;\n  }\n  .grid-3 {\n    display: grid;\n    grid-template-columns: repeat(3, 1fr);\n    gap: 30px;\n    margin-top: 10px;\n  }\n  .card {\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    text-align: center;\n  }\n  .card-img-2 {\n    width: 100%;\n    height: 280px; /* Fixed 2-col image height */\n    margin-bottom: 12px;\n  }\n  .card-img-3 {\n    width: 100%;\n    height: 200px; /* Fixed 3-col image height */\n    margin-bottom: 12px;\n  }\n  .card img {\n    width: 100%;\n    height: 100%;\n    object-fit: cover;\n    border-radius: 8px;\n  }\n  .card strong {\n    font-size: 18px;\n    color: #5f6368;\n    font-weight: 600;\n  }\n---\n\n# Lesson: Information Architecture and Sitemap Construction\n\n\n---\n# Introduction to Design Thinking\n\n---\n# What is Design Thinking?\n\n* User-centered problem-solving approach\n* Non-linear and iterative process\n* Aims for innovative, user-validated solutions\n\n<div class=\"hero-container\">\n  <img src=\"https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db78f/slides_images/1.png\" alt=\"Design Thinking is a flexible, iterative process focused on understanding users and continuously improving solutions.\" />\n</div>\n\n---\n# The Five Core Phases\n\n* Empathize: Understand user needs\n* Define: Clearly state the problem\n* Ideate: Generate creative solutions\n* Prototype: Build tangible representations\n* Test: Validate and refine with users\n\n---\n# Phase 1: Empathize\n\n* Deeply understand your users\n* Observe, engage, and immerse\n* Uncover unspoken needs and motivations\n\n<div class=\"grid-2\">\n  <div class=\"card\">\n    <div class=\"card-img-2\">\n      <img src=\"https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db78f/slides_images/2.png\" alt=\"The Empathize phase involves conducting research to understand users' experiences, needs, and pain points.\" />\n    </div>\n    <span><strong>The Empathize phase involves conducting research to understand users' experiences, needs, and pain points.</strong></span>\n  </div>\n  <div class=\"card\">\n    <div class=\"card-img-2\">\n      <img src=\"https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db78f/slides_images/3.png\" alt=\"Empathy maps and user personas help consolidate observations into a clear understanding of the target user.\" />\n    </div>\n    <span><strong>Empathy maps and user personas help consolidate observations into a clear understanding of the target user.</strong></span>\n  </div>\n</div>\n\n---\n# Phase 2: Define\n\n* Synthesize research findings\n* Identify core user problems\n* Formulate a clear problem statement (POV)\n\n<div class=\"grid-2\">\n  <div class=\"card\">\n    <div class=\"card-img-2\">\n      <img src=\"https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db78f/slides_images/4.png\" alt=\"During the Define phase, insights from user research are synthesized to identify key user needs and challenges.\" />\n    </div>\n    <span><strong>During the Define phase, insights from user research are synthesized to identify key user needs and challenges.</strong></span>\n  </div>\n  <div class=\"card\">\n    <div class=\"card-img-2\">\n      <img src=\"https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db78f/slides_images/5.png\" alt=\"A clearly defined Point-of-View (POV) statement frames the problem from the user's perspective, guiding solution generation.\" />\n    </div>\n    <span><strong>A clearly defined Point-of-View (POV) statement frames the problem from the user's perspective, guiding solution generation.</strong></span>\n  </div>\n</div>\n\n---\n# Phase 3 & 4: Ideate & Prototype\n\n* Ideate: Brainstorm diverse solutions\n* Encourage wild ideas, defer judgment\n* Prototype: Build low-fidelity models\n* Test assumptions quickly and cheaply\n\n<div class=\"grid-2\">\n  <div class=\"card\">\n    <div class=\"card-img-2\">\n      <img src=\"https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db78f/slides_images/6.png\" alt=\"The Ideate phase encourages generating a wide range of creative solutions without judgment, fostering innovation.\" />\n    </div>\n    <span><strong>The Ideate phase encourages generating a wide range of creative solutions without judgment, fostering innovation.</strong></span>\n  </div>\n  <div class=\"card\">\n    <div class=\"card-img-2\">\n      <img src=\"https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db78f/slides_images/7.png\" alt=\"Prototyping involves creating tangible, often low-fidelity, models to test concepts and gather early feedback.\" />\n    </div>\n    <span><strong>Prototyping involves creating tangible, often low-fidelity, models to test concepts and gather early feedback.</strong></span>\n  </div>\n</div>\n\n---\n# Phase 5: Test & Iterate\n\n* Test prototypes with real users\n* Gather feedback and observe behavior\n* Iterate and refine based on learnings\n\n<div class=\"hero-container\">\n  <img src=\"https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db78f/slides_images/8.png\" alt=\"The Test phase involves observing real users interact with prototypes to gather feedback and identify areas for improvement.\" />\n</div>\n\n\n---\n# Conducting Effective User Interviews\n\n---\n# Understanding User Interviews\n\n* Core qualitative research method\n* Directly gather user insights\n* Understand behaviors, motivations, and pain points\n\n<div class=\"hero-container\">\n  <img src=\"https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db78f/slides_images/9.png\" alt=\"User interviews are direct conversations to understand real user experiences.\" />\n</div>\n\n---\n# Crafting Open-Ended & Neutral Questions\n\n* Avoid 'yes/no' questions\n* Focus on 'how' and 'why'\n* Prevent leading the participant\n* Maintain neutrality in phrasing\n\n<div class=\"grid-2\">\n  <div class=\"card\">\n    <div class=\"card-img-2\">\n      <img src=\"https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db78f/slides_images/10.png\" alt=\"Leading questions bias responses and prevent honest feedback.\" />\n    </div>\n    <span><strong>Leading questions bias responses and prevent honest feedback.</strong></span>\n  </div>\n  <div class=\"card\">\n    <div class=\"card-img-2\">\n      <img src=\"https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db78f/slides_images/11.png\" alt=\"Open-ended questions encourage users to share their full perspective.\" />\n    </div>\n    <span><strong>Open-ended questions encourage users to share their full perspective.</strong></span>\n  </div>\n</div>\n\n---\n# Mastering Active Listening\n\n* Listen more, talk less\n* Observe non-verbal cues (body language)\n* Paraphrase to confirm understanding\n* Use silence effectively\n\n<div class=\"grid-2\">\n  <div class=\"card\">\n    <div class=\"card-img-2\">\n      <img src=\"https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db78f/slides_images/12.png\" alt=\"Active listening involves full attention to verbal and non-verbal communication.\" />\n    </div>\n    <span><strong>Active listening involves full attention to verbal and non-verbal communication.</strong></span>\n  </div>\n  <div class=\"card\">\n    <div class=\"card-img-2\">\n      <img src=\"https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db78f/slides_images/13.png\" alt=\"Probing deeper and paraphrasing helps clarify and validate understanding.\" />\n    </div>\n    <span><strong>Probing deeper and paraphrasing helps clarify and validate understanding.</strong></span>\n  </div>\n</div>\n\n---\n# Uncovering Deep Pain Points and Unmet Needs\n\n* Go beyond surface-level complaints\n* Ask 'why' repeatedly (5 Whys technique)\n* Identify emotional impact of frustrations\n* Discover implicit user needs\n",
+          "transcripts": [
+            {
+              "slide_index": 0,
+              "slide_title": "Information Architecture and Sitemap Construction",
+              "transcript": "Welcome to today's lesson on Information Architecture and Sitemap Construction."
+            },
+            {
+              "slide_index": 1,
+              "slide_title": "Introduction to Design Thinking",
+              "transcript": "In this section, we will cover Introduction to Design Thinking."
+            },
+            {
+              "slide_index": 2,
+              "slide_title": "What is Design Thinking?",
+              "transcript": "Design Thinking is a powerful methodology that places the user at the very heart of the innovation process. It's not a rigid, step-by-step framework, but rather a dynamic and iterative way of thinking that allows teams to continuously learn, adapt, and refine their ideas. Our goal is always to create solutions that are not only desirable for users but also feasible and viable for implementation."
+            },
+            {
+              "slide_index": 3,
+              "slide_title": "The Five Core Phases",
+              "transcript": "The Design Thinking process is typically broken down into five distinct, yet interconnected, phases: Empathize, Define, Ideate, Prototype, and Test. While we often visualize them sequentially, it's crucial to remember that this process is non-linear. You'll frequently find yourself looping back to earlier stages as you gain new insights, making it a continuous cycle of learning and improvement."
+            },
+            {
+              "slide_index": 4,
+              "slide_title": "Phase 1: Empathize",
+              "transcript": "The Empathize phase is all about putting yourself in your users' shoes. This involves conducting user interviews, observations, and ethnographic studies to truly understand their experiences, needs, and pain points, even those they might not articulate themselves. The goal is to build deep empathy for who you're designing for, recognizing that the best solutions come from a profound understanding of human behavior."
+            },
+            {
+              "slide_index": 5,
+              "slide_title": "Phase 2: Define",
+              "transcript": "Once you've gathered your empathic insights, the next step is to Define the problem. This phase involves synthesizing all your research findings to pinpoint the core problem you're trying to solve. You'll articulate this as a clear, actionable problem statement, often called a Point-of-View (POV) statement. This statement focuses on the user's need, rather than a solution, providing a strong foundation for the next creative phase."
+            },
+            {
+              "slide_index": 6,
+              "slide_title": "Phase 3 & 4: Ideate & Prototype",
+              "transcript": "With a defined problem, we move into Ideation, where the aim is to generate as many potential solutions as possible, no matter how wild or impractical they might seem initially. This is a judgment-free zone where creativity reigns supreme. Following Ideation, we transition to Prototype. This phase involves building tangible, often low-fidelity, representations of your best ideas. The goal isn't perfection, but rather creating something that can be quickly tested to gather early feedback and iterate."
+            },
+            {
+              "slide_index": 7,
+              "slide_title": "Phase 5: Test & Iterate",
+              "transcript": "The final formal phase is Test, but it's really an ongoing cycle. Here, you put your prototypes in front of actual users to observe how they interact with your solution, gather their feedback, and identify what works and what doesn't. This critical step provides invaluable insights that will lead you to refine your designs, iterate on your prototypes, and sometimes even redefine your problem statement. This constant loop of learning and refinement is what makes Design Thinking so effective in creating truly impactful solutions."
+            },
+            {
+              "slide_index": 8,
+              "slide_title": "Conducting Effective User Interviews",
+              "transcript": "In this section, we will cover Conducting Effective User Interviews."
+            },
+            {
+              "slide_index": 9,
+              "slide_title": "Understanding User Interviews",
+              "transcript": "Welcome to our session on conducting effective user interviews. This is a foundational skill in product design, allowing us to move beyond assumptions and truly connect with our users. User interviews are not just casual chats; they are structured conversations designed to gather deep qualitative data about people's experiences, needs, and challenges. They are crucial for building empathy and uncovering insights that data alone cannot provide."
+            },
+            {
+              "slide_index": 10,
+              "slide_title": "Crafting Open-Ended & Neutral Questions",
+              "transcript": "The quality of your interview insights directly depends on the questions you ask. We must strive for open-ended questions that encourage detailed narratives, moving beyond simple 'yes' or 'no' answers. For example, instead of asking 'Do you like this feature?', try 'Can you tell me about a time you used this feature, and what that experience was like for you?' Equally important is neutrality; avoid questions that suggest a preferred answer or reveal your own biases. This ensures you're truly hearing the user's perspective, not your own."
+            },
+            {
+              "slide_index": 11,
+              "slide_title": "Mastering Active Listening",
+              "transcript": "Active listening is perhaps the most critical skill in user interviewing. It means giving your full, undivided attention to the participant, not just hearing their words, but understanding the meaning and emotion behind them. This involves observing their body language, tone, and pauses. Techniques like paraphrasing their statements back to them 'So, if I understand correctly...' helps you confirm your interpretation and makes the user feel heard. Don't be afraid of silence; it often prompts users to elaborate further, revealing deeper insights."
+            },
+            {
+              "slide_index": 12,
+              "slide_title": "Uncovering Deep Pain Points and Unmet Needs",
+              "transcript": "The ultimate goal of user interviews is to uncover deep-seated pain points and unmet needs that users might not even articulate directly. This requires patience and persistence. When a user mentions a problem, don't stop at the first answer; keep asking 'why' to peel back the layers and get to the root cause of their frustration. Understanding the emotional context of these pain points is also vital, as it often highlights the true impact on their lives and reveals opportunities for truly innovative solutions. These insights will directly inform how we define the problem and ideate solutions later."
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "versionId": "a2803022-501b-448d-b10d-b05ff1572fca",
   "activeVersionId": null,
-  "versionCounter": 28,
+  "versionCounter": 30,
   "triggerCount": 1,
   "tags": [],
   "shared": [
     {
-      "updatedAt": "2026-04-02T20:37:22.422Z",
-      "createdAt": "2026-04-02T20:37:22.422Z",
+      "updatedAt": "2026-03-27T13:23:02.114Z",
+      "createdAt": "2026-03-27T13:23:02.114Z",
       "role": "workflow:owner",
       "workflowId": "nitGp0JGKxp4GVJF",
-      "projectId": "g5rrwpexO24xgiUV",
+      "projectId": "xxkvAOnVHkd99pP2",
       "project": {
-        "updatedAt": "2026-02-11T07:28:25.562Z",
-        "createdAt": "2026-02-11T07:02:34.781Z",
-        "id": "g5rrwpexO24xgiUV",
-        "name": "Kamanun Maneesri <kamanun.m@gmail.com>",
+        "updatedAt": "2026-01-24T05:53:00.281Z",
+        "createdAt": "2026-01-24T05:50:09.310Z",
+        "id": "xxkvAOnVHkd99pP2",
+        "name": "b c <admin@exampl.com>",
         "type": "personal",
         "icon": null,
         "description": null,
-        "creatorId": "3e71b027-1d63-42d8-8cdf-041a9571e245"
+        "creatorId": "51d7ed86-94a8-4d8c-ba39-058f4c2b57c3"
       }
     }
   ],
