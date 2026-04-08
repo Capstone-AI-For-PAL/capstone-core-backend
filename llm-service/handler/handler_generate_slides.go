@@ -31,8 +31,8 @@ func systemSlidesPrompt() string {
 		"- \"text_only\": Use for definitions, formulas, or content with no useful visual. 0 images.\n\n" +
 		"Content rules:\n" +
 		"- key_points: 2-4 short phrases per slide. Keep text minimal.\n" +
-		"- images[].prompt: Write a vivid, specific description suitable for an AI image generator. Focus on educational clarity.\n" +
-		"- images[].caption: 2-5 word label for the image.\n" +
+		"- images[].prompt: Write a vivid, very specific description suitable for an AI image generator. Focus on educational clarity.\n" +
+		"- images[].caption: Provide a descriptive caption for the image so that students do not spend effort interpreting it.\n" +
 		"- transcript: Write as if lecturing to students. Explain concepts, give examples, provide context. " +
 		"Should be 3-5 sentences and must NOT simply restate the key_points.\n\n" +
 		"Do not output markdown or code fences. Output raw JSON only."
