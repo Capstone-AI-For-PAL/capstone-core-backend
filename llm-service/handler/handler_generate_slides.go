@@ -6,21 +6,50 @@ import (
 	"log"
 	"net/http"
 	"strings"
+	"sync"
 
+	"capstone-llm-service/imagegen"
 	genie "capstone-llm-service/llm"
+
+	"golang.org/x/sync/errgroup"
 )
 
+// TODO: set system instruction to fix layout and leave prompt only for content guidance. This should improve layout consistency and reduce hallucinated images.
 func defaultSlidesPrompt() string {
 	return "Act as an expert curriculum designer and instructional strategist.\n" +
-		"Generate detailed, easy-to-understand slide content for ONLY the current slide topic.\n" +
-		"Return ONLY a JSON array with 3 to 5 slide objects in this format: " +
-		"[{\"title\":\"...\",\"content\":[{\"bullet\":\"...\",\"sub_points\":[\"...\",\"...\",\"...\"]}]}].\n" +
-		"Each generated slide must contain exactly 4 main bullets, and each main bullet must contain exactly 3 sub_points.\n" +
-		"Include practical examples, concrete details, and explanations tailored for learners.\n" +
-		"Use outline_context and rag_data deeply, do not output markdown or code fences. The outline_context is the overall course outline, and rag_data is additional relevant information that can be used to enrich the slide content."
+		"Generate detailed slide content for ONLY the current slide topic.\n" +
+		"Return ONLY a JSON array with 3 to 5 slide objects in this exact format:\n" +
+		"[{\"title\":\"...\",\"layout\":\"hero_image|two_column|three_column|text_only\"," +
+		"\"key_points\":[\"...\",\"...\"]," +
+		"\"images\":[{\"prompt\":\"...\",\"caption\":\"...\"}]," +
+		"\"transcript\":\"...\"}]\n\n" +
+		"Layout rules:\n" +
+		"- \"hero_image\": Use for intro/overview slides. Exactly 1 image.\n" +
+		"- \"two_column\": Use for comparisons or two related concepts. Exactly 2 images.\n" +
+		"- \"three_column\": Use for categories or three examples. Exactly 3 images.\n" +
+		"- \"text_only\": Use for definitions, formulas, or content with no useful visual. 0 images.\n\n" +
+		"Content rules:\n" +
+		"- key_points: 2-4 short phrases per slide. Keep text minimal.\n" +
+		"- images[].prompt: Write a vivid, specific description suitable for an AI image generator. Focus on educational clarity.\n" +
+		"- images[].caption: 2-5 word label for the image.\n" +
+		"- transcript: Write as if lecturing to students. Explain concepts, give examples, provide context. " +
+		"Should be 3-5 sentences and must NOT simply restate the key_points.\n\n" +
+		"Use outline_context and rag_data deeply. Do not output markdown or code fences. Output raw JSON only."
 }
 
-func MakeGenerateSlidesHandler(client *genie.Client) http.HandlerFunc {
+type sectionResult struct {
+	sectionIndex int
+	title        string
+	slides       []EnrichedSlide
+}
+
+type imageKey struct {
+	sectionIdx int
+	slideIdx   int
+	imageIdx   int
+}
+
+func MakeGenerateSlidesHandler(client *genie.Client, imgGen imagegen.ImageGenerator) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodPost {
 			http.Error(w, "method not allowed", http.StatusMethodNotAllowed)
@@ -44,22 +73,23 @@ func MakeGenerateSlidesHandler(client *genie.Client) http.HandlerFunc {
 		}
 
 		if len(req.Sections) == 0 {
-			http.Error(w, "missing required fields: slides", http.StatusBadRequest)
+			http.Error(w, "missing required fields: sections", http.StatusBadRequest)
 			return
 		}
 
-		log.Println("Generating slide for ", req.CunetId, " with prompt: ", req.Prompt)
+		log.Printf("Generating slides for %s (%d sections)", req.CunetId, len(req.Sections))
 		email := req.CunetId + "@student.chula.ac.th"
 		promptTemplate := req.Prompt
 		if strings.TrimSpace(promptTemplate) == "" {
 			promptTemplate = defaultSlidesPrompt()
 		}
 
-		results := make([]MarkdownInput, 0, len(req.Sections))
+		// --- Phase 1: Content Generation ---
+		sectionResults := make([]sectionResult, 0, len(req.Sections))
 
-		for sectionNumber, slide := range req.Sections {
+		for sectionIdx, section := range req.Sections {
 			inputPayload := map[string]interface{}{
-				"slide":           slide,
+				"slide":           section,
 				"outline":         req.Outline,
 				"outline_context": req.Outline,
 				"rag_data":        req.RagData,
@@ -67,7 +97,7 @@ func MakeGenerateSlidesHandler(client *genie.Client) http.HandlerFunc {
 
 			payloadBytes, err := json.Marshal(inputPayload)
 			if err != nil {
-				log.Printf("Error marshaling slide input (slide %d): %v", sectionNumber, err)
+				log.Printf("Error marshaling slide input (section %d): %v", sectionIdx, err)
 				http.Error(w, "failed to prepare slide input", http.StatusInternalServerError)
 				return
 			}
@@ -83,79 +113,157 @@ func MakeGenerateSlidesHandler(client *genie.Client) http.HandlerFunc {
 			}
 
 			res, err := client.Chat(messages, email, req.CunetId)
-			log.Println("Generated slide: ", res)
 			if err != nil {
-				log.Printf("Slide generation error (section %d): %v", sectionNumber+1, err)
+				log.Printf("Slide generation error (section %d): %v", sectionIdx+1, err)
 				continue
 			}
 
-			generatedSlides, err := decodeOrchestratedSlides(res)
+			enrichedSlides, err := decodeEnrichedSlides(res)
 			if err != nil {
-				log.Printf("Invalid slide JSON from model (section %d): %v", sectionNumber+1, err)
+				log.Printf("Invalid enriched slide JSON (section %d): %v", sectionIdx+1, err)
 				continue
 			}
-			log.Printf("Generated section %d: %s with %d slides", sectionNumber+1, slide.Title, len(generatedSlides))
+			log.Printf("Generated section %d: %s with %d slides", sectionIdx+1, section.Title, len(enrichedSlides))
 
-			results = append(results, MarkdownInput{
-				Title:  slide.Title,
-				Slides: convertToMarkdownInput(generatedSlides),
+			sectionResults = append(sectionResults, sectionResult{
+				sectionIndex: sectionIdx,
+				title:        section.Title,
+				slides:       enrichedSlides,
 			})
-			log.Printf("Generated markdown for section %d with length %d", sectionNumber+1, len(results[len(results)-1].Slides))
 		}
 
-		log.Println("Generating markdown")
-		markdown := generateMarkdown(results, req.Lesson)
-		log.Println("Outputting as markdown with length: ", len(markdown))
+		// --- Phase 2: Image Generation ---
+		type imageTask struct {
+			key imageKey
+			req imagegen.ImageRequest
+		}
+
+		var tasks []imageTask
+		for _, sr := range sectionResults {
+			for slideIdx, slide := range sr.slides {
+				imgWidth, imgHeight := ImageDimensionsForLayout(slide.Layout)
+				for imgIdx, img := range slide.Images {
+					path := fmt.Sprintf("slides/%s/section_%d/slide_%d/img_%d.png",
+						req.CunetId, sr.sectionIndex, slideIdx, imgIdx)
+					tasks = append(tasks, imageTask{
+						key: imageKey{sr.sectionIndex, slideIdx, imgIdx},
+						req: imagegen.ImageRequest{
+							ImagePath: path,
+							Prompt:    img.Prompt,
+							Width:     imgWidth,
+							Height:    imgHeight,
+						},
+					})
+				}
+			}
+		}
+
+		imageURLs := make(map[imageKey]string)
+		if len(tasks) > 0 && imgGen != nil {
+			var mu sync.Mutex
+			g, ctx := errgroup.WithContext(r.Context())
+			for _, t := range tasks {
+				t := t
+				g.Go(func() error {
+					url, err := imgGen.Generate(ctx, t.req)
+					if err != nil {
+						log.Printf("Image generation failed (%s): %v", t.req.ImagePath, err)
+						return nil
+					}
+					mu.Lock()
+					imageURLs[t.key] = url
+					mu.Unlock()
+					return nil
+				})
+			}
+			_ = g.Wait()
+		}
+		log.Printf("Generated %d/%d images", len(imageURLs), len(tasks))
+
+		// --- Phase 3: Assembly ---
+		var sections []SectionOutput
+		var transcripts []TranscriptEntry
+		slideCounter := 0
+
+		transcripts = append(transcripts, TranscriptEntry{
+			SlideIndex: slideCounter,
+			SlideTitle: req.Lesson.Title,
+			Text:       fmt.Sprintf("Welcome to today's lesson on %s.", req.Lesson.Title),
+		})
+		slideCounter++
+
+		for _, sr := range sectionResults {
+			var renderedSlides []RenderedSlide
+
+			transcripts = append(transcripts, TranscriptEntry{
+				SlideIndex: slideCounter,
+				SlideTitle: sr.title,
+				Text:       fmt.Sprintf("In this section, we will cover %s.", sr.title),
+			})
+			slideCounter++
+
+			for slideIdx, slide := range sr.slides {
+				imgWidth, imgHeight := ImageDimensionsForLayout(slide.Layout)
+				var renderedImages []RenderedImage
+				for imgIdx, img := range slide.Images {
+					url := imageURLs[imageKey{sr.sectionIndex, slideIdx, imgIdx}]
+					if url == "" {
+						continue
+					}
+					renderedImages = append(renderedImages, RenderedImage{
+						URL:     url,
+						Caption: img.Caption,
+						Width:   imgWidth,
+						Height:  imgHeight,
+					})
+				}
+
+				rendered := RenderedSlide{
+					Title:      slide.Title,
+					Layout:     slide.Layout,
+					KeyPoints:  slide.KeyPoints,
+					Images:     renderedImages,
+					Transcript: slide.Transcript,
+				}
+				renderedSlides = append(renderedSlides, rendered)
+
+				transcripts = append(transcripts, TranscriptEntry{
+					SlideIndex: slideCounter,
+					SlideTitle: slide.Title,
+					Text:       slide.Transcript,
+				})
+				slideCounter++
+			}
+
+			sections = append(sections, SectionOutput{
+				Title:  sr.title,
+				Slides: renderedSlides,
+			})
+		}
+
+		markdown := generateMarkdown(sections, req.Lesson)
+		log.Printf("Generated markdown (%d bytes), %d transcripts", len(markdown), len(transcripts))
 
 		w.Header().Set("Content-Type", "application/json")
 		_ = json.NewEncoder(w).Encode(SlideGenerationResponse{
-			Data:     results,
-			Markdown: markdown,
+			Sections:    sections,
+			Markdown:    markdown,
+			Transcripts: transcripts,
 		})
 	}
 }
 
-func convertToMarkdownInput(generatedSlides []OrchestratedSlide) []SlideMarkdownInput {
-	markdownInputs := make([]SlideMarkdownInput, 0)
-	for _, s := range generatedSlides {
-		for _, b := range s.Content {
-			markdownInputs = append(markdownInputs, SlideMarkdownInput{
-				SlideHeader: b.Bullet,
-				SubPoints:   b.SubPoints,
-			})
-		}
-	}
-	return markdownInputs
-}
-
-func generateMarkdown(results []MarkdownInput, lesson LessonInput) string {
+func generateMarkdown(sections []SectionOutput, lesson LessonInput) string {
 	var sb strings.Builder
-	sb.WriteString("---\nmarp: true\ntheme: default\nmath: mathjax\npaginate: true\nsize: 16:9\nstyle: |\n  section {\n    font-size: 25px;\n    padding: 40px;\n    justify-content: center; /* Keeps content centered vertically */\n  }\n  h1 {\n    font-size: 40px;\n    color: #0288d1;\n  }\n  h2 {\n    font-size: 35px;\n    color: #333;\n  }\n---\n")
-	sb.WriteString(fmt.Sprintf("# Lesson: %s\n", lesson.Title))
+	sb.WriteString(marpFrontmatter())
+	sb.WriteString(fmt.Sprintf("\n# Lesson: %s\n", lesson.Title))
 
-	for _, s := range results {
+	for _, section := range sections {
 		sb.WriteString("\n\n---\n")
-		sb.WriteString(fmt.Sprintf("# %s\n", s.Title))
-		for _, b := range s.Slides {
+		sb.WriteString(fmt.Sprintf("# %s\n", section.Title))
+		for _, slide := range section.Slides {
 			sb.WriteString("\n---\n")
-			bulletHeader := fmt.Sprintf("## %s\n\n", b.SlideHeader)
-			sb.WriteString(bulletHeader)
-
-			wordCount := 0
-
-			for _, sp := range b.SubPoints {
-				spWordCount := len(strings.Fields(sp))
-
-				// If adding this subpoint exceeds 150 words AND the page already has some subpoints, otherwise leave it overflow
-				if wordCount+spWordCount > 150 && wordCount > 0 {
-					sb.WriteString("\n---\n")
-					sb.WriteString(bulletHeader)
-					wordCount = 0
-				}
-
-				sb.WriteString(fmt.Sprintf("* %s\n", sp))
-				wordCount += spWordCount
-			}
+			sb.WriteString(renderSlide(slide))
 		}
 	}
 

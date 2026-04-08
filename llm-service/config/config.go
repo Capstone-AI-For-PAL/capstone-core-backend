@@ -8,10 +8,11 @@ import (
 )
 
 type Config struct {
-	GenieApiKey string
-	GenieAppId  string
-	GenieModel  string
-	Port        string
+	GenieApiKey     string
+	GenieAppId      string
+	GenieModel      string
+	ImageApiBaseURL string
+	Port            string
 }
 
 func LoadEnv() Config {
@@ -27,10 +28,11 @@ func LoadEnv() Config {
 	}
 
 	config := Config{
-		GenieApiKey: os.Getenv("GENIE_API_KEY"),
-		GenieAppId:  os.Getenv("GENIE_APP_ID"),
-		GenieModel:  os.Getenv("GENIE_MODEL"),
-		Port:        port,
+		GenieApiKey:     os.Getenv("GENIE_API_KEY"),
+		GenieAppId:      os.Getenv("GENIE_APP_ID"),
+		GenieModel:      os.Getenv("GENIE_MODEL"),
+		ImageApiBaseURL: os.Getenv("IMAGE_API_BASE_URL"),
+		Port:            port,
 	}
 	return config
 }

@@ -28,26 +28,56 @@ type LessonInput struct {
 	Objective   string `json:"objective"`
 }
 
-type OrchestratedSlideBullet struct {
-	Bullet    string   `json:"bullet"`
-	SubPoints []string `json:"sub_points"`
+type LayoutType string
+
+const (
+	LayoutHeroImage   LayoutType = "hero_image"
+	LayoutTwoColumn   LayoutType = "two_column"
+	LayoutThreeColumn LayoutType = "three_column"
+	LayoutTextOnly    LayoutType = "text_only"
+)
+
+type EnrichedSlide struct {
+	Title      string        `json:"title"`
+	Layout     LayoutType    `json:"layout"`
+	KeyPoints  []string      `json:"key_points"`
+	Images     []ImagePrompt `json:"images"`
+	Transcript string        `json:"transcript"`
 }
 
-type OrchestratedSlide struct {
-	Title   string                    `json:"title"`
-	Content []OrchestratedSlideBullet `json:"content"`
-}
-type MarkdownInput struct {
-	Title  string               `json:"title"`
-	Slides []SlideMarkdownInput `json:"slides"`
+type ImagePrompt struct {
+	Prompt  string `json:"prompt"`
+	Caption string `json:"caption"`
 }
 
-type SlideMarkdownInput struct {
-	SlideHeader string   `json:"slide_header"`
-	SubPoints   []string `json:"sub_points"`
+type RenderedSlide struct {
+	Title      string          `json:"title"`
+	Layout     LayoutType      `json:"layout"`
+	KeyPoints  []string        `json:"key_points"`
+	Images     []RenderedImage `json:"images"`
+	Transcript string          `json:"transcript"`
+}
+
+type RenderedImage struct {
+	URL     string `json:"url"`
+	Caption string `json:"caption"`
+	Width   int    `json:"width"`
+	Height  int    `json:"height"`
+}
+
+type TranscriptEntry struct {
+	SlideIndex int    `json:"slide_index"`
+	SlideTitle string `json:"slide_title"`
+	Text       string `json:"transcript"`
+}
+
+type SectionOutput struct {
+	Title  string          `json:"title"`
+	Slides []RenderedSlide `json:"slides"`
 }
 
 type SlideGenerationResponse struct {
-	Data     []MarkdownInput `json:"data"`
-	Markdown string          `json:"markdown"`
+	Sections    []SectionOutput   `json:"sections"`
+	Markdown    string            `json:"markdown"`
+	Transcripts []TranscriptEntry `json:"transcripts"`
 }
