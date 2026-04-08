@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func decodeOrchestratedSlides(raw string) ([]OrchestratedSlide, error) {
+func decodeEnrichedSlides(raw string) ([]EnrichedSlide, error) {
 	cleaned := strings.TrimSpace(raw)
 
 	if strings.HasPrefix(cleaned, "```") {
@@ -27,9 +27,26 @@ func decodeOrchestratedSlides(raw string) ([]OrchestratedSlide, error) {
 	}
 
 	jsonArray := cleaned[start : end+1]
-	var slides []OrchestratedSlide
+	var slides []EnrichedSlide
 	if err := json.Unmarshal([]byte(jsonArray), &slides); err != nil {
-		return nil, fmt.Errorf("invalid slide JSON: %w", err)
+		return nil, fmt.Errorf("invalid enriched slide JSON: %w", err)
+	}
+
+	for i := range slides {
+		switch slides[i].Layout {
+		case LayoutHeroImage, LayoutTwoColumn, LayoutThreeColumn, LayoutTextOnly:
+		default:
+			switch len(slides[i].Images) {
+			case 0:
+				slides[i].Layout = LayoutTextOnly
+			case 1:
+				slides[i].Layout = LayoutHeroImage
+			case 2:
+				slides[i].Layout = LayoutTwoColumn
+			default:
+				slides[i].Layout = LayoutThreeColumn
+			}
+		}
 	}
 
 	return slides, nil
