@@ -14,10 +14,11 @@ import (
 	"golang.org/x/sync/errgroup"
 )
 
-// TODO: set system instruction to fix layout and leave prompt only for content guidance. This should improve layout consistency and reduce hallucinated images.
-func defaultSlidesPrompt() string {
-	return "Act as an expert curriculum designer and instructional strategist.\n" +
-		"Generate detailed slide content for ONLY the current slide topic.\n" +
+// TODO: Calculate cost of generation and log for monitoring. Genie charges per input and output tokens, and GenAI charges per image generated. This will help us understand expenses and optimize prompts.
+// systemSlidesPrompt is a fixed system instruction that enforces the JSON schema
+// and layout rules. It is always sent as the system message regardless of user input.
+func systemSlidesPrompt() string {
+	return "You are a slide content generator. Your ONLY output is a raw JSON array.\n" +
 		"Return ONLY a JSON array with 3 to 5 slide objects in this exact format:\n" +
 		"[{\"title\":\"...\",\"layout\":\"hero_image|two_column|three_column|text_only\"," +
 		"\"key_points\":[\"...\",\"...\"]," +
@@ -34,7 +35,15 @@ func defaultSlidesPrompt() string {
 		"- images[].caption: 2-5 word label for the image.\n" +
 		"- transcript: Write as if lecturing to students. Explain concepts, give examples, provide context. " +
 		"Should be 3-5 sentences and must NOT simply restate the key_points.\n\n" +
-		"Use outline_context and rag_data deeply. Do not output markdown or code fences. Output raw JSON only."
+		"Do not output markdown or code fences. Output raw JSON only."
+}
+
+// defaultGuidancePrompt is used when the user does not supply a custom guidance prompt.
+// It provides general content and style direction to the model.
+func defaultGuidancePrompt() string {
+	return "Act as an expert curriculum designer and instructional strategist.\n" +
+		"Generate detailed slide content for ONLY the current slide topic.\n" +
+		"Use outline_context and rag_data deeply. Prioritize educational clarity and engagement."
 }
 
 type sectionResult struct {
@@ -79,9 +88,9 @@ func MakeGenerateSlidesHandler(client *genie.Client, imgGen imagegen.ImageGenera
 
 		log.Printf("Generating slides for %s (%d sections)", req.CunetId, len(req.Sections))
 		email := req.CunetId + "@student.chula.ac.th"
-		promptTemplate := req.Prompt
-		if strings.TrimSpace(promptTemplate) == "" {
-			promptTemplate = defaultSlidesPrompt()
+		guidancePrompt := req.Prompt
+		if strings.TrimSpace(guidancePrompt) == "" {
+			guidancePrompt = defaultGuidancePrompt()
 		}
 
 		// --- Phase 1: Content Generation ---
@@ -102,8 +111,14 @@ func MakeGenerateSlidesHandler(client *genie.Client, imgGen imagegen.ImageGenera
 				return
 			}
 
-			messageText := fmt.Sprintf("%s\n\nCURRENT INPUT JSON:\n%s", promptTemplate, string(payloadBytes))
+			messageText := fmt.Sprintf("%s\n\nCURRENT INPUT JSON:\n%s", guidancePrompt, string(payloadBytes))
 			messages := []genie.Message{
+				{
+					Role: "system",
+					Content: []genie.ContentPart{
+						{Type: "text", Text: systemSlidesPrompt()},
+					},
+				},
 				{
 					Role: "user",
 					Content: []genie.ContentPart{

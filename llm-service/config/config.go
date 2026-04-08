@@ -8,11 +8,16 @@ import (
 )
 
 type Config struct {
-	GenieApiKey     string
-	GenieAppId      string
-	GenieModel      string
-	ImageApiBaseURL string
-	Port            string
+	GenieApiKey        string
+	GenieAppId         string
+	GenieModel         string
+	GoogleGenAIApiKey  string
+	GoogleGenAIModel   string
+	S3Bucket           string
+	S3Region           string
+	AWSAccessKeyID     string
+	AWSSecretAccessKey string
+	Port               string
 }
 
 func LoadEnv() Config {
@@ -28,11 +33,16 @@ func LoadEnv() Config {
 	}
 
 	config := Config{
-		GenieApiKey:     os.Getenv("GENIE_API_KEY"),
-		GenieAppId:      os.Getenv("GENIE_APP_ID"),
-		GenieModel:      os.Getenv("GENIE_MODEL"),
-		ImageApiBaseURL: os.Getenv("IMAGE_API_BASE_URL"),
-		Port:            port,
+		GenieApiKey:        os.Getenv("GENIE_API_KEY"),
+		GenieAppId:         os.Getenv("GENIE_APP_ID"),
+		GenieModel:         os.Getenv("GENIE_MODEL"),
+		GoogleGenAIApiKey:  os.Getenv("GOOGLE_GENAI_API_KEY"),
+		GoogleGenAIModel:   os.Getenv("GOOGLE_GENAI_MODEL"),
+		S3Bucket:           os.Getenv("AWS_S3_BUCKET"),
+		S3Region:           os.Getenv("AWS_S3_REGION"),
+		AWSAccessKeyID:     os.Getenv("AWS_ACCESS_KEY_ID"),
+		AWSSecretAccessKey: os.Getenv("AWS_SECRET_ACCESS_KEY"),
+		Port:               port,
 	}
 	return config
 }
