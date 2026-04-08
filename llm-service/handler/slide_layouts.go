@@ -28,45 +28,93 @@ func ImageDimensionsForLayout(layout LayoutType) (width, height int) {
 }
 
 func marpFrontmatter() string {
-	return "---\n" +
-		"marp: true\n" +
-		"theme: default\n" +
-		"paginate: true\n" +
-		"backgroundColor: #fff\n" +
-		"math: mathjax\n" +
-		"size: 16:9\n" +
-		"style: |\n" +
-		"  section {\n" +
-		"    font-size: 25px;\n" +
-		"    padding: 40px;\n" +
-		"    justify-content: center;\n" +
-		"  }\n" +
-		"  h1 {\n" +
-		"    font-size: 40px;\n" +
-		"    color: #0288d1;\n" +
-		"  }\n" +
-		"  h2 {\n" +
-		"    font-size: 35px;\n" +
-		"    color: #333;\n" +
-		"  }\n" +
-		"  .grid-2 {\n" +
-		"    display: grid;\n" +
-		"    grid-template-columns: 1fr 1fr;\n" +
-		"    gap: 30px;\n" +
-		"    text-align: center;\n" +
-		"  }\n" +
-		"  .grid-3 {\n" +
-		"    display: grid;\n" +
-		"    grid-template-columns: 1fr 1fr 1fr;\n" +
-		"    gap: 15px;\n" +
-		"    text-align: center;\n" +
-		"    font-size: 0.7em;\n" +
-		"  }\n" +
-		"  img {\n" +
-		"    border-radius: 8px;\n" +
-		"    object-fit: cover;\n" +
-		"  }\n" +
-		"---\n"
+	return `---
+marp: true
+theme: default
+paginate: true
+backgroundColor: #f8f9fa
+size: 16:9
+style: |
+  section {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    font-size: 24px;
+    padding: 50px 70px;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+  }
+  h1 {
+    font-size: 38px;
+    color: #1a73e8;
+    margin: 0 0 16px 0;
+    border-bottom: 2px solid #e8eaed;
+    padding-bottom: 10px;
+  }
+  ul {
+    margin: 0 0 20px 0;
+    color: #3c4043;
+    padding-left: 1.5em;
+  }
+  li {
+    margin-bottom: 8px;
+  }
+  /* Fixed bounds to prevent overflow */
+  .hero-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 360px; /* Fixed hero height */
+    margin-top: auto;
+    margin-bottom: auto;
+  }
+  .hero-container img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 8px;
+  }
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-top: 10px;
+  }
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 10px;
+  }
+  .card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .card-img-2 {
+    width: 100%;
+    height: 280px; /* Fixed 2-col image height */
+    margin-bottom: 12px;
+  }
+  .card-img-3 {
+    width: 100%;
+    height: 200px; /* Fixed 3-col image height */
+    margin-bottom: 12px;
+  }
+  .card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  .card strong {
+    font-size: 18px;
+    color: #5f6368;
+    font-weight: 600;
+  }
+---
+`
 }
 
 func renderSlide(slide RenderedSlide) string {
@@ -100,8 +148,8 @@ func renderHeroImage(slide RenderedSlide) string {
 	sb.WriteString(renderKeyPoints(slide.KeyPoints))
 	if len(slide.Images) > 0 {
 		img := slide.Images[0]
-		sb.WriteString("\n<div style=\"text-align: center; margin-top: 20px;\">\n\n")
-		sb.WriteString(fmt.Sprintf("![%s](%s)\n\n", img.Caption, img.URL))
+		sb.WriteString("\n<div class=\"hero-container\">\n")
+		sb.WriteString(fmt.Sprintf("  <img src=\"%s\" alt=\"%s\" />\n", img.URL, img.Caption))
 		sb.WriteString("</div>\n")
 	}
 	return sb.String()
@@ -113,9 +161,11 @@ func renderTwoColumn(slide RenderedSlide) string {
 	sb.WriteString(renderKeyPoints(slide.KeyPoints))
 	sb.WriteString("\n<div class=\"grid-2\">\n")
 	for _, img := range slide.Images {
-		sb.WriteString("  <div>\n")
-		sb.WriteString(fmt.Sprintf("    <img src=\"%s\" alt=\"%s\" />\n", img.URL, img.Caption))
-		sb.WriteString(fmt.Sprintf("    <p><strong>%s</strong></p>\n", img.Caption))
+		sb.WriteString("  <div class=\"card\">\n")
+		sb.WriteString("    <div class=\"card-img-2\">\n")
+		sb.WriteString(fmt.Sprintf("      <img src=\"%s\" alt=\"%s\" />\n", img.URL, img.Caption))
+		sb.WriteString("    </div>\n")
+		sb.WriteString(fmt.Sprintf("    <span><strong>%s</strong></span>\n", img.Caption))
 		sb.WriteString("  </div>\n")
 	}
 	sb.WriteString("</div>\n")
@@ -128,9 +178,11 @@ func renderThreeColumn(slide RenderedSlide) string {
 	sb.WriteString(renderKeyPoints(slide.KeyPoints))
 	sb.WriteString("\n<div class=\"grid-3\">\n")
 	for _, img := range slide.Images {
-		sb.WriteString("  <div>\n")
-		sb.WriteString(fmt.Sprintf("    <img src=\"%s\" />\n", img.URL))
-		sb.WriteString(fmt.Sprintf("    <br><strong>%s</strong>\n", img.Caption))
+		sb.WriteString("  <div class=\"card\">\n")
+		sb.WriteString("    <div class=\"card-img-3\">\n")
+		sb.WriteString(fmt.Sprintf("      <img src=\"%s\" alt=\"%s\" />\n", img.URL, img.Caption))
+		sb.WriteString("    </div>\n")
+		sb.WriteString(fmt.Sprintf("    <span><strong>%s</strong></span>\n", img.Caption))
 		sb.WriteString("  </div>\n")
 	}
 	sb.WriteString("</div>\n")

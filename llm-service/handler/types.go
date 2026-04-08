@@ -20,6 +20,7 @@ type SlideGenerationRequest struct {
 	Outline  string         `json:"outline"`
 	RagData  string         `json:"rag_data"`
 	CunetId  string         `json:"cunet_id"`
+	LessonId string         `json:"lesson_id"`
 }
 
 type LessonInput struct {

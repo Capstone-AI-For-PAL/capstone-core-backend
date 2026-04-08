@@ -86,6 +86,11 @@ func MakeGenerateSlidesHandler(client *genie.Client, imgGen imagegen.ImageGenera
 			return
 		}
 
+		if req.LessonId == "" {
+			http.Error(w, "missing required fields: lesson_id", http.StatusBadRequest)
+			return
+		}
+
 		log.Printf("Generating slides for %s (%d sections)", req.CunetId, len(req.Sections))
 		email := req.CunetId + "@student.chula.ac.th"
 		guidancePrompt := req.Prompt
@@ -154,12 +159,14 @@ func MakeGenerateSlidesHandler(client *genie.Client, imgGen imagegen.ImageGenera
 		}
 
 		var tasks []imageTask
+		imageCounter := 0
 		for _, sr := range sectionResults {
 			for slideIdx, slide := range sr.slides {
 				imgWidth, imgHeight := ImageDimensionsForLayout(slide.Layout)
 				for imgIdx, img := range slide.Images {
-					path := fmt.Sprintf("slides/%s/section_%d/slide_%d/img_%d.png",
-						req.CunetId, sr.sectionIndex, slideIdx, imgIdx)
+					imageCounter += 1
+					path := fmt.Sprintf("%s/slides_images/%d.png",
+						req.LessonId, imageCounter)
 					tasks = append(tasks, imageTask{
 						key: imageKey{sr.sectionIndex, slideIdx, imgIdx},
 						req: imagegen.ImageRequest{
