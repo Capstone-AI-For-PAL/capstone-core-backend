@@ -4,7 +4,7 @@
   "description": "Scripts for managing the capstone core backend services",
   "scripts": {
     "n8n:export:workflows": "docker exec n8n sh -c \"rm -f /workflows/*.json\" && docker exec n8n n8n export:workflow --backup --output=/workflows/",
-    "n8n:export:credentials": "docker exec n8n sh -c \"rm -f /workflows/credentials/*.json\" && docker exec n8n n8n export:credentials --backup --output=/workflows/credentials/",
+    "n8n:export:credentials": "docker exec n8n sh -c \"rm -f /workflows/credentials/*.json\" && docker exec n8n n8n export:credentials --backup --output=/workflows/credentials/ --decrypted",
     "n8n:export": "npm run n8n:export:workflows && npm run n8n:export:credentials",
     "n8n:import:workflows": "docker exec n8n n8n import:workflow --separate --input=/workflows/",
     "n8n:import:credentials": "docker exec n8n n8n import:credentials --separate --input=/workflows/credentials/",
