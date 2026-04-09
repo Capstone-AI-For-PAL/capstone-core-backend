@@ -9,7 +9,7 @@
   "nodes": [
     {
       "parameters": {
-        "content": "### 📚 Load Data Flow",
+        "content": "### \ud83d\udcda Load Data Flow",
         "height": 460,
         "width": 860,
         "color": 7
@@ -61,7 +61,7 @@
       "name": "Embeddings Google Gemini",
       "credentials": {
         "googlePalmApi": {
-          "id": "NkQ04fDTcoiawVu2",
+          "id": "nkjyjxzIkBKuhyZh",
           "name": "Google Gemini(PaLM) Api account"
         }
       }
@@ -88,8 +88,8 @@
       "name": "MongoDB Atlas Vector Store1",
       "credentials": {
         "mongoDb": {
-          "id": "K1y2RTKvTElSmf02",
-          "name": "MongoDB account 2"
+          "id": "pWePL90dwTVGzXVd",
+          "name": "MongoDB account"
         }
       }
     },
@@ -118,8 +118,8 @@
       "name": "MongoDB Atlas Vector Store2",
       "credentials": {
         "mongoDb": {
-          "id": "K1y2RTKvTElSmf02",
-          "name": "MongoDB account 2"
+          "id": "pWePL90dwTVGzXVd",
+          "name": "MongoDB account"
         }
       }
     },
@@ -143,7 +143,7 @@
     },
     {
       "parameters": {
-        "content": "### 🐕 2. Retriever Flow",
+        "content": "### \ud83d\udc15 2. Retriever Flow",
         "height": 460,
         "width": 840,
         "color": 7

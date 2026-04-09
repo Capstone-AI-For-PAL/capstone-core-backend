@@ -165,7 +165,7 @@
       "name": "Update documents",
       "credentials": {
         "mongoDb": {
-          "id": "YDwRGSFnFZwMGZ3A",
+          "id": "pWePL90dwTVGzXVd",
           "name": "MongoDB account"
         }
       }
@@ -187,7 +187,7 @@
       "name": "Audio Upload",
       "credentials": {
         "aws": {
-          "id": "4s470AWhcUCJYmfF",
+          "id": "dxBCP5LgruhUqTMg",
           "name": "AWS (IAM) account"
         }
       },
@@ -210,7 +210,7 @@
       "name": "Slide Upload",
       "credentials": {
         "aws": {
-          "id": "4s470AWhcUCJYmfF",
+          "id": "dxBCP5LgruhUqTMg",
           "name": "AWS (IAM) account"
         }
       }
@@ -234,7 +234,7 @@
       "name": "Update documents1",
       "credentials": {
         "mongoDb": {
-          "id": "YDwRGSFnFZwMGZ3A",
+          "id": "pWePL90dwTVGzXVd",
           "name": "MongoDB account"
         }
       }
@@ -425,7 +425,7 @@
       "name": "PPTXUpload",
       "credentials": {
         "aws": {
-          "id": "4s470AWhcUCJYmfF",
+          "id": "dxBCP5LgruhUqTMg",
           "name": "AWS (IAM) account"
         }
       }
@@ -462,7 +462,7 @@
       "name": "Update documents2",
       "credentials": {
         "mongoDb": {
-          "id": "YDwRGSFnFZwMGZ3A",
+          "id": "pWePL90dwTVGzXVd",
           "name": "MongoDB account"
         }
       }
@@ -598,7 +598,7 @@
       "name": "Update content",
       "credentials": {
         "mongoDb": {
-          "id": "YDwRGSFnFZwMGZ3A",
+          "id": "pWePL90dwTVGzXVd",
           "name": "MongoDB account"
         }
       },

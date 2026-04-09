@@ -16,7 +16,7 @@
         0
       ],
       "id": "dfca828f-3ff7-46df-8223-20670f4ebaf4",
-      "name": "When clicking ‘Execute workflow’"
+      "name": "When clicking \u2018Execute workflow\u2019"
     },
     {
       "parameters": {
@@ -34,14 +34,14 @@
       "name": "Get many files",
       "credentials": {
         "aws": {
-          "id": "4s470AWhcUCJYmfF",
+          "id": "dxBCP5LgruhUqTMg",
           "name": "AWS (IAM) account"
         }
       }
     }
   ],
   "connections": {
-    "When clicking ‘Execute workflow’": {
+    "When clicking \u2018Execute workflow\u2019": {
       "main": [
         [
           {

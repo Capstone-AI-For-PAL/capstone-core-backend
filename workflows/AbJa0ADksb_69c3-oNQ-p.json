@@ -136,7 +136,7 @@
       "name": "Embeddings Google Gemini",
       "credentials": {
         "googlePalmApi": {
-          "id": "vZYv2abav2dS2ojA",
+          "id": "nkjyjxzIkBKuhyZh",
           "name": "Google Gemini(PaLM) Api account"
         }
       }
@@ -179,7 +179,7 @@
       "name": "Google Gemini Chat Model",
       "credentials": {
         "googlePalmApi": {
-          "id": "vZYv2abav2dS2ojA",
+          "id": "nkjyjxzIkBKuhyZh",
           "name": "Google Gemini(PaLM) Api account"
         }
       }
@@ -205,8 +205,8 @@
       "name": "MongoDB Atlas Vector Store",
       "credentials": {
         "mongoDb": {
-          "id": "K1y2RTKvTElSmf02",
-          "name": "MongoDB account 2"
+          "id": "pWePL90dwTVGzXVd",
+          "name": "MongoDB account"
         }
       }
     },
@@ -232,8 +232,8 @@
       "name": "MongoDB Atlas Vector Store1",
       "credentials": {
         "mongoDb": {
-          "id": "K1y2RTKvTElSmf02",
-          "name": "MongoDB account 2"
+          "id": "pWePL90dwTVGzXVd",
+          "name": "MongoDB account"
         }
       }
     }

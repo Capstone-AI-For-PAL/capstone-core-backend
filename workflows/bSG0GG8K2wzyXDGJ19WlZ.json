@@ -51,7 +51,7 @@
       "name": "Google Gemini Chat Model",
       "credentials": {
         "googlePalmApi": {
-          "id": "vZYv2abav2dS2ojA",
+          "id": "nkjyjxzIkBKuhyZh",
           "name": "Google Gemini(PaLM) Api account"
         }
       }
@@ -73,7 +73,7 @@
       "name": "Upload a file",
       "credentials": {
         "aws": {
-          "id": "4s470AWhcUCJYmfF",
+          "id": "dxBCP5LgruhUqTMg",
           "name": "AWS (IAM) account"
         }
       }
@@ -200,7 +200,7 @@
       "name": "Upload a file1",
       "credentials": {
         "aws": {
-          "id": "4s470AWhcUCJYmfF",
+          "id": "dxBCP5LgruhUqTMg",
           "name": "AWS (IAM) account"
         }
       }

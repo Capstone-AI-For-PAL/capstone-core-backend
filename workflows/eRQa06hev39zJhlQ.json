@@ -23,8 +23,8 @@
       "name": "Find documents",
       "credentials": {
         "mongoDb": {
-          "id": "f8Us5RfnRMksaqPf",
-          "name": "Admin Mongo"
+          "id": "pWePL90dwTVGzXVd",
+          "name": "MongoDB account"
         }
       }
     },
@@ -69,8 +69,8 @@
       "name": "Update documents",
       "credentials": {
         "mongoDb": {
-          "id": "f8Us5RfnRMksaqPf",
-          "name": "Admin Mongo"
+          "id": "pWePL90dwTVGzXVd",
+          "name": "MongoDB account"
         }
       }
     },

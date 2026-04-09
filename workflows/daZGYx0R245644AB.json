@@ -78,7 +78,7 @@
       "name": "Update status",
       "credentials": {
         "mongoDb": {
-          "id": "YDwRGSFnFZwMGZ3A",
+          "id": "pWePL90dwTVGzXVd",
           "name": "MongoDB account"
         }
       }
@@ -116,7 +116,7 @@
       "name": "Update outline and status",
       "credentials": {
         "mongoDb": {
-          "id": "YDwRGSFnFZwMGZ3A",
+          "id": "pWePL90dwTVGzXVd",
           "name": "MongoDB account"
         }
       }

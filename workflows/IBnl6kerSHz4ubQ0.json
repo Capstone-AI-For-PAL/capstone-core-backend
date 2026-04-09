@@ -86,8 +86,8 @@
       "alwaysOutputData": false,
       "credentials": {
         "mongoDb": {
-          "id": "f8Us5RfnRMksaqPf",
-          "name": "Admin Mongo"
+          "id": "pWePL90dwTVGzXVd",
+          "name": "MongoDB account"
         }
       }
     },
@@ -107,8 +107,8 @@
       "name": "Find documents2",
       "credentials": {
         "mongoDb": {
-          "id": "f8Us5RfnRMksaqPf",
-          "name": "Admin Mongo"
+          "id": "pWePL90dwTVGzXVd",
+          "name": "MongoDB account"
         }
       }
     },
@@ -128,8 +128,8 @@
       "name": "Find documents3",
       "credentials": {
         "mongoDb": {
-          "id": "f8Us5RfnRMksaqPf",
-          "name": "Admin Mongo"
+          "id": "pWePL90dwTVGzXVd",
+          "name": "MongoDB account"
         }
       }
     },
@@ -211,8 +211,8 @@
       "name": "Get Exercise",
       "credentials": {
         "mongoDb": {
-          "id": "f8Us5RfnRMksaqPf",
-          "name": "Admin Mongo"
+          "id": "pWePL90dwTVGzXVd",
+          "name": "MongoDB account"
         }
       }
     },
@@ -234,8 +234,8 @@
       "name": "Update answer and score",
       "credentials": {
         "mongoDb": {
-          "id": "f8Us5RfnRMksaqPf",
-          "name": "Admin Mongo"
+          "id": "pWePL90dwTVGzXVd",
+          "name": "MongoDB account"
         }
       }
     },
@@ -255,8 +255,8 @@
       "name": "Aggregate documents",
       "credentials": {
         "mongoDb": {
-          "id": "f8Us5RfnRMksaqPf",
-          "name": "Admin Mongo"
+          "id": "pWePL90dwTVGzXVd",
+          "name": "MongoDB account"
         }
       }
     },
@@ -289,8 +289,8 @@
       "name": "Aggregate documents1",
       "credentials": {
         "mongoDb": {
-          "id": "f8Us5RfnRMksaqPf",
-          "name": "Admin Mongo"
+          "id": "pWePL90dwTVGzXVd",
+          "name": "MongoDB account"
         }
       }
     },
@@ -382,8 +382,8 @@
       "alwaysOutputData": true,
       "credentials": {
         "mongoDb": {
-          "id": "f8Us5RfnRMksaqPf",
-          "name": "Admin Mongo"
+          "id": "pWePL90dwTVGzXVd",
+          "name": "MongoDB account"
         }
       }
     },
@@ -421,8 +421,8 @@
       "name": "Find documents",
       "credentials": {
         "mongoDb": {
-          "id": "f8Us5RfnRMksaqPf",
-          "name": "Admin Mongo"
+          "id": "pWePL90dwTVGzXVd",
+          "name": "MongoDB account"
         }
       }
     },
@@ -442,8 +442,8 @@
       "name": "Find documents1",
       "credentials": {
         "mongoDb": {
-          "id": "f8Us5RfnRMksaqPf",
-          "name": "Admin Mongo"
+          "id": "pWePL90dwTVGzXVd",
+          "name": "MongoDB account"
         }
       }
     },
@@ -500,8 +500,8 @@
       "alwaysOutputData": false,
       "credentials": {
         "mongoDb": {
-          "id": "f8Us5RfnRMksaqPf",
-          "name": "Admin Mongo"
+          "id": "pWePL90dwTVGzXVd",
+          "name": "MongoDB account"
         }
       }
     },
@@ -553,8 +553,8 @@
       "alwaysOutputData": false,
       "credentials": {
         "mongoDb": {
-          "id": "f8Us5RfnRMksaqPf",
-          "name": "Admin Mongo"
+          "id": "pWePL90dwTVGzXVd",
+          "name": "MongoDB account"
         }
       }
     },
@@ -687,8 +687,8 @@
       "alwaysOutputData": false,
       "credentials": {
         "mongoDb": {
-          "id": "f8Us5RfnRMksaqPf",
-          "name": "Admin Mongo"
+          "id": "pWePL90dwTVGzXVd",
+          "name": "MongoDB account"
         }
       }
     },
@@ -708,8 +708,8 @@
       "name": "Get course",
       "credentials": {
         "mongoDb": {
-          "id": "f8Us5RfnRMksaqPf",
-          "name": "Admin Mongo"
+          "id": "pWePL90dwTVGzXVd",
+          "name": "MongoDB account"
         }
       }
     },
@@ -778,8 +778,8 @@
       "alwaysOutputData": false,
       "credentials": {
         "mongoDb": {
-          "id": "f8Us5RfnRMksaqPf",
-          "name": "Admin Mongo"
+          "id": "pWePL90dwTVGzXVd",
+          "name": "MongoDB account"
         }
       }
     },
@@ -866,8 +866,8 @@
       "name": "Update status",
       "credentials": {
         "mongoDb": {
-          "id": "f8Us5RfnRMksaqPf",
-          "name": "Admin Mongo"
+          "id": "pWePL90dwTVGzXVd",
+          "name": "MongoDB account"
         }
       }
     },
@@ -904,8 +904,8 @@
       "name": "Update outline and status",
       "credentials": {
         "mongoDb": {
-          "id": "f8Us5RfnRMksaqPf",
-          "name": "Admin Mongo"
+          "id": "pWePL90dwTVGzXVd",
+          "name": "MongoDB account"
         }
       }
     },
@@ -1174,8 +1174,8 @@
       "name": "Find lesson",
       "credentials": {
         "mongoDb": {
-          "id": "f8Us5RfnRMksaqPf",
-          "name": "Admin Mongo"
+          "id": "pWePL90dwTVGzXVd",
+          "name": "MongoDB account"
         }
       }
     },
@@ -1197,8 +1197,8 @@
       "name": "Update lesson",
       "credentials": {
         "mongoDb": {
-          "id": "f8Us5RfnRMksaqPf",
-          "name": "Admin Mongo"
+          "id": "pWePL90dwTVGzXVd",
+          "name": "MongoDB account"
         }
       }
     },
@@ -1220,8 +1220,8 @@
       "name": "Find documents4",
       "credentials": {
         "mongoDb": {
-          "id": "f8Us5RfnRMksaqPf",
-          "name": "Admin Mongo"
+          "id": "pWePL90dwTVGzXVd",
+          "name": "MongoDB account"
         }
       }
     },
@@ -1273,8 +1273,8 @@
       "name": "Update course's avgScore",
       "credentials": {
         "mongoDb": {
-          "id": "f8Us5RfnRMksaqPf",
-          "name": "Admin Mongo"
+          "id": "pWePL90dwTVGzXVd",
+          "name": "MongoDB account"
         }
       }
     },
@@ -1377,8 +1377,8 @@
       "name": "Find documents6",
       "credentials": {
         "mongoDb": {
-          "id": "f8Us5RfnRMksaqPf",
-          "name": "Admin Mongo"
+          "id": "pWePL90dwTVGzXVd",
+          "name": "MongoDB account"
         }
       }
     },
@@ -1474,8 +1474,8 @@
       "name": "Audio Upload",
       "credentials": {
         "aws": {
-          "id": "mDZycvBQipzv9pQW",
-          "name": "Admin AWS (IAM)"
+          "id": "dxBCP5LgruhUqTMg",
+          "name": "AWS (IAM) account"
         }
       },
       "onError": "continueRegularOutput"
@@ -1499,8 +1499,8 @@
       "name": "Update documents1",
       "credentials": {
         "mongoDb": {
-          "id": "f8Us5RfnRMksaqPf",
-          "name": "Admin Mongo"
+          "id": "pWePL90dwTVGzXVd",
+          "name": "MongoDB account"
         }
       }
     },
@@ -1553,8 +1553,8 @@
       "name": "Update documents",
       "credentials": {
         "mongoDb": {
-          "id": "f8Us5RfnRMksaqPf",
-          "name": "Admin Mongo"
+          "id": "pWePL90dwTVGzXVd",
+          "name": "MongoDB account"
         }
       }
     },
@@ -1576,8 +1576,8 @@
       "name": "Slide Upload",
       "credentials": {
         "aws": {
-          "id": "mDZycvBQipzv9pQW",
-          "name": "Admin AWS (IAM)"
+          "id": "dxBCP5LgruhUqTMg",
+          "name": "AWS (IAM) account"
         }
       }
     },
@@ -1654,8 +1654,8 @@
       "name": "Update documents2",
       "credentials": {
         "mongoDb": {
-          "id": "f8Us5RfnRMksaqPf",
-          "name": "Admin Mongo"
+          "id": "pWePL90dwTVGzXVd",
+          "name": "MongoDB account"
         }
       }
     },
