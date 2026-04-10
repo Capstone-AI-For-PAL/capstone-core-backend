@@ -17,7 +17,7 @@ LOG_LEVEL: str = os.getenv("LOG_LEVEL", "info")
 # --------------------------------------------------------------------------
 # Concurrency
 # --------------------------------------------------------------------------
-# Maximum number of TTS synthesis jobs that may run simultaneously.
+# Maximum number of TTS synthesis jobs that may run simultaneously only for KokoroModel.
 # Raise this only if the container has enough CPU/RAM for parallel inference.
 MAX_CONCURRENT_TTS: int = int(os.getenv("MAX_CONCURRENT_TTS", "2"))
 
@@ -45,3 +45,14 @@ S3_PRESIGN_TTL: int = int(os.getenv("S3_PRESIGN_TTL", "3600"))
 # Credentials — leave blank to use IAM role / instance profile
 AWS_ACCESS_KEY_ID: str = os.getenv("AWS_ACCESS_KEY_ID", "")
 AWS_SECRET_ACCESS_KEY: str = os.getenv("AWS_SECRET_ACCESS_KEY", "")
+
+# --------------------------------------------------------------------------
+# Google Gemini TTS
+# --------------------------------------------------------------------------
+GOOGLE_GENAI_API_KEY: str = os.getenv("GOOGLE_GENAI_API_KEY", "")
+GEMINI_TTS_MODEL: str = os.getenv("GEMINI_TTS_MODEL", "gemini-2.5-flash-preview-tts")
+# Sliding-window rate limit: max requests within the window (default: 10 / 120s).
+GEMINI_TTS_MAX_REQUESTS: int = int(os.getenv("GEMINI_TTS_MAX_REQUESTS", "10"))
+GEMINI_TTS_WINDOW_SECONDS: float = float(os.getenv("GEMINI_TTS_WINDOW_SECONDS", "120"))
+# Retry attempts on 429 before raising an error.
+GEMINI_TTS_MAX_RETRIES: int = int(os.getenv("GEMINI_TTS_MAX_RETRIES", "3"))

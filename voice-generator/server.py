@@ -10,7 +10,6 @@ POST /generate/save       — synthesise, persist to a storage backend, return m
 import io
 import uuid
 import logging
-import threading
 from typing import Optional
 
 import uvicorn
@@ -23,11 +22,6 @@ from models import get_model
 from models.base import TTSRequest
 from storage import get_storage
 from storage.base import SaveResult
-
-# Maximum number of TTS requests that may be in-flight concurrently.
-# Extra requests receive a 503 immediately rather than queuing and
-# exhausting container memory.
-_tts_semaphore = threading.Semaphore(config.MAX_CONCURRENT_TTS)
 
 logging.basicConfig(level=config.LOG_LEVEL.upper())
 logger = logging.getLogger(__name__)
@@ -86,23 +80,20 @@ def _build_tts_request(req: GenerateRequest) -> TTSRequest:
 def _synthesise(req: GenerateRequest) -> bytes:
     """Run TTS synthesis and return raw WAV bytes.
 
-    Acquires ``_tts_semaphore`` before inference so at most
-    ``config.MAX_CONCURRENT_TTS`` requests run simultaneously.  Additional
-    callers block and queue until a slot is free.
+    Concurrency / rate-limit controls are managed inside each model
+    implementation (e.g. semaphore in KokoroModel, sliding-window in
+    GeminiModel), so this helper simply delegates.
     """
     try:
         model = get_model(req.model)
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc))
 
-    _tts_semaphore.acquire()
     try:
         return model.generate(_build_tts_request(req))
     except Exception as exc:
         logger.exception("TTS generation failed")
         raise HTTPException(status_code=500, detail=f"TTS generation failed: {exc}")
-    finally:
-        _tts_semaphore.release()
 
 
 # ---------------------------------------------------------------------------

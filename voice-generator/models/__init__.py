@@ -1,8 +1,10 @@
 from .base import TTSModel, TTSRequest
 from .kokoro_model import KokoroModel
+from .gemini_model import GeminiModel
 
 _REGISTRY: dict[str, type[TTSModel]] = {
     "kokoro": KokoroModel,
+    "gemini": GeminiModel,
 }
 
 # Singleton cache — one instance per model name, reused across all requests.
