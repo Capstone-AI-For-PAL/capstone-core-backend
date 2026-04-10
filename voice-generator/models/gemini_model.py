@@ -50,6 +50,10 @@ class GeminiModel(TTSModel):
         # Block until we have a rate-limit slot.
         self._rate_limiter.acquire()
 
+        logger.info(
+            "Generating TTS with GeminiModel (voice=%s, language=%s, text length=%d)",
+            voice, request.language, len(request.text),
+        )
         pcm_data = self._call_with_retry(request.text, voice)
         return self._pcm_to_wav(pcm_data)
 

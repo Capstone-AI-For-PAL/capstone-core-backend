@@ -25,7 +25,7 @@ MAX_CONCURRENT_TTS: int = int(os.getenv("MAX_CONCURRENT_TTS", "2"))
 # TTS defaults
 # --------------------------------------------------------------------------
 DEFAULT_MODEL: str = os.getenv("DEFAULT_TTS_MODEL", "kokoro")
-DEFAULT_VOICE: str = os.getenv("DEFAULT_VOICE", "af_heart")
+DEFAULT_VOICE: str = os.getenv("DEFAULT_VOICE", "default")
 DEFAULT_SPEED: float = float(os.getenv("DEFAULT_SPEED", "1.0"))
 DEFAULT_LANGUAGE: str = os.getenv("DEFAULT_LANGUAGE", "a")
 
