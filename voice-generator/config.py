@@ -15,6 +15,13 @@ PORT: int = int(os.getenv("PORT", "8000"))
 LOG_LEVEL: str = os.getenv("LOG_LEVEL", "info")
 
 # --------------------------------------------------------------------------
+# Concurrency
+# --------------------------------------------------------------------------
+# Maximum number of TTS synthesis jobs that may run simultaneously.
+# Raise this only if the container has enough CPU/RAM for parallel inference.
+MAX_CONCURRENT_TTS: int = int(os.getenv("MAX_CONCURRENT_TTS", "2"))
+
+# --------------------------------------------------------------------------
 # TTS defaults
 # --------------------------------------------------------------------------
 DEFAULT_MODEL: str = os.getenv("DEFAULT_TTS_MODEL", "kokoro")

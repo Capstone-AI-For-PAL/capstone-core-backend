@@ -1,4 +1,5 @@
 import io
+import threading
 import numpy as np
 import soundfile as sf
 from kokoro import KPipeline
@@ -27,9 +28,15 @@ class KokoroModel(TTSModel):
     def __init__(self) -> None:
         # Pipeline is initialised lazily so the import doesn't block startup
         self._pipeline: KPipeline | None = None
+        # Serialise all pipeline access: KPipeline is not thread-safe and
+        # concurrent inference causes crashes / resource exhaustion.
+        self._lock = threading.Lock()
 
     def _get_pipeline(self, lang_code: str) -> KPipeline:
-        """Return (and lazily initialise) the Kokoro pipeline."""
+        """Return (and lazily initialise) the Kokoro pipeline.
+
+        Must be called while holding ``self._lock``.
+        """
         if self._pipeline is None or self._pipeline.lang_code != lang_code:
             self._pipeline = KPipeline(lang_code=lang_code)
         return self._pipeline
@@ -40,20 +47,21 @@ class KokoroModel(TTSModel):
 
     def generate(self, request: TTSRequest) -> bytes:
         """Synthesise *request.text* and return a WAV file as bytes."""
-        pipeline = self._get_pipeline(request.language)
+        with self._lock:
+            pipeline = self._get_pipeline(request.language)
 
-        voice = request.voice if request.voice != "default" else "af_heart"
+            voice = request.voice if request.voice != "default" else "af_heart"
 
-        generator = pipeline(
-            request.text,
-            voice=voice,
-            speed=request.speed,
-            split_pattern=r"\n+",
-        )
+            generator = pipeline(
+                request.text,
+                voice=voice,
+                speed=request.speed,
+                split_pattern=r"\n+",
+            )
 
-        all_audio: list[np.ndarray] = []
-        for _graphemes, _phonemes, audio_chunk in generator:
-            all_audio.append(audio_chunk)
+            all_audio: list[np.ndarray] = []
+            for _graphemes, _phonemes, audio_chunk in generator:
+                all_audio.append(audio_chunk)
 
         if not all_audio:
             raise RuntimeError("Kokoro returned no audio chunks.")
