@@ -28,17 +28,8 @@ services:
     ports:
       - "8080:8080"
     restart: unless-stopped
-    environment:
-      - GENIE_API_KEY=${GENIE_API_KEY}
-      - GENIE_APP_ID=${GENIE_APP_ID}
-      - GENIE_MODEL=${GENIE_MODEL}
-      - GOOGLE_GENAI_API_KEY=${GOOGLE_GENAI_API_KEY}
-      - GOOGLE_GENAI_MODEL=${GOOGLE_GENAI_MODEL}
-      - AWS_S3_BUCKET=${AWS_S3_BUCKET}
-      - AWS_S3_REGION=${AWS_S3_REGION}
-      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
-      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
-
+    env_file:
+      - .env
   voice-generator:
     build:
       context: voice-generator
@@ -46,8 +37,8 @@ services:
     ports:
       - "8000:8000"
     restart: unless-stopped
-    environment:
-      - HF_TOKEN=${HF_TOKEN}
+    env_file:
+      - .env
 
 volumes:
   n8n_data_vol:

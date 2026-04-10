@@ -21,8 +21,9 @@ type Config struct {
 }
 
 func LoadEnv() Config {
-	if err := godotenv.Load(); err != nil {
-		log.Println(".env not loaded, using system env")
+	// Only load .env when env vars aren't already set (e.g. local dev, not Docker)
+	if os.Getenv("GENIE_API_KEY") == "" {
+		godotenv.Load()
 	}
 
 	validateEnv()
@@ -31,6 +32,16 @@ func LoadEnv() Config {
 	if port == "" {
 		port = "8080"
 	}
+
+	log.Printf("config: port=%s genie_app_id=%s genie_model=%s google_genai_model=%s s3_bucket=%s s3_region=%s aws_access_key_id=%s",
+		port,
+		os.Getenv("GENIE_APP_ID"),
+		os.Getenv("GENIE_MODEL"),
+		os.Getenv("GOOGLE_GENAI_MODEL"),
+		os.Getenv("AWS_S3_BUCKET"),
+		os.Getenv("AWS_S3_REGION"),
+		os.Getenv("AWS_ACCESS_KEY_ID"),
+	)
 
 	config := Config{
 		GenieApiKey:        os.Getenv("GENIE_API_KEY"),
