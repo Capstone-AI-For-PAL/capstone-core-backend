@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-04-01T11:31:38.849Z",
+  "updatedAt": "2026-04-10T08:21:54.844Z",
   "createdAt": "2026-03-27T05:37:16.515Z",
   "id": "sAPiyaUwrKpI2u3cnkK0X",
   "name": "Notification API Workflow",
@@ -23,7 +23,7 @@
       "name": "Find documents",
       "credentials": {
         "mongoDb": {
-          "id": "pWePL90dwTVGzXVd",
+          "id": "YDwRGSFnFZwMGZ3A",
           "name": "MongoDB account"
         }
       }
@@ -48,13 +48,13 @@
     {
       "parameters": {
         "mode": "raw",
-        "jsonOutput": "={{\n{\n  \"notificationId\": $('notification uuid').item.json.uuid,\n  \"mentorId\": $json.mentorId,\n  \"courseId\": $('notification uuid').item.json.body.courseId,\n  \"userId\": $json.userId,\n  \"status\": \"UNREAD\",\n  \"courseCreatedAt\": $json.courseCreatedAt ?? Date()\n}\n}}",
+        "jsonOutput": "={{\n{\n  \"notificationId\": $('notification uuid').item.json.uuid,\n  \"courseName\": $('Find documents1').item.json.courseName,\n  \"mentorId\": $('Find documents1').item.json.mentorId,\n  \"username\": $json.fields.email.stringValue,\n  \"status\": \"UNREAD\",\n  \"courseCreatedAt\": $json.courseCreatedAt ?? Date()\n}\n}}",
         "options": {}
       },
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        880,
+        1104,
         224
       ],
       "id": "c958e693-0bf0-4a04-a88c-abc3e10b9b07",
@@ -64,13 +64,13 @@
       "parameters": {
         "operation": "insert",
         "collection": "notifications",
-        "fields": "notificationId, mentorId, courseId, userId,  status, courseCreatedAt",
+        "fields": "notificationId, mentorId, courseName, username,  status, courseCreatedAt",
         "options": {}
       },
       "type": "n8n-nodes-base.mongoDb",
       "typeVersion": 1.2,
       "position": [
-        1104,
+        1328,
         224
       ],
       "id": "6c4a4706-7cd8-44b9-b1bc-19696ca7a2cc",
@@ -78,7 +78,7 @@
       "alwaysOutputData": false,
       "credentials": {
         "mongoDb": {
-          "id": "pWePL90dwTVGzXVd",
+          "id": "YDwRGSFnFZwMGZ3A",
           "name": "MongoDB account"
         }
       }
@@ -143,7 +143,7 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5,
       "position": [
-        1328,
+        1552,
         224
       ],
       "id": "914b4139-ef39-451c-b636-85357bc313fd",
@@ -184,7 +184,7 @@
       "parameters": {
         "collection": "courses",
         "options": {
-          "projection": "{\n  \"mentorId\": true,\n  \"userId\": true,\n  \"createdAt\": true\n}"
+          "projection": "{\n  \"courseName\": true,\n  \"mentorId\": true,\n  \"userId\": true,\n  \"createdAt\": true\n}"
         },
         "query": "={\n  \"courseId\": \"{{ $json.body.courseId }}\"\n}"
       },
@@ -198,7 +198,7 @@
       "name": "Find documents1",
       "credentials": {
         "mongoDb": {
-          "id": "pWePL90dwTVGzXVd",
+          "id": "YDwRGSFnFZwMGZ3A",
           "name": "MongoDB account"
         }
       }
@@ -222,7 +222,7 @@
       "alwaysOutputData": false,
       "credentials": {
         "mongoDb": {
-          "id": "pWePL90dwTVGzXVd",
+          "id": "YDwRGSFnFZwMGZ3A",
           "name": "MongoDB account"
         }
       }
@@ -309,7 +309,7 @@
       "name": "Find documents2",
       "credentials": {
         "mongoDb": {
-          "id": "pWePL90dwTVGzXVd",
+          "id": "YDwRGSFnFZwMGZ3A",
           "name": "MongoDB account"
         }
       }
@@ -339,14 +339,14 @@
       "typeVersion": 1.2,
       "position": [
         880,
-        1136
+        1128
       ],
       "id": "c8056469-5aca-4201-8d74-5d2fb89a35f5",
       "name": "Find and update documents1",
       "alwaysOutputData": true,
       "credentials": {
         "mongoDb": {
-          "id": "pWePL90dwTVGzXVd",
+          "id": "YDwRGSFnFZwMGZ3A",
           "name": "MongoDB account"
         }
       }
@@ -364,6 +364,20 @@
       ],
       "id": "6039a388-2f75-4f9f-8c74-5e0d7bcf7070",
       "name": "Respond to Webhook1"
+    },
+    {
+      "parameters": {
+        "url": "=https://firestore.googleapis.com/v1/projects/ai-for-pal/databases/(default)/documents/users/{{ $json.userId }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        880,
+        224
+      ],
+      "id": "a5071e0f-6527-4efb-a418-00c48a0bec51",
+      "name": "Get username"
     }
   ],
   "connections": {
@@ -444,7 +458,7 @@
       "main": [
         [
           {
-            "node": "Edit Fields1",
+            "node": "Get username",
             "type": "main",
             "index": 0
           }
@@ -534,6 +548,17 @@
           }
         ]
       ]
+    },
+    "Get username": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "settings": {
@@ -547,32 +572,32 @@
     "instanceId": "223bb2c504970140670b1688bb32145e3b1167df6033e11336f4b76346217546"
   },
   "pinData": {},
-  "versionId": "6f445730-affd-4bec-a5e0-3e3d530ff8a0",
+  "versionId": "03e937a7-d516-492f-98c8-03e509e123a3",
   "activeVersionId": null,
-  "versionCounter": 30,
+  "versionCounter": 80,
   "triggerCount": 4,
   "tags": [],
   "shared": [
     {
-      "updatedAt": "2026-03-25T02:08:35.830Z",
-      "createdAt": "2026-03-25T02:08:35.830Z",
+      "updatedAt": "2026-04-10T07:39:05.654Z",
+      "createdAt": "2026-04-10T07:39:05.654Z",
       "role": "workflow:owner",
       "workflowId": "sAPiyaUwrKpI2u3cnkK0X",
-      "projectId": "g5rrwpexO24xgiUV",
+      "projectId": "mXsQ2HR5U4CxMIv5",
       "project": {
-        "updatedAt": "2026-02-11T07:28:25.562Z",
-        "createdAt": "2026-02-11T07:02:34.781Z",
-        "id": "g5rrwpexO24xgiUV",
+        "updatedAt": "2026-04-10T07:38:26.660Z",
+        "createdAt": "2026-04-10T07:28:29.967Z",
+        "id": "mXsQ2HR5U4CxMIv5",
         "name": "Kamanun Maneesri <kamanun.m@gmail.com>",
         "type": "personal",
         "icon": null,
         "description": null,
-        "creatorId": "3e71b027-1d63-42d8-8cdf-041a9571e245"
+        "creatorId": "a8d6adee-94a5-4a7d-a6ee-604271dbea33"
       }
     }
   ],
   "versionMetadata": {
-    "name": "Version 9cb041d6",
-    "description": ""
+    "name": null,
+    "description": null
   }
 }
