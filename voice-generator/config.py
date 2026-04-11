@@ -37,10 +37,10 @@ LOCAL_OUTPUT_DIR: str = os.getenv("LOCAL_OUTPUT_DIR", "/tmp/voice-output")
 # --------------------------------------------------------------------------
 # AWS / S3 storage
 # --------------------------------------------------------------------------
-S3_BUCKET: str = os.getenv("S3_BUCKET", "")
-S3_PREFIX: str = os.getenv("S3_PREFIX", "voice-output/")
-S3_REGION: str = os.getenv("S3_REGION", "us-east-1")
-S3_PRESIGN_TTL: int = int(os.getenv("S3_PRESIGN_TTL", "3600"))
+S3_BUCKET: str = os.getenv("AWS_S3_BUCKET", "")
+S3_PREFIX: str = os.getenv("AWS_S3_PREFIX", "voice-output/")
+S3_REGION: str = os.getenv("AWS_S3_REGION", "us-east-1")
+S3_PRESIGN_TTL: int = int(os.getenv("AWS_S3_PRESIGN_TTL", "3600"))
 
 # Credentials — leave blank to use IAM role / instance profile
 AWS_ACCESS_KEY_ID: str = os.getenv("AWS_ACCESS_KEY_ID", "")
