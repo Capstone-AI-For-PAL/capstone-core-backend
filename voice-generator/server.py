@@ -78,7 +78,12 @@ def _build_tts_request(req: GenerateRequest) -> TTSRequest:
 
 
 def _synthesise(req: GenerateRequest) -> bytes:
-    """Run TTS synthesis and return raw WAV bytes."""
+    """Run TTS synthesis and return raw WAV bytes.
+
+    Concurrency / rate-limit controls are managed inside each model
+    implementation (e.g. semaphore in KokoroModel, sliding-window in
+    GeminiModel), so this helper simply delegates.
+    """
     try:
         model = get_model(req.model)
     except ValueError as exc:

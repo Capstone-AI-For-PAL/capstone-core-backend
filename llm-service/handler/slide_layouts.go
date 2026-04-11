@@ -31,6 +31,7 @@ func marpFrontmatter() string {
 	return `---
 marp: true
 theme: default
+math: mathjax
 paginate: true
 backgroundColor: #f8f9fa
 size: 16:9

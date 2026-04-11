@@ -16,7 +16,7 @@ func main() {
 	genieClient := genie.NewClient(cfg)
 
 	var imgGen imagegen.ImageGenerator
-	if cfg.GoogleGenAIApiKey != "" && cfg.S3Bucket != "" {
+	if cfg.GoogleGenAIApiKey != "" && cfg.S3Bucket != "" && cfg.EnableImageGen {
 		store, err := storage.NewS3Storage(cfg.S3Bucket, cfg.S3Region, cfg.AWSAccessKeyID, cfg.AWSSecretAccessKey)
 		if err != nil {
 			log.Fatalf("Failed to create S3 storage: %v", err)
@@ -30,7 +30,7 @@ func main() {
 		imgGen = genaiClient
 		log.Println("Image generator configured: Google GenAI (Imagen) + S3")
 	} else {
-		log.Println("GOOGLE_GENAI_API_KEY or AWS_S3_BUCKET not set, image generation disabled")
+		log.Println("GOOGLE_GENAI_API_KEY or AWS_S3_BUCKET not set, or image generation flag disabled, image generation disabled")
 	}
 
 	registerRoutes(http.DefaultServeMux, genieClient, imgGen)

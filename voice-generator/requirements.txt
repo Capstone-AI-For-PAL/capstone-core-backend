@@ -5,6 +5,9 @@ uvicorn[standard]>=0.29.0
 # TTS — Kokoro (requires Python >=3.10)
 kokoro>=0.7.0
 
+# TTS — Google Gemini
+google-genai>=1.0.0
+
 # Audio I/O
 soundfile>=0.12.1
 numpy>=1.26.0

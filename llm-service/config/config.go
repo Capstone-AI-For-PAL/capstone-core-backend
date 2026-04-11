@@ -2,6 +2,7 @@ package config
 
 import (
 	"log"
+	"log/slog"
 	"os"
 
 	"github.com/joho/godotenv"
@@ -18,12 +19,12 @@ type Config struct {
 	AWSAccessKeyID     string
 	AWSSecretAccessKey string
 	Port               string
+	EnableImageGen     bool
 }
 
 func LoadEnv() Config {
-	// Only load .env when env vars aren't already set (e.g. local dev, not Docker)
-	if os.Getenv("GENIE_API_KEY") == "" {
-		godotenv.Load()
+	if err := godotenv.Load(); err != nil {
+		log.Printf("config: unable to load .env file: %v; continuing with existing environment", err)
 	}
 
 	validateEnv()
@@ -32,16 +33,6 @@ func LoadEnv() Config {
 	if port == "" {
 		port = "8080"
 	}
-
-	log.Printf("config: port=%s genie_app_id=%s genie_model=%s google_genai_model=%s s3_bucket=%s s3_region=%s aws_access_key_id=%s",
-		port,
-		os.Getenv("GENIE_APP_ID"),
-		os.Getenv("GENIE_MODEL"),
-		os.Getenv("GOOGLE_GENAI_MODEL"),
-		os.Getenv("AWS_S3_BUCKET"),
-		os.Getenv("AWS_S3_REGION"),
-		os.Getenv("AWS_ACCESS_KEY_ID"),
-	)
 
 	config := Config{
 		GenieApiKey:        os.Getenv("GENIE_API_KEY"),
@@ -54,8 +45,32 @@ func LoadEnv() Config {
 		AWSAccessKeyID:     os.Getenv("AWS_ACCESS_KEY_ID"),
 		AWSSecretAccessKey: os.Getenv("AWS_SECRET_ACCESS_KEY"),
 		Port:               port,
+		EnableImageGen:     os.Getenv("ENABLE_IMAGE_GEN") == "true",
 	}
+
+	log.Printf("config: port=%s genie_app_id=%s genie_model=%s google_genai_api_key=%s google_genai_model=%s enable_image_gen=%t s3_bucket=%s s3_region=%s aws_access_key_id=%s",
+		port,
+		redactConfig(config.GenieAppId),
+		config.GenieModel,
+		redactConfig(config.GoogleGenAIApiKey),
+		config.GoogleGenAIModel,
+		config.EnableImageGen,
+		config.S3Bucket,
+		config.S3Region,
+		redactConfig(config.AWSAccessKeyID),
+	)
 	return config
+}
+
+func redactConfig(text string) slog.Value {
+	if text == "" {
+		return slog.StringValue("")
+	}
+	if len(text) > 2 {
+		redacted := text[:1] + "..." + text[len(text)-1:]
+		return slog.StringValue(redacted)
+	}
+	return slog.StringValue("REDACTED")
 }
 
 func validateEnv() {
