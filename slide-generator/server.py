@@ -104,14 +104,12 @@ def generate_slides_v2():
         if not data:
             return {"error": "Invalid JSON body"}, 400
 
-        lesson_title = data.get("lessonTitle", "")
         sections = data.get("sections")
         if not sections or not isinstance(sections, list):
             return {"error": "'sections' must be a non-empty array"}, 400
 
         logger.info(
-            "POST /v2/generate – lessonTitle=%r, sections=%d, total_slides=%d",
-            lesson_title,
+            "POST /v2/generate – sections=%d, total_slides=%d",
             len(sections),
             sum(len(s.get("slides", [])) for s in sections),
         )
@@ -119,7 +117,7 @@ def generate_slides_v2():
         run_id = str(uuid.uuid4())
         output_filename = f"slides_{run_id}.pptx"
 
-        generate_pptx(TEMPLATE_PATH, lesson_title, sections, output_filename)
+        generate_pptx(TEMPLATE_PATH, sections, output_filename)
 
         return send_file(
             output_filename,

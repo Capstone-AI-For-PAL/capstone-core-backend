@@ -25,19 +25,13 @@ LAYOUT_TO_TEMPLATE = {
 }
 
 
-def generate_pptx(template_path, lesson_title, sections, output_path):
+def generate_pptx(template_path, sections, output_path):
     """Generate a PPTX by cloning template slides and injecting content."""
     prs = Presentation(template_path)
     num_template_slides = len(prs.slides)
 
-    # 1. Title slide
-    title_slide = _clone_slide(prs, TITLE_IDX)
-    _fill_title_slide(title_slide, lesson_title)
-
     # 2. Content slides
     for section in sections:
-        title_slide = _clone_slide(prs, TITLE_IDX)
-        _fill_title_slide(title_slide, section.get("title", ""))
         for slide_data in section.get("slides", []):
             layout = slide_data.get("layout", "text_only")
             tmpl_idx = LAYOUT_TO_TEMPLATE.get(layout, TEXT_ONLY_IDX)
@@ -126,7 +120,7 @@ def _fill_content_slide(slide, data, layout):
     _set_placeholder_title(slide, title)
     _set_key_points(slide, key_points)
 
-    if layout in ("hero_image", "two_column", "three_column"):
+    if layout in ("hero_image", "two_column", "three_column") and images:
         _replace_images(slide, images)
         _update_captions(slide, images)
 
