@@ -6,6 +6,8 @@ import traceback
 import logging
 import sys
 
+from pptx_generator import generate_pptx
+
 app = Flask(__name__)
 
 logging.basicConfig(
@@ -89,6 +91,51 @@ def generate_slides():
     finally:
         if input_filename and os.path.exists(input_filename):
             os.remove(input_filename)
+
+
+TEMPLATE_PATH = os.path.join(os.path.dirname(__file__), "template", "template.pptx")
+
+
+@app.route("/v2/generate", methods=["POST"])
+def generate_slides_v2():
+    output_filename = None
+    try:
+        data = request.json
+        if not data:
+            return {"error": "Invalid JSON body"}, 400
+
+        lesson_title = data.get("lessonTitle", "")
+        sections = data.get("sections")
+        if not sections or not isinstance(sections, list):
+            return {"error": "'sections' must be a non-empty array"}, 400
+
+        logger.info(
+            "POST /v2/generate – lessonTitle=%r, sections=%d, total_slides=%d",
+            lesson_title,
+            len(sections),
+            sum(len(s.get("slides", [])) for s in sections),
+        )
+
+        run_id = str(uuid.uuid4())
+        output_filename = f"slides_{run_id}.pptx"
+
+        generate_pptx(TEMPLATE_PATH, lesson_title, sections, output_filename)
+
+        return send_file(
+            output_filename,
+            mimetype="application/vnd.openxmlformats-officedocument.presentationml.presentation",
+            as_attachment=True,
+            download_name="presentation.pptx",
+        )
+
+    except Exception as e:
+        error_trace = traceback.format_exc()
+        logger.exception("Server Error: %s", error_trace)
+        return {"error": "Internal Server Error", "details": str(e), "trace": error_trace}, 500
+
+    finally:
+        if output_filename and os.path.exists(output_filename):
+            os.remove(output_filename)
 
 
 if __name__ == '__main__':

@@ -22,7 +22,7 @@ ENV PYTHONUNBUFFERED=1
 COPY requirement.txt /tmp/requirement.txt
 RUN pip install --no-cache-dir -r /tmp/requirement.txt && rm /tmp/requirement.txt
 
-COPY server.py /home/marp/app/server.py
+COPY . /home/marp/app/
 RUN chown -R marp:marp /home/marp/app
 
 USER marp
