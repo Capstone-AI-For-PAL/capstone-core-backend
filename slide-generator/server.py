@@ -5,6 +5,7 @@ import uuid
 import traceback
 import logging
 import sys
+import io
 
 from helper import validateSectionInput
 from pptx_generator import generate_pptx
@@ -128,8 +129,12 @@ def generate_slides_v2():
 
         generate_pptx(TEMPLATE_PATH, sections, output_filename)
 
+        with open(output_filename, "rb") as f:
+            buf = io.BytesIO(f.read())
+        buf.seek(0)
+
         return send_file(
-            output_filename,
+            buf,
             mimetype="application/vnd.openxmlformats-officedocument.presentationml.presentation",
             as_attachment=True,
             download_name="presentation.pptx",
@@ -138,7 +143,7 @@ def generate_slides_v2():
     except Exception as e:
         error_trace = traceback.format_exc()
         logger.exception("Server Error: %s", error_trace)
-        return {"error": "Internal Server Error", "details": str(e), "trace": error_trace}, 500
+        return {"error": "Internal Server Error"}, 500
 
     finally:
         if output_filename and os.path.exists(output_filename):
