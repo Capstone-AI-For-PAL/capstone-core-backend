@@ -1,10 +1,10 @@
 {
-  "updatedAt": "2026-04-01T15:52:15.884Z",
+  "updatedAt": "2026-04-12T19:07:08.680Z",
   "createdAt": "2026-03-27T05:37:16.504Z",
   "id": "IBnl6kerSHz4ubQ0",
   "name": "Course API Workflow",
   "description": null,
-  "active": false,
+  "active": true,
   "isArchived": false,
   "nodes": [
     {
@@ -523,7 +523,7 @@
     {
       "parameters": {
         "mode": "raw",
-        "jsonOutput": "={{\n{\n  \"courseId\": $json.uuid,\n  \"status\": $json.body.status ?? \"DRAFT\",\n  \"goal\": $json.body.goal ?? \"\",\n  \"mentorId\": $json.body.mentorId ?? \"\",\n  \"notes_from_mentor\": $json.body.notes_from_mentor ?? \"\",\n  \"outline\": $json.body.outline ?? {},\n  \"lessonIds\": $json.body.lessonIds ?? [],\n  \"courseName\": $json.body.courseName ?? \"New Course\",\n  \"userId\": $json.body.userId,\n  \"totalLessonsCompleted\": 0,\n  \"totalLessons\": 0,\n  \"avgScore\": 0,\n  \"scores\": [],\n  \"createdAt\": Date()\n}\n}}",
+        "jsonOutput": "={{\n{\n  \"courseId\": $json.uuid,\n  \"status\": $json.body.status ?? \"DRAFT\",\n  \"goal\": $json.body.goal ?? \"\",\n  \"mentorId\": $json.body.mentorId ?? \"\",\n  \"audioLanguage\": $json.body.audioLanguage ?? \"ENGLISH\",\n  \"notes_from_mentor\": $json.body.notes_from_mentor ?? \"\",\n  \"outline\": $json.body.outline ?? {},\n  \"lessonIds\": $json.body.lessonIds ?? [],\n  \"courseName\": $json.body.courseName ?? \"New Course\",\n  \"userId\": $json.body.userId,\n  \"totalLessonsCompleted\": 0,\n  \"totalLessons\": 0,\n  \"avgScore\": 0,\n  \"scores\": [],\n  \"createdAt\": Date(),\n  \"updatedAt\": Date()\n}\n}}",
         "options": {}
       },
       "type": "n8n-nodes-base.set",
@@ -539,7 +539,7 @@
       "parameters": {
         "operation": "insert",
         "collection": "courses",
-        "fields": "courseId, status, goal, mentorId, notes_from_mentor, outline, lessonIds, userId, courseName, totalLessonsCompleted, totalLessons, avgScore, scores, createdAt",
+        "fields": "courseId, status, goal, mentorId, notes_from_mentor, outline, lessonIds, userId, courseName, totalLessonsCompleted, totalLessons, avgScore, scores, createdAt, updatedAt, audioLanguage",
         "options": {}
       },
       "type": "n8n-nodes-base.mongoDb",
@@ -673,7 +673,7 @@
       "parameters": {
         "operation": "insert",
         "collection": "lessons",
-        "fields": "lessonId, status, slide_URL, audio_URLs, maxScore, courseId, createdAt",
+        "fields": "lessonId, status, slide_URL, audio_URLs, maxScore, courseId, createdAt, updatedAt",
         "options": {}
       },
       "type": "n8n-nodes-base.mongoDb",
@@ -746,7 +746,7 @@
     {
       "parameters": {
         "mode": "raw",
-        "jsonOutput": "={{\n{\n  \"nextLessonNum\": $json.lessonIds.length,\n  \"lessonIds\": $json.lessonIds.append($json.lessonId),\n  \"totalLessons\": $json.totalLessons + 1,\n  \"scores\": $json.scores.append(0),\n  \"courseId\": $json.courseId,\n  \"maxScore\": -1,\n  \"createdAt\": Date()\n}\n}}",
+        "jsonOutput": "={{\n{\n  \"nextLessonNum\": $json.lessonIds.length,\n  \"lessonIds\": $json.lessonIds.append($json.lessonId),\n  \"scores\": $json.scores.append(0),\n  \"courseId\": $json.courseId,\n  \"maxScore\": -1,\n  \"createdAt\": Date(),\n  \"updatedAt\": Date()\n}\n}}",
         "includeOtherFields": true,
         "options": {}
       },
@@ -764,7 +764,7 @@
         "operation": "findOneAndUpdate",
         "collection": "courses",
         "updateKey": "courseId",
-        "fields": "=lessonIds, totalLessons, scores",
+        "fields": "=lessonIds, scores, updatedAt",
         "options": {}
       },
       "type": "n8n-nodes-base.mongoDb",
@@ -813,7 +813,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "http://localhost:5678/webhook/v2/async-generate-slides",
+        "url": "http://localhost:5678/webhook/async-generate-slide",
         "sendBody": true,
         "specifyBody": "=json",
         "bodyParameters": {
@@ -874,7 +874,7 @@
     {
       "parameters": {
         "mode": "raw",
-        "jsonOutput": "={\n  \"courseId\": \"{{ $json.courseId }}\",\n  \"outline\": {{ $json.outline }},\n  \"status\": \"IN_PROGRESS\"\n}",
+        "jsonOutput": "={\n  \"courseId\": \"{{ $json.courseId }}\",\n  \"outline\": {{ $json.outline }},\n  \"totalLessons\": {{ $json.outline.total_lessons }}\n  \"status\": \"IN_PROGRESS\"\n}",
         "options": {}
       },
       "type": "n8n-nodes-base.set",
@@ -891,7 +891,7 @@
         "operation": "findOneAndUpdate",
         "collection": "courses",
         "updateKey": "courseId",
-        "fields": "outline, status",
+        "fields": "outline, status, totalLessons",
         "options": {}
       },
       "type": "n8n-nodes-base.mongoDb",
@@ -1144,7 +1144,7 @@
     {
       "parameters": {
         "mode": "raw",
-        "jsonOutput": "={{\n  {\n    \"lessonId\": $json.lessonId,\n    \"courseId\": $json.courseId,\n    \"maxScore\": max($json.maxScore ?? 0, $('Update answer and score').item.json.score),\n\"isFirstAttempt\": ($json.maxScore == -1)\n  }\n}}\n",
+        "jsonOutput": "={{\n  {\n    \"lessonId\": $json.lessonId,\n    \"courseId\": $json.courseId,\n    \"maxScore\": max($json.maxScore ?? 0, $('Update answer and score').item.json.score),\n\"isFirstAttempt\": ($json.maxScore == -1),\n    \"updatedAt\": Date()\n  }\n}}\n",
         "options": {}
       },
       "type": "n8n-nodes-base.set",
@@ -1184,7 +1184,7 @@
         "operation": "update",
         "collection": "lessons",
         "updateKey": "lessonId",
-        "fields": "maxScore",
+        "fields": "maxScore, updatedAt",
         "options": {}
       },
       "type": "n8n-nodes-base.mongoDb",
@@ -1208,7 +1208,7 @@
         "options": {
           "projection": "{\n  \"courseId\": true,\n  \"lessonIds\": true,\n  \"totalLessonsCompleted\": true,\n  \"avgScore\": true,\n  \"scores\": true\n}"
         },
-        "query": "={\n  \"courseId\": \"{{ $json.courseId }}\"\n}"
+        "query": "={\n  \"courseId\": \"{{ $('Calculate new max score').item.json.courseId }}\"\n}"
       },
       "type": "n8n-nodes-base.mongoDb",
       "typeVersion": 1.2,
@@ -1228,7 +1228,7 @@
     {
       "parameters": {
         "mode": "raw",
-        "jsonOutput": "={{\n{\n  \"courseId\": $('Find documents4').item.json.courseId,\n  \"totalLessonsCompleted\": $('Find documents4').item.json.totalLessonsCompleted + $('Calculate new max score').item.json.isFirstAttempt,\n  \"scores\": $('Find documents4').item.json.scores.map((score, i) => {\n    if (i == $json.index) {\n      return $('Calculate new max score').item.json.maxScore;\n    }\nreturn score;\n  }),\n  \"avgScore\": ($('Find documents4').item.json.avgScore * $('Find documents4').item.json.totalLessonsCompleted - $('Find documents4').item.json.scores[$json.index] + $('Calculate new max score').item.json.maxScore) / ($('Find documents4').item.json.totalLessonsCompleted + $('Calculate new max score').item.json.isFirstAttempt)\n}\n}}\n\n",
+        "jsonOutput": "={{\n{\n  \"courseId\": $('Find documents4').item.json.courseId,\n  \"totalLessonsCompleted\": $('Find documents4').item.json.totalLessonsCompleted + $('Calculate new max score').item.json.isFirstAttempt,\n  \"scores\": $('Find documents4').item.json.scores.map((score, i) => {\n    if (i == $json.index) {\n      return $('Calculate new max score').item.json.maxScore;\n    }\nreturn score;\n  }),\n  \"avgScore\": ($('Find documents4').item.json.avgScore * $('Find documents4').item.json.totalLessonsCompleted - $('Find documents4').item.json.scores[$json.index] + $('Calculate new max score').item.json.maxScore) / ($('Find documents4').item.json.totalLessonsCompleted + $('Calculate new max score').item.json.isFirstAttempt),\n  \"updatedAt\": Date()\n}\n}}\n\n",
         "options": {}
       },
       "type": "n8n-nodes-base.set",
@@ -1260,7 +1260,7 @@
         "operation": "findOneAndUpdate",
         "collection": "courses",
         "updateKey": "courseId",
-        "fields": "totalLessonsCompleted, scores, avgScore",
+        "fields": "totalLessonsCompleted, scores, avgScore, updatedAt",
         "options": {}
       },
       "type": "n8n-nodes-base.mongoDb",
@@ -1384,7 +1384,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const items = $input.all();\nconst studentsMap = {};\nlet totalCourses = 0;\n\nitems.forEach(item => {\n  const data = item.json;\n  \n  // Use \"Unknown Student\" if userId is missing for any reason\n  const userId = data.userId || \"Unknown Student\"; \n  \n  // 1. Initialize the student in our map if they don't exist yet\n  if (!studentsMap[userId]) {\n    studentsMap[userId] = {\n      userId: userId,\n      totalLessonsCompleted: 0,\n      totalLessons: 0,\n      courseAvgScoreSum: 0,\n      courseCountWithScore: 0,\n      courses: []\n    };\n  }\n\n  totalCourses++;\n\n  // 2. Extract course metrics (default to 0 or empty arrays if missing)\n  const courseTotalLessonsCompleted = data.totalLessonsCompleted || 0;\n  const courseTotalLessons = data.totalLessons || 0;\n  const courseAvgScore = data.avgScore || 0;\n  const scores = data.scores || [];\n  \n  // Extract just the lesson titles for the outline as requested\n  const lessonTitles = data.outline && data.outline.lessons \n      ? data.outline.lessons.map(lesson => lesson.title) \n      : [];\n\n  // 3. Accumulate student-level stats\n  studentsMap[userId].totalLessonsCompleted += courseTotalLessonsCompleted;\n  studentsMap[userId].totalLessons += courseTotalLessons;\n  \n  // Only factor into student avgScore if the course actually had a score\n  if (data.avgScore !== undefined) {\n     studentsMap[userId].courseAvgScoreSum += courseAvgScore;\n     studentsMap[userId].courseCountWithScore += 1;\n  }\n\n  // 4. Push the formatted course object to the student\n  studentsMap[userId].courses.push({\n    courseName: data.courseName,\n    avgScore: courseAvgScore,\n    totalLessonsCompleted: courseTotalLessonsCompleted,\n    totalLessons: courseTotalLessons,\n    scores: scores,\n    outline: { titles: lessonTitles }, \n    createdAt: data.createdAt\n  });\n});\n\n// 5. Format the final output structure\nconst studentsArray = Object.values(studentsMap).map(student => {\n  // Calculate overall student average score\n  const avgScore = student.courseCountWithScore > 0 \n    ? (student.courseAvgScoreSum / student.courseCountWithScore) \n    : 0;\n\n  return {\n    userId: student.userId,\n    avgScore: Number(avgScore.toFixed(2)), // Keeps it rounded to 2 decimal places\n    totalLessonsCompleted: student.totalLessonsCompleted,\n    totalLessons: student.totalLessons,\n    courses: student.courses\n  };\n});\n\nconst finalResult = {\n  totalStudents: studentsArray.length,\n  totalCourses: totalCourses,\n  students: studentsArray\n};\n\n// Return the newly structured JSON\nreturn [{ json: finalResult }];"
+        "jsCode": "const items = $input.all();\nconst studentsMap = {};\n\nlet totalCourses = 0;\nlet totalNormalStudents = 0;\nlet totalSlowStudents = 0;\nlet totalAtRiskStudents = 0;\n\nconst NOW = new Date();\nconst EXPECTED_DURATION_DAYS = 120;\n\n// helper: คำนวณจำนวนวัน\nfunction diffDays(date1, date2) {\n  return Math.floor((date1 - date2) / (1000 * 60 * 60 * 24));\n}\n\nitems.forEach(item => {\n  const data = item.json;\n\n  const userId = data.userId || \"Unknown Student\";\n\n  if (!studentsMap[userId]) {\n    studentsMap[userId] = {\n      userId: userId,\n      username: data.username || \"Unknown\",\n      totalLessonsCompleted: 0,\n      totalLessons: 0,\n      courseAvgScoreSum: 0,\n      courseCountWithScore: 0,\n      courses: [],\n      lastActive: null,\n      delaySum: 0,\n      courseCount: 0\n    };\n  }\n\n  totalCourses++;\n\n  const courseTotalLessonsCompleted = data.totalLessonsCompleted || 0;\n  const courseTotalLessons = data.totalLessons || 0;\n  const courseAvgScore = data.avgScore || 0;\n  const scores = data.scores || [];\n\n  // ✅ fallback กัน null\n  const createdAt = data.createdAt\n    ? new Date(data.createdAt)\n    : NOW;\n\n  const updatedAt = data.updatedAt\n    ? new Date(data.updatedAt)\n    : data.lastActive\n      ? new Date(data.lastActive)\n      : data.createdAt\n        ? new Date(data.createdAt)\n        : NOW;\n\n  const lessonTitles = data.outline && data.outline.lessons\n    ? data.outline.lessons.map(l => l.title)\n    : [];\n\n  // =========================\n  // ✅ PER COURSE CALCULATION\n  // =========================\n\n  const progressCourse = courseTotalLessons > 0\n    ? (courseTotalLessonsCompleted / courseTotalLessons) * 100\n    : 0;\n\n  const daysSinceStart = diffDays(NOW, createdAt);\n\n  const expectedProgress = (daysSinceStart / EXPECTED_DURATION_DAYS) * 100;\n\n  const delayCourse = Math.max(0, expectedProgress - progressCourse);\n\n  // =========================\n  // ✅ AGGREGATE TO STUDENT\n  // =========================\n\n  studentsMap[userId].delaySum += delayCourse;\n  studentsMap[userId].courseCount += 1;\n\n  // lastActive = max(updatedAt)\n  if (\n    !studentsMap[userId].lastActive ||\n    updatedAt > studentsMap[userId].lastActive\n  ) {\n    studentsMap[userId].lastActive = updatedAt;\n  }\n\n  studentsMap[userId].totalLessonsCompleted += courseTotalLessonsCompleted;\n  studentsMap[userId].totalLessons += courseTotalLessons;\n\n  if (data.avgScore !== undefined) {\n    studentsMap[userId].courseAvgScoreSum += courseAvgScore;\n    studentsMap[userId].courseCountWithScore += 1;\n  }\n\n  studentsMap[userId].courses.push({\n    courseName: data.courseName,\n    lessonIds: data.lessonIds || [],\n    avgScore: courseAvgScore,\n    totalLessonsCompleted: courseTotalLessonsCompleted,\n    totalLessons: courseTotalLessons,\n    scores: scores,\n    outline: data.outline || {},\n    createdAt: createdAt,\n    updatedAt: updatedAt,\n    progress: Number(progressCourse.toFixed(2)),\n    delay: Number(delayCourse.toFixed(2))\n  });\n});\n\n// =========================\n// ✅ BUILD FINAL RESULT\n// =========================\n\nconst studentsArray = Object.values(studentsMap).map(student => {\n\n  const avgScore = student.courseCountWithScore > 0\n    ? (student.courseAvgScoreSum / student.courseCountWithScore)\n    : 0;\n\n  const progress = student.totalLessons > 0\n    ? (student.totalLessonsCompleted / student.totalLessons) * 100\n    : 0;\n\n  const delay = student.courseCount > 0\n    ? (student.delaySum / student.courseCount)\n    : 0;\n\n  const daysSinceLastActive = student.lastActive\n    ? diffDays(NOW, new Date(student.lastActive))\n    : null;\n\n  // =========================\n  // ✅ STATUS LOGIC\n  // =========================\n\n  let status = \"NORMAL\";\n\n  if (delay > 20 && daysSinceLastActive > 7) {\n    status = \"AT_RISK\";\n    totalAtRiskStudents++;\n  } else if (delay > 10) {\n    status = \"SLOW\";\n    totalSlowStudents++;\n  } else {\n    totalNormalStudents++;\n  }\n\n  return {\n    userId: student.userId,\n    username: student.username,\n    avgScore: Number(avgScore.toFixed(2)),\n    totalLessonsCompleted: student.totalLessonsCompleted,\n    totalLessons: student.totalLessons,\n    progress: Number(progress.toFixed(2)),\n    delay: Number(delay.toFixed(2)),\n    lastActive: student.lastActive,\n    daysSinceLastActive: daysSinceLastActive,\n    status: status,\n    courses: student.courses\n  };\n});\n\nconst finalResult = {\n  totalStudents: studentsArray.length,\n  totalCourses: totalCourses,\n  totalNormalStudents,\n  totalSlowStudents,\n  totalAtRiskStudents,\n  students: studentsArray\n};\n\nreturn [{ json: finalResult }];\n"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -2472,32 +2472,32 @@
     "instanceId": "033f1bc6215f63e899772bfa6952d5de23ea9ab6140b36a3b563a251130298dd"
   },
   "pinData": {},
-  "versionId": "89cd421d-1a1d-44e0-9bae-88e2c46093cf",
-  "activeVersionId": null,
-  "versionCounter": 28,
+  "versionId": "050076d0-5783-4e89-af32-0f1982c25acb",
+  "activeVersionId": "050076d0-5783-4e89-af32-0f1982c25acb",
+  "versionCounter": 97,
   "triggerCount": 13,
   "tags": [],
   "shared": [
     {
-      "updatedAt": "2026-04-02T20:37:22.404Z",
-      "createdAt": "2026-04-02T20:37:22.404Z",
+      "updatedAt": "2026-04-12T13:13:43.621Z",
+      "createdAt": "2026-04-12T13:13:43.621Z",
       "role": "workflow:owner",
       "workflowId": "IBnl6kerSHz4ubQ0",
-      "projectId": "g5rrwpexO24xgiUV",
+      "projectId": "b2W2utkLg4FQRZHI",
       "project": {
-        "updatedAt": "2026-02-11T07:28:25.562Z",
-        "createdAt": "2026-02-11T07:02:34.781Z",
-        "id": "g5rrwpexO24xgiUV",
+        "updatedAt": "2026-04-12T13:13:21.528Z",
+        "createdAt": "2026-04-12T11:31:06.765Z",
+        "id": "b2W2utkLg4FQRZHI",
         "name": "Kamanun Maneesri <kamanun.m@gmail.com>",
         "type": "personal",
         "icon": null,
         "description": null,
-        "creatorId": "3e71b027-1d63-42d8-8cdf-041a9571e245"
+        "creatorId": "bd29d46d-8e27-4167-94ba-122e1bccb6ba"
       }
     }
   ],
   "versionMetadata": {
-    "name": "Version 058db4a3",
+    "name": "Version 050076d0",
     "description": ""
   }
 }
