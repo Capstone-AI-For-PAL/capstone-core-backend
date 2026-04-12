@@ -114,7 +114,6 @@ style: |
     color: #5f6368;
     font-weight: 600;
   }
----
 `
 }
 

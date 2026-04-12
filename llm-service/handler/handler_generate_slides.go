@@ -268,7 +268,7 @@ func MakeGenerateSlidesHandler(client *genie.Client, imgGen imagegen.ImageGenera
 			})
 		}
 
-		markdown := generateMarkdown(sections, req.Lesson)
+		markdown := generateMarkdown(sections)
 		log.Printf("Generated markdown (%d bytes), %d transcripts", len(markdown), len(transcripts))
 
 		w.Header().Set("Content-Type", "application/json")
@@ -280,14 +280,11 @@ func MakeGenerateSlidesHandler(client *genie.Client, imgGen imagegen.ImageGenera
 	}
 }
 
-func generateMarkdown(sections []SectionOutput, lesson LessonInput) string {
+func generateMarkdown(sections []SectionOutput) string {
 	var sb strings.Builder
 	sb.WriteString(marpFrontmatter())
-	sb.WriteString(fmt.Sprintf("\n# Lesson: %s\n", lesson.Title))
 
 	for _, section := range sections {
-		sb.WriteString("\n\n---\n")
-		sb.WriteString(fmt.Sprintf("# %s\n", section.Title))
 		for _, slide := range section.Slides {
 			sb.WriteString("\n---\n")
 			sb.WriteString(renderSlide(slide))
