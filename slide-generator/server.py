@@ -6,6 +6,7 @@ import traceback
 import logging
 import sys
 
+from helper import validateSectionInput
 from pptx_generator import generate_pptx
 
 app = Flask(__name__)
@@ -99,14 +100,22 @@ TEMPLATE_PATH = os.path.join(os.path.dirname(__file__), "template", "template.pp
 @app.route("/v2/generate", methods=["POST"])
 def generate_slides_v2():
     output_filename = None
+
     try:
-        data = request.json
+        data = request.get_json()
         if not data:
             return {"error": "Invalid JSON body"}, 400
 
+    except Exception as e:
+        logger.error("Invalid JSON: %s", str(e))
+        return {"error": "Invalid JSON body", "details": str(e)}, 400
+
+    try:
         sections = data.get("sections")
         if not sections or not isinstance(sections, list):
             return {"error": "'sections' must be a non-empty array"}, 400
+
+        validateSectionInput(sections) 
 
         logger.info(
             "POST /v2/generate – sections=%d, total_slides=%d",

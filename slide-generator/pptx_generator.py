@@ -171,9 +171,15 @@ def _replace_images(slide, images):
         left, top = pic_shape.left, pic_shape.top
         width, height = pic_shape.width, pic_shape.height
 
+        url = img_data.get("url")
         pic_shape._element.getparent().remove(pic_shape._element)
 
-        img_stream = _download_and_crop(img_data["url"], width, height)
+        if not url:
+            logger.warning("Skipping image replacement because 'url' is missing: %r", img_data)
+            continue
+        
+        img_stream = _download_and_crop(url, width, height)
+
         if img_stream:
             slide.shapes.add_picture(img_stream, left, top, width, height)
 
