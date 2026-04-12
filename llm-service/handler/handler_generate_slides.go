@@ -35,6 +35,8 @@ func systemSlidesPrompt() string {
 		"- images[].caption: Provide a descriptive caption for the image so that students do not spend effort interpreting it.\n" +
 		"- transcript: Write as if lecturing to students. Explain concepts, give examples, provide context. " +
 		"Should be 3-5 sentences and must NOT simply restate the key_points.\n\n" +
+		"- thai_transcript: Write as if lecturing to students in Thai. Explain concepts, give examples, provide context. " +
+		"Should be 3-5 sentences and must NOT simply restate the key_points.\n\n" +
 		"Do not output markdown or code fences. Output raw JSON only."
 }
 
@@ -138,6 +140,7 @@ func MakeGenerateSlidesHandler(client *genie.Client, imgGen imagegen.ImageGenera
 				continue
 			}
 
+			println("Raw model output:", res)
 			enrichedSlides, err := decodeEnrichedSlides(res)
 			if err != nil {
 				log.Printf("Invalid enriched slide JSON (section %d): %v", sectionIdx+1, err)
@@ -210,7 +213,7 @@ func MakeGenerateSlidesHandler(client *genie.Client, imgGen imagegen.ImageGenera
 		transcripts = append(transcripts, TranscriptEntry{
 			SlideIndex: slideCounter,
 			SlideTitle: req.Lesson.Title,
-			Text:       fmt.Sprintf("Welcome to today's lesson on %s.", req.Lesson.Title),
+			Transcript: fmt.Sprintf("Welcome to today's lesson on %s.", req.Lesson.Title),
 		})
 		slideCounter++
 
@@ -220,7 +223,7 @@ func MakeGenerateSlidesHandler(client *genie.Client, imgGen imagegen.ImageGenera
 			transcripts = append(transcripts, TranscriptEntry{
 				SlideIndex: slideCounter,
 				SlideTitle: sr.title,
-				Text:       fmt.Sprintf("In this section, we will cover %s.", sr.title),
+				Transcript: fmt.Sprintf("In this section, we will cover %s.", sr.title),
 			})
 			slideCounter++
 
@@ -241,18 +244,20 @@ func MakeGenerateSlidesHandler(client *genie.Client, imgGen imagegen.ImageGenera
 				}
 
 				rendered := RenderedSlide{
-					Title:      slide.Title,
-					Layout:     slide.Layout,
-					KeyPoints:  slide.KeyPoints,
-					Images:     renderedImages,
-					Transcript: slide.Transcript,
+					Title:          slide.Title,
+					Layout:         slide.Layout,
+					KeyPoints:      slide.KeyPoints,
+					Images:         renderedImages,
+					Transcript:     slide.Transcript,
+					ThaiTranscript: slide.ThaiTranscript,
 				}
 				renderedSlides = append(renderedSlides, rendered)
 
 				transcripts = append(transcripts, TranscriptEntry{
-					SlideIndex: slideCounter,
-					SlideTitle: slide.Title,
-					Text:       slide.Transcript,
+					SlideIndex:     slideCounter,
+					SlideTitle:     slide.Title,
+					Transcript:     slide.Transcript,
+					ThaiTranscript: slide.ThaiTranscript,
 				})
 				slideCounter++
 			}

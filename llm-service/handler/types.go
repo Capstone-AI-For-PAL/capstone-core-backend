@@ -39,11 +39,12 @@ const (
 )
 
 type EnrichedSlide struct {
-	Title      string        `json:"title"`
-	Layout     LayoutType    `json:"layout"`
-	KeyPoints  []string      `json:"key_points"`
-	Images     []ImagePrompt `json:"images"`
-	Transcript string        `json:"transcript"`
+	Title          string        `json:"title"`
+	Layout         LayoutType    `json:"layout"`
+	KeyPoints      []string      `json:"key_points"`
+	Images         []ImagePrompt `json:"images"`
+	Transcript     string        `json:"transcript"`
+	ThaiTranscript string        `json:"thai_transcript"`
 }
 
 type ImagePrompt struct {
@@ -52,11 +53,12 @@ type ImagePrompt struct {
 }
 
 type RenderedSlide struct {
-	Title      string          `json:"title"`
-	Layout     LayoutType      `json:"layout"`
-	KeyPoints  []string        `json:"key_points"`
-	Images     []RenderedImage `json:"images"`
-	Transcript string          `json:"transcript"`
+	Title          string          `json:"title"`
+	Layout         LayoutType      `json:"layout"`
+	KeyPoints      []string        `json:"key_points"`
+	Images         []RenderedImage `json:"images"`
+	Transcript     string          `json:"transcript"`
+	ThaiTranscript string          `json:"thai_transcript"`
 }
 
 type RenderedImage struct {
@@ -67,9 +69,10 @@ type RenderedImage struct {
 }
 
 type TranscriptEntry struct {
-	SlideIndex int    `json:"slide_index"`
-	SlideTitle string `json:"slide_title"`
-	Text       string `json:"transcript"`
+	SlideIndex     int    `json:"slide_index"`
+	SlideTitle     string `json:"slide_title"`
+	Transcript     string `json:"transcript"`
+	ThaiTranscript string `json:"thai_transcript"`
 }
 
 type SectionOutput struct {
