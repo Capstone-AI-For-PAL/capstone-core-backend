@@ -210,22 +210,8 @@ func MakeGenerateSlidesHandler(client *genie.Client, imgGen imagegen.ImageGenera
 		var transcripts []TranscriptEntry
 		slideCounter := 0
 
-		transcripts = append(transcripts, TranscriptEntry{
-			SlideIndex: slideCounter,
-			SlideTitle: req.Lesson.Title,
-			Transcript: fmt.Sprintf("Welcome to today's lesson on %s.", req.Lesson.Title),
-		})
-		slideCounter++
-
 		for _, sr := range sectionResults {
 			var renderedSlides []RenderedSlide
-
-			transcripts = append(transcripts, TranscriptEntry{
-				SlideIndex: slideCounter,
-				SlideTitle: sr.title,
-				Transcript: fmt.Sprintf("In this section, we will cover %s.", sr.title),
-			})
-			slideCounter++
 
 			for slideIdx, slide := range sr.slides {
 				imgWidth, imgHeight := ImageDimensionsForLayout(slide.Layout)
