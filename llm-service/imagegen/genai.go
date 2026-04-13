@@ -65,6 +65,8 @@ func (g *GenAIClient) generateGemini(ctx context.Context, req ImageRequest) (str
 		return "", fmt.Errorf("genai generate content (image): %w", err)
 	}
 
+	log.Printf("GenAI usage metadata: %v", resp.UsageMetadata.CandidatesTokenCount)
+
 	if len(resp.Candidates) == 0 || resp.Candidates[0].Content == nil {
 		return "", fmt.Errorf("genai returned no candidates")
 	}

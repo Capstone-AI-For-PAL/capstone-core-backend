@@ -56,3 +56,5 @@ GEMINI_TTS_MAX_REQUESTS: int = int(os.getenv("GEMINI_TTS_MAX_REQUESTS", "10"))
 GEMINI_TTS_WINDOW_SECONDS: float = float(os.getenv("GEMINI_TTS_WINDOW_SECONDS", "120"))
 # Retry attempts on 429 before raising an error.
 GEMINI_TTS_MAX_RETRIES: int = int(os.getenv("GEMINI_TTS_MAX_RETRIES", "3"))
+
+ENABLE_PAID_TTS: bool = os.getenv("ENABLE_PAID_TTS", "false").lower() == "true"
