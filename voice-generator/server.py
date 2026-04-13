@@ -10,6 +10,7 @@ POST /generate/save       — synthesise, persist to a storage backend, return m
 import io
 import uuid
 import logging
+from contextlib import asynccontextmanager
 from typing import Optional
 
 import uvicorn
@@ -18,7 +19,7 @@ from fastapi.responses import StreamingResponse, JSONResponse
 from pydantic import BaseModel, Field
 
 import config
-from models import get_model
+from models import get_model, _REGISTRY
 from models.base import TTSRequest
 from storage import get_storage
 from storage.base import SaveResult
@@ -26,10 +27,19 @@ from storage.base import SaveResult
 logging.basicConfig(level=config.LOG_LEVEL.upper())
 logger = logging.getLogger(__name__)
 
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    logger.info(f"Is Enabled paid TTS: {config.ENABLE_PAID_TTS}")
+    logger.info(f"Enabled TTS models: {list(_REGISTRY.keys())}")
+    yield
+
+
 app = FastAPI(
     title="Voice Generator Service",
     description="Text-to-speech microservice with pluggable models and storage backends.",
     version="1.0.0",
+    lifespan=lifespan,
 )
 
 
@@ -109,7 +119,6 @@ def health() -> dict:
 @app.get("/models", tags=["ops"])
 def list_models() -> dict:
     """Return registered TTS model names."""
-    from models import _REGISTRY  # noqa: PLC0415
     return {"models": list(_REGISTRY.keys())}
 
 

@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-04-12T11:09:44.501Z",
+  "updatedAt": "2026-04-13T02:39:07.809Z",
   "createdAt": "2026-04-01T11:19:56.621Z",
   "id": "nitGp0JGKxp4GVJF",
   "name": "async-generate-slide-v2",
@@ -51,13 +51,13 @@
         "url": "http://voice-generator:8000/generate",
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={{ \nJSON.stringify({\n  \"text\": $json.transcript,\n  \"model\": \"kokoro\",\n  \"voice\": \"af_heart\",\n  \"speed\": 1.0,\n  \"language\": \"a\"\n}) \n}}",
+        "jsonBody": "={{ $json.data }}",
         "options": {}
       },
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        -416,
+        -80,
         1008
       ],
       "id": "ceab7295-2867-4c26-a66d-4f1c9124875c",
@@ -115,7 +115,7 @@
       "type": "n8n-nodes-base.awsS3",
       "typeVersion": 2,
       "position": [
-        -208,
+        128,
         1008
       ],
       "id": "b26f15d6-fdc6-4a78-a478-5f0901db5508",
@@ -391,6 +391,12 @@
               "name": "lessonId",
               "value": "={{ $json.body.lessonId }}",
               "type": "string"
+            },
+            {
+              "id": "a2349993-5222-4118-8e18-23853dc1d684",
+              "name": "audioLanguage",
+              "value": "={{ $json.body.audioLanguage }}",
+              "type": "string"
             }
           ]
         },
@@ -603,6 +609,19 @@
       "retryOnFail": true,
       "waitBetweenTries": 5000,
       "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "if ($('prepare').first().json.audioLanguage == 'THAI') {\n  return {\n    data: {\n      \"text\": $input.first().json.thai_transcript,\n      \"model\": \"gemini\",\n      \"voice\": \"default\"\n    }\n  }\n} \n\nreturn {\n  data: {\n    \"text\": $input.first().json.transcript,\n    \"model\": \"kokoro\",\n    \"voice\": \"default\",\n    \"speed\": 1.0,\n    \"language\": \"a\"\n  }\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -352,
+        1008
+      ],
+      "id": "0b7b53cc-bc42-4d47-88ac-d778d130a433",
+      "name": "Code in JavaScript"
     }
   ],
   "connections": {
@@ -869,6 +888,17 @@
         ],
         [
           {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
             "node": "GenerateVoice",
             "type": "main",
             "index": 0
@@ -906,54 +936,89 @@
               "title": "Introduction to Design Thinking",
               "slides": [
                 {
-                  "title": "Welcome to Design Thinking!",
+                  "title": "Introduction to Design Thinking",
                   "layout": "hero_image",
                   "key_points": [
-                    "A human-centered approach to innovation",
-                    "Non-linear and iterative problem-solving",
-                    "Focuses on understanding users deeply"
+                    "User-centered approach",
+                    "Solving complex problems",
+                    "Iterative & non-linear process"
                   ],
-                  "images": null,
-                  "transcript": "Hello everyone! Today, we're diving into Design Thinking, a powerful methodology that puts people at the heart of innovation. It's not a rigid, step-by-step process, but rather a flexible and iterative cycle that encourages continuous learning and refinement. This approach helps us truly understand our users, challenge our assumptions, and develop solutions that genuinely meet their needs.",
-                  "thai_transcript": "สวัสดีทุกคน! วันนี้เราจะมาเรียนรู้เรื่อง Design Thinking ซึ่งเป็นวิธีการอันทรงพลังที่นำผู้คนมาเป็นศูนย์กลางของการสร้างสรรค์นวัตกรรม กระบวนการนี้ไม่ใช่ขั้นตอนที่ตายตัว แต่เป็นวงจรที่ยืดหยุ่นและทำซ้ำได้ ซึ่งส่งเสริมการเรียนรู้และการปรับปรุงอย่างต่อเนื่อง แนวทางนี้ช่วยให้เราเข้าใจผู้ใช้งานอย่างลึกซึ้ง ท้าทายสมมติฐาน และพัฒนาโซลูชันที่ตอบสนองความต้องการของพวกเขาได้อย่างแท้จริง"
+                  "images": [
+                    {
+                      "url": "https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db790/slides_images/1.png",
+                      "caption": "Design Thinking is a collaborative, user-centered approach to problem-solving.",
+                      "width": 800,
+                      "height": 400
+                    }
+                  ],
+                  "transcript": "Welcome to our first lesson, where we'll dive into the world of Design Thinking. At its core, Design Thinking is a powerful methodology that places the user right at the heart of the problem-solving process. It's not just about creating products; it's about deeply understanding human needs, challenging assumptions, and crafting innovative solutions that truly make a difference. This approach encourages a mindset of empathy, experimentation, and continuous learning, moving beyond traditional linear thinking.",
+                  "thai_transcript": "ยินดีต้อนรับสู่บทเรียนแรกของเราครับ เราจะมาทำความรู้จักกับการคิดเชิงออกแบบ หรือ Design Thinking กัน หัวใจหลักของ Design Thinking คือการนำผู้ใช้มาเป็นศูนย์กลางในการแก้ปัญหา ไม่ใช่แค่การสร้างผลิตภัณฑ์เท่านั้น แต่เป็นการทำความเข้าใจความต้องการของมนุษย์อย่างลึกซึ้ง ท้าทายสมมติฐาน และสร้างสรรค์นวัตกรรมที่แตกต่าง วิธีการนี้ส่งเสริมแนวคิดของความเห็นอกเห็นใจ การทดลอง และการเรียนรู้อย่างต่อเนื่อง ก้าวข้ามการคิดเชิงเส้นตรงแบบเดิมๆ"
                 },
                 {
-                  "title": "The Five Core Phases of Design Thinking",
+                  "title": "The Five Phases of Design Thinking",
                   "layout": "two_column",
                   "key_points": [
-                    "Empathize: Understand user needs",
-                    "Define: Frame the problem clearly",
-                    "Ideate: Generate creative solutions",
-                    "Prototype: Build tangible representations",
-                    "Test: Gather feedback and refine"
+                    "Empathize: Understand users",
+                    "Define: Pinpoint the problem",
+                    "Ideate: Brainstorm solutions",
+                    "Prototype: Build early versions",
+                    "Test: Gather feedback & refine"
                   ],
-                  "images": null,
-                  "transcript": "Design Thinking is structured around five core phases, but remember, they're not always sequential. You might jump back and forth, or even conduct multiple phases simultaneously. We start by empathizing with our users to grasp their world, then define the actual problem we're solving. From there, we ideate numerous solutions, prototype the most promising ones, and finally test them to gather crucial feedback for improvement.",
-                  "thai_transcript": "Design Thinking มีห้าขั้นตอนหลัก แต่โปรดจำไว้ว่าขั้นตอนเหล่านี้ไม่จำเป็นต้องเป็นลำดับเสมอไป คุณอาจกระโดดไปมาระหว่างขั้นตอน หรือทำหลายขั้นตอนพร้อมกันก็ได้ เราเริ่มต้นด้วยการทำความเข้าใจผู้ใช้งานอย่างลึกซึ้ง จากนั้นกำหนดปัญหาที่เราต้องการแก้ไขให้ชัดเจน หลังจากนั้น เราจะระดมความคิดเพื่อหาแนวทางแก้ไขที่หลากหลาย สร้างต้นแบบสำหรับแนวคิดที่มีศักยภาพ และทดสอบเพื่อให้ได้ข้อเสนอแนะที่สำคัญสำหรับการปรับปรุง"
+                  "images": [
+                    {
+                      "url": "https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db790/slides_images/2.png",
+                      "caption": "Empathize & Define: Understanding user needs and framing the problem.",
+                      "width": 450,
+                      "height": 300
+                    },
+                    {
+                      "url": "https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db790/slides_images/3.png",
+                      "caption": "Ideate, Prototype & Test: Developing and refining solutions.",
+                      "width": 450,
+                      "height": 300
+                    }
+                  ],
+                  "transcript": "Design Thinking is often broken down into five distinct phases, although it's crucial to remember they're not always sequential. We begin by truly empathizing with our users to understand their experiences and pain points, which then helps us define the core problem clearly. Next, we ideate, generating a wide range of potential solutions. These ideas are then brought to life through prototyping, creating tangible representations for us to test with real users, gathering invaluable feedback for refinement.",
+                  "thai_transcript": "การคิดเชิงออกแบบมักถูกแบ่งออกเป็นห้าขั้นตอนที่ชัดเจน แต่สิ่งสำคัญคือต้องจำไว้ว่ามันไม่ได้เป็นไปตามลำดับเสมอไป เราเริ่มต้นด้วยการทำความเข้าใจผู้ใช้อย่างแท้จริง เพื่อทำความเข้าใจประสบการณ์และความเจ็บปวดของพวกเขา ซึ่งช่วยให้เราสามารถกำหนดปัญหาหลักได้อย่างชัดเจน ถัดไป เราจะระดมสมองเพื่อสร้างสรรค์แนวทางแก้ไขที่เป็นไปได้มากมาย ไอเดียเหล่านี้จะถูกนำไปสร้างเป็นต้นแบบ เพื่อให้เราได้ทดลองใช้กับผู้ใช้จริง และรวบรวมข้อเสนอแนะอันมีค่าเพื่อนำไปปรับปรุง"
                 },
                 {
-                  "title": "Empathize, Define, and Ideate",
-                  "layout": "three_column",
+                  "title": "Non-Linear and Iterative Nature",
+                  "layout": "text_only",
                   "key_points": [
-                    "Empathize: User research & observation",
-                    "Define: Crafting a clear problem statement",
-                    "Ideate: Brainstorming diverse solutions"
+                    "Not a strict sequence",
+                    "Cycles back and forth",
+                    "Learn, refine, repeat",
+                    "Flexibility is key"
                   ],
                   "images": null,
-                  "transcript": "Let's break down the first three critical phases. Empathy is about truly understanding your users – their feelings, struggles, and aspirations. This is achieved through interviews, observations, and immersing yourself in their world. Once you have a deep understanding, you define the problem clearly, articulating a user-centric challenge often using 'How Might We' questions. Finally, in Ideate, you let creativity flow, generating as many solutions as possible without constraint, encouraging both wild and practical ideas.",
-                  "thai_transcript": "มาดูสามขั้นตอนแรกที่สำคัญกัน การเข้าใจความรู้สึกของผู้อื่นคือการเข้าใจผู้ใช้งานอย่างแท้จริง ทั้งความรู้สึก ปัญหา และความต้องการของพวกเขา ซึ่งทำได้โดยการสัมภาษณ์ การสังเกต และการเข้าไปอยู่ในโลกของพวกเขา เมื่อคุณมีความเข้าใจอย่างลึกซึ้งแล้ว คุณจะกำหนดปัญหาให้ชัดเจน โดยระบุความท้าทายที่เน้นผู้ใช้งานเป็นหลัก ซึ่งมักจะใช้คำถาม 'เราจะทำอย่างไรให้...' และสุดท้าย ในขั้นตอนการระดมความคิด คุณจะปล่อยให้ความคิดสร้างสรรค์ไหลออกมา สร้างโซลูชันให้มากที่สุดเท่าที่จะเป็นไปได้โดยไม่มีข้อจำกัด โดยส่งเสริมทั้งแนวคิดที่แปลกใหม่และนำไปใช้ได้จริง"
+                  "transcript": "Unlike a rigid checklist, Design Thinking is not a strictly linear process. You might find yourself moving back and forth between phases, like returning to the empathy stage after a testing round reveals new user insights. This iterative nature is its strength; it allows for continuous learning and refinement, ensuring that solutions evolve based on real-world feedback rather than initial assumptions. Embracing this flexibility is crucial for successful innovation.",
+                  "thai_transcript": "แตกต่างจากรายการตรวจสอบที่เข้มงวด การคิดเชิงออกแบบไม่ได้เป็นกระบวนการเชิงเส้นตรงอย่างเคร่งครัด คุณอาจพบว่าตัวเองต้องย้อนกลับไปมาระหว่างขั้นตอนต่างๆ เช่น การกลับไปสู่ขั้นตอนการเข้าใจผู้ใช้หลังจากที่การทดสอบเปิดเผยข้อมูลเชิงลึกใหม่ๆ ลักษณะการทำซ้ำนี้คือจุดแข็งของมัน ช่วยให้เกิดการเรียนรู้และปรับปรุงอย่างต่อเนื่อง ทำให้มั่นใจได้ว่าโซลูชันจะพัฒนาไปตามข้อเสนอแนะจากโลกแห่งความเป็นจริง แทนที่จะเป็นเพียงสมมติฐานเริ่มต้น การเปิดรับความยืดหยุ่นนี้เป็นสิ่งสำคัญสำหรับการสร้างสรรค์นวัตกรรมที่ประสบความสำเร็จ"
                 },
                 {
-                  "title": "Prototype, Test, and Iterate",
+                  "title": "Benefits of a Design Thinking Approach",
                   "layout": "two_column",
                   "key_points": [
-                    "Prototype: Build to learn, not to perfect",
-                    "Test: Gather honest user feedback",
-                    "Iterate: Refine based on insights"
+                    "Deeper user understanding",
+                    "Challenges existing assumptions",
+                    "Redefines problems effectively",
+                    "Fosters innovative solutions"
                   ],
-                  "images": null,
-                  "transcript": "Once you have potential solutions, the next step is to Prototype. This isn't about building a perfect product, but creating a quick, tangible representation of your idea – whether it's a sketch, a cardboard model, or a simple digital mock-up. These prototypes are then put to the Test with real users. The goal here is to observe their interactions, listen to their feedback, and identify what works and what doesn't. The insights gained from testing then feed back into the earlier phases, allowing you to Iterate and refine your solutions, making the process truly cyclical.",
-                  "thai_transcript": "เมื่อคุณมีแนวทางแก้ไขที่เป็นไปได้ ขั้นตอนต่อไปคือการสร้างต้นแบบ นี่ไม่ใช่การสร้างผลิตภัณฑ์ที่สมบูรณ์แบบ แต่เป็นการสร้างตัวแทนที่จับต้องได้ของแนวคิดของคุณอย่างรวดเร็ว ไม่ว่าจะเป็นภาพร่าง โมเดลกระดาษแข็ง หรือแบบจำลองดิจิทัลง่ายๆ ต้นแบบเหล่านี้จะถูกนำไปทดสอบกับผู้ใช้งานจริง เป้าหมายคือการสังเกตการโต้ตอบของพวกเขา รับฟังความคิดเห็น และระบุว่าอะไรใช้ได้ผลและอะไรไม่ได้ผล ข้อมูลเชิงลึกที่ได้จากการทดสอบจะถูกนำกลับไปสู่ขั้นตอนก่อนหน้า เพื่อให้คุณสามารถปรับปรุงและปรับแต่งโซลูชันของคุณ ทำให้กระบวนการเป็นวัฏจักรอย่างแท้จริง"
+                  "images": [
+                    {
+                      "url": "https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db790/slides_images/4.png",
+                      "caption": "Design Thinking sparks innovation by redefining problems.",
+                      "width": 450,
+                      "height": 300
+                    },
+                    {
+                      "url": "https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db790/slides_images/5.png",
+                      "caption": "Leads to better products, services, and user satisfaction.",
+                      "width": 450,
+                      "height": 300
+                    }
+                  ],
+                  "transcript": "So, why is Design Thinking so important in today's world? It empowers teams to truly understand their users, moving beyond surface-level observations to uncover hidden needs and motivations. By challenging assumptions and reframing problems from a user-centric perspective, it helps us develop solutions that are not only desirable but also feasible and viable. This approach ultimately leads to more impactful products, services, and experiences that resonate deeply with their intended audience.",
+                  "thai_transcript": "แล้วทำไม Design Thinking ถึงสำคัญในโลกปัจจุบัน? มันช่วยให้ทีมเข้าใจผู้ใช้อย่างแท้จริง ก้าวข้ามการสังเกตการณ์ผิวเผินไปสู่การค้นพบความต้องการและแรงจูงใจที่ซ่อนอยู่ ด้วยการท้าทายสมมติฐานและกำหนดปัญหาใหม่จากมุมมองที่ผู้ใช้เป็นศูนย์กลาง มันช่วยให้เราพัฒนาโซลูชันที่ไม่เพียงแต่น่าพึงพอใจ แต่ยังเป็นไปได้และสามารถทำได้จริง วิธีการนี้ท้ายที่สุดนำไปสู่ผลิตภัณฑ์ บริการ และประสบการณ์ที่ส่งผลกระทบมากขึ้น และตรงใจกลุ่มเป้าหมายอย่างลึกซึ้ง"
                 }
               ]
             },
@@ -961,40 +1026,92 @@
               "title": "Conducting Effective User Interviews",
               "slides": [
                 {
-                  "title": "Unlocking User Insights: The Power of Interviews",
+                  "title": "User Interviews: Unlocking Deep User Insights",
                   "layout": "hero_image",
                   "key_points": [
-                    "User interviews are a core qualitative research method.",
-                    "Directly uncover user needs, behaviors, and pain points.",
-                    "Crucial for building truly user-centered products."
+                    "Core qualitative research method.",
+                    "Understand user needs, behaviors, and motivations.",
+                    "Foundation for user-centric design decisions."
                   ],
-                  "images": null,
-                  "transcript": "Welcome to our lesson on conducting effective user interviews! This qualitative research method is incredibly powerful because it allows us to directly connect with our users and truly understand their perspectives. Instead of guessing what people want or need, we sit down with them, listen to their stories, and uncover the real challenges they face. This direct insight is fundamental for designing products that genuinely solve problems and resonate with users.",
-                  "thai_transcript": "ยินดีต้อนรับสู่บทเรียนของเราเกี่ยวกับการสัมภาษณ์ผู้ใช้อย่างมีประสิทธิภาพ! วิธีการวิจัยเชิงคุณภาพนี้มีพลังอย่างมาก เพราะช่วยให้เราเชื่อมโยงกับผู้ใช้โดยตรงและเข้าใจมุมมองของพวกเขาอย่างแท้จริง แทนที่จะคาดเดาว่าผู้คนต้องการอะไร เราจะนั่งคุยกับพวกเขา รับฟังเรื่องราวของพวกเขา และค้นหาความท้าทายที่แท้จริงที่พวกเขาเผชิญอยู่ ข้อมูลเชิงลึกโดยตรงนี้เป็นสิ่งสำคัญสำหรับการออกแบบผลิตภัณฑ์ที่สามารถแก้ปัญหาได้อย่างแท้จริงและตอบโจทย์ผู้ใช้ได้ดี"
+                  "images": [
+                    {
+                      "url": "https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db790/slides_images/6.png",
+                      "caption": "Effective user interviews involve active listening and empathetic engagement to uncover true user needs.",
+                      "width": 800,
+                      "height": 400
+                    }
+                  ],
+                  "transcript": "User interviews are one of the most powerful qualitative research methods we have in our product design toolkit. They allow us to move beyond assumptions and truly understand our users as individuals. By engaging directly with people, we can uncover their needs, behaviors, motivations, and crucially, their pain points, which are often not apparent through quantitative data alone. This direct connection forms the essential foundation for creating truly user-centric products.",
+                  "thai_transcript": "การสัมภาษณ์ผู้ใช้เป็นหนึ่งในวิธีการวิจัยเชิงคุณภาพที่ทรงพลังที่สุดที่เรามีอยู่ในชุดเครื่องมือการออกแบบผลิตภัณฑ์ของเราครับ วิธีนี้ช่วยให้เราก้าวข้ามข้อสันนิษฐานและเข้าใจผู้ใช้ของเราในฐานะปัจเจกบุคคลได้อย่างแท้จริง โดยการมีส่วนร่วมโดยตรงกับผู้คน เราสามารถค้นพบความต้องการ พฤติกรรม แรงจูงใจ และที่สำคัญคือ ปัญหาที่พวกเขากำลังเผชิญ ซึ่งมักจะไม่ปรากฏชัดเจนจากข้อมูลเชิงปริมาณเพียงอย่างเดียว การเชื่อมโยงโดยตรงนี้สร้างรากฐานที่สำคัญสำหรับการสร้างผลิตภัณฑ์ที่ยึดผู้ใช้เป็นศูนย์กลางอย่างแท้จริงครับ"
                 },
                 {
-                  "title": "Crafting Effective Questions: Open-Ended & Neutral",
+                  "title": "Crafting Effective Questions: Open-Ended vs. Leading",
                   "layout": "two_column",
                   "key_points": [
-                    "Prioritize open-ended questions to encourage detailed responses.",
-                    "Avoid 'yes/no' or leading questions that bias answers.",
-                    "Focus on past experiences and behaviors, not hypotheticals."
+                    "Open-ended questions encourage detailed responses.",
+                    "Avoid leading questions to prevent bias.",
+                    "Focus on 'how,' 'why,' and 'tell me about...'"
                   ],
-                  "images": null,
-                  "transcript": "The quality of your interview insights heavily depends on the questions you ask. We want to encourage users to share their stories, not just give us a 'yes' or 'no' answer. This means focusing on open-ended questions like 'Tell me about a time when...' or 'How did you approach that situation?' Equally important is avoiding leading questions, which subtly guide the participant towards a particular response. For example, instead of 'Don't you agree this feature is useful?', ask 'What are your thoughts on this feature's usefulness?'",
-                  "thai_transcript": "คุณภาพของข้อมูลเชิงลึกจากการสัมภาษณ์ขึ้นอยู่กับคำถามที่คุณถามอย่างมาก เราต้องการกระตุ้นให้ผู้ใช้เล่าเรื่องราวของพวกเขา ไม่ใช่แค่ตอบ 'ใช่' หรือ 'ไม่' ซึ่งหมายถึงการเน้นคำถามปลายเปิด เช่น 'เล่าให้ฟังหน่อยว่ามีครั้งไหนที่...' หรือ 'คุณจัดการกับสถานการณ์นั้นอย่างไร?' ที่สำคัญไม่แพ้กันคือการหลีกเลี่ยงคำถามชี้นำ ซึ่งจะนำผู้เข้าร่วมไปยังคำตอบที่ต้องการ ตัวอย่างเช่น แทนที่จะถามว่า 'คุณเห็นด้วยไหมว่าฟีเจอร์นี้มีประโยชน์?' ให้ถามว่า 'คุณคิดอย่างไรเกี่ยวกับประโยชน์ของฟีเจอร์นี้?'"
+                  "images": [
+                    {
+                      "url": "https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db790/slides_images/7.png",
+                      "caption": "Open-ended questions invite detailed and unbiased responses from users, revealing deeper insights.",
+                      "width": 450,
+                      "height": 300
+                    },
+                    {
+                      "url": "https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db790/slides_images/8.png",
+                      "caption": "Leading questions bias users towards a specific answer, limiting the depth and authenticity of their feedback.",
+                      "width": 450,
+                      "height": 300
+                    }
+                  ],
+                  "transcript": "The quality of your interview insights largely depends on the questions you ask. We always aim for open-ended questions that encourage users to elaborate and share their experiences in their own words. Think 'how,' 'why,' and 'tell me about...' Conversely, we must actively avoid leading questions, which subtly push users towards a particular answer, often confirming our own biases rather than revealing new information.",
+                  "thai_transcript": "คุณภาพของข้อมูลเชิงลึกจากการสัมภาษณ์ขึ้นอยู่กับคำถามที่คุณถามเป็นอย่างมากครับ เราควรตั้งคำถามปลายเปิดที่กระตุ้นให้ผู้ใช้ขยายความและแบ่งปันประสบการณ์ในแบบของตนเอง ลองคิดถึงคำถามที่ขึ้นต้นด้วย 'อย่างไร' 'ทำไม' และ 'เล่าให้ฉันฟังเกี่ยวกับ...' ในทางกลับกัน เราต้องหลีกเลี่ยงคำถามชี้นำอย่างจริงจัง ซึ่งจะผลักดันให้ผู้ใช้ตอบไปในทิศทางใดทิศทางหนึ่ง ซึ่งมักจะยืนยันอคติของเราเองมากกว่าที่จะเปิดเผยข้อมูลใหม่ๆ ครับ"
                 },
                 {
-                  "title": "Mastering Active Listening: Beyond Just Hearing",
-                  "layout": "two_column",
+                  "title": "Mastering Active Listening for Deeper Insights",
+                  "layout": "text_only",
                   "key_points": [
-                    "Listen more, talk less: allow users to elaborate.",
-                    "Pay attention to non-verbal cues (body language, tone).",
-                    "Use paraphrasing and summarizing to confirm understanding."
+                    "Pay full attention; listen more than you speak.",
+                    "Observe non-verbal cues (body language, tone).",
+                    "Ask follow-up questions to clarify and explore.",
+                    "Summarize and confirm understanding with the user."
                   ],
                   "images": null,
-                  "transcript": "Once you've asked a great question, the real work begins: active listening. This means going beyond just hearing the words; it's about understanding the underlying emotions, motivations, and context. Try to listen significantly more than you talk, giving your interviewee space to elaborate. Pay close attention to their body language, facial expressions, and tone of voice, as these often convey as much information as their words. Don't forget to use techniques like paraphrasing what you've heard or summarizing key points to ensure you've understood correctly and to encourage them to share even more.",
-                  "thai_transcript": "เมื่อคุณถามคำถามที่ดีแล้ว งานที่แท้จริงก็เริ่มต้นขึ้น นั่นคือการฟังอย่างตั้งใจ ซึ่งหมายถึงการไปไกลกว่าแค่ได้ยินคำพูด แต่เป็นการทำความเข้าใจอารมณ์ แรงจูงใจ และบริบทที่ซ่อนอยู่ พยายามฟังมากกว่าพูดอย่างมาก ให้พื้นที่ผู้ให้สัมภาษณ์ได้อธิบายอย่างละเอียด ใส่ใจภาษากาย สีหน้า และน้ำเสียงของพวกเขาอย่างใกล้ชิด เพราะสิ่งเหล่านี้มักจะสื่อข้อมูลได้มากเท่ากับคำพูดของพวกเขา อย่าลืมใช้เทคนิคเช่นการสรุปสิ่งที่คุณได้ยิน หรือสรุปประเด็นสำคัญ เพื่อให้แน่ใจว่าคุณเข้าใจถูกต้องและกระตุ้นให้พวกเขาแบ่งปันข้อมูลเพิ่มเติม"
+                  "transcript": "Beyond asking good questions, true insight comes from active listening. This means giving your full attention, not just to the words being said, but also to how they're being said and what's not being said. Observe body language, tone of voice, and any hesitations. Don't be afraid to ask follow-up questions to dig deeper or summarize what you've heard to ensure you've understood correctly.",
+                  "thai_transcript": "นอกจากการถามคำถามที่ดีแล้ว ข้อมูลเชิงลึกที่แท้จริงมาจากการฟังอย่างตั้งใจครับ นั่นหมายถึงการให้ความสนใจอย่างเต็มที่ ไม่ใช่แค่คำพูดที่ถูกพูดออกมา แต่ยังรวมถึงวิธีการพูด และสิ่งที่ไม่ได้พูดออกมาด้วย สังเกตภาษากาย น้ำเสียง และความลังเลต่างๆ อย่ากลัวที่จะถามคำถามติดตามเพื่อเจาะลึกหรือสรุปสิ่งที่คุณได้ยินเพื่อให้แน่ใจว่าคุณเข้าใจถูกต้องครับ"
+                },
+                {
+                  "title": "Preparing for Your Interview: A Practical Checklist",
+                  "layout": "three_column",
+                  "key_points": [
+                    "Define clear research objectives.",
+                    "Develop an interview script with open-ended questions.",
+                    "Practice neutral questioning and active listening skills."
+                  ],
+                  "images": [
+                    {
+                      "url": "https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db790/slides_images/9.png",
+                      "caption": "Clearly defined research objectives guide your interview process and ensure you gather relevant information.",
+                      "width": 300,
+                      "height": 200
+                    },
+                    {
+                      "url": "https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db790/slides_images/10.png",
+                      "caption": "A well-prepared interview script with open-ended questions ensures consistency and covers all key areas.",
+                      "width": 300,
+                      "height": 200
+                    },
+                    {
+                      "url": "https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db790/slides_images/11.png",
+                      "caption": "Practicing neutral questioning and active listening improves your ability to conduct unbiased and insightful interviews.",
+                      "width": 300,
+                      "height": 200
+                    }
+                  ],
+                  "transcript": "Before you even meet a user, thorough preparation is key to a successful interview. Start by clearly defining your research objectives – what exactly do you need to learn? Then, draft an interview script filled with those open-ended questions we discussed, ensuring you cover all your key areas. Finally, practice! Role-play with a colleague to refine your questioning technique, avoid leading statements, and hone your active listening skills. This preparation is vital for gathering rich, unbiased data.",
+                  "thai_transcript": "ก่อนที่คุณจะพบผู้ใช้ การเตรียมตัวอย่างละเอียดเป็นกุญแจสำคัญสู่การสัมภาษณ์ที่ประสบความสำเร็จครับ เริ่มต้นด้วยการกำหนดวัตถุประสงค์การวิจัยของคุณให้ชัดเจน – คุณต้องการเรียนรู้อะไรกันแน่? จากนั้น ร่างสคริปต์การสัมภาษณ์ที่เต็มไปด้วยคำถามปลายเปิดที่เราพูดถึงไปแล้ว เพื่อให้แน่ใจว่าคุณครอบคลุมประเด็นสำคัญทั้งหมด สุดท้าย ฝึกฝนครับ! ลองเล่นบทบาทสมมติกับเพื่อนร่วมงานเพื่อปรับปรุงเทคนิคการตั้งคำถาม หลีกเลี่ยงคำกล่าวชี้นำ และฝึกฝนทักษะการฟังอย่างตั้งใจ การเตรียมตัวนี้สำคัญอย่างยิ่งต่อการรวบรวมข้อมูลที่สมบูรณ์และเป็นกลางครับ"
                 }
               ]
             },
@@ -1005,58 +1122,100 @@
                   "title": "What is Information Architecture (IA)?",
                   "layout": "hero_image",
                   "key_points": [
-                    "Organizing digital content effectively",
-                    "Structuring information for intuitive navigation",
-                    "Labeling content clearly for users",
-                    "Foundation for a positive user experience"
+                    "Organizing, structuring, and labeling content effectively",
+                    "Making information findable and understandable",
+                    "Enhancing user experience and navigation"
                   ],
-                  "images": null,
-                  "transcript": "Information Architecture, or IA, is the backbone of any digital product. It's all about how we organize, structure, and label content in a way that makes it easy for users to find what they're looking for and understand where they are. Think of it as the art and science of organizing and labeling websites, intranets, online communities, and software to support usability and findability. A strong IA ensures users can effortlessly navigate your product, leading to a much better experience overall.",
-                  "thai_transcript": "สถาปัตยกรรมสารสนเทศ หรือ IA คือกระดูกสันหลังของผลิตภัณฑ์ดิจิทัลทุกชนิดครับ มันคือการจัดระเบียบ โครงสร้าง และติดป้ายเนื้อหาในลักษณะที่ทำให้ผู้ใช้หาสิ่งที่ต้องการได้ง่ายและเข้าใจว่าตอนนี้ตัวเองอยู่ที่ไหน ลองนึกภาพว่าเป็นทั้งศิลปะและวิทยาศาสตร์ในการจัดระเบียบและติดป้ายเว็บไซต์ อินทราเน็ต ชุมชนออนไลน์ และซอฟต์แวร์ เพื่อรองรับการใช้งานและการค้นหา IA ที่แข็งแกร่งช่วยให้ผู้ใช้สามารถนำทางในผลิตภัณฑ์ของคุณได้อย่างง่ายดาย นำไปสู่ประสบการณ์ที่ดีขึ้นมากโดยรวมครับ"
+                  "images": [
+                    {
+                      "url": "https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db790/slides_images/12.png",
+                      "caption": "Information Architecture (IA) is the art and science of organizing and labeling websites, intranets, online communities, and software to support usability and findability.",
+                      "width": 800,
+                      "height": 400
+                    }
+                  ],
+                  "transcript": "Information Architecture, or IA, is fundamental to any digital product. It's about designing the structure and organization of your content in a way that makes it intuitive and easy for users to find what they're looking for. Think of it as the blueprint for your product's content, ensuring everything has its rightful place and users can navigate effortlessly. A well-designed IA significantly improves user experience and overall product usability.",
+                  "thai_transcript": "สถาปัตยกรรมสารสนเทศ หรือ IA เป็นรากฐานสำคัญของผลิตภัณฑ์ดิจิทัลทุกชนิด มันคือการออกแบบโครงสร้างและการจัดระเบียบเนื้อหาของคุณในลักษณะที่ใช้งานง่ายและทำให้ผู้ใช้สามารถค้นหาสิ่งที่ต้องการได้อย่างง่ายดาย ลองนึกภาพว่าเป็นพิมพ์เขียวสำหรับเนื้อหาผลิตภัณฑ์ของคุณ เพื่อให้มั่นใจว่าทุกอย่างอยู่ในตำแหน่งที่ถูกต้อง และผู้ใช้สามารถนำทางได้อย่างราบรื่น IA ที่ออกแบบมาอย่างดีจะช่วยปรับปรุงประสบการณ์ผู้ใช้และประโยชน์การใช้งานของผลิตภัณฑ์โดยรวมได้อย่างมาก"
                 },
                 {
-                  "title": "Core Components of Information Architecture",
-                  "layout": "two_column",
+                  "title": "The Pillars of Information Architecture",
+                  "layout": "three_column",
                   "key_points": [
-                    "Organization Systems: How content is grouped",
-                    "Navigation Systems: How users move through content",
-                    "Labeling Systems: How content is represented",
-                    "Search Systems: How users find specific content"
+                    "Organization Systems: Grouping and categorizing content",
+                    "Labeling Systems: Clear and consistent naming conventions",
+                    "Navigation Systems: Guiding users through the product"
                   ],
-                  "images": null,
-                  "transcript": "When we talk about IA, we're really talking about several interconnected systems. First, there are Organization Systems, which dictate how we categorize and group content. Then, Navigation Systems are the pathways users take to move through your product, like menus or links. Labeling Systems involve the words and icons we use to represent information, ensuring clarity. Finally, Search Systems enable users to directly query for what they need. All these elements must work harmoniously to create an intuitive and efficient user journey.",
-                  "thai_transcript": "เมื่อเราพูดถึง IA เรากำลังพูดถึงระบบที่เชื่อมโยงกันหลายส่วนครับ ประการแรกคือระบบการจัดระเบียบ (Organization Systems) ซึ่งกำหนดว่าเราจะจัดหมวดหมู่และจัดกลุ่มเนื้อหาอย่างไร ถัดมาคือระบบนำทาง (Navigation Systems) ซึ่งเป็นเส้นทางที่ผู้ใช้ใช้ในการเคลื่อนที่ผ่านผลิตภัณฑ์ของคุณ เช่น เมนูหรือลิงก์ ระบบการติดป้าย (Labeling Systems) เกี่ยวข้องกับคำและไอคอนที่เราใช้เพื่อแสดงข้อมูล เพื่อให้เกิดความชัดเจน และสุดท้าย ระบบการค้นหา (Search Systems) ช่วยให้ผู้ใช้สามารถค้นหาสิ่งที่ต้องการได้โดยตรง องค์ประกอบทั้งหมดเหล่านี้ต้องทำงานร่วมกันอย่างกลมกลืนเพื่อสร้างเส้นทางของผู้ใช้ที่ใช้งานง่ายและมีประสิทธิภาพครับ"
+                  "images": [
+                    {
+                      "url": "https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db790/slides_images/13.png",
+                      "caption": "Organization Systems: How content is grouped (e.g., categories, sequences, facets).",
+                      "width": 300,
+                      "height": 200
+                    },
+                    {
+                      "url": "https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db790/slides_images/14.png",
+                      "caption": "Labeling Systems: The words and phrases used to represent information.",
+                      "width": 300,
+                      "height": 200
+                    },
+                    {
+                      "url": "https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db790/slides_images/15.png",
+                      "caption": "Navigation Systems: The tools users employ to move through content.",
+                      "width": 300,
+                      "height": 200
+                    }
+                  ],
+                  "transcript": "At the core of IA are three main pillars: organization, labeling, and navigation systems. Organization systems dictate how we group and categorize content, ensuring related items are together. Labeling systems are about the words we use – making sure titles, headings, and menu items are clear, concise, and consistent. Finally, navigation systems are the tools that help users move through the product, like menus, search bars, and breadcrumbs. Together, these three elements create a cohesive and understandable structure.",
+                  "thai_transcript": "หัวใจหลักของ IA คือสามเสาหลัก ได้แก่ ระบบการจัดระเบียบ การติดป้าย และระบบการนำทาง ระบบการจัดระเบียบกำหนดว่าเราจะจัดกลุ่มและจัดหมวดหมู่เนื้อหาอย่างไร เพื่อให้แน่ใจว่ารายการที่เกี่ยวข้องอยู่ด้วยกัน ระบบการติดป้ายเกี่ยวกับคำที่เราใช้ — ตรวจสอบให้แน่ใจว่าชื่อเรื่อง หัวข้อ และรายการเมนูมีความชัดเจน กระชับ และสอดคล้องกัน สุดท้าย ระบบการนำทางเป็นเครื่องมือที่ช่วยให้ผู้ใช้เคลื่อนที่ไปในผลิตภัณฑ์ได้ เช่น เมนู แถบค้นหา และ Breadcrumbs ทั้งสามองค์ประกอบนี้ร่วมกันสร้างโครงสร้างที่สอดคล้องและเข้าใจง่าย"
                 },
                 {
                   "title": "Card Sorting: Uncovering User Mental Models",
                   "layout": "two_column",
                   "key_points": [
-                    "User research technique for IA",
-                    "Helps understand user grouping logic",
-                    "Participants group topics into categories",
-                    "Can be 'Open' (define categories) or 'Closed' (pre-defined categories)"
+                    "Qualitative research technique for content organization",
+                    "Users group and label content based on their understanding",
+                    "Informs sitemap and navigation design"
                   ],
-                  "images": null,
-                  "transcript": "Card sorting is an incredibly valuable user research technique used to inform our information architecture. It involves asking participants to organize topics into groups that make sense to them, and then to label those groups. This process helps us uncover users' mental models—how they naturally think about and categorize information. We can conduct 'open' card sorts where users create their own category labels, or 'closed' card sorts where they sort into pre-defined categories. The insights gained from card sorting are crucial for building an IA that truly resonates with your target audience.",
-                  "thai_transcript": "การ์ดซอร์ติ้งเป็นเทคนิคการวิจัยผู้ใช้ที่มีคุณค่าอย่างยิ่งในการออกแบบสถาปัตยกรรมสารสนเทศของเราครับ เทคนิคนี้เกี่ยวข้องกับการขอให้ผู้เข้าร่วมจัดระเบียบหัวข้อต่างๆ เป็นกลุ่มที่พวกเขาเข้าใจ และจากนั้นก็ให้ติดป้ายชื่อกลุ่มเหล่านั้น กระบวนการนี้ช่วยให้เราค้นพบแบบจำลองความคิดของผู้ใช้ (mental models)—วิธีที่พวกเขาคิดและจัดหมวดหมู่ข้อมูลตามธรรมชาติ เราสามารถทำการ์ดซอร์ทแบบ 'เปิด' (open card sort) ที่ผู้ใช้สร้างป้ายชื่อหมวดหมู่ของตนเอง หรือแบบ 'ปิด' (closed card sort) ที่พวกเขาจัดเรียงเข้าหมวดหมู่ที่กำหนดไว้ล่วงหน้า ข้อมูลเชิงลึกที่ได้จากการ์ดซอร์ทมีความสำคัญอย่างยิ่งต่อการสร้าง IA ที่ตอบโจทย์กลุ่มเป้าหมายของคุณจริงๆ ครับ"
+                  "images": [
+                    {
+                      "url": "https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db790/slides_images/16.png",
+                      "caption": "Card sorting involves asking users to group content items into categories that make sense to them.",
+                      "width": 450,
+                      "height": 300
+                    },
+                    {
+                      "url": "https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db790/slides_images/17.png",
+                      "caption": "The results of card sorting provide insights into users' mental models and preferred content organization.",
+                      "width": 450,
+                      "height": 300
+                    }
+                  ],
+                  "transcript": "One of the most effective techniques for designing intuitive information architecture is card sorting. This qualitative research method involves asking users to organize content items into groups that make sense to them, and then often asking them to name those groups. By observing how users categorize information, we gain invaluable insights into their mental models, which directly informs how we should structure our product's content. It's a powerful way to ensure your IA aligns with user expectations.",
+                  "thai_transcript": "หนึ่งในเทคนิคที่มีประสิทธิภาพที่สุดสำหรับการออกแบบสถาปัตยกรรมสารสนเทศที่ใช้งานง่ายคือ Card Sorting วิธีการวิจัยเชิงคุณภาพนี้เกี่ยวข้องกับการให้ผู้จัดเรียงเนื้อหาเป็นกลุ่มที่เข้าใจได้สำหรับพวกเขา จากนั้นมักจะขอให้พวกเขาตั้งชื่อกลุ่มเหล่านั้น โดยการสังเกตว่าผู้จัดเรียงจัดหมวดหมู่ข้อมูลอย่างไร เราจะได้รับข้อมูลเชิงลึกที่มีค่าเกี่ยวกับรูปแบบความคิดของพวกเขา ซึ่งเป็นข้อมูลโดยตรงว่าเราควรจัดโครงสร้างเนื้อหาผลิตภัณฑ์ของเราอย่างไร เป็นวิธีที่มีประสิทธิภาพในการทำให้แน่ใจว่า IA ของคุณสอดคล้องกับความคาดหวังของผู้ใช้"
                 },
                 {
-                  "title": "Sitemap Construction for Mobile Applications",
-                  "layout": "two_column",
+                  "title": "Sitemaps: The Visual Blueprint of Your Product",
+                  "layout": "hero_image",
                   "key_points": [
-                    "Visual blueprint of an app's structure",
-                    "Maps out all screens and their connections",
-                    "Hierarchical view of content and features",
-                    "Essential for planning, design, and development"
+                    "Visual representation of a website or app's structure",
+                    "Shows hierarchy and relationships between pages",
+                    "Guides design, development, and content strategy"
                   ],
-                  "images": null,
-                  "transcript": "Once we understand how to organize content through IA principles and user research like card sorting, the next step is to visualize that structure using a sitemap. A sitemap for a mobile application is essentially a hierarchical diagram that maps out every screen, feature, and their interconnections. It serves as a visual blueprint, showing how users will navigate from one part of the app to another. This tool is indispensable for planning the app's content, features, and overall user flow, making it a critical asset for designers, developers, and product managers to ensure everyone is on the same page.",
-                  "thai_transcript": "เมื่อเราเข้าใจวิธีการจัดระเบียบเนื้อหาผ่านหลักการ IA และการวิจัยผู้ใช้ เช่น การ์ดซอร์ติ้ง ขั้นตอนต่อไปคือการสร้างภาพโครงสร้างนั้นด้วยแผนผังเว็บไซต์ (sitemap) แผนผังเว็บไซต์สำหรับแอปพลิเคชันมือถือโดยพื้นฐานแล้วคือแผนภาพลำดับชั้นที่แสดงทุกหน้าจอ ฟังก์ชัน และการเชื่อมโยงระหว่างกัน มันทำหน้าที่เป็นพิมพ์เขียวทางสายตา แสดงให้เห็นว่าผู้ใช้จะนำทางจากส่วนหนึ่งของแอปไปยังอีกส่วนหนึ่งได้อย่างไร เครื่องมือนี้จำเป็นอย่างยิ่งสำหรับการวางแผนเนื้อหา ฟังก์ชัน และขั้นตอนการใช้งานโดยรวมของแอป ทำให้เป็นทรัพย์สินที่สำคัญสำหรับนักออกแบบ นักพัฒนา และผู้จัดการผลิตภัณฑ์ เพื่อให้มั่นใจว่าทุกคนมีความเข้าใจที่ตรงกันครับ"
+                  "images": [
+                    {
+                      "url": "https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db790/slides_images/18.png",
+                      "caption": "A sitemap visually outlines all the pages or screens within a product and their hierarchical relationships.",
+                      "width": 800,
+                      "height": 400
+                    }
+                  ],
+                  "transcript": "Once you've understood user mental models through techniques like card sorting, you'll then translate that understanding into a sitemap. A sitemap is essentially the visual blueprint of your product – whether it's a website or a mobile app. It maps out all the pages or screens and shows their hierarchical relationships, demonstrating how users can navigate from one section to another. This document is crucial for aligning your team and ensuring a coherent and comprehensive product structure before development begins.",
+                  "thai_transcript": "เมื่อคุณเข้าใจรูปแบบความคิดของผู้ใช้ผ่านเทคนิคเช่น Card Sorting แล้ว คุณจะต้องนำความเข้าใจนั้นไปสร้างเป็นแผนผังเว็บไซต์ (Sitemap) แผนผังเว็บไซต์เป็นเหมือนพิมพ์เขียวภาพของผลิตภัณฑ์ของคุณ ไม่ว่าจะเป็นเว็บไซต์หรือแอปพลิเคชันมือถือ มันจะแสดงหน้าจอหรือเพจทั้งหมดและแสดงความสัมพันธ์ตามลำดับชั้น ซึ่งแสดงให้เห็นว่าผู้ใช้สามารถนำทางจากส่วนหนึ่งไปยังอีกส่วนหนึ่งได้อย่างไร เอกสารนี้มีความสำคัญอย่างยิ่งต่อการประสานงานทีมของคุณและสร้างความมั่นใจในโครงสร้างผลิตภัณฑ์ที่สอดคล้องกันและครอบคลุมก่อนที่จะเริ่มการพัฒนา"
                 }
               ]
             }
           ],
-          "markdown": "---\nmarp: true\ntheme: default\nmath: mathjax\npaginate: true\nbackgroundColor: #f8f9fa\nsize: 16:9\nstyle: |\n  section {\n    font-family: 'Segoe UI', system-ui, sans-serif;\n    font-size: 24px;\n    padding: 50px 70px;\n    display: flex;\n    flex-direction: column;\n    box-sizing: border-box;\n  }\n  h1 {\n    font-size: 38px;\n    color: #1a73e8;\n    margin: 0 0 16px 0;\n    border-bottom: 2px solid #e8eaed;\n    padding-bottom: 10px;\n  }\n  ul {\n    margin: 0 0 20px 0;\n    color: #3c4043;\n    padding-left: 1.5em;\n  }\n  li {\n    margin-bottom: 8px;\n  }\n  /* Fixed bounds to prevent overflow */\n  .hero-container {\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    width: 100%;\n    height: 360px; /* Fixed hero height */\n    margin-top: auto;\n    margin-bottom: auto;\n  }\n  .hero-container img {\n    max-width: 100%;\n    max-height: 100%;\n    object-fit: contain;\n    border-radius: 8px;\n  }\n  .grid-2 {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n    gap: 40px;\n    margin-top: 10px;\n  }\n  .grid-3 {\n    display: grid;\n    grid-template-columns: repeat(3, 1fr);\n    gap: 30px;\n    margin-top: 10px;\n  }\n  .card {\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    text-align: center;\n  }\n  .card-img-2 {\n    width: 100%;\n    height: 280px; /* Fixed 2-col image height */\n    margin-bottom: 12px;\n  }\n  .card-img-3 {\n    width: 100%;\n    height: 200px; /* Fixed 3-col image height */\n    margin-bottom: 12px;\n  }\n  .card img {\n    width: 100%;\n    height: 100%;\n    object-fit: cover;\n    border-radius: 8px;\n  }\n  .card strong {\n    font-size: 18px;\n    color: #5f6368;\n    font-weight: 600;\n  }\n\n---\n# Welcome to Design Thinking!\n\n* A human-centered approach to innovation\n* Non-linear and iterative problem-solving\n* Focuses on understanding users deeply\n\n---\n# The Five Core Phases of Design Thinking\n\n* Empathize: Understand user needs\n* Define: Frame the problem clearly\n* Ideate: Generate creative solutions\n* Prototype: Build tangible representations\n* Test: Gather feedback and refine\n\n<div class=\"grid-2\">\n</div>\n\n---\n# Empathize, Define, and Ideate\n\n* Empathize: User research & observation\n* Define: Crafting a clear problem statement\n* Ideate: Brainstorming diverse solutions\n\n<div class=\"grid-3\">\n</div>\n\n---\n# Prototype, Test, and Iterate\n\n* Prototype: Build to learn, not to perfect\n* Test: Gather honest user feedback\n* Iterate: Refine based on insights\n\n<div class=\"grid-2\">\n</div>\n\n---\n# Unlocking User Insights: The Power of Interviews\n\n* User interviews are a core qualitative research method.\n* Directly uncover user needs, behaviors, and pain points.\n* Crucial for building truly user-centered products.\n\n---\n# Crafting Effective Questions: Open-Ended & Neutral\n\n* Prioritize open-ended questions to encourage detailed responses.\n* Avoid 'yes/no' or leading questions that bias answers.\n* Focus on past experiences and behaviors, not hypotheticals.\n\n<div class=\"grid-2\">\n</div>\n\n---\n# Mastering Active Listening: Beyond Just Hearing\n\n* Listen more, talk less: allow users to elaborate.\n* Pay attention to non-verbal cues (body language, tone).\n* Use paraphrasing and summarizing to confirm understanding.\n\n<div class=\"grid-2\">\n</div>\n\n---\n# What is Information Architecture (IA)?\n\n* Organizing digital content effectively\n* Structuring information for intuitive navigation\n* Labeling content clearly for users\n* Foundation for a positive user experience\n\n---\n# Core Components of Information Architecture\n\n* Organization Systems: How content is grouped\n* Navigation Systems: How users move through content\n* Labeling Systems: How content is represented\n* Search Systems: How users find specific content\n\n<div class=\"grid-2\">\n</div>\n\n---\n# Card Sorting: Uncovering User Mental Models\n\n* User research technique for IA\n* Helps understand user grouping logic\n* Participants group topics into categories\n* Can be 'Open' (define categories) or 'Closed' (pre-defined categories)\n\n<div class=\"grid-2\">\n</div>\n\n---\n# Sitemap Construction for Mobile Applications\n\n* Visual blueprint of an app's structure\n* Maps out all screens and their connections\n* Hierarchical view of content and features\n* Essential for planning, design, and development\n\n<div class=\"grid-2\">\n</div>\n",
+          "markdown": "---\nmarp: true\ntheme: default\nmath: mathjax\npaginate: true\nbackgroundColor: #f8f9fa\nsize: 16:9\nstyle: |\n  section {\n    font-family: 'Segoe UI', system-ui, sans-serif;\n    font-size: 24px;\n    padding: 50px 70px;\n    display: flex;\n    flex-direction: column;\n    box-sizing: border-box;\n  }\n  h1 {\n    font-size: 38px;\n    color: #1a73e8;\n    margin: 0 0 16px 0;\n    border-bottom: 2px solid #e8eaed;\n    padding-bottom: 10px;\n  }\n  ul {\n    margin: 0 0 20px 0;\n    color: #3c4043;\n    padding-left: 1.5em;\n  }\n  li {\n    margin-bottom: 8px;\n  }\n  /* Fixed bounds to prevent overflow */\n  .hero-container {\n    display: flex;\n    justify-content: center;\n    align-items: center;\n    width: 100%;\n    height: 360px; /* Fixed hero height */\n    margin-top: auto;\n    margin-bottom: auto;\n  }\n  .hero-container img {\n    max-width: 100%;\n    max-height: 100%;\n    object-fit: contain;\n    border-radius: 8px;\n  }\n  .grid-2 {\n    display: grid;\n    grid-template-columns: 1fr 1fr;\n    gap: 40px;\n    margin-top: 10px;\n  }\n  .grid-3 {\n    display: grid;\n    grid-template-columns: repeat(3, 1fr);\n    gap: 30px;\n    margin-top: 10px;\n  }\n  .card {\n    display: flex;\n    flex-direction: column;\n    align-items: center;\n    text-align: center;\n  }\n  .card-img-2 {\n    width: 100%;\n    height: 280px; /* Fixed 2-col image height */\n    margin-bottom: 12px;\n  }\n  .card-img-3 {\n    width: 100%;\n    height: 200px; /* Fixed 3-col image height */\n    margin-bottom: 12px;\n  }\n  .card img {\n    width: 100%;\n    height: 100%;\n    object-fit: cover;\n    border-radius: 8px;\n  }\n  .card strong {\n    font-size: 18px;\n    color: #5f6368;\n    font-weight: 600;\n  }\n\n---\n# Introduction to Design Thinking\n\n* User-centered approach\n* Solving complex problems\n* Iterative & non-linear process\n\n<div class=\"hero-container\">\n  <img src=\"https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db790/slides_images/1.png\" alt=\"Design Thinking is a collaborative, user-centered approach to problem-solving.\" />\n</div>\n\n---\n# The Five Phases of Design Thinking\n\n* Empathize: Understand users\n* Define: Pinpoint the problem\n* Ideate: Brainstorm solutions\n* Prototype: Build early versions\n* Test: Gather feedback & refine\n\n<div class=\"grid-2\">\n  <div class=\"card\">\n    <div class=\"card-img-2\">\n      <img src=\"https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db790/slides_images/2.png\" alt=\"Empathize & Define: Understanding user needs and framing the problem.\" />\n    </div>\n    <span><strong>Empathize & Define: Understanding user needs and framing the problem.</strong></span>\n  </div>\n  <div class=\"card\">\n    <div class=\"card-img-2\">\n      <img src=\"https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db790/slides_images/3.png\" alt=\"Ideate, Prototype & Test: Developing and refining solutions.\" />\n    </div>\n    <span><strong>Ideate, Prototype & Test: Developing and refining solutions.</strong></span>\n  </div>\n</div>\n\n---\n# Non-Linear and Iterative Nature\n\n* Not a strict sequence\n* Cycles back and forth\n* Learn, refine, repeat\n* Flexibility is key\n\n---\n# Benefits of a Design Thinking Approach\n\n* Deeper user understanding\n* Challenges existing assumptions\n* Redefines problems effectively\n* Fosters innovative solutions\n\n<div class=\"grid-2\">\n  <div class=\"card\">\n    <div class=\"card-img-2\">\n      <img src=\"https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db790/slides_images/4.png\" alt=\"Design Thinking sparks innovation by redefining problems.\" />\n    </div>\n    <span><strong>Design Thinking sparks innovation by redefining problems.</strong></span>\n  </div>\n  <div class=\"card\">\n    <div class=\"card-img-2\">\n      <img src=\"https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db790/slides_images/5.png\" alt=\"Leads to better products, services, and user satisfaction.\" />\n    </div>\n    <span><strong>Leads to better products, services, and user satisfaction.</strong></span>\n  </div>\n</div>\n\n---\n# User Interviews: Unlocking Deep User Insights\n\n* Core qualitative research method.\n* Understand user needs, behaviors, and motivations.\n* Foundation for user-centric design decisions.\n\n<div class=\"hero-container\">\n  <img src=\"https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db790/slides_images/6.png\" alt=\"Effective user interviews involve active listening and empathetic engagement to uncover true user needs.\" />\n</div>\n\n---\n# Crafting Effective Questions: Open-Ended vs. Leading\n\n* Open-ended questions encourage detailed responses.\n* Avoid leading questions to prevent bias.\n* Focus on 'how,' 'why,' and 'tell me about...'\n\n<div class=\"grid-2\">\n  <div class=\"card\">\n    <div class=\"card-img-2\">\n      <img src=\"https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db790/slides_images/7.png\" alt=\"Open-ended questions invite detailed and unbiased responses from users, revealing deeper insights.\" />\n    </div>\n    <span><strong>Open-ended questions invite detailed and unbiased responses from users, revealing deeper insights.</strong></span>\n  </div>\n  <div class=\"card\">\n    <div class=\"card-img-2\">\n      <img src=\"https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db790/slides_images/8.png\" alt=\"Leading questions bias users towards a specific answer, limiting the depth and authenticity of their feedback.\" />\n    </div>\n    <span><strong>Leading questions bias users towards a specific answer, limiting the depth and authenticity of their feedback.</strong></span>\n  </div>\n</div>\n\n---\n# Mastering Active Listening for Deeper Insights\n\n* Pay full attention; listen more than you speak.\n* Observe non-verbal cues (body language, tone).\n* Ask follow-up questions to clarify and explore.\n* Summarize and confirm understanding with the user.\n\n---\n# Preparing for Your Interview: A Practical Checklist\n\n* Define clear research objectives.\n* Develop an interview script with open-ended questions.\n* Practice neutral questioning and active listening skills.\n\n<div class=\"grid-3\">\n  <div class=\"card\">\n    <div class=\"card-img-3\">\n      <img src=\"https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db790/slides_images/9.png\" alt=\"Clearly defined research objectives guide your interview process and ensure you gather relevant information.\" />\n    </div>\n    <span><strong>Clearly defined research objectives guide your interview process and ensure you gather relevant information.</strong></span>\n  </div>\n  <div class=\"card\">\n    <div class=\"card-img-3\">\n      <img src=\"https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db790/slides_images/10.png\" alt=\"A well-prepared interview script with open-ended questions ensures consistency and covers all key areas.\" />\n    </div>\n    <span><strong>A well-prepared interview script with open-ended questions ensures consistency and covers all key areas.</strong></span>\n  </div>\n  <div class=\"card\">\n    <div class=\"card-img-3\">\n      <img src=\"https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db790/slides_images/11.png\" alt=\"Practicing neutral questioning and active listening improves your ability to conduct unbiased and insightful interviews.\" />\n    </div>\n    <span><strong>Practicing neutral questioning and active listening improves your ability to conduct unbiased and insightful interviews.</strong></span>\n  </div>\n</div>\n\n---\n# What is Information Architecture (IA)?\n\n* Organizing, structuring, and labeling content effectively\n* Making information findable and understandable\n* Enhancing user experience and navigation\n\n<div class=\"hero-container\">\n  <img src=\"https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db790/slides_images/12.png\" alt=\"Information Architecture (IA) is the art and science of organizing and labeling websites, intranets, online communities, and software to support usability and findability.\" />\n</div>\n\n---\n# The Pillars of Information Architecture\n\n* Organization Systems: Grouping and categorizing content\n* Labeling Systems: Clear and consistent naming conventions\n* Navigation Systems: Guiding users through the product\n\n<div class=\"grid-3\">\n  <div class=\"card\">\n    <div class=\"card-img-3\">\n      <img src=\"https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db790/slides_images/13.png\" alt=\"Organization Systems: How content is grouped (e.g., categories, sequences, facets).\" />\n    </div>\n    <span><strong>Organization Systems: How content is grouped (e.g., categories, sequences, facets).</strong></span>\n  </div>\n  <div class=\"card\">\n    <div class=\"card-img-3\">\n      <img src=\"https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db790/slides_images/14.png\" alt=\"Labeling Systems: The words and phrases used to represent information.\" />\n    </div>\n    <span><strong>Labeling Systems: The words and phrases used to represent information.</strong></span>\n  </div>\n  <div class=\"card\">\n    <div class=\"card-img-3\">\n      <img src=\"https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db790/slides_images/15.png\" alt=\"Navigation Systems: The tools users employ to move through content.\" />\n    </div>\n    <span><strong>Navigation Systems: The tools users employ to move through content.</strong></span>\n  </div>\n</div>\n\n---\n# Card Sorting: Uncovering User Mental Models\n\n* Qualitative research technique for content organization\n* Users group and label content based on their understanding\n* Informs sitemap and navigation design\n\n<div class=\"grid-2\">\n  <div class=\"card\">\n    <div class=\"card-img-2\">\n      <img src=\"https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db790/slides_images/16.png\" alt=\"Card sorting involves asking users to group content items into categories that make sense to them.\" />\n    </div>\n    <span><strong>Card sorting involves asking users to group content items into categories that make sense to them.</strong></span>\n  </div>\n  <div class=\"card\">\n    <div class=\"card-img-2\">\n      <img src=\"https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db790/slides_images/17.png\" alt=\"The results of card sorting provide insights into users' mental models and preferred content organization.\" />\n    </div>\n    <span><strong>The results of card sorting provide insights into users' mental models and preferred content organization.</strong></span>\n  </div>\n</div>\n\n---\n# Sitemaps: The Visual Blueprint of Your Product\n\n* Visual representation of a website or app's structure\n* Shows hierarchy and relationships between pages\n* Guides design, development, and content strategy\n\n<div class=\"hero-container\">\n  <img src=\"https://capstone-ai-education.s3.us-east-1.amazonaws.com/5562441f-80c2-4c6d-af4e-db20006db790/slides_images/18.png\" alt=\"A sitemap visually outlines all the pages or screens within a product and their hierarchical relationships.\" />\n</div>\n",
           "transcripts": [
             {
               "slide_index": 0,
@@ -1072,27 +1231,27 @@
             },
             {
               "slide_index": 2,
-              "slide_title": "Welcome to Design Thinking!",
-              "transcript": "Hello everyone! Today, we're diving into Design Thinking, a powerful methodology that puts people at the heart of innovation. It's not a rigid, step-by-step process, but rather a flexible and iterative cycle that encourages continuous learning and refinement. This approach helps us truly understand our users, challenge our assumptions, and develop solutions that genuinely meet their needs.",
-              "thai_transcript": "สวัสดีทุกคน! วันนี้เราจะมาเรียนรู้เรื่อง Design Thinking ซึ่งเป็นวิธีการอันทรงพลังที่นำผู้คนมาเป็นศูนย์กลางของการสร้างสรรค์นวัตกรรม กระบวนการนี้ไม่ใช่ขั้นตอนที่ตายตัว แต่เป็นวงจรที่ยืดหยุ่นและทำซ้ำได้ ซึ่งส่งเสริมการเรียนรู้และการปรับปรุงอย่างต่อเนื่อง แนวทางนี้ช่วยให้เราเข้าใจผู้ใช้งานอย่างลึกซึ้ง ท้าทายสมมติฐาน และพัฒนาโซลูชันที่ตอบสนองความต้องการของพวกเขาได้อย่างแท้จริง"
+              "slide_title": "Introduction to Design Thinking",
+              "transcript": "Welcome to our first lesson, where we'll dive into the world of Design Thinking. At its core, Design Thinking is a powerful methodology that places the user right at the heart of the problem-solving process. It's not just about creating products; it's about deeply understanding human needs, challenging assumptions, and crafting innovative solutions that truly make a difference. This approach encourages a mindset of empathy, experimentation, and continuous learning, moving beyond traditional linear thinking.",
+              "thai_transcript": "ยินดีต้อนรับสู่บทเรียนแรกของเราครับ เราจะมาทำความรู้จักกับการคิดเชิงออกแบบ หรือ Design Thinking กัน หัวใจหลักของ Design Thinking คือการนำผู้ใช้มาเป็นศูนย์กลางในการแก้ปัญหา ไม่ใช่แค่การสร้างผลิตภัณฑ์เท่านั้น แต่เป็นการทำความเข้าใจความต้องการของมนุษย์อย่างลึกซึ้ง ท้าทายสมมติฐาน และสร้างสรรค์นวัตกรรมที่แตกต่าง วิธีการนี้ส่งเสริมแนวคิดของความเห็นอกเห็นใจ การทดลอง และการเรียนรู้อย่างต่อเนื่อง ก้าวข้ามการคิดเชิงเส้นตรงแบบเดิมๆ"
             },
             {
               "slide_index": 3,
-              "slide_title": "The Five Core Phases of Design Thinking",
-              "transcript": "Design Thinking is structured around five core phases, but remember, they're not always sequential. You might jump back and forth, or even conduct multiple phases simultaneously. We start by empathizing with our users to grasp their world, then define the actual problem we're solving. From there, we ideate numerous solutions, prototype the most promising ones, and finally test them to gather crucial feedback for improvement.",
-              "thai_transcript": "Design Thinking มีห้าขั้นตอนหลัก แต่โปรดจำไว้ว่าขั้นตอนเหล่านี้ไม่จำเป็นต้องเป็นลำดับเสมอไป คุณอาจกระโดดไปมาระหว่างขั้นตอน หรือทำหลายขั้นตอนพร้อมกันก็ได้ เราเริ่มต้นด้วยการทำความเข้าใจผู้ใช้งานอย่างลึกซึ้ง จากนั้นกำหนดปัญหาที่เราต้องการแก้ไขให้ชัดเจน หลังจากนั้น เราจะระดมความคิดเพื่อหาแนวทางแก้ไขที่หลากหลาย สร้างต้นแบบสำหรับแนวคิดที่มีศักยภาพ และทดสอบเพื่อให้ได้ข้อเสนอแนะที่สำคัญสำหรับการปรับปรุง"
+              "slide_title": "The Five Phases of Design Thinking",
+              "transcript": "Design Thinking is often broken down into five distinct phases, although it's crucial to remember they're not always sequential. We begin by truly empathizing with our users to understand their experiences and pain points, which then helps us define the core problem clearly. Next, we ideate, generating a wide range of potential solutions. These ideas are then brought to life through prototyping, creating tangible representations for us to test with real users, gathering invaluable feedback for refinement.",
+              "thai_transcript": "การคิดเชิงออกแบบมักถูกแบ่งออกเป็นห้าขั้นตอนที่ชัดเจน แต่สิ่งสำคัญคือต้องจำไว้ว่ามันไม่ได้เป็นไปตามลำดับเสมอไป เราเริ่มต้นด้วยการทำความเข้าใจผู้ใช้อย่างแท้จริง เพื่อทำความเข้าใจประสบการณ์และความเจ็บปวดของพวกเขา ซึ่งช่วยให้เราสามารถกำหนดปัญหาหลักได้อย่างชัดเจน ถัดไป เราจะระดมสมองเพื่อสร้างสรรค์แนวทางแก้ไขที่เป็นไปได้มากมาย ไอเดียเหล่านี้จะถูกนำไปสร้างเป็นต้นแบบ เพื่อให้เราได้ทดลองใช้กับผู้ใช้จริง และรวบรวมข้อเสนอแนะอันมีค่าเพื่อนำไปปรับปรุง"
             },
             {
               "slide_index": 4,
-              "slide_title": "Empathize, Define, and Ideate",
-              "transcript": "Let's break down the first three critical phases. Empathy is about truly understanding your users – their feelings, struggles, and aspirations. This is achieved through interviews, observations, and immersing yourself in their world. Once you have a deep understanding, you define the problem clearly, articulating a user-centric challenge often using 'How Might We' questions. Finally, in Ideate, you let creativity flow, generating as many solutions as possible without constraint, encouraging both wild and practical ideas.",
-              "thai_transcript": "มาดูสามขั้นตอนแรกที่สำคัญกัน การเข้าใจความรู้สึกของผู้อื่นคือการเข้าใจผู้ใช้งานอย่างแท้จริง ทั้งความรู้สึก ปัญหา และความต้องการของพวกเขา ซึ่งทำได้โดยการสัมภาษณ์ การสังเกต และการเข้าไปอยู่ในโลกของพวกเขา เมื่อคุณมีความเข้าใจอย่างลึกซึ้งแล้ว คุณจะกำหนดปัญหาให้ชัดเจน โดยระบุความท้าทายที่เน้นผู้ใช้งานเป็นหลัก ซึ่งมักจะใช้คำถาม 'เราจะทำอย่างไรให้...' และสุดท้าย ในขั้นตอนการระดมความคิด คุณจะปล่อยให้ความคิดสร้างสรรค์ไหลออกมา สร้างโซลูชันให้มากที่สุดเท่าที่จะเป็นไปได้โดยไม่มีข้อจำกัด โดยส่งเสริมทั้งแนวคิดที่แปลกใหม่และนำไปใช้ได้จริง"
+              "slide_title": "Non-Linear and Iterative Nature",
+              "transcript": "Unlike a rigid checklist, Design Thinking is not a strictly linear process. You might find yourself moving back and forth between phases, like returning to the empathy stage after a testing round reveals new user insights. This iterative nature is its strength; it allows for continuous learning and refinement, ensuring that solutions evolve based on real-world feedback rather than initial assumptions. Embracing this flexibility is crucial for successful innovation.",
+              "thai_transcript": "แตกต่างจากรายการตรวจสอบที่เข้มงวด การคิดเชิงออกแบบไม่ได้เป็นกระบวนการเชิงเส้นตรงอย่างเคร่งครัด คุณอาจพบว่าตัวเองต้องย้อนกลับไปมาระหว่างขั้นตอนต่างๆ เช่น การกลับไปสู่ขั้นตอนการเข้าใจผู้ใช้หลังจากที่การทดสอบเปิดเผยข้อมูลเชิงลึกใหม่ๆ ลักษณะการทำซ้ำนี้คือจุดแข็งของมัน ช่วยให้เกิดการเรียนรู้และปรับปรุงอย่างต่อเนื่อง ทำให้มั่นใจได้ว่าโซลูชันจะพัฒนาไปตามข้อเสนอแนะจากโลกแห่งความเป็นจริง แทนที่จะเป็นเพียงสมมติฐานเริ่มต้น การเปิดรับความยืดหยุ่นนี้เป็นสิ่งสำคัญสำหรับการสร้างสรรค์นวัตกรรมที่ประสบความสำเร็จ"
             },
             {
               "slide_index": 5,
-              "slide_title": "Prototype, Test, and Iterate",
-              "transcript": "Once you have potential solutions, the next step is to Prototype. This isn't about building a perfect product, but creating a quick, tangible representation of your idea – whether it's a sketch, a cardboard model, or a simple digital mock-up. These prototypes are then put to the Test with real users. The goal here is to observe their interactions, listen to their feedback, and identify what works and what doesn't. The insights gained from testing then feed back into the earlier phases, allowing you to Iterate and refine your solutions, making the process truly cyclical.",
-              "thai_transcript": "เมื่อคุณมีแนวทางแก้ไขที่เป็นไปได้ ขั้นตอนต่อไปคือการสร้างต้นแบบ นี่ไม่ใช่การสร้างผลิตภัณฑ์ที่สมบูรณ์แบบ แต่เป็นการสร้างตัวแทนที่จับต้องได้ของแนวคิดของคุณอย่างรวดเร็ว ไม่ว่าจะเป็นภาพร่าง โมเดลกระดาษแข็ง หรือแบบจำลองดิจิทัลง่ายๆ ต้นแบบเหล่านี้จะถูกนำไปทดสอบกับผู้ใช้งานจริง เป้าหมายคือการสังเกตการโต้ตอบของพวกเขา รับฟังความคิดเห็น และระบุว่าอะไรใช้ได้ผลและอะไรไม่ได้ผล ข้อมูลเชิงลึกที่ได้จากการทดสอบจะถูกนำกลับไปสู่ขั้นตอนก่อนหน้า เพื่อให้คุณสามารถปรับปรุงและปรับแต่งโซลูชันของคุณ ทำให้กระบวนการเป็นวัฏจักรอย่างแท้จริง"
+              "slide_title": "Benefits of a Design Thinking Approach",
+              "transcript": "So, why is Design Thinking so important in today's world? It empowers teams to truly understand their users, moving beyond surface-level observations to uncover hidden needs and motivations. By challenging assumptions and reframing problems from a user-centric perspective, it helps us develop solutions that are not only desirable but also feasible and viable. This approach ultimately leads to more impactful products, services, and experiences that resonate deeply with their intended audience.",
+              "thai_transcript": "แล้วทำไม Design Thinking ถึงสำคัญในโลกปัจจุบัน? มันช่วยให้ทีมเข้าใจผู้ใช้อย่างแท้จริง ก้าวข้ามการสังเกตการณ์ผิวเผินไปสู่การค้นพบความต้องการและแรงจูงใจที่ซ่อนอยู่ ด้วยการท้าทายสมมติฐานและกำหนดปัญหาใหม่จากมุมมองที่ผู้ใช้เป็นศูนย์กลาง มันช่วยให้เราพัฒนาโซลูชันที่ไม่เพียงแต่น่าพึงพอใจ แต่ยังเป็นไปได้และสามารถทำได้จริง วิธีการนี้ท้ายที่สุดนำไปสู่ผลิตภัณฑ์ บริการ และประสบการณ์ที่ส่งผลกระทบมากขึ้น และตรงใจกลุ่มเป้าหมายอย่างลึกซึ้ง"
             },
             {
               "slide_index": 6,
@@ -1102,51 +1261,57 @@
             },
             {
               "slide_index": 7,
-              "slide_title": "Unlocking User Insights: The Power of Interviews",
-              "transcript": "Welcome to our lesson on conducting effective user interviews! This qualitative research method is incredibly powerful because it allows us to directly connect with our users and truly understand their perspectives. Instead of guessing what people want or need, we sit down with them, listen to their stories, and uncover the real challenges they face. This direct insight is fundamental for designing products that genuinely solve problems and resonate with users.",
-              "thai_transcript": "ยินดีต้อนรับสู่บทเรียนของเราเกี่ยวกับการสัมภาษณ์ผู้ใช้อย่างมีประสิทธิภาพ! วิธีการวิจัยเชิงคุณภาพนี้มีพลังอย่างมาก เพราะช่วยให้เราเชื่อมโยงกับผู้ใช้โดยตรงและเข้าใจมุมมองของพวกเขาอย่างแท้จริง แทนที่จะคาดเดาว่าผู้คนต้องการอะไร เราจะนั่งคุยกับพวกเขา รับฟังเรื่องราวของพวกเขา และค้นหาความท้าทายที่แท้จริงที่พวกเขาเผชิญอยู่ ข้อมูลเชิงลึกโดยตรงนี้เป็นสิ่งสำคัญสำหรับการออกแบบผลิตภัณฑ์ที่สามารถแก้ปัญหาได้อย่างแท้จริงและตอบโจทย์ผู้ใช้ได้ดี"
+              "slide_title": "User Interviews: Unlocking Deep User Insights",
+              "transcript": "User interviews are one of the most powerful qualitative research methods we have in our product design toolkit. They allow us to move beyond assumptions and truly understand our users as individuals. By engaging directly with people, we can uncover their needs, behaviors, motivations, and crucially, their pain points, which are often not apparent through quantitative data alone. This direct connection forms the essential foundation for creating truly user-centric products.",
+              "thai_transcript": "การสัมภาษณ์ผู้ใช้เป็นหนึ่งในวิธีการวิจัยเชิงคุณภาพที่ทรงพลังที่สุดที่เรามีอยู่ในชุดเครื่องมือการออกแบบผลิตภัณฑ์ของเราครับ วิธีนี้ช่วยให้เราก้าวข้ามข้อสันนิษฐานและเข้าใจผู้ใช้ของเราในฐานะปัจเจกบุคคลได้อย่างแท้จริง โดยการมีส่วนร่วมโดยตรงกับผู้คน เราสามารถค้นพบความต้องการ พฤติกรรม แรงจูงใจ และที่สำคัญคือ ปัญหาที่พวกเขากำลังเผชิญ ซึ่งมักจะไม่ปรากฏชัดเจนจากข้อมูลเชิงปริมาณเพียงอย่างเดียว การเชื่อมโยงโดยตรงนี้สร้างรากฐานที่สำคัญสำหรับการสร้างผลิตภัณฑ์ที่ยึดผู้ใช้เป็นศูนย์กลางอย่างแท้จริงครับ"
             },
             {
               "slide_index": 8,
-              "slide_title": "Crafting Effective Questions: Open-Ended & Neutral",
-              "transcript": "The quality of your interview insights heavily depends on the questions you ask. We want to encourage users to share their stories, not just give us a 'yes' or 'no' answer. This means focusing on open-ended questions like 'Tell me about a time when...' or 'How did you approach that situation?' Equally important is avoiding leading questions, which subtly guide the participant towards a particular response. For example, instead of 'Don't you agree this feature is useful?', ask 'What are your thoughts on this feature's usefulness?'",
-              "thai_transcript": "คุณภาพของข้อมูลเชิงลึกจากการสัมภาษณ์ขึ้นอยู่กับคำถามที่คุณถามอย่างมาก เราต้องการกระตุ้นให้ผู้ใช้เล่าเรื่องราวของพวกเขา ไม่ใช่แค่ตอบ 'ใช่' หรือ 'ไม่' ซึ่งหมายถึงการเน้นคำถามปลายเปิด เช่น 'เล่าให้ฟังหน่อยว่ามีครั้งไหนที่...' หรือ 'คุณจัดการกับสถานการณ์นั้นอย่างไร?' ที่สำคัญไม่แพ้กันคือการหลีกเลี่ยงคำถามชี้นำ ซึ่งจะนำผู้เข้าร่วมไปยังคำตอบที่ต้องการ ตัวอย่างเช่น แทนที่จะถามว่า 'คุณเห็นด้วยไหมว่าฟีเจอร์นี้มีประโยชน์?' ให้ถามว่า 'คุณคิดอย่างไรเกี่ยวกับประโยชน์ของฟีเจอร์นี้?'"
+              "slide_title": "Crafting Effective Questions: Open-Ended vs. Leading",
+              "transcript": "The quality of your interview insights largely depends on the questions you ask. We always aim for open-ended questions that encourage users to elaborate and share their experiences in their own words. Think 'how,' 'why,' and 'tell me about...' Conversely, we must actively avoid leading questions, which subtly push users towards a particular answer, often confirming our own biases rather than revealing new information.",
+              "thai_transcript": "คุณภาพของข้อมูลเชิงลึกจากการสัมภาษณ์ขึ้นอยู่กับคำถามที่คุณถามเป็นอย่างมากครับ เราควรตั้งคำถามปลายเปิดที่กระตุ้นให้ผู้ใช้ขยายความและแบ่งปันประสบการณ์ในแบบของตนเอง ลองคิดถึงคำถามที่ขึ้นต้นด้วย 'อย่างไร' 'ทำไม' และ 'เล่าให้ฉันฟังเกี่ยวกับ...' ในทางกลับกัน เราต้องหลีกเลี่ยงคำถามชี้นำอย่างจริงจัง ซึ่งจะผลักดันให้ผู้ใช้ตอบไปในทิศทางใดทิศทางหนึ่ง ซึ่งมักจะยืนยันอคติของเราเองมากกว่าที่จะเปิดเผยข้อมูลใหม่ๆ ครับ"
             },
             {
               "slide_index": 9,
-              "slide_title": "Mastering Active Listening: Beyond Just Hearing",
-              "transcript": "Once you've asked a great question, the real work begins: active listening. This means going beyond just hearing the words; it's about understanding the underlying emotions, motivations, and context. Try to listen significantly more than you talk, giving your interviewee space to elaborate. Pay close attention to their body language, facial expressions, and tone of voice, as these often convey as much information as their words. Don't forget to use techniques like paraphrasing what you've heard or summarizing key points to ensure you've understood correctly and to encourage them to share even more.",
-              "thai_transcript": "เมื่อคุณถามคำถามที่ดีแล้ว งานที่แท้จริงก็เริ่มต้นขึ้น นั่นคือการฟังอย่างตั้งใจ ซึ่งหมายถึงการไปไกลกว่าแค่ได้ยินคำพูด แต่เป็นการทำความเข้าใจอารมณ์ แรงจูงใจ และบริบทที่ซ่อนอยู่ พยายามฟังมากกว่าพูดอย่างมาก ให้พื้นที่ผู้ให้สัมภาษณ์ได้อธิบายอย่างละเอียด ใส่ใจภาษากาย สีหน้า และน้ำเสียงของพวกเขาอย่างใกล้ชิด เพราะสิ่งเหล่านี้มักจะสื่อข้อมูลได้มากเท่ากับคำพูดของพวกเขา อย่าลืมใช้เทคนิคเช่นการสรุปสิ่งที่คุณได้ยิน หรือสรุปประเด็นสำคัญ เพื่อให้แน่ใจว่าคุณเข้าใจถูกต้องและกระตุ้นให้พวกเขาแบ่งปันข้อมูลเพิ่มเติม"
+              "slide_title": "Mastering Active Listening for Deeper Insights",
+              "transcript": "Beyond asking good questions, true insight comes from active listening. This means giving your full attention, not just to the words being said, but also to how they're being said and what's not being said. Observe body language, tone of voice, and any hesitations. Don't be afraid to ask follow-up questions to dig deeper or summarize what you've heard to ensure you've understood correctly.",
+              "thai_transcript": "นอกจากการถามคำถามที่ดีแล้ว ข้อมูลเชิงลึกที่แท้จริงมาจากการฟังอย่างตั้งใจครับ นั่นหมายถึงการให้ความสนใจอย่างเต็มที่ ไม่ใช่แค่คำพูดที่ถูกพูดออกมา แต่ยังรวมถึงวิธีการพูด และสิ่งที่ไม่ได้พูดออกมาด้วย สังเกตภาษากาย น้ำเสียง และความลังเลต่างๆ อย่ากลัวที่จะถามคำถามติดตามเพื่อเจาะลึกหรือสรุปสิ่งที่คุณได้ยินเพื่อให้แน่ใจว่าคุณเข้าใจถูกต้องครับ"
             },
             {
               "slide_index": 10,
+              "slide_title": "Preparing for Your Interview: A Practical Checklist",
+              "transcript": "Before you even meet a user, thorough preparation is key to a successful interview. Start by clearly defining your research objectives – what exactly do you need to learn? Then, draft an interview script filled with those open-ended questions we discussed, ensuring you cover all your key areas. Finally, practice! Role-play with a colleague to refine your questioning technique, avoid leading statements, and hone your active listening skills. This preparation is vital for gathering rich, unbiased data.",
+              "thai_transcript": "ก่อนที่คุณจะพบผู้ใช้ การเตรียมตัวอย่างละเอียดเป็นกุญแจสำคัญสู่การสัมภาษณ์ที่ประสบความสำเร็จครับ เริ่มต้นด้วยการกำหนดวัตถุประสงค์การวิจัยของคุณให้ชัดเจน – คุณต้องการเรียนรู้อะไรกันแน่? จากนั้น ร่างสคริปต์การสัมภาษณ์ที่เต็มไปด้วยคำถามปลายเปิดที่เราพูดถึงไปแล้ว เพื่อให้แน่ใจว่าคุณครอบคลุมประเด็นสำคัญทั้งหมด สุดท้าย ฝึกฝนครับ! ลองเล่นบทบาทสมมติกับเพื่อนร่วมงานเพื่อปรับปรุงเทคนิคการตั้งคำถาม หลีกเลี่ยงคำกล่าวชี้นำ และฝึกฝนทักษะการฟังอย่างตั้งใจ การเตรียมตัวนี้สำคัญอย่างยิ่งต่อการรวบรวมข้อมูลที่สมบูรณ์และเป็นกลางครับ"
+            },
+            {
+              "slide_index": 11,
               "slide_title": "Information Architecture and Sitemap Construction",
               "transcript": "In this section, we will cover Information Architecture and Sitemap Construction.",
               "thai_transcript": ""
             },
             {
-              "slide_index": 11,
-              "slide_title": "What is Information Architecture (IA)?",
-              "transcript": "Information Architecture, or IA, is the backbone of any digital product. It's all about how we organize, structure, and label content in a way that makes it easy for users to find what they're looking for and understand where they are. Think of it as the art and science of organizing and labeling websites, intranets, online communities, and software to support usability and findability. A strong IA ensures users can effortlessly navigate your product, leading to a much better experience overall.",
-              "thai_transcript": "สถาปัตยกรรมสารสนเทศ หรือ IA คือกระดูกสันหลังของผลิตภัณฑ์ดิจิทัลทุกชนิดครับ มันคือการจัดระเบียบ โครงสร้าง และติดป้ายเนื้อหาในลักษณะที่ทำให้ผู้ใช้หาสิ่งที่ต้องการได้ง่ายและเข้าใจว่าตอนนี้ตัวเองอยู่ที่ไหน ลองนึกภาพว่าเป็นทั้งศิลปะและวิทยาศาสตร์ในการจัดระเบียบและติดป้ายเว็บไซต์ อินทราเน็ต ชุมชนออนไลน์ และซอฟต์แวร์ เพื่อรองรับการใช้งานและการค้นหา IA ที่แข็งแกร่งช่วยให้ผู้ใช้สามารถนำทางในผลิตภัณฑ์ของคุณได้อย่างง่ายดาย นำไปสู่ประสบการณ์ที่ดีขึ้นมากโดยรวมครับ"
-            },
-            {
               "slide_index": 12,
-              "slide_title": "Core Components of Information Architecture",
-              "transcript": "When we talk about IA, we're really talking about several interconnected systems. First, there are Organization Systems, which dictate how we categorize and group content. Then, Navigation Systems are the pathways users take to move through your product, like menus or links. Labeling Systems involve the words and icons we use to represent information, ensuring clarity. Finally, Search Systems enable users to directly query for what they need. All these elements must work harmoniously to create an intuitive and efficient user journey.",
-              "thai_transcript": "เมื่อเราพูดถึง IA เรากำลังพูดถึงระบบที่เชื่อมโยงกันหลายส่วนครับ ประการแรกคือระบบการจัดระเบียบ (Organization Systems) ซึ่งกำหนดว่าเราจะจัดหมวดหมู่และจัดกลุ่มเนื้อหาอย่างไร ถัดมาคือระบบนำทาง (Navigation Systems) ซึ่งเป็นเส้นทางที่ผู้ใช้ใช้ในการเคลื่อนที่ผ่านผลิตภัณฑ์ของคุณ เช่น เมนูหรือลิงก์ ระบบการติดป้าย (Labeling Systems) เกี่ยวข้องกับคำและไอคอนที่เราใช้เพื่อแสดงข้อมูล เพื่อให้เกิดความชัดเจน และสุดท้าย ระบบการค้นหา (Search Systems) ช่วยให้ผู้ใช้สามารถค้นหาสิ่งที่ต้องการได้โดยตรง องค์ประกอบทั้งหมดเหล่านี้ต้องทำงานร่วมกันอย่างกลมกลืนเพื่อสร้างเส้นทางของผู้ใช้ที่ใช้งานง่ายและมีประสิทธิภาพครับ"
+              "slide_title": "What is Information Architecture (IA)?",
+              "transcript": "Information Architecture, or IA, is fundamental to any digital product. It's about designing the structure and organization of your content in a way that makes it intuitive and easy for users to find what they're looking for. Think of it as the blueprint for your product's content, ensuring everything has its rightful place and users can navigate effortlessly. A well-designed IA significantly improves user experience and overall product usability.",
+              "thai_transcript": "สถาปัตยกรรมสารสนเทศ หรือ IA เป็นรากฐานสำคัญของผลิตภัณฑ์ดิจิทัลทุกชนิด มันคือการออกแบบโครงสร้างและการจัดระเบียบเนื้อหาของคุณในลักษณะที่ใช้งานง่ายและทำให้ผู้ใช้สามารถค้นหาสิ่งที่ต้องการได้อย่างง่ายดาย ลองนึกภาพว่าเป็นพิมพ์เขียวสำหรับเนื้อหาผลิตภัณฑ์ของคุณ เพื่อให้มั่นใจว่าทุกอย่างอยู่ในตำแหน่งที่ถูกต้อง และผู้ใช้สามารถนำทางได้อย่างราบรื่น IA ที่ออกแบบมาอย่างดีจะช่วยปรับปรุงประสบการณ์ผู้ใช้และประโยชน์การใช้งานของผลิตภัณฑ์โดยรวมได้อย่างมาก"
             },
             {
               "slide_index": 13,
-              "slide_title": "Card Sorting: Uncovering User Mental Models",
-              "transcript": "Card sorting is an incredibly valuable user research technique used to inform our information architecture. It involves asking participants to organize topics into groups that make sense to them, and then to label those groups. This process helps us uncover users' mental models—how they naturally think about and categorize information. We can conduct 'open' card sorts where users create their own category labels, or 'closed' card sorts where they sort into pre-defined categories. The insights gained from card sorting are crucial for building an IA that truly resonates with your target audience.",
-              "thai_transcript": "การ์ดซอร์ติ้งเป็นเทคนิคการวิจัยผู้ใช้ที่มีคุณค่าอย่างยิ่งในการออกแบบสถาปัตยกรรมสารสนเทศของเราครับ เทคนิคนี้เกี่ยวข้องกับการขอให้ผู้เข้าร่วมจัดระเบียบหัวข้อต่างๆ เป็นกลุ่มที่พวกเขาเข้าใจ และจากนั้นก็ให้ติดป้ายชื่อกลุ่มเหล่านั้น กระบวนการนี้ช่วยให้เราค้นพบแบบจำลองความคิดของผู้ใช้ (mental models)—วิธีที่พวกเขาคิดและจัดหมวดหมู่ข้อมูลตามธรรมชาติ เราสามารถทำการ์ดซอร์ทแบบ 'เปิด' (open card sort) ที่ผู้ใช้สร้างป้ายชื่อหมวดหมู่ของตนเอง หรือแบบ 'ปิด' (closed card sort) ที่พวกเขาจัดเรียงเข้าหมวดหมู่ที่กำหนดไว้ล่วงหน้า ข้อมูลเชิงลึกที่ได้จากการ์ดซอร์ทมีความสำคัญอย่างยิ่งต่อการสร้าง IA ที่ตอบโจทย์กลุ่มเป้าหมายของคุณจริงๆ ครับ"
+              "slide_title": "The Pillars of Information Architecture",
+              "transcript": "At the core of IA are three main pillars: organization, labeling, and navigation systems. Organization systems dictate how we group and categorize content, ensuring related items are together. Labeling systems are about the words we use – making sure titles, headings, and menu items are clear, concise, and consistent. Finally, navigation systems are the tools that help users move through the product, like menus, search bars, and breadcrumbs. Together, these three elements create a cohesive and understandable structure.",
+              "thai_transcript": "หัวใจหลักของ IA คือสามเสาหลัก ได้แก่ ระบบการจัดระเบียบ การติดป้าย และระบบการนำทาง ระบบการจัดระเบียบกำหนดว่าเราจะจัดกลุ่มและจัดหมวดหมู่เนื้อหาอย่างไร เพื่อให้แน่ใจว่ารายการที่เกี่ยวข้องอยู่ด้วยกัน ระบบการติดป้ายเกี่ยวกับคำที่เราใช้ — ตรวจสอบให้แน่ใจว่าชื่อเรื่อง หัวข้อ และรายการเมนูมีความชัดเจน กระชับ และสอดคล้องกัน สุดท้าย ระบบการนำทางเป็นเครื่องมือที่ช่วยให้ผู้ใช้เคลื่อนที่ไปในผลิตภัณฑ์ได้ เช่น เมนู แถบค้นหา และ Breadcrumbs ทั้งสามองค์ประกอบนี้ร่วมกันสร้างโครงสร้างที่สอดคล้องและเข้าใจง่าย"
             },
             {
               "slide_index": 14,
-              "slide_title": "Sitemap Construction for Mobile Applications",
-              "transcript": "Once we understand how to organize content through IA principles and user research like card sorting, the next step is to visualize that structure using a sitemap. A sitemap for a mobile application is essentially a hierarchical diagram that maps out every screen, feature, and their interconnections. It serves as a visual blueprint, showing how users will navigate from one part of the app to another. This tool is indispensable for planning the app's content, features, and overall user flow, making it a critical asset for designers, developers, and product managers to ensure everyone is on the same page.",
-              "thai_transcript": "เมื่อเราเข้าใจวิธีการจัดระเบียบเนื้อหาผ่านหลักการ IA และการวิจัยผู้ใช้ เช่น การ์ดซอร์ติ้ง ขั้นตอนต่อไปคือการสร้างภาพโครงสร้างนั้นด้วยแผนผังเว็บไซต์ (sitemap) แผนผังเว็บไซต์สำหรับแอปพลิเคชันมือถือโดยพื้นฐานแล้วคือแผนภาพลำดับชั้นที่แสดงทุกหน้าจอ ฟังก์ชัน และการเชื่อมโยงระหว่างกัน มันทำหน้าที่เป็นพิมพ์เขียวทางสายตา แสดงให้เห็นว่าผู้ใช้จะนำทางจากส่วนหนึ่งของแอปไปยังอีกส่วนหนึ่งได้อย่างไร เครื่องมือนี้จำเป็นอย่างยิ่งสำหรับการวางแผนเนื้อหา ฟังก์ชัน และขั้นตอนการใช้งานโดยรวมของแอป ทำให้เป็นทรัพย์สินที่สำคัญสำหรับนักออกแบบ นักพัฒนา และผู้จัดการผลิตภัณฑ์ เพื่อให้มั่นใจว่าทุกคนมีความเข้าใจที่ตรงกันครับ"
+              "slide_title": "Card Sorting: Uncovering User Mental Models",
+              "transcript": "One of the most effective techniques for designing intuitive information architecture is card sorting. This qualitative research method involves asking users to organize content items into groups that make sense to them, and then often asking them to name those groups. By observing how users categorize information, we gain invaluable insights into their mental models, which directly informs how we should structure our product's content. It's a powerful way to ensure your IA aligns with user expectations.",
+              "thai_transcript": "หนึ่งในเทคนิคที่มีประสิทธิภาพที่สุดสำหรับการออกแบบสถาปัตยกรรมสารสนเทศที่ใช้งานง่ายคือ Card Sorting วิธีการวิจัยเชิงคุณภาพนี้เกี่ยวข้องกับการให้ผู้จัดเรียงเนื้อหาเป็นกลุ่มที่เข้าใจได้สำหรับพวกเขา จากนั้นมักจะขอให้พวกเขาตั้งชื่อกลุ่มเหล่านั้น โดยการสังเกตว่าผู้จัดเรียงจัดหมวดหมู่ข้อมูลอย่างไร เราจะได้รับข้อมูลเชิงลึกที่มีค่าเกี่ยวกับรูปแบบความคิดของพวกเขา ซึ่งเป็นข้อมูลโดยตรงว่าเราควรจัดโครงสร้างเนื้อหาผลิตภัณฑ์ของเราอย่างไร เป็นวิธีที่มีประสิทธิภาพในการทำให้แน่ใจว่า IA ของคุณสอดคล้องกับความคาดหวังของผู้ใช้"
+            },
+            {
+              "slide_index": 15,
+              "slide_title": "Sitemaps: The Visual Blueprint of Your Product",
+              "transcript": "Once you've understood user mental models through techniques like card sorting, you'll then translate that understanding into a sitemap. A sitemap is essentially the visual blueprint of your product – whether it's a website or a mobile app. It maps out all the pages or screens and shows their hierarchical relationships, demonstrating how users can navigate from one section to another. This document is crucial for aligning your team and ensuring a coherent and comprehensive product structure before development begins.",
+              "thai_transcript": "เมื่อคุณเข้าใจรูปแบบความคิดของผู้ใช้ผ่านเทคนิคเช่น Card Sorting แล้ว คุณจะต้องนำความเข้าใจนั้นไปสร้างเป็นแผนผังเว็บไซต์ (Sitemap) แผนผังเว็บไซต์เป็นเหมือนพิมพ์เขียวภาพของผลิตภัณฑ์ของคุณ ไม่ว่าจะเป็นเว็บไซต์หรือแอปพลิเคชันมือถือ มันจะแสดงหน้าจอหรือเพจทั้งหมดและแสดงความสัมพันธ์ตามลำดับชั้น ซึ่งแสดงให้เห็นว่าผู้ใช้สามารถนำทางจากส่วนหนึ่งไปยังอีกส่วนหนึ่งได้อย่างไร เอกสารนี้มีความสำคัญอย่างยิ่งต่อการประสานงานทีมของคุณและสร้างความมั่นใจในโครงสร้างผลิตภัณฑ์ที่สอดคล้องกันและครอบคลุมก่อนที่จะเริ่มการพัฒนา"
             }
           ]
         },
@@ -1156,9 +1321,9 @@
       }
     ]
   },
-  "versionId": "fc69aa84-3151-4bc1-a6cf-0f5b077f9bf9",
+  "versionId": "750d57c7-4eb1-45c1-aedc-22dc238a4469",
   "activeVersionId": null,
-  "versionCounter": 80,
+  "versionCounter": 141,
   "triggerCount": 1,
   "tags": [],
   "shared": [
