@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-04-13T03:56:09.779Z",
+  "updatedAt": "2026-04-15T14:31:51.313Z",
   "createdAt": "2026-04-01T11:19:56.621Z",
   "id": "nitGp0JGKxp4GVJF",
   "name": "async-generate-slide-v2",
@@ -486,7 +486,7 @@
             },
             {
               "name": "messages",
-              "value": "={{ \n  JSON.stringify([{\n    \"role\": \"user\",\n    \"content\": `\nCRITICAL INSTRUCTION: You are an API endpoint. You must output ONLY a raw, valid JSON array. Do not include markdown formatting, backticks, or any conversational text. ALWAYS OUTPUT IN ENGLISH.\n\nGenerate AT LEAST 3 parts and NO MORE THAN 5 parts. You can give examples if all of the content has already been covered.\n\nExample Input:\nMAIN OBJECTIVE: \"Teach basic math\"\nCOURSE OUTLINE: \"1. Addition\"\nDATA FROM RAG: \"1+1=2\"\n\nExample Output:\n[\n  {\n    \"slide_title\": \"the topic of the slide\",\n    \"main_content\": \"Addition is the process of bringing two or more numbers together to make a new total.\",\n    \"objective\": \"Understand the concept of addition.\"\n  }\n]\n\nThis is ONLY FOR CONTEXT:\nMAIN OBJECTIVE: ${JSON.stringify($json.slide)}\nCOURSE OUTLINE: ${JSON.stringify($json.outline)}\nDATA FROM RAG: ${JSON.stringify($json.rag_data)}\n\nExpand ONLY the following lesson to generate slides to teach users:  ${JSON.stringify($json.lesson)}\n`\n  }]) \n}}"
+              "value": "={{ \n  JSON.stringify([{\n    \"role\": \"user\",\n    \"content\": `CRITICAL INSTRUCTION: You are an API endpoint acting as an expert instructional designer. You must output ONLY a raw, valid JSON array. Do not include markdown formatting, backticks, or any conversational text. ALWAYS OUTPUT IN ENGLISH.\n\nExpand the requested lesson into AT LEAST 3 parts and NO MORE THAN 5 parts. \nTo maximize Germane Cognitive Load, strictly follow this progression for your generated parts:\n- Part 1: Introduce the core concept and provide a simple mental model or analogy.\n- Part 2 & 3: Provide clear examples, and at least one \"non-example\" (what the concept is NOT).\n- Part 4 & 5 (Optional): Provide an application, knowledge check, or advanced edge-case.\n\nExample Input:\nMAIN OBJECTIVE: \"Teach basic math\"\nCOURSE OUTLINE: \"1. Addition\"\nDATA FROM RAG: \"1+1=2\"\n\nExample Output:\n[\n  {\n    \"slide_title\": \"the topic of the slide\",\n    \"main_content\": \"Addition is the process of bringing two or more numbers together to make a new total.\",\n    \"objective\": \"Understand the concept of addition.\"\n  }\n]\n\nThis is ONLY FOR CONTEXT:\nMAIN OBJECTIVE: ${JSON.stringify($json.slide)}\nCOURSE OUTLINE: ${JSON.stringify($json.outline)}\nDATA FROM RAG: ${JSON.stringify($json.rag_data)}\n\nExpand ONLY the following lesson to generate slides to teach users. Keep main_content concise to minimize extraneous load:  ${JSON.stringify($json.lesson)}`\n  }]) \n}}"
             }
           ]
         },
@@ -539,7 +539,7 @@
             },
             {
               "name": "prompt",
-              "value": "={{ \n  JSON.stringify(`\nAct as an expert curriculum designer and instructional strategist. Use outline_context and rag_data deeply. Prioritize educational clarity and engagement. ALWAYS OUTPUT SLIDE IN ENGLISH REGARDLESS OF OUTLINE_CONTEXT OR RAG_DATA LANGUAGE.\n`) \n}}"
+              "value": "={{ \n  JSON.stringify(`Act as an expert curriculum designer and instructional strategist. Your task is to take a lesson section and generate the final presentation slides based on the provided data.\n\nOptimize the content strictly using Cognitive Load Theory:\n\n1. Minimize Extraneous Load:\n   - Break complex ideas down. One core concept per slide.\n   - Brevity: Keep \"key_points\" punchy and strictly concise.\n\n2. Manage Intrinsic Load:\n   - Sequence logically: Hook -> Define Concept -> Analogy -> Examples -> Application.\n\n3. Maximize Germane Load:\n   - Provide clear, relatable examples and at least one \"non-example\" (what the concept is NOT) to build strong mental models.\n   - Ensure the image \"caption\" explicitly connects the visual to the core concept so students do not waste effort interpreting it.\n\nALWAYS OUTPUT ALL CONTENT IN ENGLISH (except for the 'thai_transcript' field), regardless of the language of the outline_context or rag_data.\n\nINPUT DATA:\nSECTION TO CONVERT: ${JSON.stringify($json.section)}\nOUTLINE CONTEXT: ${JSON.stringify($json.outline_context)}\nRAG DATA: ${JSON.stringify($json.rag_data)}`) \n}}"
             },
             {
               "name": "lesson_id",
@@ -918,15 +918,15 @@
     "instanceId": "dacf661d18952437dcd120ba832369f336608e51c4a96e821e930948a4d1e07e"
   },
   "pinData": {},
-  "versionId": "a8bb6108-25d0-4bd5-b5c0-6d0606bc692d",
-  "activeVersionId": "a8bb6108-25d0-4bd5-b5c0-6d0606bc692d",
-  "versionCounter": 208,
+  "versionId": "e6e881d9-818a-4687-9f62-a83465da12a5",
+  "activeVersionId": "e6e881d9-818a-4687-9f62-a83465da12a5",
+  "versionCounter": 242,
   "triggerCount": 1,
   "tags": [],
   "shared": [
     {
-      "updatedAt": "2026-03-27T13:23:02.114Z",
-      "createdAt": "2026-03-27T13:23:02.114Z",
+      "updatedAt": "2026-04-13T04:03:26.250Z",
+      "createdAt": "2026-04-13T04:03:26.250Z",
       "role": "workflow:owner",
       "workflowId": "nitGp0JGKxp4GVJF",
       "projectId": "xxkvAOnVHkd99pP2",
@@ -943,7 +943,7 @@
     }
   ],
   "versionMetadata": {
-    "name": "Version a8bb6108",
+    "name": "Version e6e881d9",
     "description": ""
   }
 }

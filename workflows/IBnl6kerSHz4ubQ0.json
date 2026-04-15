@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-04-12T19:07:08.680Z",
+  "updatedAt": "2026-04-15T13:50:16.443Z",
   "createdAt": "2026-03-27T05:37:16.504Z",
   "id": "IBnl6kerSHz4ubQ0",
   "name": "Course API Workflow",
@@ -813,7 +813,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "http://localhost:5678/webhook/async-generate-slide",
+        "url": "http://localhost:5678/webhook/v2/async-generate-slides",
         "sendBody": true,
         "specifyBody": "=json",
         "bodyParameters": {
@@ -2472,32 +2472,32 @@
     "instanceId": "033f1bc6215f63e899772bfa6952d5de23ea9ab6140b36a3b563a251130298dd"
   },
   "pinData": {},
-  "versionId": "050076d0-5783-4e89-af32-0f1982c25acb",
-  "activeVersionId": "050076d0-5783-4e89-af32-0f1982c25acb",
-  "versionCounter": 97,
+  "versionId": "160df6a6-48ea-44ee-8992-4b8f152f4e3b",
+  "activeVersionId": "160df6a6-48ea-44ee-8992-4b8f152f4e3b",
+  "versionCounter": 107,
   "triggerCount": 13,
   "tags": [],
   "shared": [
     {
-      "updatedAt": "2026-04-12T13:13:43.621Z",
-      "createdAt": "2026-04-12T13:13:43.621Z",
+      "updatedAt": "2026-04-13T04:03:26.244Z",
+      "createdAt": "2026-04-13T04:03:26.244Z",
       "role": "workflow:owner",
       "workflowId": "IBnl6kerSHz4ubQ0",
-      "projectId": "b2W2utkLg4FQRZHI",
+      "projectId": "xxkvAOnVHkd99pP2",
       "project": {
-        "updatedAt": "2026-04-12T13:13:21.528Z",
-        "createdAt": "2026-04-12T11:31:06.765Z",
-        "id": "b2W2utkLg4FQRZHI",
-        "name": "Kamanun Maneesri <kamanun.m@gmail.com>",
+        "updatedAt": "2026-01-24T05:53:00.281Z",
+        "createdAt": "2026-01-24T05:50:09.310Z",
+        "id": "xxkvAOnVHkd99pP2",
+        "name": "b c <admin@exampl.com>",
         "type": "personal",
         "icon": null,
         "description": null,
-        "creatorId": "bd29d46d-8e27-4167-94ba-122e1bccb6ba"
+        "creatorId": "51d7ed86-94a8-4d8c-ba39-058f4c2b57c3"
       }
     }
   ],
   "versionMetadata": {
-    "name": "Version 050076d0",
+    "name": "Version 160df6a6",
     "description": ""
   }
 }
