@@ -4,7 +4,7 @@
   "id": "sAPiyaUwrKpI2u3cnkK0X",
   "name": "Notification API Workflow",
   "description": null,
-  "active": false,
+  "active": true,
   "isArchived": false,
   "nodes": [
     {

@@ -4,7 +4,7 @@
   "id": "CUGO5Bmfoifl8QEX",
   "name": "RAG",
   "description": null,
-  "active": false,
+  "active": true,
   "isArchived": false,
   "nodes": [
     {
