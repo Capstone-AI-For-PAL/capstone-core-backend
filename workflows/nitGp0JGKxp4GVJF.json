@@ -1,10 +1,10 @@
 {
-  "updatedAt": "2026-04-15T14:31:51.313Z",
+  "updatedAt": "2026-04-16T13:33:46.158Z",
   "createdAt": "2026-04-01T11:19:56.621Z",
   "id": "nitGp0JGKxp4GVJF",
   "name": "async-generate-slide-v2",
   "description": null,
-  "active": true,
+  "active": false,
   "isArchived": false,
   "nodes": [
     {
@@ -109,7 +109,7 @@
       "parameters": {
         "operation": "upload",
         "bucketName": "capstone-ai-education",
-        "fileName": "={{ $('prepare').item.json._id }}/audio/audio_{{ $runIndex*2 + $position + 1 }}.wav",
+        "fileName": "={{ $('prepare').item.json._id }}/audio/audio_{{ $runIndex + 1}}.wav",
         "additionalFields": {}
       },
       "type": "n8n-nodes-base.awsS3",
@@ -452,7 +452,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// 1. Get the raw string from the previous node\nlet rawString = $input.item.json.data;\n\n// 2. Un-escape the first layer if n8n double-wrapped it in quotes\nif (typeof rawString === 'string' && rawString.startsWith('\"') && rawString.endsWith('\"')) {\n  try { \n    rawString = JSON.parse(rawString); \n  } catch (e) {\n    // silently continue if it fails\n  }\n}\n\n// 3. Strip out any Markdown backticks and 'json' labels\nlet cleanText = rawString.replace(/```json/gi, '').replace(/```/gi, '').trim();\n\nlet parsedData;\n\n// 4. Parse the clean text\ntry {\n  parsedData = JSON.parse(cleanText);\n  \n  // 5. The Magic Fix: If it is STILL a string after parsing, parse it one more time!\n  if (typeof parsedData === 'string') {\n    parsedData = JSON.parse(parsedData);\n  }\n} catch (error) {\n  return [{ json: { error: \"Failed to parse JSON completely\", raw: cleanText } }];\n}\n\n// 6. Return the actual array of objects in n8n's required format\nreturn {\n    sections: parsedData \n  };"
+        "jsCode": "// 1. Get the raw string from the previous node\nlet rawString = $input.item.json.data;\n\n// 2. Un-escape the first layer if n8n double-wrapped it in quotes\nif (typeof rawString === 'string' && rawString.startsWith('\"') && rawString.endsWith('\"')) {\n  try { \n    rawString = JSON.parse(rawString); \n  } catch (e) {\n    // silently continue if it fails\n  }\n}\n\n// 3. Strip out any Markdown backticks and 'json' labels\nlet cleanText = rawString.replace(/```json/gi, '').replace(/```/gi, '').trim();\n\nlet parsedData;\n\n// 4. Parse the clean text\ntry {\n  parsedData = JSON.parse(cleanText);\n  \n  // 5. The Magic Fix: If it is STILL a string after parsing, parse it one more time!\n  if (typeof parsedData === 'string') {\n    parsedData = JSON.parse(parsedData);\n  }\n} catch (error) {\n  return [{ json: { error: \"Failed to parse JSON completely\", raw: cleanText } }];\n}\n\n// 6. Return the actual array of objects in n8n's required format\nlet resp = parsedData[0]\nreturn {\n    sections: [resp] \n  };"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -552,7 +552,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        -1472,
+        -1360,
         336
       ],
       "id": "81473171-49c3-4f00-bad6-1cb66b5b7ade",
@@ -595,7 +595,6 @@
     },
     {
       "parameters": {
-        "batchSize": 2,
         "options": {}
       },
       "type": "n8n-nodes-base.splitInBatches",
@@ -918,9 +917,9 @@
     "instanceId": "dacf661d18952437dcd120ba832369f336608e51c4a96e821e930948a4d1e07e"
   },
   "pinData": {},
-  "versionId": "e6e881d9-818a-4687-9f62-a83465da12a5",
-  "activeVersionId": "e6e881d9-818a-4687-9f62-a83465da12a5",
-  "versionCounter": 242,
+  "versionId": "20d3ef08-0e39-4a41-a21d-2bc64273dc1a",
+  "activeVersionId": null,
+  "versionCounter": 251,
   "triggerCount": 1,
   "tags": [],
   "shared": [
@@ -943,7 +942,7 @@
     }
   ],
   "versionMetadata": {
-    "name": "Version e6e881d9",
-    "description": ""
+    "name": null,
+    "description": null
   }
 }
