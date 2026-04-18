@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-04-15T13:50:16.443Z",
+  "updatedAt": "2026-04-18T14:26:16.767Z",
   "createdAt": "2026-03-27T05:37:16.504Z",
   "id": "IBnl6kerSHz4ubQ0",
   "name": "Course API Workflow",
@@ -184,7 +184,7 @@
     },
     {
       "parameters": {
-        "jsCode": "const input = $input.first().json;\nconst preparedAnswers = $('Prepare Answer').first().json.answer || [];\n\n// Build answer map safely\nconst answerMap = new Map();\nfor (const item of preparedAnswers) {\n  if (item?.number !== undefined) {\n    answerMap.set(item.number, item.answer ?? null);\n  }\n}\n\nconst newQuestions = (input.questions || []).map(q => {\n  const userAnswer = answerMap.has(q.number)\n    ? answerMap.get(q.number)\n    : null;\n\n  const isCorrect = userAnswer === q.correctAnswer;\n\n  return {\n    ...q,\n    answer: userAnswer,\n    isCorrect: isCorrect\n  };\n});\n\n// Calculate score safely\nconst totalScore = newQuestions.reduce((sum, q) => {\n  return sum + (q.isCorrect ? (q.score || 0) : 0);\n}, 0);\n\nreturn [\n  {\n    json: {\n      exerciseId: input.exerciseId,\n      questions: newQuestions,\n      score: totalScore ?? 0,\n      submittedAt: new Date()\n    }\n  }\n];\n"
+        "jsCode": "const input = $input.first().json;\nconst preparedAnswers = $('Prepare Answer').first().json.answer || [];\n\n// Build answer map safely\nconst answerMap = new Map();\nfor (const item of preparedAnswers) {\n  if (item?.number !== undefined) {\n    answerMap.set(item.number, item.answer ?? null);\n  }\n}\n\nconst newQuestions = (input.questions || []).map(q => {\n  const userAnswer = answerMap.has(q.number)\n    ? answerMap.get(q.number)\n    : null;\n\n  const isCorrect = userAnswer === q.correctAnswer;\n\n  return {\n    ...q,\n    answer: userAnswer,\n    isCorrect: isCorrect\n  };\n});\n\n// Calculate earned score\nconst totalScore = newQuestions.reduce((sum, q) => {\n  return sum + (q.isCorrect ? (q.score || 0) : 0);\n}, 0);\n\n// Calculate full score\nconst fullScore = newQuestions.reduce((sum, q) => {\n  return sum + (q.score || 0);\n}, 0);\n\n// Calculate percentage (0–100)\nconst percentageScore = fullScore > 0\n  ? (totalScore / fullScore) * 100\n  : 0;\n\n// Optional: round to 2 decimal places\nconst finalPercentage = Math.round(percentageScore * 100) / 100;\n\nreturn [\n  {\n    json: {\n      exerciseId: input.exerciseId,\n      questions: newQuestions,\n      score: finalPercentage,\n      submittedAt: new Date()\n    }\n  }\n];\n"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -813,7 +813,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "http://localhost:5678/webhook/v2/async-generate-slides",
+        "url": "http://localhost:5678/webhook/async-generate-slide",
         "sendBody": true,
         "specifyBody": "=json",
         "bodyParameters": {
@@ -1144,7 +1144,7 @@
     {
       "parameters": {
         "mode": "raw",
-        "jsonOutput": "={{\n  {\n    \"lessonId\": $json.lessonId,\n    \"courseId\": $json.courseId,\n    \"maxScore\": max($json.maxScore ?? 0, $('Update answer and score').item.json.score),\n\"isFirstAttempt\": ($json.maxScore == -1),\n    \"updatedAt\": Date()\n  }\n}}\n",
+        "jsonOutput": "={{\n  {\n    \"lessonId\": $json.lessonId,\n    \"courseId\": $json.courseId,\n    \"maxScore\": max($json.maxScore ?? -1, $('Update answer and score').item.json.score),\n\"isFirstAttempt\": ($json.maxScore == -1),\n    \"updatedAt\": Date()\n  }\n}}\n",
         "options": {}
       },
       "type": "n8n-nodes-base.set",
@@ -2472,32 +2472,32 @@
     "instanceId": "033f1bc6215f63e899772bfa6952d5de23ea9ab6140b36a3b563a251130298dd"
   },
   "pinData": {},
-  "versionId": "160df6a6-48ea-44ee-8992-4b8f152f4e3b",
-  "activeVersionId": "160df6a6-48ea-44ee-8992-4b8f152f4e3b",
-  "versionCounter": 107,
+  "versionId": "ce37b35d-8f84-4f75-99a7-6a390368c81c",
+  "activeVersionId": "ce37b35d-8f84-4f75-99a7-6a390368c81c",
+  "versionCounter": 126,
   "triggerCount": 13,
   "tags": [],
   "shared": [
     {
-      "updatedAt": "2026-04-13T04:03:26.244Z",
-      "createdAt": "2026-04-13T04:03:26.244Z",
+      "updatedAt": "2026-04-12T13:13:43.621Z",
+      "createdAt": "2026-04-12T13:13:43.621Z",
       "role": "workflow:owner",
       "workflowId": "IBnl6kerSHz4ubQ0",
-      "projectId": "xxkvAOnVHkd99pP2",
+      "projectId": "b2W2utkLg4FQRZHI",
       "project": {
-        "updatedAt": "2026-01-24T05:53:00.281Z",
-        "createdAt": "2026-01-24T05:50:09.310Z",
-        "id": "xxkvAOnVHkd99pP2",
-        "name": "b c <admin@exampl.com>",
+        "updatedAt": "2026-04-12T13:13:21.528Z",
+        "createdAt": "2026-04-12T11:31:06.765Z",
+        "id": "b2W2utkLg4FQRZHI",
+        "name": "Kamanun Maneesri <kamanun.m@gmail.com>",
         "type": "personal",
         "icon": null,
         "description": null,
-        "creatorId": "51d7ed86-94a8-4d8c-ba39-058f4c2b57c3"
+        "creatorId": "bd29d46d-8e27-4167-94ba-122e1bccb6ba"
       }
     }
   ],
   "versionMetadata": {
-    "name": "Version 160df6a6",
+    "name": "Version ce37b35d",
     "description": ""
   }
 }
