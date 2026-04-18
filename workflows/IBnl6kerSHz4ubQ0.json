@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-04-18T14:26:16.767Z",
+  "updatedAt": "2026-04-18T15:59:30.976Z",
   "createdAt": "2026-03-27T05:37:16.504Z",
   "id": "IBnl6kerSHz4ubQ0",
   "name": "Course API Workflow",
@@ -746,7 +746,7 @@
     {
       "parameters": {
         "mode": "raw",
-        "jsonOutput": "={{\n{\n  \"nextLessonNum\": $json.lessonIds.length,\n  \"lessonIds\": $json.lessonIds.append($json.lessonId),\n  \"scores\": $json.scores.append(0),\n  \"courseId\": $json.courseId,\n  \"maxScore\": -1,\n  \"createdAt\": Date(),\n  \"updatedAt\": Date()\n}\n}}",
+        "jsonOutput": "={{\n{\n  \"nextLessonNum\": $json.lessonIds.length,\n  \"lessonIds\": $json.lessonIds.append($json.lessonId),\n  \"scores\": $json.scores.append(0),\n  \"courseId\": $json.courseId,\n  \"maxScore\": -1,\n  \"createdAt\": Date(),\n  \"updatedAt\": Date(),\n  \"audioLanguage\": $json.audioLanguage\n}\n}}",
         "includeOtherFields": true,
         "options": {}
       },
@@ -813,7 +813,7 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "http://localhost:5678/webhook/async-generate-slide",
+        "url": "http://localhost:5678/webhook/v2/async-generate-slides",
         "sendBody": true,
         "specifyBody": "=json",
         "bodyParameters": {
@@ -821,7 +821,7 @@
             {}
           ]
         },
-        "jsonBody": "={{\n  {\n  \"courseId\": $json.courseId,\n  \"lessonId\": $json.lessonId,\n  \"outline\": $json.outline,\n  \"nextLessonNum\": $json.nextLessonNum\n  }\n}}",
+        "jsonBody": "={{\n  {\n  \"courseId\": $json.courseId,\n  \"lessonId\": $json.lessonId,\n  \"outline\": $json.outline,\n  \"nextLessonNum\": $json.nextLessonNum,\n  \"audioLanguage\": $json.audioLanguage\n  }\n}}",
         "options": {}
       },
       "type": "n8n-nodes-base.httpRequest",
@@ -2472,32 +2472,32 @@
     "instanceId": "033f1bc6215f63e899772bfa6952d5de23ea9ab6140b36a3b563a251130298dd"
   },
   "pinData": {},
-  "versionId": "ce37b35d-8f84-4f75-99a7-6a390368c81c",
-  "activeVersionId": "ce37b35d-8f84-4f75-99a7-6a390368c81c",
-  "versionCounter": 126,
+  "versionId": "ddf22a1c-6b3a-4e83-a9cb-862fe5aae1ec",
+  "activeVersionId": "ddf22a1c-6b3a-4e83-a9cb-862fe5aae1ec",
+  "versionCounter": 143,
   "triggerCount": 13,
   "tags": [],
   "shared": [
     {
-      "updatedAt": "2026-04-12T13:13:43.621Z",
-      "createdAt": "2026-04-12T13:13:43.621Z",
+      "updatedAt": "2026-04-13T04:03:26.244Z",
+      "createdAt": "2026-04-13T04:03:26.244Z",
       "role": "workflow:owner",
       "workflowId": "IBnl6kerSHz4ubQ0",
-      "projectId": "b2W2utkLg4FQRZHI",
+      "projectId": "xxkvAOnVHkd99pP2",
       "project": {
-        "updatedAt": "2026-04-12T13:13:21.528Z",
-        "createdAt": "2026-04-12T11:31:06.765Z",
-        "id": "b2W2utkLg4FQRZHI",
-        "name": "Kamanun Maneesri <kamanun.m@gmail.com>",
+        "updatedAt": "2026-01-24T05:53:00.281Z",
+        "createdAt": "2026-01-24T05:50:09.310Z",
+        "id": "xxkvAOnVHkd99pP2",
+        "name": "b c <admin@exampl.com>",
         "type": "personal",
         "icon": null,
         "description": null,
-        "creatorId": "bd29d46d-8e27-4167-94ba-122e1bccb6ba"
+        "creatorId": "51d7ed86-94a8-4d8c-ba39-058f4c2b57c3"
       }
     }
   ],
   "versionMetadata": {
-    "name": "Version ce37b35d",
+    "name": "Version ddf22a1c",
     "description": ""
   }
 }

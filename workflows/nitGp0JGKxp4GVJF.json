@@ -1,10 +1,10 @@
 {
-  "updatedAt": "2026-04-17T07:23:25.858Z",
+  "updatedAt": "2026-04-18T15:53:49.983Z",
   "createdAt": "2026-04-01T11:19:56.621Z",
   "id": "nitGp0JGKxp4GVJF",
   "name": "async-generate-slide-v2",
   "description": null,
-  "active": false,
+  "active": true,
   "isArchived": false,
   "nodes": [
     {
@@ -917,9 +917,9 @@
     "instanceId": "dacf661d18952437dcd120ba832369f336608e51c4a96e821e930948a4d1e07e"
   },
   "pinData": {},
-  "versionId": "59176260-f8ac-4aa3-8d15-cdb69729f664",
-  "activeVersionId": null,
-  "versionCounter": 254,
+  "versionId": "76a0bd05-bdc5-40ca-a878-069ec2e20818",
+  "activeVersionId": "76a0bd05-bdc5-40ca-a878-069ec2e20818",
+  "versionCounter": 260,
   "triggerCount": 1,
   "tags": [],
   "shared": [
@@ -942,7 +942,7 @@
     }
   ],
   "versionMetadata": {
-    "name": null,
-    "description": null
+    "name": "Version 76a0bd05",
+    "description": ""
   }
 }
