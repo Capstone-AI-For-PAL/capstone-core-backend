@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-04-18T15:53:49.983Z",
+  "updatedAt": "2026-04-21T01:42:37.349Z",
   "createdAt": "2026-04-01T11:19:56.621Z",
   "id": "nitGp0JGKxp4GVJF",
   "name": "async-generate-slide-v2",
@@ -562,7 +562,7 @@
       "parameters": {
         "operation": "insert",
         "collection": "logs",
-        "fields": "=log_type,markdown,transcripts,sections",
+        "fields": "=log_type,markdown,transcripts,sections,lesson_id,course_id",
         "options": {}
       },
       "type": "n8n-nodes-base.mongoDb",
@@ -917,9 +917,9 @@
     "instanceId": "dacf661d18952437dcd120ba832369f336608e51c4a96e821e930948a4d1e07e"
   },
   "pinData": {},
-  "versionId": "76a0bd05-bdc5-40ca-a878-069ec2e20818",
-  "activeVersionId": "76a0bd05-bdc5-40ca-a878-069ec2e20818",
-  "versionCounter": 260,
+  "versionId": "36758dae-f512-41c2-8c37-ec1bbcca986f",
+  "activeVersionId": "36758dae-f512-41c2-8c37-ec1bbcca986f",
+  "versionCounter": 266,
   "triggerCount": 1,
   "tags": [],
   "shared": [
@@ -942,7 +942,7 @@
     }
   ],
   "versionMetadata": {
-    "name": "Version 76a0bd05",
+    "name": "Version 36758dae",
     "description": ""
   }
 }

@@ -60,20 +60,32 @@ style: |
     margin-bottom: 8px;
   }
   /* Fixed bounds to prevent overflow */
+  .hero-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: auto;
+    margin-bottom: auto;
+  }
   .hero-container {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 360px; /* Fixed hero height */
-    margin-top: auto;
-    margin-bottom: auto;
+    height: 310px; /* Reduced to leave room for caption */
   }
   .hero-container img {
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
     border-radius: 8px;
+  }
+  .hero-caption {
+    font-size: 16px;
+    color: #5f6368;
+    text-align: center;
+    margin-top: 8px;
+    font-style: italic;
   }
   .grid-2 {
     display: grid;
@@ -148,8 +160,13 @@ func renderHeroImage(slide RenderedSlide) string {
 	sb.WriteString(renderKeyPoints(slide.KeyPoints))
 	if len(slide.Images) > 0 {
 		img := slide.Images[0]
-		sb.WriteString("\n<div class=\"hero-container\">\n")
-		sb.WriteString(fmt.Sprintf("  <img src=\"%s\" alt=\"%s\" />\n", img.URL, img.Caption))
+		sb.WriteString("\n<div class=\"hero-wrapper\">\n")
+		sb.WriteString("  <div class=\"hero-container\">\n")
+		sb.WriteString(fmt.Sprintf("    <img src=\"%s\" alt=\"%s\" />\n", img.URL, img.Caption))
+		sb.WriteString("  </div>\n")
+		if img.Caption != "" {
+			sb.WriteString(fmt.Sprintf("  <p class=\"hero-caption\">%s</p>\n", img.Caption))
+		}
 		sb.WriteString("</div>\n")
 	}
 	return sb.String()
