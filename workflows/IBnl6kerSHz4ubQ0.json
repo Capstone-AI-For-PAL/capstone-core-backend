@@ -1,10 +1,10 @@
 {
-  "updatedAt": "2026-04-18T15:59:30.976Z",
+  "updatedAt": "2026-04-21T14:31:19.587Z",
   "createdAt": "2026-03-27T05:37:16.504Z",
   "id": "IBnl6kerSHz4ubQ0",
   "name": "Course API Workflow",
   "description": null,
-  "active": true,
+  "active": false,
   "isArchived": false,
   "nodes": [
     {
@@ -1528,7 +1528,7 @@
       "typeVersion": 2.1,
       "position": [
         4352,
-        2528
+        2416
       ],
       "id": "3f0e225e-9841-49bf-9f63-0f07ac6dbb42",
       "name": "Upload new material",
@@ -1673,6 +1673,19 @@
       ],
       "id": "a4dfcca3-9295-47b6-9b8a-f0e304aaa09e",
       "name": "Edit Fields2"
+    },
+    {
+      "parameters": {
+        "content": "Disabled Flow:\nRegenerate Audio"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        4336,
+        2640
+      ],
+      "typeVersion": 1,
+      "id": "766f2454-d073-4051-bf2e-c4c74d614dc5",
+      "name": "Sticky Note"
     }
   ],
   "connections": {
@@ -2396,11 +2409,6 @@
             "node": "Slide Upload",
             "type": "main",
             "index": 0
-          },
-          {
-            "node": "Edit Fields2",
-            "type": "main",
-            "index": 0
           }
         ]
       ]
@@ -2472,32 +2480,32 @@
     "instanceId": "033f1bc6215f63e899772bfa6952d5de23ea9ab6140b36a3b563a251130298dd"
   },
   "pinData": {},
-  "versionId": "ddf22a1c-6b3a-4e83-a9cb-862fe5aae1ec",
-  "activeVersionId": "ddf22a1c-6b3a-4e83-a9cb-862fe5aae1ec",
-  "versionCounter": 143,
+  "versionId": "038e6ad8-4674-4442-9da4-05ca3b8e83fe",
+  "activeVersionId": null,
+  "versionCounter": 155,
   "triggerCount": 13,
   "tags": [],
   "shared": [
     {
-      "updatedAt": "2026-04-13T04:03:26.244Z",
-      "createdAt": "2026-04-13T04:03:26.244Z",
+      "updatedAt": "2026-03-08T16:06:00.835Z",
+      "createdAt": "2026-03-08T16:06:00.835Z",
       "role": "workflow:owner",
       "workflowId": "IBnl6kerSHz4ubQ0",
-      "projectId": "xxkvAOnVHkd99pP2",
+      "projectId": "LRqUvPxAU4bcEgvn",
       "project": {
-        "updatedAt": "2026-01-24T05:53:00.281Z",
-        "createdAt": "2026-01-24T05:50:09.310Z",
-        "id": "xxkvAOnVHkd99pP2",
-        "name": "b c <admin@exampl.com>",
+        "updatedAt": "2026-01-25T08:20:32.883Z",
+        "createdAt": "2026-01-09T03:50:12.425Z",
+        "id": "LRqUvPxAU4bcEgvn",
+        "name": "a b <kraiwit.wit@gmail.com>",
         "type": "personal",
         "icon": null,
         "description": null,
-        "creatorId": "51d7ed86-94a8-4d8c-ba39-058f4c2b57c3"
+        "creatorId": "e92b805f-305d-4602-8abe-04e6cfdf95eb"
       }
     }
   ],
   "versionMetadata": {
-    "name": "Version ddf22a1c",
-    "description": ""
+    "name": null,
+    "description": null
   }
 }
