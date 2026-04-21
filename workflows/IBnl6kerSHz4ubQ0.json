@@ -1,10 +1,10 @@
 {
-  "updatedAt": "2026-04-21T14:31:19.587Z",
+  "updatedAt": "2026-04-21T16:26:20.130Z",
   "createdAt": "2026-03-27T05:37:16.504Z",
   "id": "IBnl6kerSHz4ubQ0",
   "name": "Course API Workflow",
   "description": null,
-  "active": false,
+  "active": true,
   "isArchived": false,
   "nodes": [
     {
@@ -18,7 +18,7 @@
       "typeVersion": 2.1,
       "position": [
         2112,
-        3584
+        4520
       ],
       "id": "ea169918-89b6-4783-a311-61c4039327a6",
       "name": "Generate new exercise",
@@ -34,7 +34,7 @@
       "typeVersion": 1.5,
       "position": [
         3456,
-        3584
+        4520
       ],
       "id": "ce03c29b-c7f6-4cd0-ad1f-77fc19c255fa",
       "name": "Respond to Webhook2"
@@ -48,7 +48,7 @@
       "typeVersion": 1,
       "position": [
         2336,
-        3584
+        4520
       ],
       "id": "e2917f8d-3178-458a-bab9-b2506a148d85",
       "name": "exercise uuid"
@@ -63,7 +63,7 @@
       "typeVersion": 3.4,
       "position": [
         3008,
-        3584
+        4520
       ],
       "id": "b439b0d3-115e-4925-be01-36ea68eecd14",
       "name": "Prepare Fields"
@@ -79,7 +79,7 @@
       "typeVersion": 1.2,
       "position": [
         3232,
-        3584
+        4520
       ],
       "id": "312eafee-f197-4307-a1e8-bf31f51fd7d6",
       "name": "Insert Exercise",
@@ -101,7 +101,7 @@
       "typeVersion": 1.2,
       "position": [
         2336,
-        3808
+        4744
       ],
       "id": "4a1569e3-951c-48ea-9409-676eaa9c45ec",
       "name": "Find documents2",
@@ -122,7 +122,7 @@
       "typeVersion": 1.2,
       "position": [
         2336,
-        4032
+        4968
       ],
       "id": "0f730253-b611-4a95-b1a9-2eccd409493d",
       "name": "Find documents3",
@@ -144,7 +144,7 @@
       "typeVersion": 2.1,
       "position": [
         2112,
-        3808
+        4744
       ],
       "id": "9db7f641-f720-4db0-9e98-03a8c2997b88",
       "name": "Get exercise by exerciseId",
@@ -161,7 +161,7 @@
       "typeVersion": 2.1,
       "position": [
         2112,
-        4032
+        4968
       ],
       "id": "b2255e74-fa4a-4161-8698-0cd6ca6b0181",
       "name": "Get exercises by lessonId",
@@ -177,7 +177,7 @@
       "typeVersion": 3.4,
       "position": [
         2336,
-        4256
+        5192
       ],
       "id": "7909f3e9-e7e2-48a6-87f6-04232b11c085",
       "name": "Prepare Answer"
@@ -190,7 +190,7 @@
       "typeVersion": 2,
       "position": [
         2784,
-        4256
+        5192
       ],
       "id": "842b6e31-2fe0-4495-ad85-885ceb728173",
       "name": "Code in JavaScript"
@@ -205,7 +205,7 @@
       "typeVersion": 1.2,
       "position": [
         2560,
-        4256
+        5192
       ],
       "id": "c0c0912f-c3cc-4984-9fbe-6f621f3fc484",
       "name": "Get Exercise",
@@ -228,7 +228,7 @@
       "typeVersion": 1.2,
       "position": [
         3008,
-        4256
+        5192
       ],
       "id": "2f3edf9f-78ba-42b5-aee5-332cb242eb35",
       "name": "Update answer and score",
@@ -249,7 +249,7 @@
       "typeVersion": 1.2,
       "position": [
         2336,
-        4480
+        5416
       ],
       "id": "f3433987-7177-4ece-9048-aa2b797bca5f",
       "name": "Aggregate documents",
@@ -268,7 +268,7 @@
       "typeVersion": 2,
       "position": [
         2560,
-        4480
+        5416
       ],
       "id": "bb9193e1-11b7-4cd3-a779-74238dc11046",
       "name": "Code in JavaScript1"
@@ -283,7 +283,7 @@
       "typeVersion": 1.2,
       "position": [
         2336,
-        4704
+        5640
       ],
       "id": "9dde56de-728e-41fb-9b81-5b8d580fe87b",
       "name": "Aggregate documents1",
@@ -302,7 +302,7 @@
       "typeVersion": 2,
       "position": [
         2560,
-        4704
+        5640
       ],
       "id": "1941067c-22df-4bb9-9c78-91b1d492d36f",
       "name": "Code in JavaScript2"
@@ -318,7 +318,7 @@
       "typeVersion": 2.1,
       "position": [
         2112,
-        4480
+        5416
       ],
       "id": "6a0e615e-2b35-4d7e-9399-2bd148ca2846",
       "name": "Get maximum score by lessonId",
@@ -335,7 +335,7 @@
       "typeVersion": 2.1,
       "position": [
         2112,
-        4704
+        5640
       ],
       "id": "147ad0be-1893-4884-a3f6-2b3e6c20e866",
       "name": "Get average score by courseId",
@@ -360,7 +360,7 @@
       "typeVersion": 4.4,
       "position": [
         2560,
-        3584
+        4520
       ],
       "id": "d3724a75-5d71-42dc-ac42-3252fb6765ec",
       "name": "Exercise Generator"
@@ -375,7 +375,7 @@
       "typeVersion": 1.2,
       "position": [
         2784,
-        3584
+        4520
       ],
       "id": "ea682413-9008-4098-95e5-6e3cc71178f1",
       "name": "Aggregate documents2",
@@ -399,7 +399,7 @@
       "typeVersion": 2.1,
       "position": [
         2112,
-        4256
+        5192
       ],
       "id": "1e77d98a-9af3-4faa-9a75-4242e3d014aa",
       "name": "Submit answer",
@@ -414,7 +414,7 @@
       "type": "n8n-nodes-base.mongoDb",
       "typeVersion": 1.2,
       "position": [
-        2656,
+        2560,
         928
       ],
       "id": "8ba0833a-7cf7-4ac3-b1f5-776131551e79",
@@ -436,7 +436,7 @@
       "typeVersion": 1.2,
       "position": [
         2336,
-        1312
+        1344
       ],
       "id": "d86ab6d7-7efa-485c-a352-c6d20fb0662a",
       "name": "Find documents1",
@@ -458,7 +458,7 @@
       "typeVersion": 2.1,
       "position": [
         2112,
-        1312
+        1344
       ],
       "id": "90119e5f-c264-4d7e-8259-13203985c775",
       "name": "Get courses by courseId",
@@ -475,7 +475,7 @@
       "typeVersion": 2.1,
       "position": [
         2112,
-        1536
+        1568
       ],
       "id": "8a292d0d-59f5-4142-aba6-460b77856508",
       "name": "Update course",
@@ -493,7 +493,7 @@
       "typeVersion": 1.2,
       "position": [
         2560,
-        1536
+        1568
       ],
       "id": "c7465ea0-a0b3-4699-9216-a78eb1b0a3ea",
       "name": "Find and update documents",
@@ -515,7 +515,7 @@
       "typeVersion": 3.4,
       "position": [
         2336,
-        1536
+        1568
       ],
       "id": "a9d3a859-ebf1-48eb-b77a-f9fac8435d8b",
       "name": "Edit Fields"
@@ -523,14 +523,14 @@
     {
       "parameters": {
         "mode": "raw",
-        "jsonOutput": "={{\n{\n  \"courseId\": $json.uuid,\n  \"status\": $json.body.status ?? \"DRAFT\",\n  \"goal\": $json.body.goal ?? \"\",\n  \"mentorId\": $json.body.mentorId ?? \"\",\n  \"audioLanguage\": $json.body.audioLanguage ?? \"ENGLISH\",\n  \"notes_from_mentor\": $json.body.notes_from_mentor ?? \"\",\n  \"outline\": $json.body.outline ?? {},\n  \"lessonIds\": $json.body.lessonIds ?? [],\n  \"courseName\": $json.body.courseName ?? \"New Course\",\n  \"userId\": $json.body.userId,\n  \"totalLessonsCompleted\": 0,\n  \"totalLessons\": 0,\n  \"avgScore\": 0,\n  \"scores\": [],\n  \"createdAt\": Date(),\n  \"updatedAt\": Date()\n}\n}}",
+        "jsonOutput": "={{\n{\n  \"courseId\": $json.uuid,\n  \"status\": $json.body.status ?? \"DRAFT\",\n  \"goal\": $json.body.goal ?? \"\",\n  \"mentorId\": $json.body.mentorId ?? \"\",\n  \"audioLanguage\": $json.body.audioLanguage ?? \"ENGLISH\",\n  \"notes_from_mentor\": $json.body.notes_from_mentor ?? \"\",\n  \"outline\": $json.body.outline ?? {},\n  \"lessonIds\": $json.body.lessonIds ?? [],\n  \"courseName\": $json.body.courseName ?? \"New Course\",\n  \"userId\": $json.body.userId,\n  \"username\": $json.fields.name.stringValue,\n  \"totalLessonsCompleted\": 0,\n  \"totalLessons\": 0,\n  \"avgScore\": 0,\n  \"scores\": [],\n  \"createdAt\": Date(),\n  \"updatedAt\": Date()\n}\n}}",
         "options": {}
       },
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        2784,
-        1760
+        3008,
+        1888
       ],
       "id": "55b77fae-5fb8-466d-a4f4-e4ca8bb90457",
       "name": "Edit Fields1"
@@ -539,14 +539,14 @@
       "parameters": {
         "operation": "insert",
         "collection": "courses",
-        "fields": "courseId, status, goal, mentorId, notes_from_mentor, outline, lessonIds, userId, courseName, totalLessonsCompleted, totalLessons, avgScore, scores, createdAt, updatedAt, audioLanguage",
+        "fields": "courseId, status, goal, mentorId, notes_from_mentor, outline, lessonIds, userId, username, courseName, totalLessonsCompleted, totalLessons, avgScore, scores, createdAt, updatedAt, audioLanguage",
         "options": {}
       },
       "type": "n8n-nodes-base.mongoDb",
       "typeVersion": 1.2,
       "position": [
-        3008,
-        1760
+        3232,
+        1888
       ],
       "id": "de3cccaa-5908-4c38-8ac4-c78abdd13496",
       "name": "Insert documents",
@@ -587,7 +587,7 @@
       "typeVersion": 2.3,
       "position": [
         2336,
-        1856
+        1984
       ],
       "id": "1af4b7ab-92bf-491f-b874-8778f35876fb",
       "name": "If"
@@ -604,7 +604,7 @@
       "typeVersion": 1.5,
       "position": [
         2560,
-        1952
+        2176
       ],
       "id": "add30450-2e3d-435b-8b5a-6f3cdb797539",
       "name": "error"
@@ -618,8 +618,8 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5,
       "position": [
-        3232,
-        1760
+        3456,
+        1888
       ],
       "id": "1dffa9cf-0fe4-4521-bfb2-c8b12ce3828f",
       "name": "Respond to Webhook"
@@ -635,7 +635,7 @@
       "typeVersion": 2.1,
       "position": [
         2112,
-        2368
+        2592
       ],
       "id": "59db95bd-2256-4020-9262-a825240f876b",
       "name": "Next lesson",
@@ -650,7 +650,7 @@
       "typeVersion": 1,
       "position": [
         2560,
-        1760
+        1792
       ],
       "id": "7060d7b9-e682-4a4c-bbde-f53e4206a1dd",
       "name": "course uuid"
@@ -664,7 +664,7 @@
       "typeVersion": 1,
       "position": [
         2336,
-        2368
+        2592
       ],
       "id": "0bf0868f-2a81-458b-9b3c-d5485a3d2f05",
       "name": "lesson uuid"
@@ -680,7 +680,7 @@
       "typeVersion": 1.2,
       "position": [
         3456,
-        2368
+        2592
       ],
       "id": "b32a6834-37fb-4be8-96fd-afe1ff866a1c",
       "name": "Insert lesson",
@@ -702,7 +702,7 @@
       "typeVersion": 1.2,
       "position": [
         2784,
-        2448
+        2664
       ],
       "id": "ff063884-87d9-48be-9e55-a2348921491c",
       "name": "Get course",
@@ -723,7 +723,7 @@
       "typeVersion": 3.4,
       "position": [
         2560,
-        2368
+        2592
       ],
       "id": "a51a698a-63d0-4337-9091-f8224dc56d4c",
       "name": "Generate empty lesson obj"
@@ -738,7 +738,7 @@
       "typeVersion": 3.2,
       "position": [
         3008,
-        2368
+        2592
       ],
       "id": "013b2dec-d92e-4af0-b858-6aa0fba7724e",
       "name": "Merge"
@@ -754,7 +754,7 @@
       "typeVersion": 3.4,
       "position": [
         3232,
-        2368
+        2592
       ],
       "id": "6755f79e-5795-4f12-a362-6d3c37840793",
       "name": "Update lessonId"
@@ -771,7 +771,7 @@
       "typeVersion": 1.2,
       "position": [
         3456,
-        2176
+        2400
       ],
       "id": "ddac844e-5478-4574-bd9b-19dcbcf8d79f",
       "name": "Update lessonIds",
@@ -789,7 +789,7 @@
       "typeVersion": 3.2,
       "position": [
         3680,
-        2272
+        2496
       ],
       "id": "9917d765-886c-48d1-981f-d992f69d9212",
       "name": "Merge1"
@@ -805,7 +805,7 @@
       "typeVersion": 1.5,
       "position": [
         3904,
-        2272
+        2496
       ],
       "id": "04fa5b07-499e-448d-b46b-56391f21c82a",
       "name": "Respond to Webhook1"
@@ -828,7 +828,7 @@
       "typeVersion": 4.3,
       "position": [
         3456,
-        2560
+        2784
       ],
       "id": "346d6959-71c2-4cd0-88a8-29c61c0d732b",
       "name": "HTTP Request"
@@ -843,7 +843,7 @@
       "typeVersion": 3.4,
       "position": [
         2336,
-        2784
+        3720
       ],
       "id": "bf946eb8-9f24-445c-91ce-8b6480a24571",
       "name": "Status \"GENERATING\""
@@ -860,7 +860,7 @@
       "typeVersion": 1.2,
       "position": [
         2560,
-        2784
+        3720
       ],
       "id": "4d2b046b-47a4-44b5-893a-efe15fdba11b",
       "name": "Update status",
@@ -881,7 +881,7 @@
       "typeVersion": 3.4,
       "position": [
         3008,
-        2976
+        3912
       ],
       "id": "ac296ac6-1c77-42b5-bba6-8f3ae9261640",
       "name": "Status \"IN_PROGRESS\""
@@ -898,7 +898,7 @@
       "typeVersion": 1.2,
       "position": [
         3232,
-        2976
+        3912
       ],
       "id": "34e318fe-cb87-4c72-bc1c-d94c524ef714",
       "name": "Update outline and status",
@@ -926,7 +926,7 @@
       "typeVersion": 2.1,
       "position": [
         2112,
-        2976
+        3912
       ],
       "id": "50764a09-fd55-42b8-9b1d-cbec14fc8d79",
       "name": "Generate",
@@ -961,7 +961,7 @@
       "typeVersion": 2.3,
       "position": [
         2336,
-        3168
+        4104
       ],
       "id": "c182ffc5-0e0c-4f56-b4be-343f1ddc27dc",
       "name": "Check Materials"
@@ -1003,7 +1003,7 @@
       "typeVersion": 4.4,
       "position": [
         2560,
-        3360
+        4296
       ],
       "id": "4bee2237-14d2-41fc-8a58-29f89ebd836e",
       "name": "Outline Generator (without materials)"
@@ -1050,7 +1050,7 @@
       "typeVersion": 4.4,
       "position": [
         2560,
-        2976
+        3912
       ],
       "id": "2ca0e920-af82-491b-9f6f-72dcd4c4dbee",
       "name": "Outline Generator (with materials)"
@@ -1065,7 +1065,7 @@
       "typeVersion": 3.2,
       "position": [
         2784,
-        2976
+        3912
       ],
       "id": "07ea71fc-4c8c-4369-9a95-274e3374219a",
       "name": "Merge CourseId and Outline"
@@ -1095,7 +1095,7 @@
       "typeVersion": 4.3,
       "position": [
         2560,
-        3168
+        4104
       ],
       "id": "6571aff5-af83-41b5-a058-354944eaafab",
       "name": "Upload to RAG"
@@ -1111,7 +1111,7 @@
       "typeVersion": 2.1,
       "position": [
         2112,
-        1856
+        1984
       ],
       "id": "89be778b-adbb-44ac-af3b-38b73afed265",
       "name": "Generate new course",
@@ -1136,7 +1136,7 @@
       "typeVersion": 4.4,
       "position": [
         3456,
-        2976
+        3912
       ],
       "id": "f7d0058f-cf34-4576-9859-6cbeaab02e7f",
       "name": "HTTP Request1"
@@ -1151,7 +1151,7 @@
       "typeVersion": 3.4,
       "position": [
         3456,
-        4256
+        5192
       ],
       "id": "8d5f7eb5-ab97-428f-b473-f5746a8d76b6",
       "name": "Calculate new max score"
@@ -1168,7 +1168,7 @@
       "typeVersion": 1.2,
       "position": [
         3232,
-        4256
+        5192
       ],
       "id": "f8783aea-74e9-408c-a256-7b640af650bb",
       "name": "Find lesson",
@@ -1191,7 +1191,7 @@
       "typeVersion": 1.2,
       "position": [
         3680,
-        4256
+        5192
       ],
       "id": "4adc45b6-2f7f-427b-9623-a7fe73022daf",
       "name": "Update lesson",
@@ -1214,7 +1214,7 @@
       "typeVersion": 1.2,
       "position": [
         3904,
-        4256
+        5192
       ],
       "id": "4f8243f7-b4c7-43b9-b698-706bf0cff4bc",
       "name": "Find documents4",
@@ -1235,7 +1235,7 @@
       "typeVersion": 3.4,
       "position": [
         4352,
-        4256
+        5192
       ],
       "id": "853c34ac-a631-4e73-b145-d269a0fc4636",
       "name": "Find index of lesson"
@@ -1250,7 +1250,7 @@
       "typeVersion": 3.4,
       "position": [
         4128,
-        4256
+        5192
       ],
       "id": "c67bcb77-4393-474c-b1f2-83a75604fc90",
       "name": "Get index"
@@ -1267,7 +1267,7 @@
       "typeVersion": 1.2,
       "position": [
         4576,
-        4256
+        5192
       ],
       "id": "1bfdfe61-7b1b-46b4-9cb2-401b4d6779f0",
       "name": "Update course's avgScore",
@@ -1288,7 +1288,7 @@
       "typeVersion": 2.1,
       "position": [
         2112,
-        1056
+        1024
       ],
       "id": "e9dd8683-a240-4e01-a762-492eb3806e3c",
       "name": "Get courses by userId/mentorId",
@@ -1356,7 +1356,7 @@
       "typeVersion": 3.4,
       "position": [
         2336,
-        1056
+        1024
       ],
       "id": "50b72886-a5ce-437e-a872-87b8f4629d30",
       "name": "Switch"
@@ -1370,8 +1370,8 @@
       "type": "n8n-nodes-base.mongoDb",
       "typeVersion": 1.2,
       "position": [
-        2656,
-        1104
+        2560,
+        1120
       ],
       "id": "92169a13-9888-4497-ba47-f97dd44bc41a",
       "name": "Find documents6",
@@ -1384,13 +1384,13 @@
     },
     {
       "parameters": {
-        "jsCode": "const items = $input.all();\nconst studentsMap = {};\n\nlet totalCourses = 0;\nlet totalNormalStudents = 0;\nlet totalSlowStudents = 0;\nlet totalAtRiskStudents = 0;\n\nconst NOW = new Date();\nconst EXPECTED_DURATION_DAYS = 120;\n\n// helper: คำนวณจำนวนวัน\nfunction diffDays(date1, date2) {\n  return Math.floor((date1 - date2) / (1000 * 60 * 60 * 24));\n}\n\nitems.forEach(item => {\n  const data = item.json;\n\n  const userId = data.userId || \"Unknown Student\";\n\n  if (!studentsMap[userId]) {\n    studentsMap[userId] = {\n      userId: userId,\n      username: data.username || \"Unknown\",\n      totalLessonsCompleted: 0,\n      totalLessons: 0,\n      courseAvgScoreSum: 0,\n      courseCountWithScore: 0,\n      courses: [],\n      lastActive: null,\n      delaySum: 0,\n      courseCount: 0\n    };\n  }\n\n  totalCourses++;\n\n  const courseTotalLessonsCompleted = data.totalLessonsCompleted || 0;\n  const courseTotalLessons = data.totalLessons || 0;\n  const courseAvgScore = data.avgScore || 0;\n  const scores = data.scores || [];\n\n  // ✅ fallback กัน null\n  const createdAt = data.createdAt\n    ? new Date(data.createdAt)\n    : NOW;\n\n  const updatedAt = data.updatedAt\n    ? new Date(data.updatedAt)\n    : data.lastActive\n      ? new Date(data.lastActive)\n      : data.createdAt\n        ? new Date(data.createdAt)\n        : NOW;\n\n  const lessonTitles = data.outline && data.outline.lessons\n    ? data.outline.lessons.map(l => l.title)\n    : [];\n\n  // =========================\n  // ✅ PER COURSE CALCULATION\n  // =========================\n\n  const progressCourse = courseTotalLessons > 0\n    ? (courseTotalLessonsCompleted / courseTotalLessons) * 100\n    : 0;\n\n  const daysSinceStart = diffDays(NOW, createdAt);\n\n  const expectedProgress = (daysSinceStart / EXPECTED_DURATION_DAYS) * 100;\n\n  const delayCourse = Math.max(0, expectedProgress - progressCourse);\n\n  // =========================\n  // ✅ AGGREGATE TO STUDENT\n  // =========================\n\n  studentsMap[userId].delaySum += delayCourse;\n  studentsMap[userId].courseCount += 1;\n\n  // lastActive = max(updatedAt)\n  if (\n    !studentsMap[userId].lastActive ||\n    updatedAt > studentsMap[userId].lastActive\n  ) {\n    studentsMap[userId].lastActive = updatedAt;\n  }\n\n  studentsMap[userId].totalLessonsCompleted += courseTotalLessonsCompleted;\n  studentsMap[userId].totalLessons += courseTotalLessons;\n\n  if (data.avgScore !== undefined) {\n    studentsMap[userId].courseAvgScoreSum += courseAvgScore;\n    studentsMap[userId].courseCountWithScore += 1;\n  }\n\n  studentsMap[userId].courses.push({\n    courseName: data.courseName,\n    lessonIds: data.lessonIds || [],\n    avgScore: courseAvgScore,\n    totalLessonsCompleted: courseTotalLessonsCompleted,\n    totalLessons: courseTotalLessons,\n    scores: scores,\n    outline: data.outline || {},\n    createdAt: createdAt,\n    updatedAt: updatedAt,\n    progress: Number(progressCourse.toFixed(2)),\n    delay: Number(delayCourse.toFixed(2))\n  });\n});\n\n// =========================\n// ✅ BUILD FINAL RESULT\n// =========================\n\nconst studentsArray = Object.values(studentsMap).map(student => {\n\n  const avgScore = student.courseCountWithScore > 0\n    ? (student.courseAvgScoreSum / student.courseCountWithScore)\n    : 0;\n\n  const progress = student.totalLessons > 0\n    ? (student.totalLessonsCompleted / student.totalLessons) * 100\n    : 0;\n\n  const delay = student.courseCount > 0\n    ? (student.delaySum / student.courseCount)\n    : 0;\n\n  const daysSinceLastActive = student.lastActive\n    ? diffDays(NOW, new Date(student.lastActive))\n    : null;\n\n  // =========================\n  // ✅ STATUS LOGIC\n  // =========================\n\n  let status = \"NORMAL\";\n\n  if (delay > 20 && daysSinceLastActive > 7) {\n    status = \"AT_RISK\";\n    totalAtRiskStudents++;\n  } else if (delay > 10) {\n    status = \"SLOW\";\n    totalSlowStudents++;\n  } else {\n    totalNormalStudents++;\n  }\n\n  return {\n    userId: student.userId,\n    username: student.username,\n    avgScore: Number(avgScore.toFixed(2)),\n    totalLessonsCompleted: student.totalLessonsCompleted,\n    totalLessons: student.totalLessons,\n    progress: Number(progress.toFixed(2)),\n    delay: Number(delay.toFixed(2)),\n    lastActive: student.lastActive,\n    daysSinceLastActive: daysSinceLastActive,\n    status: status,\n    courses: student.courses\n  };\n});\n\nconst finalResult = {\n  totalStudents: studentsArray.length,\n  totalCourses: totalCourses,\n  totalNormalStudents,\n  totalSlowStudents,\n  totalAtRiskStudents,\n  students: studentsArray\n};\n\nreturn [{ json: finalResult }];\n"
+        "jsCode": "const items = $input.all();\nconst studentsMap = {};\n\nlet totalCourses = 0;\nlet totalNormalStudents = 0;\nlet totalSlowStudents = 0;\nlet totalAtRiskStudents = 0;\n\nconst NOW = new Date();\nconst EXPECTED_DURATION_DAYS = 120;\n\n// helper: คำนวณจำนวนวัน\nfunction diffDays(date1, date2) {\n  return Math.floor((date1 - date2) / (1000 * 60 * 60 * 24));\n}\n\nitems.forEach(item => {\n  const data = item.json;\n\n  const userId = data.userId || \"Unknown Student\";\n\n  if (!studentsMap[userId]) {\n    studentsMap[userId] = {\n      userId: userId,\n      username: data.username ?? \"Unknown\",\n      totalLessonsCompleted: 0,\n      totalLessons: 0,\n      courseAvgScoreSum: 0,\n      courseCountWithScore: 0,\n      courses: [],\n      lastActive: null,\n      delaySum: 0,\n      courseCount: 0\n    };\n  } else if (studentsMap[userId].username == \"Unknown\") {\n    studentsMap[userId].username = data.username ?? \"Unknown\"\n  }\n\n  totalCourses++;\n\n  const courseTotalLessonsCompleted = data.totalLessonsCompleted || 0;\n  const courseTotalLessons = data.totalLessons || 0;\n  const courseAvgScore = data.avgScore || 0;\n  const scores = data.scores || [];\n\n  // ✅ fallback กัน null\n  const createdAt = data.createdAt\n    ? new Date(data.createdAt)\n    : NOW;\n\n  const updatedAt = data.updatedAt\n    ? new Date(data.updatedAt)\n    : data.lastActive\n      ? new Date(data.lastActive)\n      : data.createdAt\n        ? new Date(data.createdAt)\n        : NOW;\n\n  const lessonTitles = data.outline && data.outline.lessons\n    ? data.outline.lessons.map(l => l.title)\n    : [];\n\n  // =========================\n  // ✅ PER COURSE CALCULATION\n  // =========================\n\n  const progressCourse = courseTotalLessons > 0\n    ? (courseTotalLessonsCompleted / courseTotalLessons) * 100\n    : 0;\n\n  const daysSinceStart = diffDays(NOW, createdAt);\n\n  const expectedProgress = (daysSinceStart / EXPECTED_DURATION_DAYS) * 100;\n\n  const delayCourse = Math.max(0, expectedProgress - progressCourse);\n\n  // =========================\n  // ✅ AGGREGATE TO STUDENT\n  // =========================\n\n  studentsMap[userId].delaySum += delayCourse;\n  studentsMap[userId].courseCount += 1;\n\n  // lastActive = max(updatedAt)\n  if (\n    !studentsMap[userId].lastActive ||\n    updatedAt > studentsMap[userId].lastActive\n  ) {\n    studentsMap[userId].lastActive = updatedAt;\n  }\n\n  studentsMap[userId].totalLessonsCompleted += courseTotalLessonsCompleted;\n  studentsMap[userId].totalLessons += courseTotalLessons;\n\n  if (data.avgScore !== undefined) {\n    studentsMap[userId].courseAvgScoreSum += courseAvgScore;\n    studentsMap[userId].courseCountWithScore += 1;\n  }\n\n  studentsMap[userId].courses.push({\n    courseName: data.courseName,\n    lessonIds: data.lessonIds || [],\n    avgScore: courseAvgScore,\n    totalLessonsCompleted: courseTotalLessonsCompleted,\n    totalLessons: courseTotalLessons,\n    scores: scores,\n    outline: data.outline || {},\n    createdAt: createdAt,\n    updatedAt: updatedAt,\n    progress: Number(progressCourse.toFixed(2)),\n    delay: Number(delayCourse.toFixed(2))\n  });\n});\n\n// =========================\n// ✅ BUILD FINAL RESULT\n// =========================\n\nconst studentsArray = Object.values(studentsMap).map(student => {\n\n  const avgScore = student.courseCountWithScore > 0\n    ? (student.courseAvgScoreSum / student.courseCountWithScore)\n    : 0;\n\n  const progress = student.totalLessons > 0\n    ? (student.totalLessonsCompleted / student.totalLessons) * 100\n    : 0;\n\n  const delay = student.courseCount > 0\n    ? (student.delaySum / student.courseCount)\n    : 0;\n\n  const daysSinceLastActive = student.lastActive\n    ? diffDays(NOW, new Date(student.lastActive))\n    : null;\n\n  // =========================\n  // ✅ STATUS LOGIC\n  // =========================\n\n  let status = \"NORMAL\";\n\n  if (delay > 20 && daysSinceLastActive > 7) {\n    status = \"AT_RISK\";\n    totalAtRiskStudents++;\n  } else if (delay > 10) {\n    status = \"SLOW\";\n    totalSlowStudents++;\n  } else {\n    totalNormalStudents++;\n  }\n\n  return {\n    userId: student.userId,\n    username: student.username,\n    avgScore: Number(avgScore.toFixed(2)),\n    totalLessonsCompleted: student.totalLessonsCompleted,\n    totalLessons: student.totalLessons,\n    progress: Number(progress.toFixed(2)),\n    delay: Number(delay.toFixed(2)),\n    lastActive: student.lastActive,\n    daysSinceLastActive: daysSinceLastActive,\n    status: status,\n    courses: student.courses\n  };\n});\n\nconst finalResult = {\n  totalStudents: studentsArray.length,\n  totalCourses: totalCourses,\n  totalNormalStudents,\n  totalSlowStudents,\n  totalAtRiskStudents,\n  students: studentsArray\n};\n\nreturn [{ json: finalResult }];\n"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        2912,
-        1104
+        2784,
+        1120
       ],
       "id": "c00930f8-2177-4ff7-a1ff-0eb1319d6ce1",
       "name": "Code in JavaScript3"
@@ -1405,7 +1405,7 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5,
       "position": [
-        2912,
+        2784,
         928
       ],
       "id": "ccb96a81-8a62-4af9-b257-7dea8cd4d2fa",
@@ -1420,8 +1420,8 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5,
       "position": [
-        3168,
-        1104
+        3008,
+        1120
       ],
       "id": "fa72c861-0a45-4130-90a1-844a23763a76",
       "name": "Respond to Webhook4"
@@ -1433,8 +1433,8 @@
       "type": "n8n-nodes-base.splitInBatches",
       "typeVersion": 3,
       "position": [
-        5536,
-        2768
+        3008,
+        3424
       ],
       "id": "c25f3391-e517-4d91-80d7-0e4a1619f3e9",
       "name": "Loop"
@@ -1451,8 +1451,8 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.3,
       "position": [
-        5760,
-        2768
+        3232,
+        3424
       ],
       "id": "a7460044-bd1e-46c5-8b65-0b111bb65118",
       "name": "GenerateVoice"
@@ -1467,8 +1467,8 @@
       "type": "n8n-nodes-base.awsS3",
       "typeVersion": 2,
       "position": [
-        5984,
-        2848
+        3456,
+        3496
       ],
       "id": "70b95edc-5183-4c9c-915b-d1cb81fe5523",
       "name": "Audio Upload",
@@ -1492,8 +1492,8 @@
       "type": "n8n-nodes-base.mongoDb",
       "typeVersion": 1.2,
       "position": [
-        5984,
-        2608
+        3456,
+        3232
       ],
       "id": "3d548b51-baff-4137-a3bd-6db17735a22e",
       "name": "Update documents1",
@@ -1511,8 +1511,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        5760,
-        2608
+        3232,
+        3232
       ],
       "id": "30b479ec-2145-4e67-a6e4-bb3573b68589",
       "name": "Code in JavaScript4"
@@ -1527,8 +1527,8 @@
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2.1,
       "position": [
-        4352,
-        2416
+        2112,
+        3008
       ],
       "id": "3f0e225e-9841-49bf-9f63-0f07ac6dbb42",
       "name": "Upload new material",
@@ -1546,8 +1546,8 @@
       "type": "n8n-nodes-base.mongoDb",
       "typeVersion": 1.2,
       "position": [
-        5072,
-        2416
+        2784,
+        3008
       ],
       "id": "d48bbcd1-dbb4-4f3f-9bd1-4bf45014428b",
       "name": "Update documents",
@@ -1569,8 +1569,8 @@
       "type": "n8n-nodes-base.awsS3",
       "typeVersion": 2,
       "position": [
-        4624,
-        2416
+        2336,
+        3008
       ],
       "id": "3a279fea-472c-4029-81bd-326c754f31bb",
       "name": "Slide Upload",
@@ -1588,8 +1588,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        4848,
-        2416
+        2560,
+        3008
       ],
       "id": "634c2f35-d6a4-4d29-b501-60cddd4f4fa7",
       "name": "PrepareUpdateLessonSlide"
@@ -1601,8 +1601,8 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5,
       "position": [
-        5296,
-        2416
+        3008,
+        3008
       ],
       "id": "9adef89d-6cf7-4fb2-aca8-f488c8494ae6",
       "name": "Respond to Webhook5"
@@ -1616,8 +1616,8 @@
       "type": "n8n-nodes-base.extractFromFile",
       "typeVersion": 1.1,
       "position": [
-        5072,
-        2656
+        2560,
+        3424
       ],
       "id": "07f2ef9c-dedb-46af-9fb8-ca00946761a7",
       "name": "Extract from File"
@@ -1629,8 +1629,8 @@
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
       "position": [
-        5296,
-        2656
+        2784,
+        3424
       ],
       "id": "4128c271-3414-470b-a1f0-5c56ede0315a",
       "name": "Code in JavaScript5"
@@ -1647,8 +1647,8 @@
       "type": "n8n-nodes-base.mongoDb",
       "typeVersion": 1.2,
       "position": [
-        4848,
-        2656
+        2336,
+        3424
       ],
       "id": "b81cbf51-83b4-4525-a426-37b1deb013fd",
       "name": "Update documents2",
@@ -1668,8 +1668,8 @@
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        4624,
-        2656
+        2112,
+        3424
       ],
       "id": "a4dfcca3-9295-47b6-9b8a-f0e304aaa09e",
       "name": "Edit Fields2"
@@ -1686,6 +1686,35 @@
       "typeVersion": 1,
       "id": "766f2454-d073-4051-bf2e-c4c74d614dc5",
       "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "url": "=https://firestore.googleapis.com/v1/projects/ai-for-pal/databases/(default)/documents/users/{{ $json.body.userId }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        2560,
+        1984
+      ],
+      "id": "faa7715f-e7a6-450f-990a-bfc9c04e5983",
+      "name": "HTTP Request2"
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        2784,
+        1888
+      ],
+      "id": "14631849-b05a-4a61-b797-f7aa8e3e39d7",
+      "name": "Merge2"
     }
   ],
   "connections": {
@@ -1927,6 +1956,11 @@
             "node": "course uuid",
             "type": "main",
             "index": 0
+          },
+          {
+            "node": "HTTP Request2",
+            "type": "main",
+            "index": 0
           }
         ],
         [
@@ -1953,7 +1987,7 @@
       "main": [
         [
           {
-            "node": "Edit Fields1",
+            "node": "Merge2",
             "type": "main",
             "index": 0
           }
@@ -2467,6 +2501,28 @@
           }
         ]
       ]
+    },
+    "HTTP Request2": {
+      "main": [
+        [
+          {
+            "node": "Merge2",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge2": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "settings": {
@@ -2480,32 +2536,32 @@
     "instanceId": "033f1bc6215f63e899772bfa6952d5de23ea9ab6140b36a3b563a251130298dd"
   },
   "pinData": {},
-  "versionId": "038e6ad8-4674-4442-9da4-05ca3b8e83fe",
-  "activeVersionId": null,
-  "versionCounter": 155,
+  "versionId": "a8c73543-92fc-44d7-836b-520a1a0f5743",
+  "activeVersionId": "a8c73543-92fc-44d7-836b-520a1a0f5743",
+  "versionCounter": 257,
   "triggerCount": 13,
   "tags": [],
   "shared": [
     {
-      "updatedAt": "2026-03-08T16:06:00.835Z",
-      "createdAt": "2026-03-08T16:06:00.835Z",
+      "updatedAt": "2026-04-12T13:13:43.621Z",
+      "createdAt": "2026-04-12T13:13:43.621Z",
       "role": "workflow:owner",
       "workflowId": "IBnl6kerSHz4ubQ0",
-      "projectId": "LRqUvPxAU4bcEgvn",
+      "projectId": "b2W2utkLg4FQRZHI",
       "project": {
-        "updatedAt": "2026-01-25T08:20:32.883Z",
-        "createdAt": "2026-01-09T03:50:12.425Z",
-        "id": "LRqUvPxAU4bcEgvn",
-        "name": "a b <kraiwit.wit@gmail.com>",
+        "updatedAt": "2026-04-12T13:13:21.528Z",
+        "createdAt": "2026-04-12T11:31:06.765Z",
+        "id": "b2W2utkLg4FQRZHI",
+        "name": "Kamanun Maneesri <kamanun.m@gmail.com>",
         "type": "personal",
         "icon": null,
         "description": null,
-        "creatorId": "e92b805f-305d-4602-8abe-04e6cfdf95eb"
+        "creatorId": "bd29d46d-8e27-4167-94ba-122e1bccb6ba"
       }
     }
   ],
   "versionMetadata": {
-    "name": null,
-    "description": null
+    "name": "Version a8c73543",
+    "description": ""
   }
 }

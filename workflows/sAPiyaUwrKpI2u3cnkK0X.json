@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-04-10T08:21:54.844Z",
+  "updatedAt": "2026-04-21T16:16:03.578Z",
   "createdAt": "2026-03-27T05:37:16.515Z",
   "id": "sAPiyaUwrKpI2u3cnkK0X",
   "name": "Notification API Workflow",
@@ -48,13 +48,13 @@
     {
       "parameters": {
         "mode": "raw",
-        "jsonOutput": "={{\n{\n  \"notificationId\": $('notification uuid').item.json.uuid,\n  \"courseName\": $('Find documents1').item.json.courseName,\n  \"mentorId\": $('Find documents1').item.json.mentorId,\n  \"username\": $json.fields.email.stringValue,\n  \"status\": \"UNREAD\",\n  \"courseCreatedAt\": $json.courseCreatedAt ?? Date()\n}\n}}",
+        "jsonOutput": "={{\n{\n  \"notificationId\": $('notification uuid').item.json.uuid,\n  \"courseName\": $json.courseName,\n  \"mentorId\": $json.mentorId,\n  \"userId\": $json.userId,\n  \"username\": $json.username, \n  \"status\": \"UNREAD\",\n  \"courseCreatedAt\": $json.createdAt\n}\n}}",
         "options": {}
       },
       "type": "n8n-nodes-base.set",
       "typeVersion": 3.4,
       "position": [
-        1104,
+        880,
         224
       ],
       "id": "c958e693-0bf0-4a04-a88c-abc3e10b9b07",
@@ -64,13 +64,13 @@
       "parameters": {
         "operation": "insert",
         "collection": "notifications",
-        "fields": "notificationId, mentorId, courseName, username,  status, courseCreatedAt",
+        "fields": "notificationId, mentorId, courseName, userId, username,  status, courseCreatedAt",
         "options": {}
       },
       "type": "n8n-nodes-base.mongoDb",
       "typeVersion": 1.2,
       "position": [
-        1328,
+        1104,
         224
       ],
       "id": "6c4a4706-7cd8-44b9-b1bc-19696ca7a2cc",
@@ -143,7 +143,7 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.5,
       "position": [
-        1552,
+        1328,
         224
       ],
       "id": "914b4139-ef39-451c-b636-85357bc313fd",
@@ -184,7 +184,7 @@
       "parameters": {
         "collection": "courses",
         "options": {
-          "projection": "{\n  \"courseName\": true,\n  \"mentorId\": true,\n  \"userId\": true,\n  \"createdAt\": true\n}"
+          "projection": "{\n  \"courseName\": true,\n  \"mentorId\": true,\n  \"userId\": true,\n  \"username\": true,\n  \"createdAt\": true\n}"
         },
         "query": "={\n  \"courseId\": \"{{ $json.body.courseId }}\"\n}"
       },
@@ -364,20 +364,6 @@
       ],
       "id": "6039a388-2f75-4f9f-8c74-5e0d7bcf7070",
       "name": "Respond to Webhook1"
-    },
-    {
-      "parameters": {
-        "url": "=https://firestore.googleapis.com/v1/projects/ai-for-pal/databases/(default)/documents/users/{{ $json.userId }}",
-        "options": {}
-      },
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.4,
-      "position": [
-        880,
-        224
-      ],
-      "id": "a5071e0f-6527-4efb-a418-00c48a0bec51",
-      "name": "Get username"
     }
   ],
   "connections": {
@@ -458,7 +444,7 @@
       "main": [
         [
           {
-            "node": "Get username",
+            "node": "Edit Fields1",
             "type": "main",
             "index": 0
           }
@@ -548,17 +534,6 @@
           }
         ]
       ]
-    },
-    "Get username": {
-      "main": [
-        [
-          {
-            "node": "Edit Fields1",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
     }
   },
   "settings": {
@@ -572,32 +547,32 @@
     "instanceId": "223bb2c504970140670b1688bb32145e3b1167df6033e11336f4b76346217546"
   },
   "pinData": {},
-  "versionId": "3f28f3ef-ab16-43a2-8b19-e5fad1b0b537",
-  "activeVersionId": null,
-  "versionCounter": 80,
+  "versionId": "b5e85922-6c26-44a8-958d-a55b6a3240c9",
+  "activeVersionId": "b5e85922-6c26-44a8-958d-a55b6a3240c9",
+  "versionCounter": 116,
   "triggerCount": 4,
   "tags": [],
   "shared": [
     {
-      "updatedAt": "2026-04-02T02:18:36.143Z",
-      "createdAt": "2026-04-02T02:18:36.143Z",
+      "updatedAt": "2026-04-12T13:13:43.650Z",
+      "createdAt": "2026-04-12T13:13:43.650Z",
       "role": "workflow:owner",
       "workflowId": "sAPiyaUwrKpI2u3cnkK0X",
-      "projectId": "xxkvAOnVHkd99pP2",
+      "projectId": "b2W2utkLg4FQRZHI",
       "project": {
-        "updatedAt": "2026-01-24T05:53:00.281Z",
-        "createdAt": "2026-01-24T05:50:09.310Z",
-        "id": "xxkvAOnVHkd99pP2",
-        "name": "b c <admin@exampl.com>",
+        "updatedAt": "2026-04-12T13:13:21.528Z",
+        "createdAt": "2026-04-12T11:31:06.765Z",
+        "id": "b2W2utkLg4FQRZHI",
+        "name": "Kamanun Maneesri <kamanun.m@gmail.com>",
         "type": "personal",
         "icon": null,
         "description": null,
-        "creatorId": "51d7ed86-94a8-4d8c-ba39-058f4c2b57c3"
+        "creatorId": "bd29d46d-8e27-4167-94ba-122e1bccb6ba"
       }
     }
   ],
   "versionMetadata": {
-    "name": null,
-    "description": null
+    "name": "Version b5e85922",
+    "description": ""
   }
 }
