@@ -30,7 +30,10 @@ func systemSlidesPrompt() string {
 		"- \"three_column\": Use for categories or three examples. Exactly 3 images.\n" +
 		"- \"text_only\": Use for definitions, formulas, or content with no useful visual. 0 images.\n\n" +
 		"Content rules:\n" +
-		"- key_points: 2-4 short phrases per slide. Keep text minimal.\n" +
+		"- key_points: 2-4 short phrases per slide. Keep text minimal. STRICTLY LIMIT TO ONLY 4 BULLET POINTS.\n" +
+		"- Math formatting: ALWAYS use LaTeX delimiters for any mathematical expression, symbol, or equation. " +
+		"Use $...$ for inline math (e.g. $ay'' + by' + cy = 0$) and $$...$$ for display math. " +
+		"NEVER use backticks or plain text for mathematical notation.\n" +
 		"- images[].prompt: Write a vivid, very specific description suitable for an AI image generator. Focus on educational clarity.\n" +
 		"- images[].caption: Provide a descriptive caption for the image so that students do not spend effort interpreting it.\n" +
 		"- transcript: Write as if lecturing to students. Explain concepts, give examples, provide context. " +
