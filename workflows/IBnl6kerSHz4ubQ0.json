@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-05-03T15:06:20.465Z",
+  "updatedAt": "2026-05-03T15:27:36.986Z",
   "createdAt": "2026-03-27T05:37:16.504Z",
   "id": "IBnl6kerSHz4ubQ0",
   "name": "Course API Workflow",
@@ -18,7 +18,7 @@
       "typeVersion": 2.1,
       "position": [
         2112,
-        4520
+        4528
       ],
       "id": "ea169918-89b6-4783-a311-61c4039327a6",
       "name": "Generate new exercise",
@@ -34,7 +34,7 @@
       "typeVersion": 1.5,
       "position": [
         3456,
-        4520
+        4528
       ],
       "id": "ce03c29b-c7f6-4cd0-ad1f-77fc19c255fa",
       "name": "Respond to Webhook2"
@@ -48,7 +48,7 @@
       "typeVersion": 1,
       "position": [
         2336,
-        4520
+        4528
       ],
       "id": "e2917f8d-3178-458a-bab9-b2506a148d85",
       "name": "exercise uuid"
@@ -63,7 +63,7 @@
       "typeVersion": 3.4,
       "position": [
         3008,
-        4520
+        4528
       ],
       "id": "b439b0d3-115e-4925-be01-36ea68eecd14",
       "name": "Prepare Fields"
@@ -79,7 +79,7 @@
       "typeVersion": 1.2,
       "position": [
         3232,
-        4520
+        4528
       ],
       "id": "312eafee-f197-4307-a1e8-bf31f51fd7d6",
       "name": "Insert Exercise",
@@ -101,7 +101,7 @@
       "typeVersion": 1.2,
       "position": [
         2336,
-        4744
+        4752
       ],
       "id": "4a1569e3-951c-48ea-9409-676eaa9c45ec",
       "name": "Find documents2",
@@ -122,7 +122,7 @@
       "typeVersion": 1.2,
       "position": [
         2336,
-        4968
+        4976
       ],
       "id": "0f730253-b611-4a95-b1a9-2eccd409493d",
       "name": "Find documents3",
@@ -144,7 +144,7 @@
       "typeVersion": 2.1,
       "position": [
         2112,
-        4744
+        4752
       ],
       "id": "9db7f641-f720-4db0-9e98-03a8c2997b88",
       "name": "Get exercise by exerciseId",
@@ -161,7 +161,7 @@
       "typeVersion": 2.1,
       "position": [
         2112,
-        4968
+        4976
       ],
       "id": "b2255e74-fa4a-4161-8698-0cd6ca6b0181",
       "name": "Get exercises by lessonId",
@@ -177,7 +177,7 @@
       "typeVersion": 3.4,
       "position": [
         2336,
-        5192
+        5200
       ],
       "id": "7909f3e9-e7e2-48a6-87f6-04232b11c085",
       "name": "Prepare Answer"
@@ -190,7 +190,7 @@
       "typeVersion": 2,
       "position": [
         2784,
-        5192
+        5200
       ],
       "id": "842b6e31-2fe0-4495-ad85-885ceb728173",
       "name": "Code in JavaScript"
@@ -205,7 +205,7 @@
       "typeVersion": 1.2,
       "position": [
         2560,
-        5192
+        5200
       ],
       "id": "c0c0912f-c3cc-4984-9fbe-6f621f3fc484",
       "name": "Get Exercise",
@@ -228,7 +228,7 @@
       "typeVersion": 1.2,
       "position": [
         3008,
-        5192
+        5200
       ],
       "id": "2f3edf9f-78ba-42b5-aee5-332cb242eb35",
       "name": "Update answer and score",
@@ -249,7 +249,7 @@
       "typeVersion": 1.2,
       "position": [
         2336,
-        5416
+        5424
       ],
       "id": "f3433987-7177-4ece-9048-aa2b797bca5f",
       "name": "Aggregate documents",
@@ -268,7 +268,7 @@
       "typeVersion": 2,
       "position": [
         2560,
-        5416
+        5424
       ],
       "id": "bb9193e1-11b7-4cd3-a779-74238dc11046",
       "name": "Code in JavaScript1"
@@ -283,7 +283,7 @@
       "typeVersion": 1.2,
       "position": [
         2336,
-        5640
+        5648
       ],
       "id": "9dde56de-728e-41fb-9b81-5b8d580fe87b",
       "name": "Aggregate documents1",
@@ -302,7 +302,7 @@
       "typeVersion": 2,
       "position": [
         2560,
-        5640
+        5648
       ],
       "id": "1941067c-22df-4bb9-9c78-91b1d492d36f",
       "name": "Code in JavaScript2"
@@ -318,7 +318,7 @@
       "typeVersion": 2.1,
       "position": [
         2112,
-        5416
+        5424
       ],
       "id": "6a0e615e-2b35-4d7e-9399-2bd148ca2846",
       "name": "Get maximum score by lessonId",
@@ -335,7 +335,7 @@
       "typeVersion": 2.1,
       "position": [
         2112,
-        5640
+        5648
       ],
       "id": "147ad0be-1893-4884-a3f6-2b3e6c20e866",
       "name": "Get average score by courseId",
@@ -360,7 +360,7 @@
       "typeVersion": 4.4,
       "position": [
         2560,
-        4520
+        4528
       ],
       "id": "d3724a75-5d71-42dc-ac42-3252fb6765ec",
       "name": "Exercise Generator"
@@ -375,7 +375,7 @@
       "typeVersion": 1.2,
       "position": [
         2784,
-        4520
+        4528
       ],
       "id": "ea682413-9008-4098-95e5-6e3cc71178f1",
       "name": "Aggregate documents2",
@@ -399,7 +399,7 @@
       "typeVersion": 2.1,
       "position": [
         2112,
-        5192
+        5200
       ],
       "id": "1e77d98a-9af3-4faa-9a75-4242e3d014aa",
       "name": "Submit answer",
@@ -523,7 +523,7 @@
     {
       "parameters": {
         "mode": "raw",
-        "jsonOutput": "={{\n{\n  \"courseId\": $json.uuid,\n  \"status\": $json.body.status ?? \"DRAFT\",\n  \"goal\": $json.body.goal ?? \"\",\n  \"mentorId\": $json.body.mentorId ?? \"\",\n  \"audioLanguage\": $json.body.audioLanguage ?? \"ENGLISH\",\n  \"notes_from_mentor\": $json.body.notes_from_mentor ?? \"\",\n  \"outline\": $json.body.outline ?? {},\n  \"lessonIds\": $json.body.lessonIds ?? [],\n  \"courseName\": $json.body.courseName ?? \"New Course\",\n  \"userId\": $json.body.userId,\n  \"username\": $json.fields?.name.stringValue ?? \"Unknown\",\n  \"totalLessonsCompleted\": 0,\n  \"totalLessons\": 0,\n  \"avgScore\": 0,\n  \"scores\": [],\n  \"createdAt\": Date(),\n  \"updatedAt\": Date()\n}\n}}",
+        "jsonOutput": "={{\n{\n  \"courseId\": $json.uuid,\n  \"status\": $json.body.status ?? \"DRAFT\",\n  \"goal\": $json.body.goal ?? \"\",\n  \"mentorId\": $json.body.mentorId ?? \"\",\n  \"audioLanguage\": $json.body.audioLanguage ?? \"ENGLISH\",\n  \"notes_from_mentor\": $json.body.notes_from_mentor ?? \"\",\n  \"outline\": $json.body.outline ?? {},\n  \"lessonIds\": $json.body.lessonIds ?? [],\n  \"courseName\": $json.body.courseName ?? \"New Course\",\n  \"userId\": $json.body.userId,\n  \"username\": $json.fields?.name?.stringValue ?? \"Unknown\",\n  \"totalLessonsCompleted\": 0,\n  \"totalLessons\": 0,\n  \"avgScore\": 0,\n  \"scores\": [],\n  \"createdAt\": Date(),\n  \"updatedAt\": Date()\n}\n}}",
         "options": {}
       },
       "type": "n8n-nodes-base.set",
@@ -702,7 +702,7 @@
       "typeVersion": 1.2,
       "position": [
         2784,
-        2664
+        2672
       ],
       "id": "ff063884-87d9-48be-9e55-a2348921491c",
       "name": "Get course",
@@ -843,7 +843,7 @@
       "typeVersion": 3.4,
       "position": [
         2336,
-        3720
+        3728
       ],
       "id": "bf946eb8-9f24-445c-91ce-8b6480a24571",
       "name": "Status \"GENERATING\""
@@ -860,7 +860,7 @@
       "typeVersion": 1.2,
       "position": [
         2560,
-        3720
+        3728
       ],
       "id": "4d2b046b-47a4-44b5-893a-efe15fdba11b",
       "name": "Update status",
@@ -881,7 +881,7 @@
       "typeVersion": 3.4,
       "position": [
         3008,
-        3912
+        3920
       ],
       "id": "ac296ac6-1c77-42b5-bba6-8f3ae9261640",
       "name": "Status \"IN_PROGRESS\""
@@ -898,7 +898,7 @@
       "typeVersion": 1.2,
       "position": [
         3232,
-        3912
+        3920
       ],
       "id": "34e318fe-cb87-4c72-bc1c-d94c524ef714",
       "name": "Update outline and status",
@@ -926,7 +926,7 @@
       "typeVersion": 2.1,
       "position": [
         2112,
-        3912
+        3920
       ],
       "id": "50764a09-fd55-42b8-9b1d-cbec14fc8d79",
       "name": "Generate",
@@ -961,7 +961,7 @@
       "typeVersion": 2.3,
       "position": [
         2336,
-        4104
+        4112
       ],
       "id": "c182ffc5-0e0c-4f56-b4be-343f1ddc27dc",
       "name": "Check Materials"
@@ -1003,7 +1003,7 @@
       "typeVersion": 4.4,
       "position": [
         2560,
-        4296
+        4304
       ],
       "id": "4bee2237-14d2-41fc-8a58-29f89ebd836e",
       "name": "Outline Generator (without materials)"
@@ -1050,7 +1050,7 @@
       "typeVersion": 4.4,
       "position": [
         2560,
-        3912
+        3920
       ],
       "id": "2ca0e920-af82-491b-9f6f-72dcd4c4dbee",
       "name": "Outline Generator (with materials)"
@@ -1065,7 +1065,7 @@
       "typeVersion": 3.2,
       "position": [
         2784,
-        3912
+        3920
       ],
       "id": "07ea71fc-4c8c-4369-9a95-274e3374219a",
       "name": "Merge CourseId and Outline"
@@ -1095,7 +1095,7 @@
       "typeVersion": 4.3,
       "position": [
         2560,
-        4104
+        4112
       ],
       "id": "6571aff5-af83-41b5-a058-354944eaafab",
       "name": "Upload to RAG"
@@ -1136,7 +1136,7 @@
       "typeVersion": 4.4,
       "position": [
         3456,
-        3912
+        3920
       ],
       "id": "f7d0058f-cf34-4576-9859-6cbeaab02e7f",
       "name": "HTTP Request1"
@@ -1151,7 +1151,7 @@
       "typeVersion": 3.4,
       "position": [
         3456,
-        5192
+        5200
       ],
       "id": "8d5f7eb5-ab97-428f-b473-f5746a8d76b6",
       "name": "Calculate new max score"
@@ -1168,7 +1168,7 @@
       "typeVersion": 1.2,
       "position": [
         3232,
-        5192
+        5200
       ],
       "id": "f8783aea-74e9-408c-a256-7b640af650bb",
       "name": "Find lesson",
@@ -1191,7 +1191,7 @@
       "typeVersion": 1.2,
       "position": [
         3680,
-        5192
+        5200
       ],
       "id": "4adc45b6-2f7f-427b-9623-a7fe73022daf",
       "name": "Update lesson",
@@ -1214,7 +1214,7 @@
       "typeVersion": 1.2,
       "position": [
         3904,
-        5192
+        5200
       ],
       "id": "4f8243f7-b4c7-43b9-b698-706bf0cff4bc",
       "name": "Find documents4",
@@ -1235,7 +1235,7 @@
       "typeVersion": 3.4,
       "position": [
         4352,
-        5192
+        5200
       ],
       "id": "853c34ac-a631-4e73-b145-d269a0fc4636",
       "name": "Find index of lesson"
@@ -1250,7 +1250,7 @@
       "typeVersion": 3.4,
       "position": [
         4128,
-        5192
+        5200
       ],
       "id": "c67bcb77-4393-474c-b1f2-83a75604fc90",
       "name": "Get index"
@@ -1267,7 +1267,7 @@
       "typeVersion": 1.2,
       "position": [
         4576,
-        5192
+        5200
       ],
       "id": "1bfdfe61-7b1b-46b4-9cb2-401b4d6779f0",
       "name": "Update course's avgScore",
@@ -1468,7 +1468,7 @@
       "typeVersion": 2,
       "position": [
         3456,
-        3496
+        3504
       ],
       "id": "70b95edc-5183-4c9c-915b-d1cb81fe5523",
       "name": "Audio Upload",
@@ -2538,32 +2538,32 @@
     "instanceId": "033f1bc6215f63e899772bfa6952d5de23ea9ab6140b36a3b563a251130298dd"
   },
   "pinData": {},
-  "versionId": "e288ef50-5e65-4714-8fed-2bd73cd260d4",
-  "activeVersionId": "e288ef50-5e65-4714-8fed-2bd73cd260d4",
-  "versionCounter": 324,
+  "versionId": "7e6187ba-b608-47a5-89f5-96cc2e1385b5",
+  "activeVersionId": "7e6187ba-b608-47a5-89f5-96cc2e1385b5",
+  "versionCounter": 330,
   "triggerCount": 13,
   "tags": [],
   "shared": [
     {
-      "updatedAt": "2026-05-03T14:13:49.724Z",
-      "createdAt": "2026-05-03T14:13:49.724Z",
+      "updatedAt": "2026-04-13T04:03:26.244Z",
+      "createdAt": "2026-04-13T04:03:26.244Z",
       "role": "workflow:owner",
       "workflowId": "IBnl6kerSHz4ubQ0",
-      "projectId": "BjwYV45mjZWlOznq",
+      "projectId": "xxkvAOnVHkd99pP2",
       "project": {
-        "updatedAt": "2026-05-03T14:12:26.392Z",
-        "createdAt": "2026-05-03T10:32:29.851Z",
-        "id": "BjwYV45mjZWlOznq",
-        "name": "Kamanun Maneesri <kamanun.m@gmail.com>",
+        "updatedAt": "2026-01-24T05:53:00.281Z",
+        "createdAt": "2026-01-24T05:50:09.310Z",
+        "id": "xxkvAOnVHkd99pP2",
+        "name": "b c <admin@exampl.com>",
         "type": "personal",
         "icon": null,
         "description": null,
-        "creatorId": "0df731bb-aa56-4422-8e84-5f3b7ceebee7"
+        "creatorId": "51d7ed86-94a8-4d8c-ba39-058f4c2b57c3"
       }
     }
   ],
   "versionMetadata": {
-    "name": "Version e288ef50",
+    "name": "Version 7e6187ba",
     "description": ""
   }
 }
