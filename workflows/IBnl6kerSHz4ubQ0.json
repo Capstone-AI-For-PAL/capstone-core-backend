@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-04-22T18:59:23.859Z",
+  "updatedAt": "2026-05-03T15:06:20.465Z",
   "createdAt": "2026-03-27T05:37:16.504Z",
   "id": "IBnl6kerSHz4ubQ0",
   "name": "Course API Workflow",
@@ -523,7 +523,7 @@
     {
       "parameters": {
         "mode": "raw",
-        "jsonOutput": "={{\n{\n  \"courseId\": $json.uuid,\n  \"status\": $json.body.status ?? \"DRAFT\",\n  \"goal\": $json.body.goal ?? \"\",\n  \"mentorId\": $json.body.mentorId ?? \"\",\n  \"audioLanguage\": $json.body.audioLanguage ?? \"ENGLISH\",\n  \"notes_from_mentor\": $json.body.notes_from_mentor ?? \"\",\n  \"outline\": $json.body.outline ?? {},\n  \"lessonIds\": $json.body.lessonIds ?? [],\n  \"courseName\": $json.body.courseName ?? \"New Course\",\n  \"userId\": $json.body.userId,\n  \"username\": $json.fields.name.stringValue ?? \"Unknown\",\n  \"totalLessonsCompleted\": 0,\n  \"totalLessons\": 0,\n  \"avgScore\": 0,\n  \"scores\": [],\n  \"createdAt\": Date(),\n  \"updatedAt\": Date()\n}\n}}",
+        "jsonOutput": "={{\n{\n  \"courseId\": $json.uuid,\n  \"status\": $json.body.status ?? \"DRAFT\",\n  \"goal\": $json.body.goal ?? \"\",\n  \"mentorId\": $json.body.mentorId ?? \"\",\n  \"audioLanguage\": $json.body.audioLanguage ?? \"ENGLISH\",\n  \"notes_from_mentor\": $json.body.notes_from_mentor ?? \"\",\n  \"outline\": $json.body.outline ?? {},\n  \"lessonIds\": $json.body.lessonIds ?? [],\n  \"courseName\": $json.body.courseName ?? \"New Course\",\n  \"userId\": $json.body.userId,\n  \"username\": $json.fields?.name.stringValue ?? \"Unknown\",\n  \"totalLessonsCompleted\": 0,\n  \"totalLessons\": 0,\n  \"avgScore\": 0,\n  \"scores\": [],\n  \"createdAt\": Date(),\n  \"updatedAt\": Date()\n}\n}}",
         "options": {}
       },
       "type": "n8n-nodes-base.set",
@@ -1699,7 +1699,9 @@
         1984
       ],
       "id": "faa7715f-e7a6-450f-990a-bfc9c04e5983",
-      "name": "HTTP Request2"
+      "name": "HTTP Request2",
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput"
     },
     {
       "parameters": {
@@ -2536,9 +2538,9 @@
     "instanceId": "033f1bc6215f63e899772bfa6952d5de23ea9ab6140b36a3b563a251130298dd"
   },
   "pinData": {},
-  "versionId": "c7c045a2-479a-4216-bd13-f50ff3eddc51",
-  "activeVersionId": "c7c045a2-479a-4216-bd13-f50ff3eddc51",
-  "versionCounter": 263,
+  "versionId": "e288ef50-5e65-4714-8fed-2bd73cd260d4",
+  "activeVersionId": "e288ef50-5e65-4714-8fed-2bd73cd260d4",
+  "versionCounter": 324,
   "triggerCount": 13,
   "tags": [],
   "shared": [
@@ -2561,7 +2563,7 @@
     }
   ],
   "versionMetadata": {
-    "name": "Version c7c045a2",
+    "name": "Version e288ef50",
     "description": ""
   }
 }
