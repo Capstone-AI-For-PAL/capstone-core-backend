@@ -1,0 +1,123 @@
+{
+  "updatedAt": "2026-05-03T13:59:04.869Z",
+  "createdAt": "2026-05-03T13:51:41.994Z",
+  "id": "v5t2WQUOLVSLX4DA",
+  "name": "Analytics",
+  "description": null,
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "analytics",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "3d496ef4-e5a4-4cca-9bd6-24d0b421bb17",
+      "name": "Webhook",
+      "webhookId": "395028f1-1fa7-4568-a0a5-273170f281e1"
+    },
+    {
+      "parameters": {
+        "operation": "insert",
+        "collection": "analytics",
+        "fields": "={{ $json.keys().join(\",\") }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.mongoDb",
+      "typeVersion": 1.2,
+      "position": [
+        416,
+        0
+      ],
+      "id": "d720b207-ace9-4314-a6dc-af3011fc44e6",
+      "name": "Insert documents",
+      "credentials": {
+        "mongoDb": {
+          "id": "pWePL90dwTVGzXVd",
+          "name": "MongoDB account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return {\n  ...$input.first().json.body\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "d29c8245-9c92-4ccd-8146-050e5ecfef40",
+      "name": "Code in JavaScript"
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Insert documents",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "21a9263f-fe47-47db-ad7a-7adf30427d28",
+  "activeVersionId": "21a9263f-fe47-47db-ad7a-7adf30427d28",
+  "versionCounter": 36,
+  "triggerCount": 1,
+  "tags": [],
+  "shared": [
+    {
+      "updatedAt": "2026-05-03T13:51:41.997Z",
+      "createdAt": "2026-05-03T13:51:41.997Z",
+      "role": "workflow:owner",
+      "workflowId": "v5t2WQUOLVSLX4DA",
+      "projectId": "xxkvAOnVHkd99pP2",
+      "project": {
+        "updatedAt": "2026-01-24T05:53:00.281Z",
+        "createdAt": "2026-01-24T05:50:09.310Z",
+        "id": "xxkvAOnVHkd99pP2",
+        "name": "b c <admin@exampl.com>",
+        "type": "personal",
+        "icon": null,
+        "description": null,
+        "creatorId": "51d7ed86-94a8-4d8c-ba39-058f4c2b57c3"
+      }
+    }
+  ],
+  "versionMetadata": {
+    "name": "Version 21a9263f",
+    "description": ""
+  }
+}
