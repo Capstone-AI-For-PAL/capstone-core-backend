@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-04-22T18:59:23.859Z",
+  "updatedAt": "2026-05-03T15:06:20.465Z",
   "createdAt": "2026-03-27T05:37:16.504Z",
   "id": "IBnl6kerSHz4ubQ0",
   "name": "Course API Workflow",
@@ -523,7 +523,7 @@
     {
       "parameters": {
         "mode": "raw",
-        "jsonOutput": "={{\n{\n  \"courseId\": $json.uuid,\n  \"status\": $json.body.status ?? \"DRAFT\",\n  \"goal\": $json.body.goal ?? \"\",\n  \"mentorId\": $json.body.mentorId ?? \"\",\n  \"audioLanguage\": $json.body.audioLanguage ?? \"ENGLISH\",\n  \"notes_from_mentor\": $json.body.notes_from_mentor ?? \"\",\n  \"outline\": $json.body.outline ?? {},\n  \"lessonIds\": $json.body.lessonIds ?? [],\n  \"courseName\": $json.body.courseName ?? \"New Course\",\n  \"userId\": $json.body.userId,\n  \"username\": $json.fields.name.stringValue ?? \"Unknown\",\n  \"totalLessonsCompleted\": 0,\n  \"totalLessons\": 0,\n  \"avgScore\": 0,\n  \"scores\": [],\n  \"createdAt\": Date(),\n  \"updatedAt\": Date()\n}\n}}",
+        "jsonOutput": "={{\n{\n  \"courseId\": $json.uuid,\n  \"status\": $json.body.status ?? \"DRAFT\",\n  \"goal\": $json.body.goal ?? \"\",\n  \"mentorId\": $json.body.mentorId ?? \"\",\n  \"audioLanguage\": $json.body.audioLanguage ?? \"ENGLISH\",\n  \"notes_from_mentor\": $json.body.notes_from_mentor ?? \"\",\n  \"outline\": $json.body.outline ?? {},\n  \"lessonIds\": $json.body.lessonIds ?? [],\n  \"courseName\": $json.body.courseName ?? \"New Course\",\n  \"userId\": $json.body.userId,\n  \"username\": $json.fields?.name.stringValue ?? \"Unknown\",\n  \"totalLessonsCompleted\": 0,\n  \"totalLessons\": 0,\n  \"avgScore\": 0,\n  \"scores\": [],\n  \"createdAt\": Date(),\n  \"updatedAt\": Date()\n}\n}}",
         "options": {}
       },
       "type": "n8n-nodes-base.set",
@@ -1699,7 +1699,9 @@
         1984
       ],
       "id": "faa7715f-e7a6-450f-990a-bfc9c04e5983",
-      "name": "HTTP Request2"
+      "name": "HTTP Request2",
+      "alwaysOutputData": true,
+      "onError": "continueRegularOutput"
     },
     {
       "parameters": {
@@ -2536,32 +2538,32 @@
     "instanceId": "033f1bc6215f63e899772bfa6952d5de23ea9ab6140b36a3b563a251130298dd"
   },
   "pinData": {},
-  "versionId": "059494cb-8dc9-4f03-8706-7bff04a32022",
-  "activeVersionId": "a8c73543-92fc-44d7-836b-520a1a0f5743",
-  "versionCounter": 261,
+  "versionId": "e288ef50-5e65-4714-8fed-2bd73cd260d4",
+  "activeVersionId": "e288ef50-5e65-4714-8fed-2bd73cd260d4",
+  "versionCounter": 324,
   "triggerCount": 13,
   "tags": [],
   "shared": [
     {
-      "updatedAt": "2026-04-12T13:13:43.621Z",
-      "createdAt": "2026-04-12T13:13:43.621Z",
+      "updatedAt": "2026-05-03T14:13:49.724Z",
+      "createdAt": "2026-05-03T14:13:49.724Z",
       "role": "workflow:owner",
       "workflowId": "IBnl6kerSHz4ubQ0",
-      "projectId": "b2W2utkLg4FQRZHI",
+      "projectId": "BjwYV45mjZWlOznq",
       "project": {
-        "updatedAt": "2026-04-12T13:13:21.528Z",
-        "createdAt": "2026-04-12T11:31:06.765Z",
-        "id": "b2W2utkLg4FQRZHI",
+        "updatedAt": "2026-05-03T14:12:26.392Z",
+        "createdAt": "2026-05-03T10:32:29.851Z",
+        "id": "BjwYV45mjZWlOznq",
         "name": "Kamanun Maneesri <kamanun.m@gmail.com>",
         "type": "personal",
         "icon": null,
         "description": null,
-        "creatorId": "bd29d46d-8e27-4167-94ba-122e1bccb6ba"
+        "creatorId": "0df731bb-aa56-4422-8e84-5f3b7ceebee7"
       }
     }
   ],
   "versionMetadata": {
-    "name": null,
-    "description": null
+    "name": "Version e288ef50",
+    "description": ""
   }
 }
