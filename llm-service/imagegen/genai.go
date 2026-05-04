@@ -14,12 +14,13 @@ import (
 const defaultImageModel = "gemini-2.5-flash-image"
 
 type GenAIClient struct {
-	client *genai.Client
-	model  string
-	store  storage.Storage
+	client    *genai.Client
+	model     string
+	store     storage.Storage
+	imageSize string
 }
 
-func NewGenAIClient(ctx context.Context, apiKey string, model string, store storage.Storage) (*GenAIClient, error) {
+func NewGenAIClient(ctx context.Context, apiKey string, imageSize string, model string, store storage.Storage) (*GenAIClient, error) {
 	client, err := genai.NewClient(ctx, &genai.ClientConfig{
 		APIKey:  apiKey,
 		Backend: genai.BackendGeminiAPI,
@@ -35,9 +36,10 @@ func NewGenAIClient(ctx context.Context, apiKey string, model string, store stor
 	log.Printf("GenAI client created with model %q", model)
 
 	return &GenAIClient{
-		client: client,
-		model:  model,
-		store:  store,
+		client:    client,
+		model:     model,
+		store:     store,
+		imageSize: imageSize,
 	}, nil
 }
 
@@ -56,7 +58,7 @@ func (g *GenAIClient) generateGemini(ctx context.Context, req ImageRequest) (str
 		ResponseModalities: []string{"IMAGE"},
 		ImageConfig: &genai.ImageConfig{
 			AspectRatio: aspectRatioFromDimensions(req.Width, req.Height),
-			ImageSize:   "1K",
+			ImageSize:   g.imageSize,
 		},
 	}
 

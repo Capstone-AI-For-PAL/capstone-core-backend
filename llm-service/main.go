@@ -22,7 +22,7 @@ func main() {
 			log.Fatalf("Failed to create S3 storage: %v", err)
 		}
 
-		genaiClient, err := imagegen.NewGenAIClient(context.Background(), cfg.GoogleGenAIApiKey, cfg.GoogleGenAIModel, store)
+		genaiClient, err := imagegen.NewGenAIClient(context.Background(), cfg.GoogleGenAIApiKey, cfg.ImageSize, cfg.GoogleGenAIModel, store)
 		if err != nil {
 			log.Fatalf("Failed to create GenAI image client: %v", err)
 		}

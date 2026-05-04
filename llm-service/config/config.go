@@ -20,6 +20,14 @@ type Config struct {
 	AWSSecretAccessKey string
 	Port               string
 	EnableImageGen     bool
+	ImageSize          string
+}
+
+func getEnv(key, fallback string) string {
+	if value, ok := os.LookupEnv(key); ok {
+		return value
+	}
+	return fallback
 }
 
 func LoadEnv() Config {
@@ -29,23 +37,23 @@ func LoadEnv() Config {
 
 	validateEnv()
 
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080"
-	}
+	port := getEnv("PORT", "8080")
+	googleGenAIModel := getEnv("GOOGLE_GENAI_MODEL", "gemini-2.5-flash-image")
+	imageSize := getEnv("GOOGLE_GENAI_IMAGE_SIZE", "1K")
 
 	config := Config{
 		GenieApiKey:        os.Getenv("GENIE_API_KEY"),
 		GenieAppId:         os.Getenv("GENIE_APP_ID"),
-		GenieModel:         os.Getenv("GENIE_MODEL"),
-		GoogleGenAIApiKey:  os.Getenv("GOOGLE_GENAI_API_KEY"),
-		GoogleGenAIModel:   os.Getenv("GOOGLE_GENAI_MODEL"),
-		S3Bucket:           os.Getenv("AWS_S3_BUCKET"),
-		S3Region:           os.Getenv("AWS_S3_REGION"),
-		AWSAccessKeyID:     os.Getenv("AWS_ACCESS_KEY_ID"),
-		AWSSecretAccessKey: os.Getenv("AWS_SECRET_ACCESS_KEY"),
+		GenieModel:         getEnv("GENIE_MODEL", ""),
+		GoogleGenAIApiKey:  getEnv("GOOGLE_GENAI_API_KEY", ""),
+		GoogleGenAIModel:   googleGenAIModel,
+		S3Bucket:           getEnv("AWS_S3_BUCKET", ""),
+		S3Region:           getEnv("AWS_S3_REGION", ""),
+		AWSAccessKeyID:     getEnv("AWS_ACCESS_KEY_ID", ""),
+		AWSSecretAccessKey: getEnv("AWS_SECRET_ACCESS_KEY", ""),
 		Port:               port,
-		EnableImageGen:     os.Getenv("ENABLE_IMAGE_GEN") == "true",
+		EnableImageGen:     getEnv("ENABLE_IMAGE_GEN", "false") == "true",
+		ImageSize:          imageSize,
 	}
 
 	log.Printf("config: port=%s genie_app_id=%s genie_model=%s google_genai_api_key=%s google_genai_model=%s enable_image_gen=%t s3_bucket=%s s3_region=%s aws_access_key_id=%s",

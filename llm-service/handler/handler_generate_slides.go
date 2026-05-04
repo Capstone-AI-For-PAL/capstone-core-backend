@@ -63,6 +63,8 @@ type imageKey struct {
 	imageIdx   int
 }
 
+const GENIE_RETRY_LIMT = 3
+
 func MakeGenerateSlidesHandler(client *genie.Client, imgGen imagegen.ImageGenerator) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodPost {
@@ -137,25 +139,31 @@ func MakeGenerateSlidesHandler(client *genie.Client, imgGen imagegen.ImageGenera
 				},
 			}
 
-			res, err := client.Chat(messages, email, req.CunetId)
-			if err != nil {
-				log.Printf("Slide generation error (section %d): %v", sectionIdx+1, err)
-				continue
+			for i := range GENIE_RETRY_LIMT {
+				if i > 0 {
+					log.Printf("Retry %d/%d for section %d", i+1, GENIE_RETRY_LIMT, sectionIdx+1)
+				}
+
+				res, err := client.Chat(messages, email, req.CunetId)
+				if err != nil {
+					log.Printf("Slide generation error (section %d): %v", sectionIdx+1, err)
+					continue
+				}
+
+				enrichedSlides, err := decodeEnrichedSlides(res)
+				if err != nil {
+					log.Printf("Invalid enriched slide JSON (section %d): %v", sectionIdx+1, err)
+					continue
+				}
+				log.Printf("Generated section %d: %s with %d slides", sectionIdx+1, section.Title, len(enrichedSlides))
+				sectionResults = append(sectionResults, sectionResult{
+					sectionIndex: sectionIdx,
+					title:        section.Title,
+					slides:       enrichedSlides,
+				})
+				break
 			}
 
-			println("Raw model output:", res)
-			enrichedSlides, err := decodeEnrichedSlides(res)
-			if err != nil {
-				log.Printf("Invalid enriched slide JSON (section %d): %v", sectionIdx+1, err)
-				continue
-			}
-			log.Printf("Generated section %d: %s with %d slides", sectionIdx+1, section.Title, len(enrichedSlides))
-
-			sectionResults = append(sectionResults, sectionResult{
-				sectionIndex: sectionIdx,
-				title:        section.Title,
-				slides:       enrichedSlides,
-			})
 		}
 
 		// --- Phase 2: Image Generation ---
