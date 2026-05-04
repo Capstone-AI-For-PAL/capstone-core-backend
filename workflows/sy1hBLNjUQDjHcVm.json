@@ -1,5 +1,5 @@
 {
-  "updatedAt": "2026-04-18T14:40:26.347Z",
+  "updatedAt": "2026-05-04T09:14:35.585Z",
   "createdAt": "2026-03-27T05:37:16.533Z",
   "id": "sy1hBLNjUQDjHcVm",
   "name": "async-generate-exercise",
@@ -80,7 +80,7 @@
             },
             {
               "name": "messages",
-              "value": "={{ JSON.stringify([\n  {\n    role: \"user\",\n    content: `Act as an expert instructional designer specializing in application-based learning.\n\nYou are given a list of slides in the following format:\n[\n  {\n    \"title\": string,\n    \"content\": [\n      {\n        \"bullet\": string,\n        \"sub_points\": string[]\n      }\n    ]\n  }\n]\n\nInterpretation rules:\n- Each slide represents a topic.\n- Each \"bullet\" is a key concept.\n- Each \"sub_points\" item is a supporting explanation or detail.\n- You MUST use BOTH bullet and sub_points when generating questions.\n\nYour task is to generate exercises that emphasize APPLYING knowledge, not memorizing it.\n\nRequirements:\n- Generate EXACTLY 10 questions (no more, no less).\n- Cover multiple slides.\n- At least 70% must be application-based (scenarios, reasoning, decision-making).\n\nAvoid:\n- Definition-only questions\n- Copying text directly from slides\n- Trivial or obvious questions\n\nQuestion format:\n- Multiple choice:\n  - Prefer 4 choices\n  - Use 2 choices ONLY for True/False when appropriate\n\nCHOICE FORMAT (STRICT):\n- Each choice MUST be prefixed in order:\n  - \"A) ...\"\n  - \"B) ...\"\n  - \"C) ...\"\n  - \"D) ...\"\n- For True/False:\n  - \"A) True\"\n  - \"B) False\"\n\nCRITICAL RULES:\n- Choices MUST be in correct alphabetical order.\n- Do NOT skip letters.\n- Prefix MUST be included in each choice string.\n- \"correctAnswer\" MUST be ONLY ONE LETTER: \"A\", \"B\", \"C\", or \"D\"\n- The letter MUST correspond to the correct choice.\n\nDifficulty distribution (for variation only, NOT scoring):\n- Easy (~20%)\n- Medium (~50%)\n- Hard (~30%)\n\nScoring rule:\n- EVERY question MUST have \"score\": 1\n\nOutput format (STRICT JSON, no explanation, no markdown):\n\n{\n  \"questions\": [\n    {\n      \"number\": 1,\n      \"question\": \"string\",\n      \"choices\": [\"A) ...\", \"B) ...\", \"C) ...\", \"D) ...\"],\n      \"correctAnswer\": \"A\",\n      \"score\": 1\n    }\n  ]\n}\n\nRules:\n- \"number\" starts from 1 and increments.\n- Ensure the correct letter matches the correct choice.\n- Ensure all distractors are plausible.\n- Return ONLY valid JSON.\n- Do NOT include explanations or extra text.\n\nNow generate application-focused exercises from this slide content:\n\\${JSON.stringify($json.content)}`\n  }\n]) }}\n"
+              "value": "={{ JSON.stringify([\n  {\n    role: \"user\",\n    content: `Act as an expert instructional designer specializing in application-based learning.\n\nYou are given a list of slides in the following format:\n[\n  {\n    \"title\": string,\n    \"content\": [\n      {\n        \"bullet\": string,\n        \"sub_points\": string[]\n      }\n    ]\n  }\n]\n\nInterpretation rules:\n- Each slide represents a topic.\n- Each \"bullet\" is a key concept.\n- Each \"sub_points\" item is a supporting explanation or detail.\n- You MUST use BOTH bullet and sub_points when generating questions.\n\nYour task is to generate exercises that emphasize APPLYING knowledge, not memorizing it.\n\nRequirements:\n- Generate EXACTLY 10 questions (no more, no less).\n- Cover multiple slides.\n- At least 70% must be application-based (scenarios, reasoning, decision-making).\n\nAvoid:\n- Definition-only questions\n- Copying text directly from slides\n- Trivial or obvious questions\n\nQuestion format:\n- Multiple choice:\n  - Prefer 4 choices\n  - Use 2 choices ONLY for True/False when appropriate\n\nCHOICE FORMAT (STRICT):\n- Each choice MUST be prefixed in order:\n  - \"A) ...\"\n  - \"B) ...\"\n  - \"C) ...\"\n  - \"D) ...\"\n- For True/False:\n  - \"A) True\"\n  - \"B) False\"\n\nCRITICAL RULES:\n- Choices MUST be in correct alphabetical order.\n- Do NOT skip letters.\n- Prefix MUST be included in each choice string.\n- \"correctAnswer\" MUST be ONLY ONE LETTER: \"A\", \"B\", \"C\", or \"D\"\n- The letter MUST correspond to the correct choice.\n\nDifficulty distribution (for variation only, NOT scoring):\n- Easy (~20%)\n- Medium (~50%)\n- Hard (~30%)\n\nScoring rule:\n- EVERY question MUST have \"score\": 1\n\nOutput format (STRICT JSON, no explanation, no markdown):\n\n{\n  \"questions\": [\n    {\n      \"number\": 1,\n      \"question\": \"string\",\n      \"choices\": [\"A) ...\", \"B) ...\", \"C) ...\", \"D) ...\"],\n      \"correctAnswer\": \"A\",\n      \"score\": 1\n    }\n  ]\n}\n\nRules:\n- \"number\" starts from 1 and increments.\n- Ensure the correct letter matches the correct choice.\n- Ensure all distractors are plausible.\n- Return ONLY valid JSON.\n- Do NOT include explanations or extra text.\n\nNow generate application-focused exercises from this slide content:\n\\ \n\n${JSON.stringify($json.content)} \n\n`\n  },\n]) }}\n"
             }
           ]
         },
@@ -194,32 +194,32 @@
     "instanceId": "7359c0c217c2f2526bf0a6c46f4839c44f96a0005dca2af79edc19e6ed7703f7"
   },
   "pinData": {},
-  "versionId": "7d2ede17-8888-40b9-a0f9-c7f264ae16ca",
-  "activeVersionId": "7d2ede17-8888-40b9-a0f9-c7f264ae16ca",
-  "versionCounter": 28,
+  "versionId": "634b69e5-9754-40c4-b455-7ec7ffa85b4b",
+  "activeVersionId": "634b69e5-9754-40c4-b455-7ec7ffa85b4b",
+  "versionCounter": 45,
   "triggerCount": 1,
   "tags": [],
   "shared": [
     {
-      "updatedAt": "2026-05-03T14:13:49.789Z",
-      "createdAt": "2026-05-03T14:13:49.789Z",
+      "updatedAt": "2026-04-13T04:03:26.252Z",
+      "createdAt": "2026-04-13T04:03:26.252Z",
       "role": "workflow:owner",
       "workflowId": "sy1hBLNjUQDjHcVm",
-      "projectId": "BjwYV45mjZWlOznq",
+      "projectId": "xxkvAOnVHkd99pP2",
       "project": {
-        "updatedAt": "2026-05-03T14:12:26.392Z",
-        "createdAt": "2026-05-03T10:32:29.851Z",
-        "id": "BjwYV45mjZWlOznq",
-        "name": "Kamanun Maneesri <kamanun.m@gmail.com>",
+        "updatedAt": "2026-01-24T05:53:00.281Z",
+        "createdAt": "2026-01-24T05:50:09.310Z",
+        "id": "xxkvAOnVHkd99pP2",
+        "name": "b c <admin@exampl.com>",
         "type": "personal",
         "icon": null,
         "description": null,
-        "creatorId": "0df731bb-aa56-4422-8e84-5f3b7ceebee7"
+        "creatorId": "51d7ed86-94a8-4d8c-ba39-058f4c2b57c3"
       }
     }
   ],
   "versionMetadata": {
-    "name": "Version 822e60bf",
+    "name": "Version 634b69e5",
     "description": ""
   }
 }
